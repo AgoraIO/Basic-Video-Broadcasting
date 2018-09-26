@@ -1,0 +1,119 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".ui.LiveRoomActivity"
+             android:keepScreenOn="true">
+
+    <io.agora.openlive.ui.GridVideoViewContainer
+        android:id="@+id/grid_video_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ViewStub
+        android:id="@id/small_video_view_dock"
+        android:inflatedId="@id/small_video_view_dock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout="@layout/small_video_view_dock" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <io.agora.ui.AGLinearLayout
+            android:id="@+id/top_area"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_bg"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingRight="12dp"
+                app:paddingEnd="12dp">
+
+                <TextView
+                    android:id="@+id/room_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20" />
+
+            <ImageView
+                android:layout_width="54dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/btn_close"
+                android:onClick="onClickClose" />
+
+        </io.agora.ui.AGLinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true">
+
+            <io.agora.ui.AGLinearLayout
+                android:id="@+id/bottom_action_container"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_hide"
+                    android:onClick="onShowHideClicked" />
+
+                <ImageView
+                    android:id="@+id/btn_1"
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_request_broadcast" />
+
+                <ImageView
+                    android:id="@+id/btn_2"
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_switch_camera" />
+
+                <ImageView
+                    android:id="@+id/btn_3"
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_mute" />
+            </io.agora.ui.AGLinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

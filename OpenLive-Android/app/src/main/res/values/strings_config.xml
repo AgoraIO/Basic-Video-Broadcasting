@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
+    <!-- Get your own App ID at https://dashboard.agora.io/ -->
+    <!-- After you entered the App ID, remove <##> outside of Your App ID -->
+    <!-- For formal released project, please use Dynamic Key
+        http://docs.agora.io/en/user_guide/Component_and_Others/Dynamic_Key_User_Guide.html -->
+    <string name="private_app_id"><#YOUR APP ID#></string>
+</resources>
