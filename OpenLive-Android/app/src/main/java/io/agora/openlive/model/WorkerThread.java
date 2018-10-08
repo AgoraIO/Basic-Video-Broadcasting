@@ -174,7 +174,7 @@ public class WorkerThread extends Thread {
 
         mRtcEngine.setVideoProfile(mEngineConfig.mVideoProfile, true); // Earlier than 2.3.0
 
-        mRtcEngine.setClientRole(cRole);
+        mRtcEngine.setClientRole(cRole, "");
 
         log.debug("configEngine " + cRole + " " + mEngineConfig.mVideoProfile);
     }

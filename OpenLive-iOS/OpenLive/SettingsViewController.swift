@@ -10,21 +10,21 @@ import UIKit
 import AgoraRtcEngineKit
 
 protocol SettingsVCDelegate: NSObjectProtocol {
-    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraVideoProfile)
+    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraRtcVideoProfile)
 }
 
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var profileTableView: UITableView!
 
-    var videoProfile: AgoraVideoProfile! {
+    var videoProfile: AgoraRtcVideoProfile! {
         didSet {
             profileTableView?.reloadData()
         }
     }
     weak var delegate: SettingsVCDelegate?
     
-    fileprivate let profiles: [AgoraVideoProfile] = AgoraVideoProfile.list()
+    fileprivate let profiles: [AgoraRtcVideoProfile] = AgoraRtcVideoProfile.list()
     
     @IBAction func doConfirmPressed(_ sender: UIButton) {
         delegate?.settingsVC(self, didSelectProfile: videoProfile)
@@ -52,13 +52,13 @@ extension SettingsViewController: UITableViewDelegate {
     }
 }
 
-private extension AgoraVideoProfile {
-    static func list() -> [AgoraVideoProfile] {
-        return [.landscape120P,
-                .landscape180P,
-                .landscape240P,
-                .landscape360P,
-                .landscape480P,
-                .landscape720P]
+private extension AgoraRtcVideoProfile {
+    static func list() -> [AgoraRtcVideoProfile] {
+        return [._VideoProfile_120P,
+                ._VideoProfile_180P,
+                ._VideoProfile_240P,
+                ._VideoProfile_360P,
+                ._VideoProfile_480P,
+                ._VideoProfile_720P]
     }
 }

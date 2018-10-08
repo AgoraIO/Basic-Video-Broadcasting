@@ -12,7 +12,7 @@ class MainViewController: NSViewController {
     
     @IBOutlet weak var roomInputTextField: NSTextField!
     
-    var videoProfile = AgoraVideoProfile.landscape360P
+    var videoProfile = AgoraRtcVideoProfile._VideoProfile_360P
     fileprivate var agoraKit: AgoraRtcEngineKit!
     
     override func viewDidAppear() {
@@ -33,7 +33,7 @@ class MainViewController: NSViewController {
             let liveVC = segue.destinationController as! LiveRoomViewController
             liveVC.roomName = roomInputTextField.stringValue
             liveVC.videoProfile = videoProfile
-            if let value = sender as? NSNumber, let role = AgoraClientRole(rawValue: value.intValue) {
+            if let value = sender as? NSNumber, let role = AgoraRtcClientRole(rawValue: value.intValue) {
                 liveVC.clientRole = role
             }
             liveVC.delegate = self
@@ -45,14 +45,14 @@ class MainViewController: NSViewController {
         guard let roomName = roomInputTextField?.stringValue , !roomName.isEmpty else {
             return
         }
-        join(withRole: .audience)
+        join(withRole: .clientRole_Audience)
     }
     
     @IBAction func doJoinAsBroadcasterClicked(_ sender: NSButton) {
         guard let roomName = roomInputTextField?.stringValue , !roomName.isEmpty else {
             return
         }
-        join(withRole: .broadcaster)
+        join(withRole: .clientRole_Broadcaster)
     }
     
     @IBAction func doSettingsClicked(_ sender: NSButton) {
@@ -61,13 +61,13 @@ class MainViewController: NSViewController {
 }
 
 private extension MainViewController {
-    func join(withRole role: AgoraClientRole) {
+    func join(withRole role: AgoraRtcClientRole) {
         performSegue(withIdentifier: "mainToLive", sender: NSNumber(value: role.rawValue as Int))
     }
 }
 
 extension MainViewController: SettingsVCDelegate {
-    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile profile: AgoraVideoProfile) {
+    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile profile: AgoraRtcVideoProfile) {
         videoProfile = profile
         settingsVC.view.window?.contentViewController = self
     }

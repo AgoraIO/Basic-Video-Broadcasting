@@ -22,7 +22,7 @@ class VideoSession: NSObject {
         canvas = AgoraRtcVideoCanvas()
         canvas.uid = UInt(uid)
         canvas.view = hostingView
-        canvas.renderMode = .hidden
+        canvas.renderMode = .render_Hidden
     }
 }
 
