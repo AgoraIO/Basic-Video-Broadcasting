@@ -14,22 +14,22 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var resLabel: UILabel!
     @IBOutlet weak var frameLabel: UILabel!
     
-    func update(withProfile profile: CGSize, isSelected: Bool) {
+    func update(withProfile profile: AgoraVideoProfile, isSelected: Bool) {
         resLabel.text = profile.resolution()
         frameLabel.text = profile.fps()
         backgroundColor = isSelected ? UIColor(red: 0, green: 0, blue: 0.5, alpha: 0.3) : UIColor.white
     }
 }
 
-private extension CGSize {
+private extension AgoraVideoProfile {
     func resolution() -> String? {
         switch self {
-        case AgoraVideoDimension160x120: return "160×120"
-        case AgoraVideoDimension320x180: return "320×180"
-        case AgoraVideoDimension320x240: return "320×240"
-        case AgoraVideoDimension640x360: return "640×360"
-        case AgoraVideoDimension640x480: return "640×480"
-        case AgoraVideoDimension1280x720: return "1280×720"
+        case .landscape120P: return "160×120"
+        case .landscape180P: return "320×180"
+        case .landscape240P: return "320×240"
+        case .landscape360P: return "640×360"
+        case .landscape480P: return "640×480"
+        case .landscape720P: return "1280×720"
         default: return nil
         }
     }

@@ -10,21 +10,21 @@ import UIKit
 import AgoraRtcEngineKit
 
 protocol SettingsVCDelegate: NSObjectProtocol {
-    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: CGSize)
+    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraVideoProfile)
 }
 
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var profileTableView: UITableView!
 
-    var videoProfile: CGSize! {
+    var videoProfile: AgoraVideoProfile! {
         didSet {
             profileTableView?.reloadData()
         }
     }
     weak var delegate: SettingsVCDelegate?
     
-    fileprivate let profiles: [CGSize] = CGSize.list()
+    fileprivate let profiles: [AgoraVideoProfile] = AgoraVideoProfile.list()
     
     @IBAction func doConfirmPressed(_ sender: UIButton) {
         delegate?.settingsVC(self, didSelectProfile: videoProfile)
@@ -52,13 +52,13 @@ extension SettingsViewController: UITableViewDelegate {
     }
 }
 
-private extension CGSize {
-    static func list() -> [CGSize] {
-        return [AgoraVideoDimension160x120,
-                AgoraVideoDimension320x180,
-                AgoraVideoDimension320x240,
-                AgoraVideoDimension640x360,
-                AgoraVideoDimension640x480,
-                AgoraVideoDimension1280x720]
+private extension AgoraVideoProfile {
+    static func list() -> [AgoraVideoProfile] {
+        return [.landscape120P,
+                .landscape180P,
+                .landscape240P,
+                .landscape360P,
+                .landscape480P,
+                .landscape720P]
     }
 }

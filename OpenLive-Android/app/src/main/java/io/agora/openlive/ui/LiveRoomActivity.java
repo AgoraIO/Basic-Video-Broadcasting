@@ -29,8 +29,7 @@ import io.agora.openlive.model.VideoStatusData;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
-
+  
 public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
     private final static Logger log = LoggerFactory.getLogger(LiveRoomActivity.class);
@@ -189,12 +188,12 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
     private void doConfigEngine(int cRole) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         int prefIndex = pref.getInt(ConstantApp.PrefManager.PREF_PROPERTY_PROFILE_IDX, ConstantApp.DEFAULT_PROFILE_IDX);
-        if (prefIndex > ConstantApp.VIDEO_DIMENSIONS.length - 1) {
+        if (prefIndex > ConstantApp.VIDEO_PROFILES.length - 1) {
             prefIndex = ConstantApp.DEFAULT_PROFILE_IDX;
         }
-        VideoEncoderConfiguration.VideoDimensions dimension = ConstantApp.VIDEO_DIMENSIONS[prefIndex];
+        int vProfile = ConstantApp.VIDEO_PROFILES[prefIndex];
 
-        worker().configEngine(cRole, dimension);
+        worker().configEngine(cRole, vProfile);
     }
 
     @Override

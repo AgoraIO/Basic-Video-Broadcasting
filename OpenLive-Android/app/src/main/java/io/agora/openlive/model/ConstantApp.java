@@ -1,7 +1,6 @@
 package io.agora.openlive.model;
 
 import io.agora.rtc.Constants;
-import io.agora.rtc.video.VideoEncoderConfiguration;
 
 public class ConstantApp {
     public static final String APP_BUILD_DATE = "today";
@@ -13,14 +12,13 @@ public class ConstantApp {
 
     public static final int MAX_PEER_COUNT = 3;
 
-    public static VideoEncoderConfiguration.VideoDimensions[] VIDEO_DIMENSIONS = new VideoEncoderConfiguration.VideoDimensions[] {
-            VideoEncoderConfiguration.VD_160x120,
-            VideoEncoderConfiguration.VD_320x180,
-            VideoEncoderConfiguration.VD_320x240,
-            VideoEncoderConfiguration.VD_640x360,
-            VideoEncoderConfiguration.VD_640x480,
-            VideoEncoderConfiguration.VD_1280x720
-    };
+    public static int[] VIDEO_PROFILES = new int[]{
+        Constants.VIDEO_PROFILE_120P,
+        Constants.VIDEO_PROFILE_180P,
+        Constants.VIDEO_PROFILE_240P,
+        Constants.VIDEO_PROFILE_360P,
+        Constants.VIDEO_PROFILE_480P,
+        Constants.VIDEO_PROFILE_720P};
 
     public static final int DEFAULT_PROFILE_IDX = 2; // default use 240P
 

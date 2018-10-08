@@ -16,7 +16,6 @@ import io.agora.openlive.R;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +70,7 @@ public class WorkerThread extends Thread {
                     break;
                 case ACTION_WORKER_CONFIG_ENGINE:
                     Object[] configData = (Object[]) msg.obj;
-                    mWorkerThread.configEngine((int) configData[0], (VideoEncoderConfiguration.VideoDimensions) configData[1]);
+                    mWorkerThread.configEngine((int) configData[0], (int) configData[1]);
                     break;
                 case ACTION_WORKER_PREVIEW:
                     Object[] previewData = (Object[]) msg.obj;
@@ -159,29 +158,25 @@ public class WorkerThread extends Thread {
 
     private final MyEngineEventHandler mEngineEventHandler;
 
-    public final void configEngine(int cRole, VideoEncoderConfiguration.VideoDimensions videoDimension) {
+    public final void configEngine(int cRole, int vProfile) {
         if (Thread.currentThread() != this) {
-            log.warn("configEngine() - worker thread asynchronously " + cRole + " " + videoDimension);
+            log.warn("configEngine() - worker thread asynchronously " + cRole + " " + vProfile);
             Message envelop = new Message();
             envelop.what = ACTION_WORKER_CONFIG_ENGINE;
-            envelop.obj = new Object[]{cRole, videoDimension};
+            envelop.obj = new Object[]{cRole, vProfile};
             mWorkerHandler.sendMessage(envelop);
             return;
         }
 
         ensureRtcEngineReadyLock();
         mEngineConfig.mClientRole = cRole;
-        mEngineConfig.mVideoDimension = videoDimension;
+        mEngineConfig.mVideoProfile = vProfile;
 
-//      mRtcEngine.setVideoProfile(mEngineConfig.mVideoProfile, true); // Earlier than 2.3.0
-        mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(videoDimension,
-                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
-                VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
+        mRtcEngine.setVideoProfile(mEngineConfig.mVideoProfile, true); // Earlier than 2.3.0
 
         mRtcEngine.setClientRole(cRole);
 
-        log.debug("configEngine " + cRole + " " + mEngineConfig.mVideoDimension);
+        log.debug("configEngine " + cRole + " " + mEngineConfig.mVideoProfile);
     }
 
     public final void preview(boolean start, SurfaceView view, int uid) {

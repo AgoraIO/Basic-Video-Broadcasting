@@ -27,7 +27,7 @@ class LiveRoomViewController: UIViewController {
             updateButtonsVisiablity()
         }
     }
-    var videoProfile: CGSize!
+    var videoProfile: AgoraVideoProfile!
     weak var delegate: LiveRoomVCDelegate?
     
     //MARK: - engine & session view
@@ -219,10 +219,7 @@ private extension LiveRoomViewController {
         rtcEngine.setChannelProfile(.liveBroadcasting)
         rtcEngine.enableDualStreamMode(true)
         rtcEngine.enableVideo()
-        rtcEngine.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: videoProfile,
-                                                                              frameRate: .fps15,
-                                                                              bitrate: AgoraVideoBitrateStandard,
-                                                                              orientationMode: .adaptative))
+        rtcEngine.setVideoProfile(videoProfile, swapWidthAndHeight: true)
         rtcEngine.setClientRole(clientRole)
         
         if isBroadcaster {
