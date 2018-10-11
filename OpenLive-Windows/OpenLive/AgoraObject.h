@@ -8,6 +8,7 @@
 // #define ENABLE_CODEC	1
 
 using namespace agora::rtc;
+using namespace agora::base;
 
 #define AG_ENGFLAG_ENNETTEST	0x00000001
 #define AG_ENGFLAG_ECHOTEST		0x00000002
