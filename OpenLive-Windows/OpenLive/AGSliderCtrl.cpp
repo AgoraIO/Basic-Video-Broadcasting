@@ -1,4 +1,4 @@
-// AGSliderCtrl.cpp : implement file
+// AGSliderCtrl.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -36,7 +36,7 @@ END_MESSAGE_MAP()
 
 
 
-// CAGSliderCtrl message handle
+// CAGSliderCtrl 消息处理程序
 BOOL CAGSliderCtrl::SetThumbBitmap(UINT nIDNormal, UINT nIDHover, UINT nIDPush, COLORREF crMaskColor)
 {
 	CBitmap bmpMap;
@@ -173,7 +173,7 @@ LRESULT CAGSliderCtrl::OnDrawChannel(CDC *pDC, LPNMCUSTOMDRAW lpCustomDraw)
 
 void CAGSliderCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO:  add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	CRect rcThumbRect;
 	BOOL  bLastState = m_bHover;
 
@@ -191,7 +191,7 @@ void CAGSliderCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 void CAGSliderCtrl::OnMouseLeave()
 {
-	// TODO:   add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	m_bHover = FALSE;
 
 	CRect rcThumb;

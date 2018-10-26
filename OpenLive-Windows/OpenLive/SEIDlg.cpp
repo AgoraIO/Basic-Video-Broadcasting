@@ -1,4 +1,4 @@
-// SEIDlg.cpp : implement file
+// SEIDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 
 
-// CSEIDlg dialog
+// CSEIDlg 对话框
 
 IMPLEMENT_DYNAMIC(CSEIDlg, CDialogEx)
 
@@ -53,24 +53,24 @@ BEGIN_MESSAGE_MAP(CSEIDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CSEIDlg message deal with app
+// CSEIDlg 消息处理程序
 
 
 BOOL CSEIDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  Add code to initialize
+	// TODO:  在此添加额外的初始化
 	InitCtrls();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// error:  OCX attribute page return FALSE
+	// 异常:  OCX 属性页应返回 FALSE
 }
 
 
 void CSEIDlg::OnBnClickedApply()
 {
-	// TODO:  Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	UpdateData(TRUE);
 
 	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
@@ -81,7 +81,7 @@ void CSEIDlg::OnBnClickedApply()
 
 void CSEIDlg::OnBnClickedOk()
 {
-	// TODO: Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	CDialogEx::OnOK();
 
 	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
@@ -95,7 +95,7 @@ void CSEIDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 
-	// TODO:  Add control notification handler code here
+	// TODO:  在此处添加消息处理程序代码
 	if (!bShow)
 		return;
 
@@ -133,8 +133,8 @@ void CSEIDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 void CSEIDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	// TODO:  Add control notification handler code here
-	//  not call CDialogEx::OnPaint() for paint message
+	// TODO:  在此处添加消息处理程序代码
+	// 不为绘图消息调用 CDialogEx::OnPaint()
 
 	DrawClient(&dc);
 }
@@ -209,7 +209,7 @@ void CSEIDlg::DrawClient(CDC *lpDC)
 
 void CSEIDlg::OnBnClickedSet()
 {
-	// TODO:  Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	CAgoraObject *lpObject = CAgoraObject::GetAgoraObject();
 	
 	int nSel = m_ctrUIDInfo.GetSelectionMark();
@@ -246,7 +246,7 @@ void CSEIDlg::OnBnClickedSet()
 void CSEIDlg::OnLvnItemchangedLstinfoSei(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	// TODO:  Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	*pResult = 0;
 
 	int nSel = m_ctrUIDInfo.GetSelectionMark();
@@ -273,7 +273,7 @@ void CSEIDlg::OnLvnItemchangedLstinfoSei(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CSEIDlg::OnBnClickedCkenableSei()
 {
-	// TODO:  Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
 
 	UINT nSelfID = CAgoraObject::GetAgoraObject()->GetSelfUID();

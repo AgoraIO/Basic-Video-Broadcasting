@@ -1,4 +1,4 @@
-// AGLinkCtrl.cpp  : implement file
+// AGLinkCtrl.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -34,7 +34,7 @@ END_MESSAGE_MAP()
 
 
 
-// CAGLinkCtrl message handle
+// CAGLinkCtrl 消息处理程序
 
 void CAGLinkCtrl::PreSubclassWindow()
 {
@@ -50,7 +50,7 @@ void CAGLinkCtrl::PreSubclassWindow()
 
 void CAGLinkCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
-    // TODO:  add message handle code and /or call default value here
+    // TODO:  在此添加消息处理程序代码和/或调用默认值
     if (!m_bOverControl){
         m_bOverControl = TRUE;
         Invalidate(FALSE);
@@ -72,7 +72,8 @@ void CAGLinkCtrl::OnMouseMove(UINT nFlags, CPoint point)
 void CAGLinkCtrl::OnPaint()
 {
     CPaintDC dc(this); // device context for painting
-    // TODO:  add message handle code here
+    // TODO:  在此处添加消息处理程序代码
+    // 不为绘图消息调用 CLinkCtrl::OnPaint()
 
     CString strWindowText;
     CRect	rcClient;
@@ -93,7 +94,7 @@ void CAGLinkCtrl::OnPaint()
 
 BOOL CAGLinkCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
-    // TODO:  add message handle code and /or call defalut values here
+    // TODO:  在此添加消息处理程序代码和/或调用默认值
     HCURSOR hLinkCursor = ::LoadCursor(NULL, IDC_HAND);
     if (hLinkCursor != NULL) {
         ::SetCursor(hLinkCursor);
@@ -105,7 +106,7 @@ BOOL CAGLinkCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CAGLinkCtrl::OnMouseLeave()
 {
-    // TODO:   add message handle code and /or call defalut values here
+    // TODO:  在此添加消息处理程序代码和/或调用默认值
     m_bTrackMouseEvent = FALSE;
     m_bOverControl = FALSE;
     Invalidate(FALSE);
