@@ -1,4 +1,4 @@
-// AGScreenCaptureWnd.cpp
+// AGScreenCaptureWnd.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -32,7 +32,7 @@ END_MESSAGE_MAP()
 
 
 
-// CAGScreenCaptureWnd
+// CAGScreenCaptureWnd 消息处理程序
 int	 CAGScreenCaptureDlg::RefreashWndInfo()
 {
 	m_listWnd.RemoveAll();
@@ -78,6 +78,7 @@ BOOL CAGScreenCaptureDlg::SaveScreen(LPCRECT lpRect)
 
 void CAGScreenCaptureDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	POSITION	pos = m_listWnd.GetHeadPosition();
 	CRect		rcMarkWnd;
 	HWND		hMarkWnd = NULL;
@@ -106,7 +107,8 @@ void CAGScreenCaptureDlg::OnPaint()
 	CPaintDC	dc(this);
 	CDC			dcBuffer;
 	CBitmap		bmpBuffer;
-
+	// TODO:  在此处添加消息处理程序代码
+	// 不为绘图消息调用 CWnd::OnPaint()
 	CRect			rcWindow;
 	BLENDFUNCTION	blend;
 	GetWindowRect(&rcWindow);
@@ -166,7 +168,7 @@ BOOL CALLBACK CAGScreenCaptureDlg::WndEnumProc(HWND hWnd, LPARAM lParam)
 
 BOOL CAGScreenCaptureDlg::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO: 
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	CDC dcBuffer;
 	dcBuffer.CreateCompatibleDC(pDC);
 	dcBuffer.SelectObject(&m_bmpDesktop);
@@ -183,7 +185,7 @@ void CAGScreenCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 
-	// TODO:
+	// TODO:  在此处添加消息处理程序代码
 //	if (!bShow)
 //		m_bmpDesktop.DeleteObject();
 	
@@ -192,7 +194,7 @@ void CAGScreenCaptureDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 
 void CAGScreenCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	// TODO: 
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	GetParent()->SendMessage(WM_WINDOWSHARE, (WPARAM)m_hMarkWnd, 0);
 //	CDialogEx::OnLButtonDblClk(nFlags, point);
 	CDialogEx::OnOK();
@@ -201,7 +203,7 @@ void CAGScreenCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CAGScreenCaptureDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: 
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 
 //	CDialogEx::OnRButtonDown(nFlags, point);
 	CDialogEx::OnOK();

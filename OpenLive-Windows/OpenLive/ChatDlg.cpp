@@ -1,4 +1,4 @@
-// ChatDlg.cpp : Implement file
+// ChatDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 
 
-// CChatDlg dialog
+// CChatDlg 对话框
 
 IMPLEMENT_DYNAMIC(CChatDlg, CDialogEx)
 
@@ -34,12 +34,12 @@ BEGIN_MESSAGE_MAP(CChatDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CChatDlg Message deal with app
+// CChatDlg 消息处理程序
 BOOL CChatDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:
+	// TODO:  在此添加额外的初始化
 	LONG lExStyle = ::GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE);
 	::SetWindowLong(GetSafeHwnd(), GWL_EXSTYLE, lExStyle | WS_EX_LAYERED);
 
@@ -48,14 +48,14 @@ BOOL CChatDlg::OnInitDialog()
 //	m_nStreamID = CAgoraObject::GetAgoraObject()->CreateMessageStream();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// Error:  OCX Attribute page return  FALSE
+	// 异常:  OCX 属性页应返回 FALSE
 }
 
 void CChatDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CDialogEx::OnSize(nType, cx, cy);
 
-	// TODO: 
+	// TODO:  在此处添加消息处理程序代码
 	if (::IsWindow(m_edtChatBox.GetSafeHwnd()))
 		m_edtChatBox.MoveWindow(1, cy - 21, cx - 2, 20);
 }
@@ -63,7 +63,7 @@ void CChatDlg::OnSize(UINT nType, int cx, int cy)
 
 BOOL CChatDlg::PreTranslateMessage(MSG* pMsg)
 {
-	// TODO:
+	// TODO:  在此添加专用代码和/或调用基类
 	CString str;
 
 	if (pMsg->message == WM_KEYDOWN){
@@ -86,7 +86,8 @@ BOOL CChatDlg::PreTranslateMessage(MSG* pMsg)
 void CChatDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	// TODO: 
+	// TODO:  在此处添加消息处理程序代码
+	// 不为绘图消息调用 CDialogEx::OnPaint()
 
 	int y = 100;
 

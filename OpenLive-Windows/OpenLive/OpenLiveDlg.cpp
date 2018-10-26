@@ -45,8 +45,6 @@ END_MESSAGE_MAP()
 
 // COpenLiveDlg dialog
 
-
-
 COpenLiveDlg::COpenLiveDlg(CWnd* pParent /*=NULL*/)
     : CDialogEx(COpenLiveDlg::IDD, pParent)
 {
@@ -135,13 +133,10 @@ BOOL COpenLiveDlg::OnInitDialog()
 	m_ftLink.CreateFont(16, 0, 0, 0, FW_BOLD, FALSE, TRUE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 	m_ftVer.CreateFont(16, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 
-	CString strAppID = CAgoraObject::LoadAppID();
-
-	m_lpAgoraObject = CAgoraObject::GetAgoraObject(strAppID);
+	m_lpAgoraObject = CAgoraObject::GetAgoraObject(APP_ID);
 	m_lpRtcEngine = CAgoraObject::GetEngine();
-   
 
-	if (strAppID.GetString() == 0) {
+	if (_tcslen(APP_ID) == 0) {
         MessageBox(_T("Please apply your own App ID to macro APP_ID"), _T("Notice"), MB_ICONINFORMATION);
         PostQuitMessage(0);
     }
@@ -347,7 +342,6 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	vc.view = m_dlgVideo.GetLocalVideoWnd();
 	vc.renderMode = RENDER_MODE_TYPE::RENDER_MODE_FIT;
 
-	//cancel setVideoProfile bitrate since version 2.1.0
 	int nVideoSolution = m_dlgSetup.GetVideoSolution();
 	lpRtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)nVideoSolution, m_dlgSetup.IsWHSwap());
 	

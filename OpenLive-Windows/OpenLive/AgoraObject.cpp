@@ -96,6 +96,7 @@ CAgoraObject *CAgoraObject::GetAgoraObject(LPCTSTR lpVendorKey)
 	if(m_lpAgoraEngine == NULL)
 		m_lpAgoraEngine = createAgoraRtcEngine();
 
+	// 如果VendorKey为空则直接返回对象
 	if (lpVendorKey == NULL)
 		return m_lpAgoraObject;
 
@@ -319,7 +320,7 @@ BOOL CAgoraObject::IsVideoEnabled()
 	return m_bVideoEnable;
 }
 
-BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
+BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
@@ -330,18 +331,18 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 
 	if (bEnable) {
 		if (lpCapRect == NULL)
-			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
+			ret = rep.startScreenCapture(hWnd, nCapFPS, NULL);
 		else {
 			rcCap.left = lpCapRect->left;
 			rcCap.right = lpCapRect->right;
 			rcCap.top = lpCapRect->top;
 			rcCap.bottom = lpCapRect->bottom;
 
-			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate);
+			ret = rep.startScreenCapture(hWnd, nCapFPS, &rcCap);
 		}
 	}
 	else
-		ret = m_lpAgoraEngine->stopScreenCapture();
+		ret = rep.stopScreenCapture();
 
 	if (ret == 0)
 		m_bScreenCapture = bEnable;
@@ -475,7 +476,7 @@ void CAgoraObject::SetWantedRole(CLIENT_ROLE_TYPE role)
 
 BOOL CAgoraObject::SetClientRole(CLIENT_ROLE_TYPE role, LPCSTR lpPermissionKey)
 {
-	int nRet = m_lpAgoraEngine->setClientRole(role);
+	int nRet = m_lpAgoraEngine->setClientRole(role, lpPermissionKey);
 
 	m_nRoleType = role;
 
@@ -537,7 +538,7 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 	return nRet == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::SetLogFilter(UINT logFilterType, LPCTSTR lpLogPath)
+BOOL CAgoraObject::SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath)
 {
 	int nRet = 0;
 	RtcEngineParameters rep(*m_lpAgoraEngine);
@@ -898,9 +899,9 @@ BOOL CAgoraObject::EnableWhiteboardVer(BOOL bEnable)
 	DWORD dwIEVer = 11001;
 
 	if (bEnable)
-		lStatus = ::RegSetValueEx(hKey, _T("OpenLive.exe"), 0, REG_DWORD, (const BYTE*)&dwIEVer, sizeof(DWORD));
+		lStatus = ::RegSetValueEx(hKey, _T("AgoraVideoCall.exe"), 0, REG_DWORD, (const BYTE*)&dwIEVer, sizeof(DWORD));
 	else
-		lStatus = ::RegDeleteKeyValue(hKey, NULL, _T("OpenLive.exe"));
+		lStatus = ::RegDeleteKeyValue(hKey, NULL, _T("AgoraVideoCall.exe"));
 
 	::RegCloseKey(hKey);
 
@@ -921,37 +922,11 @@ BOOL CAgoraObject::EnableWhiteboardFeq(BOOL bEnable)
 	DWORD dwValue = 1;
 
 	if (bEnable)
-		lStatus = ::RegSetValueEx(hKey, _T("OpenLive.exe"), 0, REG_DWORD, (const BYTE*)&dwValue, sizeof(DWORD));
+		lStatus = ::RegSetValueEx(hKey, _T("AgoraVideoCall.exe"), 0, REG_DWORD, (const BYTE*)&dwValue, sizeof(DWORD));
 	else
-		lStatus = ::RegDeleteKeyValue(hKey, NULL, _T("OpenLive.exe"));
+		lStatus = ::RegDeleteKeyValue(hKey, NULL, _T("AgoraVideoCall.exe"));
 
 	::RegCloseKey(hKey);
 
 	return lStatus == ERROR_SUCCESS ? TRUE : FALSE;
-}
-
-CString CAgoraObject::LoadAppID()
-{
-	TCHAR szFilePath[MAX_PATH];
-	CString strAppID(APP_ID);
-
-	::GetModuleFileName(NULL, szFilePath, MAX_PATH);
-	LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
-
-	if (lpLastSlash == NULL)
-		return strAppID;
-
-	SIZE_T nNameLen = MAX_PATH - (lpLastSlash - szFilePath + 1);
-	_tcscpy_s(lpLastSlash + 1, nNameLen, _T("AppID.ini"));
-
-	if (::GetFileAttributes(szFilePath) == INVALID_FILE_ATTRIBUTES)
-		return strAppID;
-	
-	CString strResolution;
-
-	::GetPrivateProfileString(_T("AppID"), _T("AppID"), NULL, strAppID.GetBuffer(MAX_PATH), MAX_PATH, szFilePath);
-
-	strAppID.ReleaseBuffer();
-
-	return strAppID;
 }

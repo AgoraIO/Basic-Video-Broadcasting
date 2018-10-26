@@ -1,4 +1,4 @@
-// AGVideoWnd.cpp : implement file
+// AGVideoWnd.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -92,7 +92,7 @@ void CAGInfoWnd::OnPaint()
 
 BOOL CAGInfoWnd::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO:   add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	CRect rcClient;
 
 	GetClientRect(&rcClient);
@@ -132,10 +132,10 @@ END_MESSAGE_MAP()
 
 
 
-// CAGVideoWnd message handle
+// CAGVideoWnd 消息处理程序
 BOOL CAGVideoWnd::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO:   add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	CRect		rcClient;
 	CPoint		ptDraw;
 	IMAGEINFO	imgInfo;
@@ -229,7 +229,7 @@ void CAGVideoWnd::SetFrameRateInfo(int nReceiveFrameRate)
 
 void CAGVideoWnd::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO:  add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 
 	::SendMessage(GetParent()->GetSafeHwnd(), WM_SHOWBIG, (WPARAM)this, (LPARAM)m_nUID);
 
@@ -239,7 +239,7 @@ void CAGVideoWnd::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CAGVideoWnd::OnRButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO:  add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	::SendMessage(GetParent()->GetSafeHwnd(), WM_SHOWMODECHANGED, (WPARAM)this, (LPARAM)m_nUID);
 
 	CWnd::OnRButtonDown(nFlags, point);
@@ -251,7 +251,7 @@ int CAGVideoWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	// TODO:  add you own creation code here
+	// TODO:  在此添加您专用的创建代码
 	m_wndInfo.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(0, 0, 192, 28), this, IDC_STATIC);
 
 	return 0;
@@ -299,7 +299,7 @@ void CAGVideoWnd::OnSize(UINT nType, int cx, int cy)
 
 	int x = (cx - 192) / 2;
 	int y = cy - 24;
-	// TODO:  add message handle code here
+	// TODO:  在此处添加消息处理程序代码
 	if (m_wndInfo.GetSafeHwnd() != NULL) {
 		if (m_bBigShow)
 			y -= 4;
@@ -311,7 +311,7 @@ void CAGVideoWnd::OnSize(UINT nType, int cx, int cy)
 
 void CAGVideoWnd::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	// TODO:  add message handle code and /or call defalut values here
+	// TODO:  在此添加消息处理程序代码和/或调用默认值
 	::SendMessage(GetParent()->GetSafeHwnd(), WM_SHOWMODECHANGED, (WPARAM)this, (LPARAM)m_nUID);
 
 	CWnd::OnLButtonDblClk(nFlags, point);
