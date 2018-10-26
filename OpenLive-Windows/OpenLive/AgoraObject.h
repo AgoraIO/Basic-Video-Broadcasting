@@ -9,15 +9,16 @@
 
 using namespace agora::rtc;
 
+// 引擎标记位
 #define AG_ENGFLAG_ENNETTEST	0x00000001
 #define AG_ENGFLAG_ECHOTEST		0x00000002
 #define AG_ENGFLAG_SPKPHTEST	0x00000004
 #define AG_ENGFLAG_MICPHTEST	0x00000008
 #define AG_ENGFLAG_VIDEOTEST	0x00000010
 
-#define AG_ENGFLAG_AGCON		0x00000100	// Automatic gain
-#define AG_ENGFLAG_NSON			0x00000200	// Noise reduction
-#define AG_ENGFLAG_AECON		0x00000400	// Echo Cancellation
+#define AG_ENGFLAG_AGCON		0x00000100	// 自动增益
+#define AG_ENGFLAG_NSON			0x00000200	// 降噪
+#define AG_ENGFLAG_AECON		0x00000400	// 回声消除
 
 #define APP_ID				_T("")
 

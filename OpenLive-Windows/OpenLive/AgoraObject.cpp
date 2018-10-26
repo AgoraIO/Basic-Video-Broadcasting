@@ -96,6 +96,7 @@ CAgoraObject *CAgoraObject::GetAgoraObject(LPCTSTR lpVendorKey)
 	if(m_lpAgoraEngine == NULL)
 		m_lpAgoraEngine = createAgoraRtcEngine();
 
+	// 如果VendorKey为空则直接返回对象
 	if (lpVendorKey == NULL)
 		return m_lpAgoraObject;
 

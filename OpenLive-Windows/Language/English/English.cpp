@@ -1,4 +1,4 @@
-// English.cpp
+// English.cpp : 定义 DLL 应用程序的导出函数。
 //
 
 #include "stdafx.h"
@@ -19,8 +19,8 @@ ENGLISH_API LPCTSTR IDS_PRE_BTNWEB = _T("Web-compatible");
 
 ENGLISH_API LPCTSTR IDS_CHN_TITLE1 = _T("RoomName:");
 ENGLISH_API LPCTSTR IDS_CHN_TITLE2 = _T("name");
-ENGLISH_API LPCTSTR IDS_CHN_DSC1 = _T("if you are the first person to specify this name, the room");
-ENGLISH_API LPCTSTR IDS_CHN_DSC2 = _T("will be created and you will be placed in it. if it has");
+ENGLISH_API LPCTSTR IDS_CHN_DSC1 = _T("if you are the first person to specify this name,the room");
+ENGLISH_API LPCTSTR IDS_CHN_DSC2 = _T("will be created and you will be placed in it.if it has");
 ENGLISH_API LPCTSTR IDS_CHN_DSC3 = _T("already been created you will join the conference in");
 ENGLISH_API LPCTSTR IDS_CHN_DSC4 = _T("progress");
 ENGLISH_API LPCTSTR IDS_CHN_ROOMKEY = _T("RoomPWD:");

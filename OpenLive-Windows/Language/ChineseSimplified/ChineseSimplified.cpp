@@ -20,8 +20,8 @@ CHINESESIMPLIFIED_API LPCTSTR IDS_PRE_BTNWEB = _T("Web-compatible");
 
 CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_TITLE1 = _T("频道名:");
 CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_TITLE2 = _T("频道名");
-CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_DSC1 = _T("if you are the first person to specify this name, the room");
-CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_DSC2 = _T("will be created and you will be placed in it. if it has");
+CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_DSC1 = _T("if you are the first person to specify this name,the room");
+CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_DSC2 = _T("will be created and you will be placed in it.if it has");
 CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_DSC3 = _T("already been created you will join the conference in");
 CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_DSC4 = _T("progress");
 CHINESESIMPLIFIED_API LPCTSTR IDS_CHN_ROOMKEY = _T("房间口令:");

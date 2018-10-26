@@ -53,7 +53,7 @@
       <Filter>UI\Wnd</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClCompile>
     <ClCompile Include="AgoraObject.cpp">
       <Filter>AgoraObject\SDK</Filter>
@@ -100,16 +100,16 @@
       <Filter>AgoraObject</Filter>
     </ClInclude>
     <ClInclude Include="AGMessage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="AGButton.h">
       <Filter>UI\Ctrl</Filter>
@@ -180,182 +180,185 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\IDB_BACKGROUND_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNAUDIO_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNBIG_HOT.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNBIG_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNCLOSE.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNCLOSE_DISABLE.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNCLOSE_HOT.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNCLOSE_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNCLOSEWHITEBOARD_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNENDCALL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNENDCALL_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNENDCALLWB_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNFULLSCR_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNLEFTPAGE_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMAUDIO_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMAUDIOWB_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMAX.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMAX_HOT.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMAX_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMIN.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMIN_CLIECK.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMIN_DISABLE.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMIN_HOT.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMIN_HOVER.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMIN_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNNORSCR_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNRCD_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNRCDPAUSE_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNRESTORE.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNRESTORE_HOT.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNRESTORE_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNRIGHTPAGE_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNSCRCAP_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNSCRCAPOFF_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNSETUP_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNTIP_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNUMAUDIO_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNVIDEO_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNVIDEOLEFT_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNVIDEORIGHT_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNWHITEBOARD_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_CLOSEWHITEBOARD_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_CMBBTN.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_CMBBTN_HOVER.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_CMBBTN_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_CMBBTN_PUSH.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_CMBSEL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_DLG_LOGO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_DLG_MAIN.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_ENDCALLWB_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_NETWORK_QUALITY.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_SLD_HOVER.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_SLD_NORMAL.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="IDB_TIP_VIDEO.BMP">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_VIDEOTIP.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_ROOM.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMSG_VIDEO.bmp">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\IDB_BTNMORE_VIDEO.bmp" />
     <Image Include="res\IDB_MENU_DEVICE.bmp" />
     <Image Include="res\IDB_MENU_SEI.bmp" />
     <Image Include="res\OpenLive.ico">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="AgoraObject">
@@ -366,6 +369,9 @@
     </Filter>
     <Filter Include="App">
       <UniqueIdentifier>{e0645a7d-921b-4d64-ad57-89c69af1df1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{596ff442-8a67-4637-9068-20447f4b1aaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{445d348d-4614-412f-89ba-01dd6c086ec9}</UniqueIdentifier>
@@ -382,32 +388,29 @@
     <Filter Include="UI\Wnd">
       <UniqueIdentifier>{cbaa4744-3d11-48a5-bccc-afdb678270db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{c5f3b8f1-101c-4019-a503-3b70d5b7e0f2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="AgoraObject\SDK">
       <UniqueIdentifier>{c6a54713-603e-4f31-8000-87c77bf86b93}</UniqueIdentifier>
     </Filter>
     <Filter Include="AgoraObject\MsgID">
       <UniqueIdentifier>{b5ee8826-ef61-405b-be39-ea16fbd13560}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{c5f3b8f1-101c-4019-a503-3b70d5b7e0f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{596ff442-8a67-4637-9068-20447f4b1aaa}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\ID_TEST_AUDIO.wav">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </Media>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OpenLive.rc">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\OpenLive.rc2">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
 </Project>

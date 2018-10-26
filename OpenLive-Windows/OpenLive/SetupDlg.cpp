@@ -1,4 +1,4 @@
-// SetupDlg.cpp : implement file
+// SetupDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 
 
-// CSetupDlg dialog
+// CSetupDlg 对话框
 
 IMPLEMENT_DYNAMIC(CSetupDlg, CDialogEx)
 
@@ -47,14 +47,14 @@ BEGIN_MESSAGE_MAP(CSetupDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CSetupDlg message deal with app
+// CSetupDlg 消息处理程序
 
 
 BOOL CSetupDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  add code to initialize
+	// TODO:  在此添加额外的初始化
 	m_ftHead.CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 	m_ftDes.CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 	m_ftBtn.CreateFont(16, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
@@ -71,7 +71,7 @@ BOOL CSetupDlg::OnInitDialog()
 		m_ckSaveSettings.SetCheck(FALSE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// error:  OCX attribute pages return FALSE
+	// 异常:  OCX 属性页应返回 FALSE
 }
 
 
@@ -240,7 +240,7 @@ void CSetupDlg::DrawClient(CDC *lpDC)
 
 void CSetupDlg::OnBnClickedBtnconfirmSetup()
 {
-	// TODO:  Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	GetParent()->SendMessage(WM_GOBACK, 0, 0);
 
 	if (m_ckSaveSettings.GetCheck() == TRUE) {
@@ -296,6 +296,6 @@ BOOL CSetupDlg::IsWHSwap()
 
 void CSetupDlg::OnBnClickedBtncancelSetup()
 {
-	// TODO:  Add control notification handler code here
+	// TODO:  在此添加控件通知处理程序代码
 	GetParent()->SendMessage(WM_GOBACK, 0, 0);
 }

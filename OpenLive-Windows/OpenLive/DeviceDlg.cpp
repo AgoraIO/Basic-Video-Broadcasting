@@ -1,4 +1,4 @@
-// DeviceDlg.cpp : implement file
+// DeviceDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 
 
-// CDeviceDlg dialog
+// CDeviceDlg 对话框
 
 IMPLEMENT_DYNAMIC(CDeviceDlg, CDialogEx)
 
@@ -58,7 +58,7 @@ BEGIN_MESSAGE_MAP(CDeviceDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CDeviceDlg message deal with app
+// CDeviceDlg 消息处理程序
 void CDeviceDlg::OnPaint()
 {
 	CPaintDC dc(this);
@@ -70,7 +70,7 @@ BOOL CDeviceDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:
+	// TODO:  在此添加额外的初始化
 	m_lpRtcEngine = CAgoraObject::GetEngine();
 
 	m_ftLink.CreateFont(17, 0, 0, 0, FW_NORMAL, FALSE, TRUE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
@@ -89,7 +89,7 @@ BOOL CDeviceDlg::OnInitDialog()
 	InitCtrls();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// error:  OCX Attribute page return FALSE
+	// 异常:  OCX 属性页应返回 FALSE
 }
 
 void CDeviceDlg::EnableDeviceTest(BOOL bEnable)
@@ -225,7 +225,7 @@ void CDeviceDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 
-	// TODO: 
+	// TODO:  在此处添加消息处理程序代码
 	if (!bShow) {
 		m_agPlayout.Close();
 		m_agAudioin.Close();
@@ -296,7 +296,7 @@ BOOL CDeviceDlg::PreTranslateMessage(MSG* pMsg)
 
 void CDeviceDlg::OnStnClickedSlkainDevice()
 {
-	// TODO:
+	// TODO:  在此添加控件通知处理程序代码
 	if (m_agAudioin.IsTesting()) {
 		m_agAudioin.TestAudInputDevice(NULL, FALSE);
 		m_slkAudInTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTEST"));
@@ -310,7 +310,7 @@ void CDeviceDlg::OnStnClickedSlkainDevice()
 
 void CDeviceDlg::OnStnClickedSlkaoutDevice()
 {
-	// TODO:
+	// TODO:  在此添加控件通知处理程序代码
 	if (m_agPlayout.IsTesting()) {
 		m_agPlayout.TestPlaybackDevice(ID_TEST_AUDIO, FALSE);
 		m_slkAudOutTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTEST"));
@@ -324,7 +324,7 @@ void CDeviceDlg::OnStnClickedSlkaoutDevice()
 
 void CDeviceDlg::OnStnClickedSlkcamDevice()
 {
-	// TODO:
+	// TODO:  在此添加控件通知处理程序代码
 	if (m_agCamera.IsTesting()) {
 		m_agCamera.TestCameraDevice(NULL, FALSE);
 		m_slkCamTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTEST"));
@@ -338,7 +338,7 @@ void CDeviceDlg::OnStnClickedSlkcamDevice()
 
 void CDeviceDlg::OnBnClickedBtncancelDevice()
 {
-	// TODO:
+	// TODO:  在此添加控件通知处理程序代码
 	m_agAudioin.TestAudInputDevice(NULL, FALSE);
 	m_slkAudInTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTEST"));
 
@@ -354,7 +354,7 @@ void CDeviceDlg::OnBnClickedBtncancelDevice()
 
 void CDeviceDlg::OnBnClickedBtnconfirmDevice()
 {
-	// TODO:
+	// TODO:  在此添加控件通知处理程序代码
 	int		nCurSel = 0;
 	CString strDeviceName;
 	CString strDeviceID;
@@ -392,7 +392,7 @@ void CDeviceDlg::OnBnClickedBtnconfirmDevice()
 
 void CDeviceDlg::OnBnClickedBtnapplyDevice()
 {
-	// TODO: 
+	// TODO:  在此添加控件通知处理程序代码
 	int		nCurSel = 0;
 	CString strDeviceName;
 	CString strDeviceID;

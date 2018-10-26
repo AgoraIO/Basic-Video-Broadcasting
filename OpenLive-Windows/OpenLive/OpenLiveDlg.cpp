@@ -1,5 +1,5 @@
 
-// OpenLiveDlg.cpp : implementation file
+// OpenLive.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -43,7 +43,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// COpenLiveDlg dialog
+// CAgoraVideoCallDlg dialog
 
 
 
