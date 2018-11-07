@@ -1003,15 +1003,10 @@ private extension CGSize {
 
 ## Resources
 - Find full API documentation in the [Document Center](https://docs.agora.io/en/)
-- [File bugs about this sample](https://github.com/AgoraIO/OpenLive-iOS/issues)
+- [File bugs about this sample](https://github.com/AgoraIO/Basic-Video-Broadcasting/issues)
 
 ## Learn More
-- [1 to 1 Video Tutorial for iOS/Swift](https://github.com/AgoraIO/Agora-iOS-Tutorial-Swift-1to1)
-- Agora OpenLive samples are also available for the following platforms:
-	- OpenLive for [iOS (Objective-C)](https://github.com/AgoraIO/OpenLive-iOS-Objective-C)
-	- OpenLive for [Android](https://github.com/AgoraIO/OpenLive-Android)
-	- OpenLive for [Windows](https://github.com/AgoraIO/OpenLive-Windows)
-	- OpenLive for [MacOS](https://github.com/AgoraIO/OpenLive-macOS)
+- [1 to 1 Video Tutorial for iOS/Swift](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-iOS-Tutorial-Swift-1to1)
 
 ## License
 This software is licensed under the MIT License (MIT). [View the license](LICENSE.md).
