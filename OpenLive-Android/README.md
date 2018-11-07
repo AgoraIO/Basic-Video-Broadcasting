@@ -12,13 +12,7 @@ With this sample app, you can:
 - Switch camera
 - Setup resolution, frame rate and bit rate
 
-A tutorial demo can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Agora-Android-Tutorial-1to1)
-
-Agora Video SDK supports iOS / Android / Windows / macOS etc. You can find demos of these platform here:
-
-- [OpenLive-iOS](https://github.com/AgoraIO/OpenLive-iOS)
-- [OpenLive-Windows](https://github.com/AgoraIO/OpenLive-Windows)
-- [OpenLive-macOS](https://github.com/AgoraIO/OpenLive-macOS)
+A tutorial demo can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
 
 ## Running the App
 **First**, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "app/src/main/res/values/strings_config.xml" with your App ID.
@@ -58,7 +52,7 @@ Or use `Gradle` to build and run.
 
 ## Connect Us
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/OpenLive-Android/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Basic-Video-Call/issues)
 
 ## License
 The MIT License (MIT).
