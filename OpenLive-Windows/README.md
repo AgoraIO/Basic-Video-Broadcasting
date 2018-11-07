@@ -14,13 +14,7 @@ With this sample app, you can:
 
 This demo is written in **C++**
 
-A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Agora-Windows-Tutorial-1to1)
-
-Agora Video SDK supports iOS / Android / Windows / macOS etc. You can find demos of these platform here:
-
-- [OpenLive-Android](https://github.com/AgoraIO/OpenLive-Android)
-- [OpenLive-iOS](https://github.com/AgoraIO/OpenLive-iOS)
-- [OpenLive-macOS](https://github.com/AgoraIO/OpenLive-macOS)
+A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Windows-Tutorial-1to1)
 
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. define the APP_ID with your App ID.
@@ -43,7 +37,7 @@ Note：
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/OpenLive-Windows/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Basic-Video-Call/issues)
 
 ## License
 
