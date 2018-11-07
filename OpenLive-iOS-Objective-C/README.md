@@ -12,15 +12,9 @@ With this sample app, you can:
 - Switch camera
 - Setup resolution, frame rate and bit rate
 
-This demo is written in **Objective-C**, you can find **Swift** version here: [OpenLive-iOS](https://github.com/AgoraIO/OpenLive-iOS)
+This demo is written in **Objective-C**, you can find **Swift** version here: [OpenLive-iOS](https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-iOS)
 
-A tutorial demo can be found here: [Agora-iOS-Tutorial-Objective-C-1to1](https://github.com/AgoraIO/Agora-iOS-Tutorial-Objective-C-1to1)
-
-Agora Video SDK supports iOS / Android / Windows / macOS etc. You can find demos of these platform here:
-
-- [OpenLive-Android](https://github.com/AgoraIO/OpenLive-Android)
-- [OpenLive-Windows](https://github.com/AgoraIO/OpenLive-Windows)
-- [OpenLive-macOS](https://github.com/AgoraIO/OpenLive-macOS)
+A tutorial demo can be found here: [Agora-iOS-Tutorial-Objective-C-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-iOS-Tutorial-Objective-C-1to1)
 
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "KeyCenter.m" with your App ID.
@@ -43,7 +37,7 @@ Finally, Open OpenLive.xcodeproj, connect your iPhone／iPad device, setup your 
 ## Connect Us
 
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/OpenLive-iOS-Objective-C/issues)
+- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Basic-Video-Broadcasting/issues)
 
 ## License
 
