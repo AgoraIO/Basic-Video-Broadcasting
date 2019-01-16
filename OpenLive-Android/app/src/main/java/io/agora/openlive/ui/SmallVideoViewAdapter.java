@@ -24,8 +24,6 @@ public class SmallVideoViewAdapter extends VideoViewAdapter {
     protected void customizedInit(HashMap<Integer, SurfaceView> uids, boolean force) {
         for (HashMap.Entry<Integer, SurfaceView> entry : uids.entrySet()) {
             if (entry.getKey() != exceptedUid) {
-                entry.getValue().setZOrderOnTop(true);
-                entry.getValue().setZOrderMediaOverlay(true);
                 mUsers.add(new VideoStatusData(entry.getKey(), entry.getValue(), VideoStatusData.DEFAULT_STATUS, VideoStatusData.DEFAULT_VOLUME));
             }
         }
@@ -46,9 +44,8 @@ public class SmallVideoViewAdapter extends VideoViewAdapter {
         for (HashMap.Entry<Integer, SurfaceView> entry : uids.entrySet()) {
             log.debug("notifyUiChanged " + entry.getKey() + " " + uidExcluded);
 
+            entry.getValue().setZOrderMediaOverlay(false);
             if (entry.getKey() != uidExcluded) {
-                entry.getValue().setZOrderOnTop(true);
-                entry.getValue().setZOrderMediaOverlay(true);
                 mUsers.add(new VideoStatusData(entry.getKey(), entry.getValue(), VideoStatusData.DEFAULT_STATUS, VideoStatusData.DEFAULT_VOLUME));
             }
         }

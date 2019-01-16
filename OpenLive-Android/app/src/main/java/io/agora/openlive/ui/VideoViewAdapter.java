@@ -92,6 +92,7 @@ public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView
         if (holderView.getChildCount() == 0) {
             SurfaceView target = user.mView;
             stripSurfaceView(target);
+            target.setZOrderMediaOverlay(true);
             holderView.addView(target, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
 
