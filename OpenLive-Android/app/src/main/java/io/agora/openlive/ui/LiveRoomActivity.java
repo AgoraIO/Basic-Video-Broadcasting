@@ -104,8 +104,6 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         if (isBroadcaster(cRole)) {
             SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
             rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
-            surfaceV.setZOrderOnTop(true);
-            surfaceV.setZOrderMediaOverlay(true);
 
             mUidsList.put(0, surfaceV); // get first surface view
 
@@ -301,8 +299,6 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 }
 
                 SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
-                surfaceV.setZOrderOnTop(true);
-                surfaceV.setZOrderMediaOverlay(true);
                 mUidsList.put(uid, surfaceV);
                 if (config().mUid == uid) {
                     rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, uid));
