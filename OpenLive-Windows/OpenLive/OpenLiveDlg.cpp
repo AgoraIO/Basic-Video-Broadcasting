@@ -141,8 +141,8 @@ BOOL COpenLiveDlg::OnInitDialog()
 	m_lpRtcEngine = CAgoraObject::GetEngine();
    
 
-	if (strAppID.GetString() == 0) {
-        MessageBox(_T("Please apply your own App ID to macro APP_ID"), _T("Notice"), MB_ICONINFORMATION);
+	if (strAppID.GetLength() == 0) {
+        MessageBox(_T("Please apply your own App ID to AppID int AppID.ini"), _T("Notice"), MB_ICONINFORMATION);
         PostQuitMessage(0);
     }
 
