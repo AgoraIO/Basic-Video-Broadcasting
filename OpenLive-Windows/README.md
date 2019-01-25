@@ -19,9 +19,13 @@ A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. define the APP_ID with your App ID.
 
-```
 #define APP_ID _T("Your App ID")
-```
+
+If you don't want to modify the code part, you can create an AppId.ini file under Debug/Release. Modify the appId value to the App ID you just applied.
+
+#[AppID]
+
+#AppID=xxxxxxxxxxxxxxxxxxx
 
 Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the **sdk** to the project folder(the old one may be over written).
 
