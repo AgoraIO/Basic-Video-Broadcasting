@@ -8,46 +8,31 @@
 
 import Foundation
 
-extension AgoraVideoProfile {
-    static func validProfileList() -> [AgoraVideoProfile] {
-        return [.landscape120P,
-                .landscape240P,
-                .landscape360P,
-                .landscape480P,
-                .landscape720P]
+extension CGSize {
+    static func validProfileList() -> [CGSize] {
+        return [AgoraVideoDimension160x120,
+                AgoraVideoDimension320x240,
+                AgoraVideoDimension640x360,
+                AgoraVideoDimension640x480,
+                AgoraVideoDimension1280x720]
     }
     
-    func resolution() -> CGSize? {
+    func resolution() -> String? {
         switch self {
-        case .landscape120P: return CGSize(width: 160, height: 120)
-        case .landscape240P: return CGSize(width: 320, height: 240)
-        case .landscape360P: return CGSize(width: 640, height: 360)
-        case .landscape480P: return CGSize(width: 640, height: 480)
-        case .landscape720P: return CGSize(width: 1280, height: 720)
+        case AgoraVideoDimension160x120: return "160×120"
+        case AgoraVideoDimension320x240: return "320×240"
+        case AgoraVideoDimension640x360: return "640×360"
+        case AgoraVideoDimension640x480: return "640×480"
+        case AgoraVideoDimension1280x720: return "1280×720"
         default: return nil
         }
     }
     
     func fps() -> Int {
-        return 15
-    }
-    
-    func bitRate() -> Int? {
-        switch self {
-        case .landscape120P: return 65
-        case .landscape240P: return 200
-        case .landscape360P: return 400
-        case .landscape480P: return 500
-        case .landscape720P: return 1130
-        default: return nil
-        }
+        return 24
     }
     
     func description() -> String {
-        if let resolution = resolution(), let bitRate = bitRate() {
-            return "\(Int(resolution.width))×\(Int(resolution.height)), \(fps())fps, \(bitRate)k"
-        } else {
-            return "profile \(rawValue)"
-        }
+        return "\(resolution), \(fps())fps"
     }
 }

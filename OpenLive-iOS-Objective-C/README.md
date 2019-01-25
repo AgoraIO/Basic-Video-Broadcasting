@@ -30,7 +30,7 @@ Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/
 Finally, Open OpenLive.xcodeproj, connect your iPhone／iPad device, setup your development signing and run.
 
 ## Developer Environment Requirements
-* XCode 8.0 +
+* XCode 10.0 +
 * Real devices (iPhone or iPad)
 * iOS simulator is NOT supported
 

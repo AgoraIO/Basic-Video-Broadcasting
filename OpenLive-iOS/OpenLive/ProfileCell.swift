@@ -35,6 +35,6 @@ private extension CGSize {
     }
     
     func fps() -> String? {
-        return "15"
+        return "24"
     }
 }

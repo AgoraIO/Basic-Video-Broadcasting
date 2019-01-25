@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var roomNameTextField: UITextField!
     @IBOutlet weak var popoverSourceView: UIView!
     
-    fileprivate var videoProfile = AgoraVideoDimension640x360
+    fileprivate var videoProfile = AgoraVideoDimension640x480
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let segueId = segue.identifier else {

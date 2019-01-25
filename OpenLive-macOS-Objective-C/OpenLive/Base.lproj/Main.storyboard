@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -80,11 +80,7 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                                        <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
-                                            <connections>
-                                                <action selector="closeWindow:" target="Voe-Tx-rLC" id="yFR-F2-KcQ"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG"/>
                                         <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
@@ -676,13 +672,13 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="-284"/>
+            <point key="canvasLocation" x="52" y="-264"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" customClass="MainWindowController" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="493" y="240" width="480" height="640"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -698,7 +694,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="60" y="134"/>
+            <point key="canvasLocation" x="76" y="236"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -712,8 +708,8 @@
                                 <rect key="frame" x="150" y="531" width="180" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Welcome to Open Live" id="b0W-Ce-12W">
                                     <font key="font" metaFont="system" size="17"/>
-                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hug-wB-oYO">
@@ -724,7 +720,7 @@
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="channel name" drawsBackground="YES" id="czK-Es-JDj">
                                     <font key="font" metaFont="cellTitle"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <allowedInputSourceLocales>
                                         <string>NSAllRomanInputSourcesLocaleIdentifier</string>
@@ -881,23 +877,22 @@
                         <outlet property="muteAudioButton" destination="VcY-md-L4x" id="u1x-mw-dSz"/>
                         <outlet property="remoteContainerView" destination="1hL-Bh-IhO" id="2cx-RT-Gjv"/>
                         <outlet property="roomNameLabel" destination="Kgl-80-v5L" id="afh-Rn-0dQ"/>
-                        <segue destination="XfG-lQ-9wD" kind="custom" identifier="liveToMain" customClass="ReplacementSegue" id="bOa-u8-qvK"/>
                     </connections>
                 </viewController>
                 <customObject id="38u-b1-Xva" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1208" y="756"/>
+            <point key="canvasLocation" x="698" y="1055"/>
         </scene>
-        <!--Setting View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="Ra8-f1-gga">
             <objects>
-                <viewController storyboardIdentifier="SettingVC" id="owR-4Q-5I4" customClass="SettingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingVC" id="owR-4Q-5I4" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" id="okV-sS-w4h">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ibL-Df-LW1">
-                                <rect key="frame" x="58" y="496" width="365" height="26"/>
+                                <rect key="frame" x="58" y="496" width="365" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="360" id="LXO-8l-5jd"/>
                                 </constraints>
@@ -934,12 +929,11 @@
                     </view>
                     <connections>
                         <outlet property="profilePopUpButton" destination="ibL-Df-LW1" id="BCd-4m-iL8"/>
-                        <segue destination="XfG-lQ-9wD" kind="custom" identifier="settingToMain" customClass="ReplacementSegue" id="zaj-ZE-m31"/>
                     </connections>
                 </viewController>
                 <customObject id="G6l-e9-iWO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-34" y="2047"/>
+            <point key="canvasLocation" x="75" y="1865"/>
         </scene>
     </scenes>
     <resources>
@@ -947,7 +941,4 @@
         <image name="btn_join_cancel" width="40" height="40"/>
         <image name="btn_mute" width="60" height="60"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="cq2-FE-JQM"/>
-    </inferredMetricsTieBreakers>
 </document>

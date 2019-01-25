@@ -9,8 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
 
+@class LiveRoomViewController;
+@protocol LiveRoomVCDelegate <NSObject>
+- (void)liveVCNeedClose:(LiveRoomViewController *)liveVC;
+@end
+
 @interface LiveRoomViewController : NSViewController
 @property (nonatomic, copy) NSString *roomName;
 @property (nonatomic, assign) AgoraClientRole clientRole;
-@property (nonatomic, assign) AgoraVideoProfile videoProfile;
+@property (nonatomic, assign) CGSize videoProfile;
+@property (nonatomic, strong) id<LiveRoomVCDelegate> delegate;
 @end

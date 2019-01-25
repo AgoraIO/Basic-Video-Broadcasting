@@ -10,11 +10,7 @@
 #import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
 
 @interface MediaInfo : NSObject
-+ (NSString *)resolutionOfProfile:(AgoraVideoProfile)profile;
-+ (NSString *)fpsOfProfile:(AgoraVideoProfile)profile;
-+ (NSString *)descriptionProfile:(AgoraVideoProfile)profile;
-// cache video parameter
-+ (void)cacheVideoProfile:(AgoraVideoProfile)profile;
-+ (AgoraVideoProfile)getCacheVideoProfile ;
-+ (void)removeCacheVideoProfile;
++ (NSString *)resolutionOfProfile:(CGSize)profile;
++ (NSString *)fpsOfProfile:(CGSize)profile;
++ (NSString *)descriptionProfile:(CGSize)profile;
 @end

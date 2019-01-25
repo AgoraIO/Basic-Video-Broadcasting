@@ -10,5 +10,5 @@
 #import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
 
 @interface MainViewController : NSViewController
-@property (nonatomic, assign) AgoraVideoProfile videoProfile;
+@property (nonatomic, assign) CGSize videoProfile;
 @end

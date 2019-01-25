@@ -18,17 +18,17 @@
 @implementation SettingsViewController
 - (NSArray *)profiles {
     if (!_profiles) {
-        _profiles = @[@(AgoraVideoProfileLandscape120P),
-                      @(AgoraVideoProfileLandscape180P),
-                      @(AgoraVideoProfileLandscape240P),
-                      @(AgoraVideoProfileLandscape360P),
-                      @(AgoraVideoProfileLandscape480P),
-                      @(AgoraVideoProfileLandscape720P)];
+        _profiles = @[@(AgoraVideoDimension160x120),
+                      @(AgoraVideoDimension320x180),
+                      @(AgoraVideoDimension320x240),
+                      @(AgoraVideoDimension640x360),
+                      @(AgoraVideoDimension640x480),
+                      @(AgoraVideoDimension1280x720)];
     }
     return _profiles;
 }
 
-- (void)setVideoProfile:(AgoraVideoProfile)videoProfile {
+- (void)setVideoProfile:(CGSize)videoProfile {
     _videoProfile = videoProfile;
     [self.profileTableView reloadData];
 }
@@ -45,14 +45,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell" forIndexPath:indexPath];
-    AgoraVideoProfile selectedProfile = [self.profiles[indexPath.row] integerValue];
-    [cell updateWithProfile:selectedProfile isSelected:(selectedProfile == self.videoProfile)];
+    CGSize selectedProfile = [self.profiles[indexPath.row] CGSizeValue];
+    [cell updateWithProfile:selectedProfile isSelected:CGSizeEqualToSize(selectedProfile, self.videoProfile)];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    AgoraVideoProfile selectedProfile = [self.profiles[indexPath.row] integerValue];
+    CGSize selectedProfile = [self.profiles[indexPath.row] CGSizeValue];
     self.videoProfile = selectedProfile;
 }
 @end

@@ -9,15 +9,16 @@
 import Cocoa
 
 protocol SettingsVCDelegate: class {
-    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile videoProfile: AgoraVideoProfile)
+    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile videoProfile: CGSize)
 }
 
 class SettingsViewController: NSViewController {
 
     @IBOutlet weak var profilePopUpButton: NSPopUpButton!
     
-    var videoProfile: AgoraVideoProfile!
+    var videoProfile: CGSize!
     var delegate: SettingsVCDelegate?
+    fileprivate let profiles: [CGSize] = CGSize.validProfileList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class SettingsViewController: NSViewController {
     }
     
     @IBAction func doProfileChanged(_ sender: NSPopUpButton) {
-        let profile = AgoraVideoProfile.validProfileList()[sender.indexOfSelectedItem]
+        let profile = profiles[sender.indexOfSelectedItem]
         videoProfile = profile
     }
     
@@ -37,7 +38,7 @@ class SettingsViewController: NSViewController {
 
 private extension SettingsViewController {
     func loadProfileItems() {
-        profilePopUpButton.addItems(withTitles: AgoraVideoProfile.validProfileList().map { (res) -> String in
+        profilePopUpButton.addItems(withTitles: profiles.map { (res) -> String in
             return res.description()
         })
         profilePopUpButton.selectItem(withTitle: videoProfile.description())

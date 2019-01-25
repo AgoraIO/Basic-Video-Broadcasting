@@ -7,39 +7,30 @@
 //
 
 #import "MainViewController.h"
-#import "SettingViewController.h"
+#import "SettingsViewController.h"
 #import "LiveRoomViewController.h"
 #import "MediaInfo.h"
 
 static NSString *settingIdentifier = @"mainToSettings";
 static NSString *liveIdentifier = @"mainToLive";
 
-
-@interface MainViewController ()
+@interface MainViewController ()<SettingsVCDelegate, LiveRoomVCDelegate>
 @property (weak) IBOutlet NSTextField *roomInputTextFiled;
 @property (nonatomic, assign) AgoraClientRole clientRole;
 @end
 
 @implementation MainViewController
-- (void)setVideoProfile:(AgoraVideoProfile)videoProfile {
+- (void)setVideoProfile:(CGSize)videoProfile {
     _videoProfile = videoProfile;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
-    [self.view setWantsLayer:YES];
-    [self.view.layer setBackgroundColor:[[NSColor whiteColor] CGColor]];
-    [MediaInfo cacheVideoProfile:self.videoProfile];
-}
-
-- (void)viewDidAppear {
-    [super viewDidAppear];
-    
+    self.videoProfile = AgoraVideoDimension640x480;
 }
 
 - (IBAction)doSettingsClicked:(NSButton *)sender {
     [self performSegueWithIdentifier:settingIdentifier sender:nil];
-    
 }
 
 - (IBAction)doJoinAsBroadcasterClicked:(NSButton *)sender {
@@ -50,7 +41,6 @@ static NSString *liveIdentifier = @"mainToLive";
 - (IBAction)doJoinAsAudienceClicked:(NSButton *)sender {
      self.clientRole = AgoraClientRoleAudience;
     [self pushLiveRoomVC];
-   
 }
 
 - (void)pushLiveRoomVC {
@@ -62,13 +52,27 @@ static NSString *liveIdentifier = @"mainToLive";
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:settingIdentifier]) {
-        SettingViewController *settingVC = segue.destinationController;
-        settingVC.videoProfile = [MediaInfo getCacheVideoProfile];
+        SettingsViewController *settingVC = segue.destinationController;
+        settingVC.videoProfile = self.videoProfile;
+        settingVC.delegate = self;
     }else if ([segue.identifier isEqualToString:liveIdentifier]) {
         LiveRoomViewController *liveRoomVC = segue.destinationController;
         liveRoomVC.roomName = self.roomInputTextFiled.stringValue;
-        liveRoomVC.videoProfile = [MediaInfo getCacheVideoProfile];
+        liveRoomVC.videoProfile = self.videoProfile;
         liveRoomVC.clientRole = self.clientRole;
+        liveRoomVC.delegate = self;
     }
+}
+
+- (void)settingsVC:(SettingsViewController *)settingsVC didSelectProfile:(CGSize)profile {
+    settingsVC.view.window.contentViewController = self;
+    settingsVC.delegate = nil;
+    
+    self.videoProfile = profile;
+}
+
+- (void)liveVCNeedClose:(LiveRoomViewController *)liveVC {
+    liveVC.view.window.contentViewController = self;
+    liveVC.delegate = nil;
 }
 @end

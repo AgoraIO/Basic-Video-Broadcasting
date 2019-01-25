@@ -217,10 +217,13 @@ private extension LiveRoomViewController {
     func loadAgoraKit() {
         rtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         rtcEngine.setChannelProfile(.liveBroadcasting)
+        
+        // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
         rtcEngine.enableDualStreamMode(true)
+        
         rtcEngine.enableVideo()
         rtcEngine.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: videoProfile,
-                                                                              frameRate: .fps15,
+                                                                              frameRate: .fps24,
                                                                               bitrate: AgoraVideoBitrateStandard,
                                                                               orientationMode: .adaptative))
         rtcEngine.setClientRole(clientRole)

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A2F4525202C072F003783AE /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4523202C072F003783AE /* SettingViewController.m */; };
+		1A2F4525202C072F003783AE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4523202C072F003783AE /* SettingsViewController.m */; };
 		1A2F456E202C4F81003783AE /* ReplacementSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F456D202C4F80003783AE /* ReplacementSegue.m */; };
 		1A2F4571202C549F003783AE /* LiveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4570202C549F003783AE /* LiveRoomViewController.m */; };
 		1A2F458E202C8897003783AE /* VideoViewLayouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F458D202C8897003783AE /* VideoViewLayouter.m */; };
@@ -34,8 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A2F4522202C072F003783AE /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		1A2F4523202C072F003783AE /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		1A2F4522202C072F003783AE /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		1A2F4523202C072F003783AE /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		1A2F456C202C4F80003783AE /* ReplacementSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplacementSegue.h; sourceTree = "<group>"; };
 		1A2F456D202C4F80003783AE /* ReplacementSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplacementSegue.m; sourceTree = "<group>"; };
 		1A2F456F202C549F003783AE /* LiveRoomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveRoomViewController.h; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 		1AFA9DF4202BF28900D782CB /* MainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		1AFA9DF6202BF2C100D782CB /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		1AFA9DF7202BF2C100D782CB /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcEngineKit.framework; path = OpenLive/AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		A7C50EF02121663D00774322 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -99,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				A7C50EF02121663D00774322 /* Accelerate.framework */,
-				70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */,
 				1A2F45B4202D75E6003783AE /* AVFoundation.framework */,
 				1A2F45B2202D75E0003783AE /* VideoToolbox.framework */,
 				1A2F45B0202D75DA003783AE /* AudioToolbox.framework */,
@@ -133,33 +132,42 @@
 		1AFA9DC2202BF0A500D782CB /* OpenLive */ = {
 			isa = PBXGroup;
 			children = (
+				1AFA9DCB202BF0A500D782CB /* Main.storyboard */,
+				1AFA9DF6202BF2C100D782CB /* MainViewController.h */,
+				1AFA9DF7202BF2C100D782CB /* MainViewController.m */,
+				1A2F4522202C072F003783AE /* SettingsViewController.h */,
+				1A2F4523202C072F003783AE /* SettingsViewController.m */,
+				1A2F456F202C549F003783AE /* LiveRoomViewController.h */,
+				1A2F4570202C549F003783AE /* LiveRoomViewController.m */,
+				1A2F458F202C88A4003783AE /* KeyCenter.h */,
+				1A2F4590202C88A4003783AE /* KeyCenter.m */,
+				1A2F45A0202D7486003783AE /* VideoSession.h */,
+				1A2F45A1202D7486003783AE /* VideoSession.m */,
+				1A2F458C202C8897003783AE /* VideoViewLayouter.h */,
+				1A2F458D202C8897003783AE /* VideoViewLayouter.m */,
+				1A2F4594202D4405003783AE /* MediaInfo.h */,
+				1A2F4595202D4405003783AE /* MediaInfo.m */,
+				70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */,
+				38127CDD21FB2D1D0025C28F /* Supporting Files */,
+			);
+			path = OpenLive;
+			sourceTree = "<group>";
+		};
+		38127CDD21FB2D1D0025C28F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1A2F456C202C4F80003783AE /* ReplacementSegue.h */,
+				1A2F456D202C4F80003783AE /* ReplacementSegue.m */,
+				1AFA9DC9202BF0A500D782CB /* Assets.xcassets */,
 				1AFA9DC3202BF0A500D782CB /* AppDelegate.h */,
 				1AFA9DC4202BF0A500D782CB /* AppDelegate.m */,
 				1AFA9DF3202BF28900D782CB /* MainWindowController.h */,
 				1AFA9DF4202BF28900D782CB /* MainWindowController.m */,
-				1AFA9DF6202BF2C100D782CB /* MainViewController.h */,
-				1AFA9DF7202BF2C100D782CB /* MainViewController.m */,
-				1A2F4522202C072F003783AE /* SettingViewController.h */,
-				1A2F4523202C072F003783AE /* SettingViewController.m */,
-				1A2F45A0202D7486003783AE /* VideoSession.h */,
-				1A2F45A1202D7486003783AE /* VideoSession.m */,
-				1A2F4594202D4405003783AE /* MediaInfo.h */,
-				1A2F4595202D4405003783AE /* MediaInfo.m */,
-				1A2F456F202C549F003783AE /* LiveRoomViewController.h */,
-				1A2F4570202C549F003783AE /* LiveRoomViewController.m */,
-				1A2F458C202C8897003783AE /* VideoViewLayouter.h */,
-				1A2F458D202C8897003783AE /* VideoViewLayouter.m */,
-				1A2F458F202C88A4003783AE /* KeyCenter.h */,
-				1A2F4590202C88A4003783AE /* KeyCenter.m */,
-				1A2F456C202C4F80003783AE /* ReplacementSegue.h */,
-				1A2F456D202C4F80003783AE /* ReplacementSegue.m */,
-				1AFA9DC9202BF0A500D782CB /* Assets.xcassets */,
-				1AFA9DCB202BF0A500D782CB /* Main.storyboard */,
 				1AFA9DCE202BF0A600D782CB /* Info.plist */,
 				1AFA9DCF202BF0A600D782CB /* main.m */,
 				1AFA9DD1202BF0A600D782CB /* OpenLive.entitlements */,
 			);
-			path = OpenLive;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,7 +196,7 @@
 		1AFA9DB8202BF0A500D782CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Agora.io;
 				TargetAttributes = {
 					1AFA9DBF202BF0A500D782CB = {
@@ -243,7 +251,7 @@
 				1A2F4596202D4405003783AE /* MediaInfo.m in Sources */,
 				1A2F458E202C8897003783AE /* VideoViewLayouter.m in Sources */,
 				1A2F456E202C4F81003783AE /* ReplacementSegue.m in Sources */,
-				1A2F4525202C072F003783AE /* SettingViewController.m in Sources */,
+				1A2F4525202C072F003783AE /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +283,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -282,6 +291,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -330,6 +340,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -337,6 +348,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -368,7 +380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 48TB6ZZL5S;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -388,7 +400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 48TB6ZZL5S;

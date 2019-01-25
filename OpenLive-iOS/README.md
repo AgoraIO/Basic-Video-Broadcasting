@@ -11,7 +11,7 @@ With this sample app, you can:
 - [Set up the resolution, the frame rate, and the bit rate display](#create-the-loadagorakit-method)
 
 ## Prerequisites
-- Xcode 8.0+
+- Xcode 10.0+
 - Physical iOS device (iPhone or iPad)
 	
 	**Note:** Use a physical device to run the sample. Some simulators lack the functionality or the performance needed to run the sample.

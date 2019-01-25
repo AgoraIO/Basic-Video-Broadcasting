@@ -34,7 +34,7 @@ static let AppId: String = "Your App ID"
 最后使用 XCode 打开 OpenLive.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 ## 运行环境
-* XCode 8.0 +
+* XCode 10.0 +
 * iOS 真机设备
 * 不支持模拟器
 

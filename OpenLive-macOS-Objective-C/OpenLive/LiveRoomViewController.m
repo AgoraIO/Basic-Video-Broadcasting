@@ -11,9 +11,6 @@
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
 
-
-static NSString *toMainIdentifier = @"liveToMain";
-
 @interface LiveRoomViewController ()<AgoraRtcEngineDelegate>
 @property (weak) IBOutlet NSView *remoteContainerView;
 @property (weak) IBOutlet NSButton *muteAudioButton;
@@ -83,20 +80,23 @@ static NSString *toMainIdentifier = @"liveToMain";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
-    [self.view setWantsLayer:YES];
-    [self.view.layer setBackgroundColor:[[NSColor whiteColor] CGColor]];
     self.roomNameLabel.stringValue = self.roomName;
-    
     [self loadAgoraKit];
 }
 
 - (void)loadAgoraKit {
     self.rtcEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
     [self.rtcEngine setChannelProfile:(AgoraChannelProfileLiveBroadcasting)];
-    [self.rtcEngine enableVideo];
+    
+    // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
     [self.rtcEngine enableDualStreamMode:true];
-    [self.rtcEngine setVideoProfile:self.videoProfile swapWidthAndHeight:YES];
+    
+    [self.rtcEngine enableVideo];
+    AgoraVideoEncoderConfiguration *configuration = [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
+                                                                                               frameRate:AgoraVideoFrameRateFps24
+                                                                                                 bitrate:AgoraVideoBitrateStandard
+                                                                                         orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    [self.rtcEngine setVideoEncoderConfiguration:configuration];
     [self.rtcEngine setClientRole:(self.clientRole)];
     
     if (self.isBroadcaster) {
@@ -133,7 +133,6 @@ static NSString *toMainIdentifier = @"liveToMain";
 
 - (IBAction)doLeaveClicked:(NSButton *)sender {
     [self leaveChannel];
-    [self performSegueWithIdentifier:toMainIdentifier sender:nil];
 }
 
 - (void)addLocalSession {
@@ -184,6 +183,10 @@ static NSString *toMainIdentifier = @"liveToMain";
         [session.hostingView removeFromSuperview];
     }
     [self.videoSessions removeAllObjects];
+    
+    if ([self.delegate respondsToSelector:@selector(liveVCNeedClose:)]) {
+        [self.delegate liveVCNeedClose:self];
+    }
 }
 
 - (void)mouseUp:(NSEvent *)event {

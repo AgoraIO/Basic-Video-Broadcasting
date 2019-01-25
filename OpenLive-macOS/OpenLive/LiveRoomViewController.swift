@@ -27,7 +27,7 @@ class LiveRoomViewController: NSViewController {
             updateButtonsVisiablity()
         }
     }
-    var videoProfile: AgoraVideoProfile!
+    var videoProfile: CGSize!
     var delegate: LiveRoomVCDelegate?
     
     //MARK: engine & session
@@ -197,9 +197,17 @@ private extension LiveRoomViewController {
     func loadAgoraKit() {
         rtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         rtcEngine.setChannelProfile(.liveBroadcasting)
-        rtcEngine.enableVideo()
+        
+        // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
         rtcEngine.enableDualStreamMode(true)
-        rtcEngine.setVideoProfile(videoProfile, swapWidthAndHeight: true)
+        
+        rtcEngine.enableVideo()
+        rtcEngine.setVideoEncoderConfiguration(
+            AgoraVideoEncoderConfiguration(size: videoProfile,
+                                      frameRate: .fps24,
+                                      bitrate: AgoraVideoBitrateStandard,
+                                      orientationMode: .adaptative)
+        )
         rtcEngine.setClientRole(clientRole)
         
         if isBroadcaster {
@@ -250,7 +258,7 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
 
 //MARK: - window
 extension LiveRoomViewController: NSWindowDelegate {
-    func windowShouldClose(_ sender: Any) -> Bool {
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
         leaveChannel()
         return false
     }

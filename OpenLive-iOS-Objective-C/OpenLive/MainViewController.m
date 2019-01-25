@@ -14,14 +14,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *roomNameTextField;
 @property (weak, nonatomic) IBOutlet UIView *popoverSourceView;
 
-@property (assign, nonatomic) AgoraVideoProfile videoProfile;
+@property (assign, nonatomic) CGSize videoProfile;
 @end
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.videoProfile = AgoraVideoProfileLandscape480P;
+    self.videoProfile = AgoraVideoDimension640x480;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -61,7 +61,7 @@
     [self performSegueWithIdentifier:@"mainToLive" sender:@(role)];
 }
 
-- (void)settingsVC:(SettingsViewController *)settingsVC didSelectProfile:(AgoraVideoProfile)profile {
+- (void)settingsVC:(SettingsViewController *)settingsVC didSelectProfile:(CGSize)profile {
     self.videoProfile = profile;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

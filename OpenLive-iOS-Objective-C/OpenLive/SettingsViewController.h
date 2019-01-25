@@ -11,10 +11,10 @@
 
 @class SettingsViewController;
 @protocol SettingsVCDelegate <NSObject>
-- (void)settingsVC:(SettingsViewController *)settingsVC didSelectProfile:(AgoraVideoProfile)profile;
+- (void)settingsVC:(SettingsViewController *)settingsVC didSelectProfile:(CGSize)profile;
 @end
 
 @interface SettingsViewController : UIViewController
-@property (assign, nonatomic) AgoraVideoProfile videoProfile;
+@property (assign, nonatomic) CGSize videoProfile;
 @property (weak, nonatomic) id<SettingsVCDelegate> delegate;
 @end

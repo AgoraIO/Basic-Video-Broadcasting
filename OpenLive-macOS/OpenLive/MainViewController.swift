@@ -12,7 +12,7 @@ class MainViewController: NSViewController {
     
     @IBOutlet weak var roomInputTextField: NSTextField!
     
-    var videoProfile = AgoraVideoProfile.landscape360P
+    var videoProfile = AgoraVideoDimension640x480
     fileprivate var agoraKit: AgoraRtcEngineKit!
     
     override func viewDidAppear() {
@@ -67,8 +67,9 @@ private extension MainViewController {
 }
 
 extension MainViewController: SettingsVCDelegate {
-    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile profile: AgoraVideoProfile) {
+    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile profile: CGSize) {
         videoProfile = profile
+        settingsVC.delegate = nil
         settingsVC.view.window?.contentViewController = self
     }
 }
@@ -81,5 +82,7 @@ extension MainViewController: LiveRoomVCDelegate {
         
         window.delegate = nil
         window.contentViewController = self
+        
+        liveVC.delegate = nil
     }
 }

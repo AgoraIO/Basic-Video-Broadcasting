@@ -10,5 +10,5 @@
 #import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
 
 @interface ProfileCell : UITableViewCell
-- (void)updateWithProfile:(AgoraVideoProfile)profile isSelected:(BOOL)isSelected;
+- (void)updateWithProfile:(CGSize)profile isSelected:(BOOL)isSelected;
 @end

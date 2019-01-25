@@ -223,9 +223,16 @@
 - (void)loadAgoraKit {
     self.rtcEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
     [self.rtcEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
+    
+    // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
     [self.rtcEngine enableDualStreamMode:YES];
+    
     [self.rtcEngine enableVideo];
-    [self.rtcEngine setVideoProfile:self.videoProfile swapWidthAndHeight:YES];
+    AgoraVideoEncoderConfiguration *configuration = [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
+                                                                                               frameRate:AgoraVideoFrameRateFps24
+                                                                                                 bitrate:AgoraVideoBitrateStandard
+                                                                                         orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    [self.rtcEngine setVideoEncoderConfiguration:configuration];
     [self.rtcEngine setClientRole:self.clientRole];
     
     if (self.isBroadcaster) {
