@@ -22,7 +22,7 @@ public class ConstantApp {
             VideoEncoderConfiguration.VD_1280x720
     };
 
-    public static final int DEFAULT_PROFILE_IDX = 2; // default use 240P
+    public static final int DEFAULT_PROFILE_IDX = 4; // default use 480P
 
     public static class PrefManager {
         public static final String PREF_PROPERTY_PROFILE_IDX = "pref_profile_index";
