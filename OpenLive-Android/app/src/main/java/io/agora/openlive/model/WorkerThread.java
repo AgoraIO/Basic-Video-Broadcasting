@@ -175,9 +175,9 @@ public class WorkerThread extends Thread {
 
 //      mRtcEngine.setVideoProfile(mEngineConfig.mVideoProfile, true); // Earlier than 2.3.0
         mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(videoDimension,
-                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
+                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
                 VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
+                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE));
 
         mRtcEngine.setClientRole(cRole);
 
@@ -225,6 +225,8 @@ public class WorkerThread extends Thread {
             mRtcEngine.enableVideo();
             mRtcEngine.setLogFile(Environment.getExternalStorageDirectory()
                     + File.separator + mContext.getPackageName() + "/log/agora-rtc.log");
+
+            // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
             mRtcEngine.enableDualStreamMode(true);
         }
         return mRtcEngine;
