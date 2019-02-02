@@ -45,6 +45,11 @@ public class MyEngineEventHandler {
         }
 
         @Override
+        public void onFirstRemoteVideoFrame(int uid, int width, int height, int elapsed) {
+            log.debug("onFirstRemoteVideoFrame " + (uid & 0xFFFFFFFFL) + " " + width + " " + height + " " + elapsed);
+        }
+
+        @Override
         public void onFirstLocalVideoFrame(int width, int height, int elapsed) {
             log.debug("onFirstLocalVideoFrame " + width + " " + height + " " + elapsed);
         }
@@ -81,7 +86,7 @@ public class MyEngineEventHandler {
 
         @Override
         public void onLeaveChannel(RtcStats stats) {
-
+            log.debug("onLeaveChannel " + stats);
         }
 
         @Override

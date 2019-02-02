@@ -28,7 +28,7 @@
 在项目对应的模块的 "app/build.gradle" 文件的依赖属性中加入通过 JCenter 自动集成 Agora 视频 SDK 的地址：
 
 ```
-compile 'io.agora.rtc:full-sdk:2.3.2'
+implementation 'io.agora.rtc:full-sdk:2.3.3'
 ```
 
 (如果要在自己的应用中集成 Agora 视频 SDK，添加链接地址是最重要的一步。）
@@ -40,7 +40,7 @@ compile 'io.agora.rtc:full-sdk:2.3.2'
 第二步: 在本项目的 "app/build.gradle" 文件依赖属性中添加如下依赖关系：
 
 ```
-compile fileTree(dir: 'libs', include: ['*.jar'])
+implementation fileTree(dir: 'libs', include: ['*.jar'])
 ```
 
 **最后**用 Android Studio 打开该项目，连上设备，编译并运行。
@@ -48,7 +48,7 @@ compile fileTree(dir: 'libs', include: ['*.jar'])
 也可以使用 `Gradle` 直接编译运行。
 
 ## 运行环境
-- Android Studio 3.0 +
+- Android Studio 3.3 +
 - 真实 Android 设备 (Nexus 5X 或者其它设备)
 - 部分模拟器会存在功能缺失或者性能问题，所以推荐使用真机
 
