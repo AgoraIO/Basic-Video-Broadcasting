@@ -1,26 +1,36 @@
 package io.agora.openlive.ui;
 
-import android.test.ActivityInstrumentationTestCase2;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.robotium.solo.Solo;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import io.agora.openlive.R;
 
-public class BasicTests extends ActivityInstrumentationTestCase2<MainActivity> {
+@RunWith(AndroidJUnit4.class)
+public class BasicTests {
 
     private Solo solo;
 
-    public BasicTests() {
-        super(MainActivity.class);
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+
+
+    @Before
+    public void setUp() {
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), mActivityRule.getActivity());
     }
 
-    @Override
-    public void setUp() throws Exception {
-        solo = new Solo(getInstrumentation(), getActivity());
-    }
-
-    @Override
-    public void tearDown() throws Exception {
+    @After
+    public void tearDown() {
         solo.finishOpenedActivities();
     }
 
@@ -28,7 +38,8 @@ public class BasicTests extends ActivityInstrumentationTestCase2<MainActivity> {
         return solo.getString(resId);
     }
 
-    public void testJoinAsBroadcaster() throws Exception {
+    @Test
+    public void testJoinAsBroadcaster() {
         String AUTO_TEST_CHANNEL_NAME = "auto_test_" + System.currentTimeMillis();
 
         solo.unlockScreen();
@@ -57,7 +68,8 @@ public class BasicTests extends ActivityInstrumentationTestCase2<MainActivity> {
     private static final int FIRST_LOCAL_VIDEO_SHOWN_THRESHOLD = 1500;
     private static final int JOIN_CHANNEL_SUCCESS_THRESHOLD = 5000;
 
-    public void testJoinAsAudience() throws Exception {
+    @Test
+    public void testJoinAsAudience() {
         String AUTO_TEST_CHANNEL_NAME = "for_auto_test";
 
         solo.unlockScreen();
@@ -82,6 +94,6 @@ public class BasicTests extends ActivityInstrumentationTestCase2<MainActivity> {
 
         solo.assertCurrentActivity("Expected " + targetActivity + " activity", targetActivity);
 
-        assertTrue("first remote video frame not received", System.currentTimeMillis() - firstRemoteVideoTs <= FIRST_REMOTE_VIDEO_RECEIVED_THRESHOLD);
+        Assert.assertTrue("first remote video frame not received", System.currentTimeMillis() - firstRemoteVideoTs <= FIRST_REMOTE_VIDEO_RECEIVED_THRESHOLD);
     }
 }

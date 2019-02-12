@@ -10,6 +10,8 @@ android {
         versionCode 9
         versionName "x.y.z"
 
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
         ndk {
             abiFilters "armeabi-v7a", "x86" // DO NOT MODIFY THIS LINE, IT'S UPDATED BY BUILD MACHINE AUTOMATICALLY.
         }
@@ -41,5 +43,6 @@ dependencies {
         exclude group: 'com.google.android', module: 'android'
     }
 
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
 }
