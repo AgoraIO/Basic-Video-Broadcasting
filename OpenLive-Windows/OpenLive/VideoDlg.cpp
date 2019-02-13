@@ -48,7 +48,7 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 
 	ON_MESSAGE(WM_SHOWMODECHANGED, &CVideoDlg::OnShowModeChanged)
 	ON_MESSAGE(WM_SHOWBIG, &CVideoDlg::OnShowBig)
-
+	ON_MESSAGE(WM_WINDOWSHARE, &CVideoDlg::OnWindowShareStart)
 	ON_MESSAGE(WM_MSGID(EID_JOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDJoinChannelSuccess)
 	ON_MESSAGE(WM_MSGID(EID_REJOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDReJoinChannelSuccess)
 	ON_MESSAGE(WM_MSGID(EID_FIRST_LOCAL_VIDEO_FRAME), &CVideoDlg::OnEIDFirstLocalFrame)
@@ -1188,4 +1188,18 @@ void CVideoDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 		else
 			m_cbxRole.SetCurSel(1);
 	}
+}
+
+LRESULT CVideoDlg::OnWindowShareStart(WPARAM wParam, LPARAM lParam)
+{
+	HWND hShareWnd = (HWND)wParam;
+	if (hShareWnd == GetSafeHwnd()) {
+	//	CAgoraObject::GetAgoraObject()->EnableLocalRender(FALSE);
+	//	m_wndLocal.Invalidate(TRUE);
+	}
+
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture((HWND)wParam, 15, NULL, TRUE);
+	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
+
+	return 0;
 }

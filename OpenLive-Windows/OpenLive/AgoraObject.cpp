@@ -318,7 +318,7 @@ BOOL CAgoraObject::IsVideoEnabled()
 {
 	return m_bVideoEnable;
 }
-
+/*
 BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
@@ -338,6 +338,64 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 			rcCap.bottom = lpCapRect->bottom;
 
 			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate);
+		}
+	}
+	else
+		ret = m_lpAgoraEngine->stopScreenCapture();
+
+	if (ret == 0)
+		m_bScreenCapture = bEnable;
+
+	return ret == 0 ? TRUE : FALSE;
+}*/
+
+
+BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
+{
+	ASSERT(m_lpAgoraEngine != NULL);
+
+	int ret = 0;
+	RtcEngineParameters rep(*m_lpAgoraEngine);
+
+	agora::rtc::Rectangle rcCap;
+	ScreenCaptureParameters capParam;
+	capParam.bitrate = nBitrate;
+	capParam.frameRate = nCapFPS;
+
+	if (bEnable) {
+		if (lpCapRect == NULL){
+			RECT rc;
+			if (hWnd){
+				::GetWindowRect(hWnd, &rc);
+				capParam.dimensions.width = rc.right - rc.left;
+				capParam.dimensions.height = rc.bottom - rc.top;
+				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
+			}
+			else{
+				GetWindowRect(GetDesktopWindow(), &rc);
+				agora::rtc::Rectangle screenRegion = { rc.left, rc.right, rc.right - rc.left, rc.bottom - rc.top };
+				capParam.dimensions.width = rc.right - rc.left;
+				capParam.dimensions.height = rc.bottom - rc.top;
+				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
+			}
+			//startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
+		}
+		else {
+			capParam.dimensions.width = lpCapRect->right - lpCapRect->left;
+			capParam.dimensions.height = lpCapRect->bottom - lpCapRect->top;
+
+			rcCap.x = lpCapRect->left;
+			rcCap.y = lpCapRect->top;
+			rcCap.width = lpCapRect->right - lpCapRect->left;
+			rcCap.height = lpCapRect->bottom - lpCapRect->top;
+
+			if (hWnd)
+				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
+			else{
+
+				agora::rtc::Rectangle screenRegion = rcCap;
+				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
+			}
 		}
 	}
 	else
