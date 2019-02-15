@@ -12,7 +12,7 @@
 - 切换前置摄像头和后置摄像头；
 - 选择分辨率、码率和帧率；
 
-本开源项目使用 **Swift** 语言，你可以在这里找到使用 **Objective-C** 的项目：[OpenLive-iOS-Objective-C](https://github.com/AgoraIO/OpenLive-iOS-Objective-C)
+本开源项目使用 **Swift** 语言，你可以在这里找到使用 **Objective-C** 的项目：[OpenLive-iOS-Objective-C](https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-iOS-Objective-C)
 
 你也可以在这里查看入门版的示例项目：[Agora-iOS-Tutorial-Swift-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-iOS-Tutorial-Swift-1to1)
 
