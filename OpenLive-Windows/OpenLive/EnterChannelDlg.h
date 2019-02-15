@@ -17,7 +17,7 @@ public:
 	virtual ~CEnterChannelDlg();
 
 	CString GetChannelName();
-
+	void SetCtrlPos();
 	void SetVideoString(LPCTSTR lpVideoString);
 // 对话框数据
 	enum { IDD = IDD_ENTERCHANNEL_DIALOG };

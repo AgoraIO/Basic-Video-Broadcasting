@@ -3,10 +3,11 @@
 #include "AGComboBox.h"
 #include "AGSliderCtrl.h"
 #include "afxwin.h"
-
+#include <unordered_map>
 #include "AGConfig.h"
 // CSetupDlg ¶Ô»°¿ò
-
+#define RESOLUTION_COUNT 19
+#define FPS_COUNT 7
 class CSetupDlg : public CDialogEx
 {
 
@@ -18,6 +19,9 @@ public:
 
     void SetVideoSolution(int nIndex);
     int GetVideoSolution();
+	SIZE GetVideoResolution();
+	int GetFPS();
+	int GetBirate();
     CString GetVideoSolutionDes();
 
 	void SetWHSwap(BOOL bSwap);
@@ -48,6 +52,7 @@ protected:
 protected:
 	void InitCtrls();
 	void InitData();
+	void InitData2();
 	void DrawClient(CDC *lpDC);
 
 private:
@@ -61,6 +66,8 @@ private:
 	CButton			m_ckFullBitrate;
 
 	CAGComboBox		m_cbxVideoProfile;
+	CAGComboBox     m_cbxFPS;
+	CAGComboBox     m_cbxBitrate;
 
 	CFont			m_ftHead;		// title
 	CFont			m_ftDes;		// text in ctrl
@@ -69,6 +76,13 @@ private:
 
     int                 m_nProfileValue[64];
 	LPTSTR			    m_szProfileDes[64];
+	LPTSTR              m_szFPS[7];//1 7 10 15 24 30 60
+	int                 m_nFPS[7];
+
+	LPTSTR              m_szBitrate[3];
+	int                 m_nBitrate[3];
+
+	std::unordered_map<int, SIZE> m_mapResolition;
 	AGNET_RATE_RANGE	m_agRateRange[13];
 	
 private:

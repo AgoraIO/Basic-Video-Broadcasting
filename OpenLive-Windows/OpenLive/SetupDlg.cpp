@@ -60,10 +60,15 @@ BOOL CSetupDlg::OnInitDialog()
 	m_ftBtn.CreateFont(16, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 
 	m_penFrame.CreatePen(PS_SOLID, 1, RGB(0xD8, 0xD8, 0xD8));
-	m_cbxVideoProfile.Create(WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST, CRect(0, 0, 300, 40), this, IDC_CMBVDOPRF_SETUP);
+	m_cbxVideoProfile.Create(WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST |CBS_NOINTEGRALHEIGHT, CRect(0, 0, 120, 40), this, IDC_CMBVDOPRF_SETUP);
+	m_cbxFPS .Create(WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST, CRect(0, 0, 120, 40), this, IDC_CMBFPS_SETUP);
+	m_cbxBitrate.Create(WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST, CRect(0, 0, 120, 40), this, IDC_CMBBITRATE_SETUP);
+
 	SetBackgroundColor(RGB(0xFF, 0xFF, 0xFF), TRUE);
-    InitData();
-    InitCtrls();
+   // InitData();
+    
+	InitData2();
+	InitCtrls();
 
 	if (m_agConfig.IsAutoSaveEnabled())
 		m_ckSaveSettings.SetCheck(TRUE);
@@ -85,11 +90,23 @@ void CSetupDlg::InitCtrls()
 	int nResolutionIndex = 0;
 	CString str;
 	
-	m_cbxVideoProfile.MoveWindow(210, 80, 200, 22, TRUE);
+	m_cbxVideoProfile.MoveWindow(90, 80, 140, 22, TRUE);//210,80,200,22
 	m_cbxVideoProfile.SetFont(&m_ftDes);
 	m_cbxVideoProfile.SetButtonImage(IDB_CMBBTN, 12, 12, RGB(0xFF, 0x00, 0xFF));
 	m_cbxVideoProfile.SetFaceColor(RGB(0xFF, 0xFF, 0xFF), RGB(0xFF, 0xFF, 0xFF));
-	m_cbxVideoProfile.SetListMaxHeight(600);
+	m_cbxVideoProfile.SetListMaxHeight(450);
+
+	::SendMessage(m_cbxVideoProfile.GetSafeHwnd(), CB_SETDROPPEDWIDTH, 140, 0);
+
+	m_cbxFPS.MoveWindow(225, 80, 100, 22, TRUE);
+	m_cbxFPS.SetFont(&m_ftDes);
+	m_cbxFPS.SetButtonImage(IDB_CMBBTN, 12, 12, RGB(0xFF, 0x00, 0xFF));
+	m_cbxFPS.SetFaceColor(RGB(0xFF, 0xFF, 0xFF), RGB(0xFF, 0xFF, 0xFF));
+
+	m_cbxBitrate.MoveWindow(330, 80, 130, 22, TRUE);
+	m_cbxBitrate.SetFont(&m_ftDes);
+	m_cbxBitrate.SetButtonImage(IDB_CMBBTN, 12, 12, RGB(0xFF, 0x00, 0xFF));
+	m_cbxBitrate.SetFaceColor(RGB(0xFF, 0xFF, 0xFF), RGB(0xFF, 0xFF, 0xFF));
 
 	m_ckSwapWH.MoveWindow(80, 120, 20, 20, TRUE);
 	m_ckSaveSettings.MoveWindow(80, ClientRect.Height() - 95, 20, 20, TRUE);
@@ -102,9 +119,19 @@ void CSetupDlg::InitCtrls()
 
 	m_btnConfirm.MoveWindow(ClientRect.Width() / 2 + 93, ClientRect.Height() - 58, 174, 36, TRUE);
 
-	for (int nIndex = 0; nIndex < 31; nIndex++) {
+	for (int nIndex = 0; nIndex < RESOLUTION_COUNT; nIndex++) {
 		m_cbxVideoProfile.InsertString(nIndex, m_szProfileDes[nIndex]);
-		m_cbxVideoProfile.SetItemData(nIndex, (DWORD_PTR)m_nProfileValue[nIndex]);
+		m_cbxVideoProfile.SetItemData(nIndex, (DWORD_PTR)&m_mapResolition[nIndex]);
+	}
+
+	for (int i = 0; i < FPS_COUNT; ++i){
+		m_cbxFPS.InsertString(i, m_szFPS[i]);
+		m_cbxFPS.SetItemData(i, (DWORD_PTR)m_nFPS[i]);
+	}
+
+	for (int i = 0; i < 3; ++i){
+		m_cbxBitrate.InsertString(i, m_szBitrate[i]);
+		m_cbxBitrate.SetItemData(i, (DWORD_PTR)m_nBitrate[i]);
 	}
 
 	m_btnCancel.SetBorderColor(RGB(0xD8, 0xD8, 0xD8), RGB(0x00, 0xA0, 0xE9), RGB(0x00, 0xA0, 0xE9), RGB(0xCC, 0xCC, 0xCC));
@@ -119,9 +146,140 @@ void CSetupDlg::InitCtrls()
     if (m_agConfig.IsAutoSaveEnabled())
         nResolutionIndex = m_agConfig.GetSolution();
     else
-        nResolutionIndex = 15;
+        nResolutionIndex = 11;//640*480
     
     m_cbxVideoProfile.SetCurSel(nResolutionIndex);
+	m_cbxFPS.SetCurSel(4);//24fps
+	m_cbxBitrate.SetCurSel(0);//standard bitrate
+}
+#include <utility>
+void CSetupDlg::InitData2()
+{
+	int i = 0;
+	m_szProfileDes[i] = _T("160x120");//0
+	SIZE sz = { 160, 120 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("120x120");
+	sz = { 120, 120 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("320x180");//2
+	sz = { 320, 180 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("180x180");
+	sz = { 180, 180 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("240x180");
+	sz = { 240, 180 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+	
+	i++;
+	m_szProfileDes[i] = _T("320x240");//5
+	sz = { 320, 240 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("240x240");
+	sz = { 240, 240 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+	
+	i++;
+	m_szProfileDes[i] = _T("424x240");
+	sz = { 424, 240 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+	
+	i++;
+	m_szProfileDes[i] = _T("640x360");//8
+	sz = { 640, 360 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("360x360");
+	sz = { 360, 360 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("480x360");
+	sz = { 480, 360 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("640x480");//11
+	sz = { 640, 480 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("480x480");
+	sz = { 480, 480 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("848x480");
+	sz = { 848, 480 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("1280x720");//14
+	sz = { 1280, 720 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("960x720");
+	sz = { 960, 720 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("1920x1080");//16
+	sz = { 1920, 1080 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	i++;
+	m_szProfileDes[i] = _T("2560x1440");
+	sz = { 2560, 1440 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+	
+	i++;
+	m_szProfileDes[i] = _T("3840x2160");//18
+	sz = { 3840, 2160 };
+	m_mapResolition.insert(std::make_pair(i, sz));
+
+	//fps
+	i = 0;
+	m_szFPS[i] = _T("1fps");
+	m_nFPS[i++] = 1;
+
+	m_szFPS[i] = _T("7fps");
+	m_nFPS[i++] = 7;
+
+	m_szFPS[i] = _T("10fps");
+	m_nFPS[i++] = 10;
+
+	m_szFPS[i] = _T("15fps");
+	m_nFPS[i++] = 15;
+
+	m_szFPS[i] = _T("24fps");
+	m_nFPS[i++] = 24;
+
+	m_szFPS[i] = _T("30fps");
+	m_nFPS[i++] = 30;
+
+	m_szFPS[i] = _T("60fps");
+	m_nFPS[i++] = 60;
+
+	//
+	m_szBitrate[0] = _T("Standard");
+	m_nBitrate[0] = 0;
+	m_szBitrate[1] = _T("Compatible");
+	m_nBitrate[1] = -1;
+	m_szBitrate[2] = _T("Default");
+	m_nBitrate[2] = 1;
 }
 
 void CSetupDlg::InitData()
@@ -190,7 +348,7 @@ void CSetupDlg::InitData()
 	m_nProfileValue[27] = 64;
 	m_szProfileDes[28] = _T("2560x1440 30fps"); //4850kbps
 	m_nProfileValue[28] = 66;
-	m_szProfileDes[29] = _T("3560x1440 60fps"); //7350kbps
+	m_szProfileDes[29] = _T("2560x1440 60fps"); //7350kbps
 	m_nProfileValue[29] = 67;
 
 	m_szProfileDes[30] = _T("3840x2160 30fps"); //8190kbps
@@ -209,8 +367,8 @@ void CSetupDlg::DrawClient(CDC *lpDC)
 
 	CFont *lpDefFont = lpDC->SelectObject(&m_ftHead);
 	CPen  *lpDefPen = lpDC->SelectObject(&m_penFrame);
-
-	rcText.SetRect(rcClient.Width() / 2 - 188, 75, rcClient.Width() / 2 + 172, 107);
+	//
+	rcText.SetRect(rcClient.Width() / 2 - 238/*188*/, 75, rcClient.Width() / 2 + /*172*/242, 107);
 	lpDC->RoundRect(&rcText, CPoint(32, 32));
 
 	lpDC->SetBkColor(RGB(0xFF, 0xFF, 0xFF));
@@ -218,7 +376,7 @@ void CSetupDlg::DrawClient(CDC *lpDC)
 
 	lpDC->SetTextColor(RGB(0x44, 0x45, 0x46));
 	lpString = LANG_STR("IDS_SET_RESOLUTION");
-	lpDC->TextOut(80, 83, lpString, _tcslen(lpString));
+	lpDC->TextOut(30/*80*/, 83, lpString, _tcslen(lpString));
 	
 	lpString = LANG_STR("IDS_SET_SWAPWH");
 	lpDC->TextOut(100, 120, lpString, _tcslen(lpString));
@@ -275,13 +433,29 @@ void CSetupDlg::SetVideoSolution(int nIndex)
 	m_cbxVideoProfile.SetCurSel(nIndex);
 }
 
+SIZE CSetupDlg::GetVideoResolution()
+{
+	return m_mapResolition[m_cbxVideoProfile.GetCurSel()];
+}
+
+int CSetupDlg::GetFPS()
+{
+	return m_nFPS[m_cbxFPS.GetCurSel()];
+}
+
+int CSetupDlg::GetBirate()
+{
+	return m_nBitrate[m_cbxBitrate.GetCurSel()];
+}
+
 CString CSetupDlg::GetVideoSolutionDes()
 {
     int nIndex = m_cbxVideoProfile.GetCurSel();
     if (nIndex == -1)
         nIndex = 0;
-
-    return (CString)m_szProfileDes[nIndex];
+	CString strDes;
+	strDes.Format(_T("%s %s %s Bitrate"), m_szProfileDes[nIndex], m_szFPS[m_cbxFPS.GetCurSel()], m_szBitrate[m_cbxBitrate.GetCurSel()]);
+	return (CString)strDes;
 }
 
 void CSetupDlg::SetWHSwap(BOOL bSwap)
