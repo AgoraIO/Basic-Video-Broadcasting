@@ -1,6 +1,6 @@
 # Open Live iOS for Swift
 
-*Read this in other languages: [Chinese](README.zh.md)*
+*Read this in other languages: [中文](README.zh.md)*
 
 This tutorial describes how to add live video chat to your iOS applications using Swift and the Agora Video SDK.
 
