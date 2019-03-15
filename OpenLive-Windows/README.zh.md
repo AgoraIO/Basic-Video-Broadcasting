@@ -1,4 +1,4 @@
-# Open Live Windows
+﻿# Open Live Windows
 
 *Read this in other languages: [English](README.md)*
 
@@ -35,7 +35,9 @@
 最后使用 VC++2013 打开 OpenLive.sln，编译整个解决方案即可运行
 
 Note:
-  本开源项目在 debug 模式下运行可能会出现崩溃，请在 release 模式下运行。
+  1. 程序编译后，在运行程序时如若出现：无法启动程序"C:\Users\Public\Documents\test\Basic-Video-Broadcasting-master\OpenLive-Windows\Debug\Language\English.dll"
+      的错误提示，请在解决方案资源管理器中选中OpenLive 项目，并右击，在弹出的菜单栏中选择 "设为启动项目"，即可解决。之后重新运行程序即可。
+  2. 本开源项目在 debug 模式下运行可能会出现崩溃，请在 release 模式下运行。
 
 ## 运行环境
 * VC++ 2013(或更高版本)
