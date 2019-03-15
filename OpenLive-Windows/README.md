@@ -1,4 +1,4 @@
-# Open Live Windows
+﻿# Open Live Windows
 
 *其他语言版本： [简体中文](README.zh.md)*
 
@@ -32,7 +32,9 @@ Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/
 Finally, Open OpenLive.sln with your VC++ 2013(or higher) and build all solution and run.
 
 Note：
-  You may encounter crash when running this demo under debug mode. Please run this demo under release mode.
+  1. After the program is compiled, if the program "xxx\xxx\xxx\Debug\Language\English.dll" cannot be started when running the program, 
+      please select the OpenLive project in the Solution Explorer and right click. In the pop-up menu bar, select "Set as startup project" to solve. Then run the program again.
+  2. You may encounter crash when running this demo under debug mode. Please run this demo under release mode.
   
 ## Developer Environment Requirements
 * VC++ 2013(or higher)
