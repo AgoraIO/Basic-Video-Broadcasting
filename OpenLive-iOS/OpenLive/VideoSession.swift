@@ -10,18 +10,18 @@ import UIKit
 import AgoraRtcEngineKit
 
 class VideoSession: NSObject {
-    var uid: Int64 = 0
+    var uid: UInt = 0
     var hostingView: UIView!
     var canvas: AgoraRtcVideoCanvas!
     
-    init(uid: Int64) {
+    init(uid: UInt) {
         self.uid = uid
         
         hostingView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         hostingView.translatesAutoresizingMaskIntoConstraints = false
         
         canvas = AgoraRtcVideoCanvas()
-        canvas.uid = UInt(uid)
+        canvas.uid = uid
         canvas.view = hostingView
         canvas.renderMode = .hidden
     }

@@ -29,6 +29,8 @@
 		0790F1691D1EEAB2003F8C18 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1681D1EEAB2003F8C18 /* ProfileCell.swift */; };
 		07D29C381E9E152200C3583C /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C371E9E152200C3583C /* AgoraRtcEngineKit.framework */; };
 		382885B32249DBB10023BCFA /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B22249DBB10023BCFA /* CoreML.framework */; };
+		382885C42249E5AB0023BCFA /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 382885C22249E5AB0023BCFA /* srmetal.metallib */; };
+		382885C52249E5AB0023BCFA /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382885C32249E5AB0023BCFA /* model.bundle */; };
 		F25F5A728839E012C51CC7E1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54B70FC0F83493878247735 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,8 @@
 		0790F1681D1EEAB2003F8C18 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		07D29C371E9E152200C3583C /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		382885C22249E5AB0023BCFA /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; path = srmetal.metallib; sourceTree = "<group>"; };
+		382885C32249E5AB0023BCFA /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = model.bundle; sourceTree = "<group>"; };
 		F54B70FC0F83493878247735 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +126,7 @@
 				0790F1521D1E9781003F8C18 /* VideoViewLayouter.swift */,
 				0790F1681D1EEAB2003F8C18 /* ProfileCell.swift */,
 				07D29C371E9E152200C3583C /* AgoraRtcEngineKit.framework */,
+				382885C12249E5AB0023BCFA /* Resources */,
 				0790F1191D1E633C003F8C18 /* Frameworks */,
 				078012EC1D1E57730093DE24 /* AppDelegate.swift */,
 				078012F31D1E57730093DE24 /* Assets.xcassets */,
@@ -144,6 +149,16 @@
 				0790F1131D1E6325003F8C18 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		382885C12249E5AB0023BCFA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				382885C22249E5AB0023BCFA /* srmetal.metallib */,
+				382885C32249E5AB0023BCFA /* model.bundle */,
+			);
+			name = Resources;
+			path = AgoraRtcEngineKit.framework/Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +227,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				382885C52249E5AB0023BCFA /* model.bundle in Resources */,
+				382885C42249E5AB0023BCFA /* srmetal.metallib in Resources */,
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
 				078012F41D1E57730093DE24 /* Assets.xcassets in Resources */,
 				078012F21D1E57730093DE24 /* Main.storyboard in Resources */,
@@ -386,7 +403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a1037fd5-29b7-4531-a19c-8f37f2f15489";
-				PROVISIONING_PROFILE_SPECIFIER = "AgoraIODev2016+";
+				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;

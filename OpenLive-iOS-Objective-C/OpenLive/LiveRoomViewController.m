@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *broadcastButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *sessionButtons;
 @property (weak, nonatomic) IBOutlet UIButton *audioMuteButton;
-@property (weak, nonatomic) IBOutlet UIButton *enhancerButton;
+@property (weak, nonatomic) IBOutlet UIButton *superResolutionButton;
 
 @property (strong, nonatomic) AgoraRtcEngineKit *rtcEngine;
 @property (assign, nonatomic) BOOL isBroadcaster;
@@ -26,6 +26,8 @@
 @property (strong, nonatomic) NSMutableArray<VideoSession *> *videoSessions;
 @property (strong, nonatomic) VideoSession *fullSession;
 @property (strong, nonatomic) VideoViewLayouter *viewLayouter;
+@property (assign, nonatomic) BOOL isEnableSuperResolution;
+@property (assign, nonatomic) NSUInteger superResolutionRemoteUid;
 @end
 
 @implementation LiveRoomViewController
@@ -69,9 +71,25 @@
     }
 }
 
+- (void)setIsEnableSuperResolution:(BOOL)isEnableSuperResolution {
+    _isEnableSuperResolution = isEnableSuperResolution;
+    [self.superResolutionButton setImage:[UIImage imageNamed:_isEnableSuperResolution ? @"btn_sr_blue" : @"btn_sr"] forState:UIControlStateNormal];
+}
+
+- (void)setSuperResolutionRemoteUid:(NSUInteger)superResolutionRemoteUid {
+    _superResolutionRemoteUid = superResolutionRemoteUid;
+    for (VideoSession *session in self.videoSessions) {
+        [self.rtcEngine enableRemoteSuperResolution:session.uid enabled:NO];
+    }
+    if (superResolutionRemoteUid != 0) {
+        [self.rtcEngine enableRemoteSuperResolution:superResolutionRemoteUid enabled:YES];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.videoSessions = [[NSMutableArray alloc] init];
+    self.isEnableSuperResolution = YES;
     
     self.roomNameLabel.text = self.roomName;
     [self updateButtonsVisiablity];
@@ -99,6 +117,11 @@
     
     [self.rtcEngine setClientRole:self.clientRole];
     [self updateInterfaceWithAnimation:YES];
+}
+
+- (IBAction)doSuperResolutionPressed:(UIButton *)sender {
+    self.isEnableSuperResolution = !self.isEnableSuperResolution;
+    self.superResolutionRemoteUid = [self superResolutionRemoteUidInSessions:self.videoSessions fullSession:self.fullSession];
 }
 
 - (IBAction)doDoubleTapped:(UITapGestureRecognizer *)sender {
@@ -177,12 +200,17 @@
     
     [self.viewLayouter layoutSessions:displaySessions fullSession:self.fullSession inContainer:self.remoteContainerView];
     [self setStreamTypeForSessions:displaySessions fullSession:self.fullSession];
+    self.superResolutionRemoteUid = [self superResolutionRemoteUidInSessions:displaySessions fullSession:self.fullSession];
 }
 
 - (void)setStreamTypeForSessions:(NSArray<VideoSession *> *)sessions fullSession:(VideoSession *)fullSession {
     if (fullSession) {
         for (VideoSession *session in sessions) {
-            [self.rtcEngine setRemoteVideoStream:session.uid type:(session == self.fullSession ? AgoraVideoStreamTypeHigh : AgoraVideoStreamTypeLow)];
+            if (session == self.fullSession) {
+                [self.rtcEngine setRemoteVideoStream:fullSession.uid type:AgoraVideoStreamTypeHigh];
+            } else {
+                [self.rtcEngine setRemoteVideoStream:session.uid type:AgoraVideoStreamTypeLow];
+            }
         }
     } else {
         for (VideoSession *session in sessions) {
@@ -216,6 +244,18 @@
         [self.videoSessions addObject:newSession];
         [self updateInterfaceWithAnimation:YES];
         return newSession;
+    }
+}
+
+- (NSUInteger)superResolutionRemoteUidInSessions:(NSArray<VideoSession *> *)sessions fullSession:(VideoSession *)fullSession {
+    if (!self.isEnableSuperResolution) {
+        return 0;
+    }
+    
+    if (fullSession) {
+        return fullSession.uid;
+    } else {
+        return sessions.lastObject.uid;
     }
 }
 

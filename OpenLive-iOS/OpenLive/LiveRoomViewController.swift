@@ -20,6 +20,7 @@ class LiveRoomViewController: UIViewController {
     @IBOutlet weak var broadcastButton: UIButton!
     @IBOutlet var sessionButtons: [UIButton]!
     @IBOutlet weak var audioMuteButton: UIButton!
+    @IBOutlet weak var superResolutionButton: UIButton!
     
     var roomName: String!
     var clientRole = AgoraClientRole.audience {
@@ -38,7 +39,7 @@ class LiveRoomViewController: UIViewController {
     fileprivate var isMuted = false {
         didSet {
             rtcEngine?.muteLocalAudioStream(isMuted)
-            audioMuteButton?.setImage(UIImage(named: isMuted ? "btn_mute_cancel" : "btn_mute"), for: .normal)
+            audioMuteButton?.setImage(isMuted ? #imageLiteral(resourceName: "btn_mute_cancel.pdf") : #imageLiteral(resourceName: "btn_mute.pdf"), for: .normal)
         }
     }
     
@@ -59,6 +60,22 @@ class LiveRoomViewController: UIViewController {
     }
     
     fileprivate let viewLayouter = VideoViewLayouter()
+    
+    var isEnableSuperResolution = true {
+        didSet {
+            superResolutionButton?.setImage(isEnableSuperResolution ? #imageLiteral(resourceName: "btn_sr_blue.pdf") : #imageLiteral(resourceName: "btn_sr.pdf"), for: .normal)
+        }
+    }
+    var superResolutionRemoteUid: UInt? {
+        didSet {
+            for session in videoSessions {
+                rtcEngine?.enableRemoteSuperResolution(session.uid, enabled: false)
+            }
+            if let superResolutionRemoteUid = superResolutionRemoteUid {
+                rtcEngine?.enableRemoteSuperResolution(superResolutionRemoteUid, enabled: true)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,9 +104,14 @@ class LiveRoomViewController: UIViewController {
         } else {
             clientRole = .broadcaster
         }
-        
+
         rtcEngine.setClientRole(clientRole)
         updateInterface(withAnimation :true)
+    }
+    
+    @IBAction func doSuperResolutionPressed(_ sender: UIButton) {
+        isEnableSuperResolution.toggle()
+        superResolutionRemoteUid = superResolutionRemoteUid(in: videoSessions, fullSession: fullSession)
     }
     
     @IBAction func doDoubleTapped(_ sender: UITapGestureRecognizer) {
@@ -113,7 +135,7 @@ private extension LiveRoomViewController {
             return
         }
         
-        broadcastButton?.setImage(UIImage(named: isBroadcaster ? "btn_join_cancel" : "btn_join"), for: .normal)
+        broadcastButton?.setImage(isBroadcaster ? #imageLiteral(resourceName: "btn_join_cancel.pdf") : #imageLiteral(resourceName: "btn_join"), for: .normal)
         
         for button in sessionButtons {
             button.isHidden = !isBroadcaster
@@ -171,16 +193,21 @@ private extension LiveRoomViewController {
         }
         viewLayouter.layout(sessions: displaySessions, fullSession: fullSession, inContainer: remoteContainerView)
         setStreamType(forSessions: displaySessions, fullSession: fullSession)
+        superResolutionRemoteUid = superResolutionRemoteUid(in: displaySessions, fullSession: fullSession)
     }
     
     func setStreamType(forSessions sessions: [VideoSession], fullSession: VideoSession?) {
         if let fullSession = fullSession {
             for session in sessions {
-                rtcEngine.setRemoteVideoStream(UInt(session.uid), type: (session == fullSession ? .high : .low))
+                if session == fullSession {
+                    rtcEngine.setRemoteVideoStream(fullSession.uid, type: .high)
+                } else {
+                    rtcEngine.setRemoteVideoStream(session.uid, type: .low)
+                }
             }
         } else {
             for session in sessions {
-                rtcEngine.setRemoteVideoStream(UInt(session.uid), type: .high)
+                rtcEngine.setRemoteVideoStream(session.uid, type: .high)
             }
         }
     }
@@ -191,7 +218,7 @@ private extension LiveRoomViewController {
         rtcEngine.setupLocalVideo(localSession.canvas)
     }
     
-    func fetchSession(ofUid uid: Int64) -> VideoSession? {
+    func fetchSession(ofUid uid: UInt) -> VideoSession? {
         for session in videoSessions {
             if session.uid == uid {
                 return session
@@ -201,13 +228,25 @@ private extension LiveRoomViewController {
         return nil
     }
     
-    func videoSession(ofUid uid: Int64) -> VideoSession {
+    func videoSession(ofUid uid: UInt) -> VideoSession {
         if let fetchedSession = fetchSession(ofUid: uid) {
             return fetchedSession
         } else {
             let newSession = VideoSession(uid: uid)
             videoSessions.append(newSession)
             return newSession
+        }
+    }
+    
+    func superResolutionRemoteUid(in sessions: [VideoSession], fullSession: VideoSession?) -> UInt? {
+        guard isEnableSuperResolution else {
+            return nil
+        }
+        
+        if let fullSession = fullSession {
+            return fullSession.uid
+        } else {
+            return sessions.last?.uid
         }
     }
 }
@@ -248,7 +287,7 @@ private extension LiveRoomViewController {
 
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        let userSession = videoSession(ofUid: Int64(uid))
+        let userSession = videoSession(ofUid: uid)
         rtcEngine.setupRemoteVideo(userSession.canvas)
     }
     
@@ -261,7 +300,7 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         var indexToDelete: Int?
         for (index, session) in videoSessions.enumerated() {
-            if session.uid == Int64(uid) {
+            if session.uid == uid {
                 indexToDelete = index
             }
         }

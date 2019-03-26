@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ypF-Of-0Eu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ypF-Of-0Eu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,7 +33,7 @@
                                             <constraint firstAttribute="height" constant="44" id="94q-wI-BRA"/>
                                             <constraint firstAttribute="width" constant="64" id="vDy-D9-QMk"/>
                                         </constraints>
-                                        <state key="normal" title="确定"/>
+                                        <state key="normal" title="OK"/>
                                         <connections>
                                             <action selector="doConfirmPressed:" destination="CxJ-m0-LAo" eventType="touchUpInside" id="G97-iN-SeS"/>
                                         </connections>
@@ -258,6 +258,17 @@
                                     <outletCollection property="gestureRecognizers" destination="BoC-bR-tMy" appends="YES" id="cnB-ZM-vSg"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfg-XL-B7H">
+                                <rect key="frame" x="163" y="20" width="49" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="3xJ-A9-OAF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMj-UW-Quu">
                                 <rect key="frame" x="321" y="20" width="54" height="54"/>
                                 <constraints>
@@ -302,17 +313,17 @@
                                     <action selector="doMutePressed:" destination="jcF-oR-gRA" eventType="touchUpInside" id="l9z-w6-Uk7"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfg-XL-B7H">
-                                <rect key="frame" x="163" y="20" width="49" height="54"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-kN-B8a">
+                                <rect key="frame" x="321" y="613" width="54" height="54"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="3xJ-A9-OAF"/>
+                                    <constraint firstAttribute="height" constant="54" id="DQj-GF-rhU"/>
+                                    <constraint firstAttribute="width" constant="54" id="JzZ-b2-iU8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <size key="shadowOffset" width="1" height="1"/>
-                            </label>
+                                <state key="normal" image="btn_sr_blue"/>
+                                <connections>
+                                    <action selector="doSuperResolutionPressed:" destination="jcF-oR-gRA" eventType="touchUpInside" id="U94-E6-imN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -322,9 +333,11 @@
                             <constraint firstItem="cuo-ev-20t" firstAttribute="trailing" secondItem="dMj-UW-Quu" secondAttribute="trailing" id="R3c-3r-VCN"/>
                             <constraint firstAttribute="bottom" secondItem="Ca0-av-PZ7" secondAttribute="bottom" id="R6u-fi-SyQ"/>
                             <constraint firstItem="dMj-UW-Quu" firstAttribute="top" secondItem="cuo-ev-20t" secondAttribute="top" id="ReE-KL-4Rc"/>
+                            <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="GQf-kN-B8a" secondAttribute="bottom" id="V1g-wy-kFG"/>
                             <constraint firstItem="Ca0-av-PZ7" firstAttribute="top" secondItem="uD4-xu-7ax" secondAttribute="top" id="Yqw-HO-boS"/>
                             <constraint firstItem="hfg-XL-B7H" firstAttribute="centerX" secondItem="cuo-ev-20t" secondAttribute="centerX" id="aPG-P1-1F2"/>
                             <constraint firstItem="tjS-OE-tLx" firstAttribute="leading" secondItem="AUS-G6-i97" secondAttribute="trailing" id="asV-6H-jOY"/>
+                            <constraint firstItem="cuo-ev-20t" firstAttribute="trailing" secondItem="GQf-kN-B8a" secondAttribute="trailing" id="bFn-27-rs8"/>
                             <constraint firstItem="hfg-XL-B7H" firstAttribute="top" secondItem="cuo-ev-20t" secondAttribute="top" id="c9N-dk-Hr0"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="jtZ-41-ZXH" secondAttribute="bottom" id="fG4-7y-lnk"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="AUS-G6-i97" secondAttribute="bottom" id="gII-9r-wla"/>
@@ -338,6 +351,7 @@
                         <outlet property="broadcastButton" destination="AUS-G6-i97" id="arb-yX-bus"/>
                         <outlet property="remoteContainerView" destination="Ca0-av-PZ7" id="au8-IP-tNc"/>
                         <outlet property="roomNameLabel" destination="hfg-XL-B7H" id="qHt-X0-M31"/>
+                        <outlet property="superResolutionButton" destination="GQf-kN-B8a" id="7ai-gt-JEl"/>
                         <outletCollection property="sessionButtons" destination="tjS-OE-tLx" collectionClass="NSMutableArray" id="xcY-7E-98c"/>
                         <outletCollection property="sessionButtons" destination="jtZ-41-ZXH" collectionClass="NSMutableArray" id="QF9-SZ-bRS"/>
                     </connections>
@@ -376,5 +390,6 @@
         <image name="btn_mute" width="40" height="40"/>
         <image name="btn_overturn" width="40" height="40"/>
         <image name="btn_setting" width="23" height="23"/>
+        <image name="btn_sr_blue" width="40" height="40"/>
     </resources>
 </document>

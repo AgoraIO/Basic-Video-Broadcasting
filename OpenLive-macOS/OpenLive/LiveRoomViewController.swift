@@ -156,11 +156,11 @@ private extension LiveRoomViewController {
     func setStreamType(forSessions sessions: [VideoSession], fullSession: VideoSession?) {
         if let fullSession = fullSession {
             for session in sessions {
-                rtcEngine.setRemoteVideoStream(UInt(session.uid), type: (session == fullSession ? .high : .low))
+                rtcEngine.setRemoteVideoStream(session.uid, type: (session == fullSession ? .high : .low))
             }
         } else {
             for session in sessions {
-                rtcEngine.setRemoteVideoStream(UInt(session.uid), type: .high)
+                rtcEngine.setRemoteVideoStream(session.uid, type: .high)
             }
         }
     }
@@ -171,7 +171,7 @@ private extension LiveRoomViewController {
         rtcEngine.setupLocalVideo(localSession.canvas)
     }
     
-    func fetchSession(ofUid uid: Int64) -> VideoSession? {
+    func fetchSession(ofUid uid: UInt) -> VideoSession? {
         for session in videoSessions {
             if session.uid == uid {
                 return session
@@ -181,7 +181,7 @@ private extension LiveRoomViewController {
         return nil
     }
     
-    func videoSession(ofUid uid: Int64) -> VideoSession {
+    func videoSession(ofUid uid: UInt) -> VideoSession {
         if let fetchedSession = fetchSession(ofUid: uid) {
             return fetchedSession
         } else {
@@ -227,7 +227,7 @@ private extension LiveRoomViewController {
 
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        let userSession = videoSession(ofUid: Int64(uid))
+        let userSession = videoSession(ofUid: uid)
         rtcEngine.setupRemoteVideo(userSession.canvas)
     }
     
@@ -240,7 +240,7 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         var indexToDelete: Int?
         for (index, session) in videoSessions.enumerated() {
-            if session.uid == Int64(uid) {
+            if session.uid == uid {
                 indexToDelete = index
             }
         }
