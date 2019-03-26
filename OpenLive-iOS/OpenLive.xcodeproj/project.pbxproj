@@ -31,6 +31,7 @@
 		382885B32249DBB10023BCFA /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B22249DBB10023BCFA /* CoreML.framework */; };
 		382885C42249E5AB0023BCFA /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 382885C22249E5AB0023BCFA /* srmetal.metallib */; };
 		382885C52249E5AB0023BCFA /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382885C32249E5AB0023BCFA /* model.bundle */; };
+		38D618B4224A4C9B004A6C87 /* BeautyEffectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D618B3224A4C9B004A6C87 /* BeautyEffectTableViewController.swift */; };
 		F25F5A728839E012C51CC7E1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54B70FC0F83493878247735 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		382885C22249E5AB0023BCFA /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; path = srmetal.metallib; sourceTree = "<group>"; };
 		382885C32249E5AB0023BCFA /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = model.bundle; sourceTree = "<group>"; };
+		38D618B3224A4C9B004A6C87 /* BeautyEffectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautyEffectTableViewController.swift; sourceTree = "<group>"; };
 		F54B70FC0F83493878247735 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +123,7 @@
 				078012EE1D1E57730093DE24 /* MainViewController.swift */,
 				0790F1251D1E6450003F8C18 /* SettingsViewController.swift */,
 				0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */,
+				38D618B3224A4C9B004A6C87 /* BeautyEffectTableViewController.swift */,
 				07130E891D22928200CC85D8 /* KeyCenter.swift */,
 				0790F1501D1E9631003F8C18 /* VideoSession.swift */,
 				0790F1521D1E9781003F8C18 /* VideoViewLayouter.swift */,
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0790F1691D1EEAB2003F8C18 /* ProfileCell.swift in Sources */,
+				38D618B4224A4C9B004A6C87 /* BeautyEffectTableViewController.swift in Sources */,
 				0790F1511D1E9631003F8C18 /* VideoSession.swift in Sources */,
 				078012EF1D1E57730093DE24 /* MainViewController.swift in Sources */,
 				078012ED1D1E57730093DE24 /* AppDelegate.swift in Sources */,

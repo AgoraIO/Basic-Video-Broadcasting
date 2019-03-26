@@ -10,13 +10,15 @@
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
 #import "KeyCenter.h"
+#import "BeautyEffectTableViewController.h"
 
-@interface LiveRoomViewController () <AgoraRtcEngineDelegate>
+@interface LiveRoomViewController () <AgoraRtcEngineDelegate, BeautyEffectTableVCDelegate, UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *roomNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *remoteContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *broadcastButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *sessionButtons;
 @property (weak, nonatomic) IBOutlet UIButton *audioMuteButton;
+@property (weak, nonatomic) IBOutlet UIButton *beautyEffectButton;
 @property (weak, nonatomic) IBOutlet UIButton *superResolutionButton;
 
 @property (strong, nonatomic) AgoraRtcEngineKit *rtcEngine;
@@ -28,6 +30,8 @@
 @property (strong, nonatomic) VideoViewLayouter *viewLayouter;
 @property (assign, nonatomic) BOOL isEnableSuperResolution;
 @property (assign, nonatomic) NSUInteger superResolutionRemoteUid;
+@property (assign, nonatomic) BOOL isBeautyOn;
+@property (strong, nonatomic) AgoraBeautyOptions *beautyOptions;
 @end
 
 @implementation LiveRoomViewController
@@ -86,6 +90,12 @@
     }
 }
 
+- (void)setIsBeautyOn:(BOOL)isBeautyOn {
+    _isBeautyOn = isBeautyOn;
+    [self.rtcEngine setBeautyEffectOptions:isBeautyOn options:self.beautyOptions];
+    [self.beautyEffectButton setImage:[UIImage imageNamed:(isBeautyOn ? @"btn_beautiful_cancel" : @"btn_beautiful")] forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.videoSessions = [[NSMutableArray alloc] init];
@@ -95,6 +105,27 @@
     [self updateButtonsVisiablity];
     
     [self loadAgoraKit];
+    
+    self.beautyOptions = [[AgoraBeautyOptions alloc] init];
+    self.beautyOptions.lighteningContrastLevel = AgoraLighteningContrastNormal;
+    self.beautyOptions.lighteningLevel = 0.2;
+    self.beautyOptions.smoothnessLevel = 0.2;
+    self.beautyOptions.rednessLevel = 0.1;
+    
+    self.isBeautyOn = YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"roomVCPopBeautyList"]) {
+        BeautyEffectTableViewController *vc = segue.destinationViewController;
+        vc.isBeautyOn = self.isBeautyOn;
+        vc.smoothness = self.beautyOptions.smoothnessLevel;
+        vc.lightening = self.beautyOptions.lighteningLevel;
+        vc.contrast = self.beautyOptions.lighteningContrastLevel;
+        vc.redness = self.beautyOptions.rednessLevel;
+        vc.delegate = self;
+        vc.popoverPresentationController.delegate = self;
+    }
 }
 
 - (IBAction)doSwitchCameraPressed:(UIButton *)sender {
@@ -323,5 +354,19 @@
             self.fullSession = nil;
         }
     }
+}
+
+//MARK: - enhancer
+- (void)beautyEffectTableVCDidChange:(BeautyEffectTableViewController *)enhancerTableVC {
+    self.beautyOptions.lighteningLevel = enhancerTableVC.lightening;
+    self.beautyOptions.smoothnessLevel = enhancerTableVC.smoothness;
+    self.beautyOptions.lighteningContrastLevel = enhancerTableVC.contrast;
+    self.beautyOptions.rednessLevel = enhancerTableVC.redness;
+    self.isBeautyOn = enhancerTableVC.isBeautyOn;
+}
+
+//MARK: - vc
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
+    return UIModalPresentationNone;
 }
 @end

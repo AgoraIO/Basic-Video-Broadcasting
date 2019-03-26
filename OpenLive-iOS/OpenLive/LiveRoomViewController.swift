@@ -20,6 +20,7 @@ class LiveRoomViewController: UIViewController {
     @IBOutlet weak var broadcastButton: UIButton!
     @IBOutlet var sessionButtons: [UIButton]!
     @IBOutlet weak var audioMuteButton: UIButton!
+    @IBOutlet weak var beautyEffectButton: UIButton!
     @IBOutlet weak var superResolutionButton: UIButton!
     
     var roomName: String!
@@ -61,6 +62,7 @@ class LiveRoomViewController: UIViewController {
     
     fileprivate let viewLayouter = VideoViewLayouter()
     
+    //MARK: - super resolution
     var isEnableSuperResolution = true {
         didSet {
             superResolutionButton?.setImage(isEnableSuperResolution ? #imageLiteral(resourceName: "btn_sr_blue.pdf") : #imageLiteral(resourceName: "btn_sr.pdf"), for: .normal)
@@ -77,6 +79,25 @@ class LiveRoomViewController: UIViewController {
         }
     }
     
+    //MARK: - Beauty
+    var isBeautyOn = true {
+        didSet {
+            guard let rtcEngine = rtcEngine else {
+                return
+            }
+            rtcEngine.setBeautyEffectOptions(isBeautyOn, options: beautyOptions)
+            beautyEffectButton?.setImage(isBeautyOn ? #imageLiteral(resourceName: "btn_beautiful_cancel") : #imageLiteral(resourceName: "btn_beautiful"), for: .normal)
+        }
+    }
+    let beautyOptions: AgoraBeautyOptions = {
+        let options = AgoraBeautyOptions()
+        options.lighteningContrastLevel = .normal
+        options.lighteningLevel = 0.2
+        options.smoothnessLevel = 0.2
+        options.rednessLevel = 0.1
+        return options
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,6 +105,27 @@ class LiveRoomViewController: UIViewController {
         updateButtonsVisiablity()
         
         loadAgoraKit()
+        isBeautyOn = true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueId = segue.identifier else {
+            return
+        }
+        
+        switch segueId {
+        case "roomVCPopBeautyList":
+            let vc = segue.destination as! BeautyEffectTableViewController
+            vc.isBeautyOn = isBeautyOn
+            vc.smoothness = beautyOptions.smoothnessLevel
+            vc.lightening = beautyOptions.lighteningLevel
+            vc.contrast = beautyOptions.lighteningContrastLevel
+            vc.redness = beautyOptions.rednessLevel
+            vc.delegate = self
+            vc.popoverPresentationController?.delegate = self
+        default:
+            break
+        }
     }
     
     //MARK: - user action
@@ -313,5 +355,23 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
                 fullSession = nil
             }
         }
+    }
+}
+
+//MARK: - enhancer
+extension LiveRoomViewController: BeautyEffectTableVCDelegate {
+    func beautyEffectTableVCDidChange(_ enhancerTableVC: BeautyEffectTableViewController) {
+        beautyOptions.lighteningLevel = enhancerTableVC.lightening
+        beautyOptions.smoothnessLevel = enhancerTableVC.smoothness
+        beautyOptions.lighteningContrastLevel = enhancerTableVC.contrast
+        beautyOptions.rednessLevel = enhancerTableVC.redness
+        isBeautyOn = enhancerTableVC.isBeautyOn
+    }
+}
+
+//MARK: - vc
+extension LiveRoomViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }
