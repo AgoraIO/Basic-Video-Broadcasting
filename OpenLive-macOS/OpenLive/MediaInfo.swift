@@ -33,6 +33,9 @@ extension CGSize {
     }
     
     func description() -> String {
+        guard let resolution = resolution() else {
+            return ""
+        }
         return "\(resolution), \(fps())fps"
     }
 }
