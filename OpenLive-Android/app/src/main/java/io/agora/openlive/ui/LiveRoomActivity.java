@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
+import io.agora.common.Constant;
 import io.agora.openlive.R;
 import io.agora.openlive.model.AGEventHandler;
 import io.agora.openlive.model.ConstantApp;
@@ -233,12 +234,57 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
         View button2 = findViewById(R.id.btn_2);
         View button3 = findViewById(R.id.btn_3);
+        View button4 = findViewById(R.id.btn_4);
         if (isBroadcaster()) {
             button2.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
             button3.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
+            button4.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
         } else {
             button2.setVisibility(View.INVISIBLE);
             button3.setVisibility(View.INVISIBLE);
+            button4.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private FaceBeautificationPopupWindow mFaceBeautificationPopupWindow;
+
+    public void onBtn4Clicked(View view) {
+        if (isBroadcaster()) {
+            if (mFaceBeautificationPopupWindow == null) {
+                mFaceBeautificationPopupWindow = new FaceBeautificationPopupWindow(this.getBaseContext());
+            }
+        } else {
+            return;
+        }
+
+        if (!mFaceBeautificationPopupWindow.isShowing()) {
+            mFaceBeautificationPopupWindow.show(view, new FaceBeautificationPopupWindow.UserEventHandler() {
+                @Override
+                public void onFBSwitch(boolean on) {
+                    if (on) {
+                        Constant.BEAUTY_EFFECT_ENABLED = true;
+                        worker().enablePreProcessor();
+                    } else {
+                        worker().disablePreProcessor();
+                        Constant.BEAUTY_EFFECT_ENABLED = false;
+                    }
+                }
+
+                @Override
+                public void onLightnessSet(float lightness) {
+                    worker().setBeautyEffectParameters(lightness, Constant.BEAUTY_OPTIONS.smoothnessLevel, Constant.BEAUTY_OPTIONS.rednessLevel);
+                }
+
+                @Override
+                public void onSmoothnessSet(float smoothness) {
+                    worker().setBeautyEffectParameters(Constant.BEAUTY_OPTIONS.lighteningLevel, smoothness, Constant.BEAUTY_OPTIONS.rednessLevel);
+                }
+
+                @Override
+                public void onRednessSet(float redness) {
+                    worker().setBeautyEffectParameters(Constant.BEAUTY_OPTIONS.lighteningLevel, Constant.BEAUTY_OPTIONS.smoothnessLevel, redness);
+                }
+            });
         }
     }
 

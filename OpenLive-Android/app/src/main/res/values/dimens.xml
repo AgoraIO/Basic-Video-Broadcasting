@@ -2,4 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="fb_popup_window_width">240dp</dimen>
+    <dimen name="fb_popup_window_height">182dp</dimen>
 </resources>

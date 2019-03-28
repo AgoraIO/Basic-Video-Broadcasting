@@ -15,6 +15,7 @@ import io.agora.common.Constant;
 import io.agora.openlive.R;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
+import io.agora.rtc.video.BeautyOptions;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
@@ -113,6 +114,31 @@ public class WorkerThread extends Thread {
 
     private RtcEngine mRtcEngine;
 
+    public final void enablePreProcessor() {
+        if (mEngineConfig.mClientRole == Constants.CLIENT_ROLE_BROADCASTER) {
+            if (Constant.BEAUTY_EFFECT_ENABLED) {
+                mRtcEngine.setBeautyEffectOptions(true, Constant.BEAUTY_OPTIONS);
+            }
+        }
+    }
+
+    public final void setBeautyEffectParameters(float lightness, float smoothness, float redness) {
+        if (mEngineConfig.mClientRole == Constants.CLIENT_ROLE_BROADCASTER) {
+
+        }
+
+        Constant.BEAUTY_OPTIONS.lighteningLevel = lightness;
+        Constant.BEAUTY_OPTIONS.smoothnessLevel = smoothness;
+        Constant.BEAUTY_OPTIONS.rednessLevel = redness;
+
+        mRtcEngine.setBeautyEffectOptions(true, Constant.BEAUTY_OPTIONS);
+    }
+
+    public final void disablePreProcessor() {
+        // do not support null when setBeautyEffectOptions to false
+        mRtcEngine.setBeautyEffectOptions(false, Constant.BEAUTY_OPTIONS);
+    }
+
     public final void joinChannel(final String channel, int uid) {
         if (Thread.currentThread() != this) {
             log.warn("joinChannel() - worker thread asynchronously " + channel + " " + uid);
@@ -129,7 +155,8 @@ public class WorkerThread extends Thread {
 
         mEngineConfig.mChannel = channel;
 
-        log.debug("joinChannel " + channel + " " + uid);
+        enablePreProcessor();
+        log.debug("joinChannel " + channel + " " + (uid & 0xFFFFFFFFL));
     }
 
     public final void leaveChannel(String channel) {
@@ -145,6 +172,8 @@ public class WorkerThread extends Thread {
         if (mRtcEngine != null) {
             mRtcEngine.leaveChannel();
         }
+
+        disablePreProcessor();
 
         int clientRole = mEngineConfig.mClientRole;
         mEngineConfig.reset();

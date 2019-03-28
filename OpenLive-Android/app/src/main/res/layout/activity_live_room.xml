@@ -110,6 +110,19 @@
                     android:layout_height="match_parent"
                     android:scaleType="center"
                     android:src="@drawable/btn_mute" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="20" />
+
+                <ImageView
+                    android:id="@+id/btn_4"
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:onClick="onBtn4Clicked"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_beautification" />
             </io.agora.ui.AGLinearLayout>
 
         </LinearLayout>

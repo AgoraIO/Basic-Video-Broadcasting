@@ -13,6 +13,14 @@
 
     <string name="label_confirm">Confirm</string>
 
+    <string name="label_beauty_effect">Beauty</string>
+
+    <string name="label_lightness">Lightness</string>
+
+    <string name="label_smoothness">Smoothness</string>
+
+    <string name="label_redness">Redness</string>
+
     <string-array
         name="string_array_resolutions">
         <item>160x120</item> // 120P

@@ -15,4 +15,11 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="SettingItemValue">
+        <item name="android:textColor">@color/grey_a</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
