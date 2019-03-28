@@ -113,7 +113,7 @@ private extension LiveRoomViewController {
             return
         }
         
-        broadcastButton?.setImage(UIImage(named: isBroadcaster ? "btn_join_cancel" : "btn_join"), for: UIControlState())
+        broadcastButton?.setImage(UIImage(named: isBroadcaster ? "btn_join_cancel" : "btn_join"), for: .normal)
         
         for button in sessionButtons {
             button.isHidden = !isBroadcaster
@@ -155,7 +155,7 @@ private extension LiveRoomViewController {
 private extension LiveRoomViewController {
     func updateInterface(withAnimation animation: Bool) {
         if animation {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] _ in
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 self?.updateInterface()
                 self?.view.layoutIfNeeded()
             })
