@@ -9,7 +9,6 @@
 #import "LiveRoomViewController.h"
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
-#import "KeyCenter.h"
 #import "BeautyEffectTableViewController.h"
 
 @interface LiveRoomViewController () <AgoraRtcEngineDelegate, BeautyEffectTableVCDelegate, UIPopoverPresentationControllerDelegate>
@@ -21,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *beautyEffectButton;
 @property (weak, nonatomic) IBOutlet UIButton *superResolutionButton;
 
-@property (strong, nonatomic) AgoraRtcEngineKit *rtcEngine;
 @property (assign, nonatomic) BOOL isBroadcaster;
 @property (assign, nonatomic) BOOL isMuted;
 @property (assign, nonatomic) BOOL shouldEnhancer;
@@ -29,7 +27,7 @@
 @property (strong, nonatomic) VideoSession *fullSession;
 @property (strong, nonatomic) VideoViewLayouter *viewLayouter;
 @property (assign, nonatomic) BOOL isEnableSuperResolution;
-@property (assign, nonatomic) NSUInteger superResolutionRemoteUid;
+@property (assign, nonatomic) NSUInteger highPriorityRemoteUid;
 @property (assign, nonatomic) BOOL isBeautyOn;
 @property (strong, nonatomic) AgoraBeautyOptions *beautyOptions;
 @end
@@ -80,13 +78,17 @@
     [self.superResolutionButton setImage:[UIImage imageNamed:_isEnableSuperResolution ? @"btn_sr_blue" : @"btn_sr"] forState:UIControlStateNormal];
 }
 
-- (void)setSuperResolutionRemoteUid:(NSUInteger)superResolutionRemoteUid {
-    _superResolutionRemoteUid = superResolutionRemoteUid;
+- (void)setHighPriorityRemoteUid:(NSUInteger)highPriorityRemoteUid {
+    _highPriorityRemoteUid = highPriorityRemoteUid;
     for (VideoSession *session in self.videoSessions) {
         [self.rtcEngine enableRemoteSuperResolution:session.uid enabled:NO];
+        [self.rtcEngine setRemoteUserPriority:session.uid type:AgoraUserPriorityNormal];
     }
-    if (superResolutionRemoteUid != 0) {
-        [self.rtcEngine enableRemoteSuperResolution:superResolutionRemoteUid enabled:YES];
+    if (highPriorityRemoteUid != 0) {
+        if (self.isEnableSuperResolution) {
+            [self.rtcEngine enableRemoteSuperResolution:highPriorityRemoteUid enabled:YES];
+        }
+        [self.rtcEngine setRemoteUserPriority:highPriorityRemoteUid type:AgoraUserPriorityHigh];
     }
 }
 
@@ -152,7 +154,7 @@
 
 - (IBAction)doSuperResolutionPressed:(UIButton *)sender {
     self.isEnableSuperResolution = !self.isEnableSuperResolution;
-    self.superResolutionRemoteUid = [self superResolutionRemoteUidInSessions:self.videoSessions fullSession:self.fullSession];
+    self.highPriorityRemoteUid = [self highPriorityRemoteUidInSessions:self.videoSessions fullSession:self.fullSession];
 }
 
 - (IBAction)doDoubleTapped:(UITapGestureRecognizer *)sender {
@@ -231,7 +233,7 @@
     
     [self.viewLayouter layoutSessions:displaySessions fullSession:self.fullSession inContainer:self.remoteContainerView];
     [self setStreamTypeForSessions:displaySessions fullSession:self.fullSession];
-    self.superResolutionRemoteUid = [self superResolutionRemoteUidInSessions:displaySessions fullSession:self.fullSession];
+    self.highPriorityRemoteUid = [self highPriorityRemoteUidInSessions:displaySessions fullSession:self.fullSession];
 }
 
 - (void)setStreamTypeForSessions:(NSArray<VideoSession *> *)sessions fullSession:(VideoSession *)fullSession {
@@ -278,11 +280,7 @@
     }
 }
 
-- (NSUInteger)superResolutionRemoteUidInSessions:(NSArray<VideoSession *> *)sessions fullSession:(VideoSession *)fullSession {
-    if (!self.isEnableSuperResolution) {
-        return 0;
-    }
-    
+- (NSUInteger)highPriorityRemoteUidInSessions:(NSArray<VideoSession *> *)sessions fullSession:(VideoSession *)fullSession {
     if (fullSession) {
         return fullSession.uid;
     } else {
@@ -292,18 +290,21 @@
 
 //MARK: - Agora Media SDK
 - (void)loadAgoraKit {
-    self.rtcEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
+    self.rtcEngine.delegate = self;
     [self.rtcEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     
     // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
     [self.rtcEngine enableDualStreamMode:YES];
     
     [self.rtcEngine enableVideo];
-    AgoraVideoEncoderConfiguration *configuration = [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
-                                                                                               frameRate:AgoraVideoFrameRateFps24
-                                                                                                 bitrate:AgoraVideoBitrateStandard
-                                                                                         orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    
+    AgoraVideoEncoderConfiguration *configuration =
+        [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
+                                                   frameRate:AgoraVideoFrameRateFps24
+                                                     bitrate:AgoraVideoBitrateStandard
+                                             orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     [self.rtcEngine setVideoEncoderConfiguration:configuration];
+    
     [self.rtcEngine setClientRole:self.clientRole];
     
     if (self.isBroadcaster) {

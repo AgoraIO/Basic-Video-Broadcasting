@@ -68,13 +68,17 @@ class LiveRoomViewController: UIViewController {
             superResolutionButton?.setImage(isEnableSuperResolution ? #imageLiteral(resourceName: "btn_sr_blue.pdf") : #imageLiteral(resourceName: "btn_sr.pdf"), for: .normal)
         }
     }
-    var superResolutionRemoteUid: UInt? {
+    var highPriorityRemoteUid: UInt? {
         didSet {
             for session in videoSessions {
                 rtcEngine?.enableRemoteSuperResolution(session.uid, enabled: false)
+                rtcEngine?.setRemoteUserPriority(session.uid, type: .normal)
             }
-            if let superResolutionRemoteUid = superResolutionRemoteUid {
-                rtcEngine?.enableRemoteSuperResolution(superResolutionRemoteUid, enabled: true)
+            if let highPriorityRemoteUid = highPriorityRemoteUid {
+                if isEnableSuperResolution {
+                    rtcEngine?.enableRemoteSuperResolution(highPriorityRemoteUid, enabled: true)
+                }
+                rtcEngine?.setRemoteUserPriority(highPriorityRemoteUid, type: .high)
             }
         }
     }
@@ -153,7 +157,7 @@ class LiveRoomViewController: UIViewController {
     
     @IBAction func doSuperResolutionPressed(_ sender: UIButton) {
         isEnableSuperResolution.toggle()
-        superResolutionRemoteUid = superResolutionRemoteUid(in: videoSessions, fullSession: fullSession)
+        highPriorityRemoteUid = highPriorityRemoteUid(in: videoSessions, fullSession: fullSession)
     }
     
     @IBAction func doDoubleTapped(_ sender: UITapGestureRecognizer) {
@@ -235,7 +239,7 @@ private extension LiveRoomViewController {
         }
         viewLayouter.layout(sessions: displaySessions, fullSession: fullSession, inContainer: remoteContainerView)
         setStreamType(forSessions: displaySessions, fullSession: fullSession)
-        superResolutionRemoteUid = superResolutionRemoteUid(in: displaySessions, fullSession: fullSession)
+        highPriorityRemoteUid = highPriorityRemoteUid(in: displaySessions, fullSession: fullSession)
     }
     
     func setStreamType(forSessions sessions: [VideoSession], fullSession: VideoSession?) {
@@ -280,11 +284,7 @@ private extension LiveRoomViewController {
         }
     }
     
-    func superResolutionRemoteUid(in sessions: [VideoSession], fullSession: VideoSession?) -> UInt? {
-        guard isEnableSuperResolution else {
-            return nil
-        }
-        
+    func highPriorityRemoteUid(in sessions: [VideoSession], fullSession: VideoSession?) -> UInt? {
         if let fullSession = fullSession {
             return fullSession.uid
         } else {
@@ -296,17 +296,22 @@ private extension LiveRoomViewController {
 //MARK: - Agora Media SDK
 private extension LiveRoomViewController {
     func loadAgoraKit() {
-        rtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+        rtcEngine.delegate = self        
         rtcEngine.setChannelProfile(.liveBroadcasting)
         
         // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
         rtcEngine.enableDualStreamMode(true)
         
         rtcEngine.enableVideo()
-        rtcEngine.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: videoProfile,
-                                                                              frameRate: .fps24,
-                                                                              bitrate: AgoraVideoBitrateStandard,
-                                                                              orientationMode: .adaptative))
+        rtcEngine.setVideoEncoderConfiguration(
+            AgoraVideoEncoderConfiguration(
+                size: videoProfile,
+                frameRate: .fps24,
+                bitrate: AgoraVideoBitrateStandard,
+                orientationMode: .adaptative
+            )
+        )
+        
         rtcEngine.setClientRole(clientRole)
         
         if isBroadcaster {

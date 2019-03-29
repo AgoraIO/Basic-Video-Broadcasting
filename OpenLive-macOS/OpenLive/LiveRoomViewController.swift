@@ -58,6 +58,17 @@ class LiveRoomViewController: NSViewController {
     }
     fileprivate let viewLayouter = VideoViewLayouter()
     
+    var highPriorityRemoteUid: UInt? {
+        didSet {
+            for session in videoSessions {
+                rtcEngine?.setRemoteUserPriority(session.uid, type: .normal)
+            }
+            if let highPriorityRemoteUid = highPriorityRemoteUid {
+                rtcEngine?.setRemoteUserPriority(highPriorityRemoteUid, type: .high)
+            }
+        }
+    }
+    
     //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +162,7 @@ private extension LiveRoomViewController {
         }
         viewLayouter.layout(sessions: displaySessions, fullSession: fullSession, inContainer: remoteContainerView)
         setStreamType(forSessions: displaySessions, fullSession: fullSession)
+        highPriorityRemoteUid = highPriorityRemoteUid(in: displaySessions, fullSession: fullSession)
     }
     
     func setStreamType(forSessions sessions: [VideoSession], fullSession: VideoSession?) {
@@ -190,12 +202,20 @@ private extension LiveRoomViewController {
             return newSession
         }
     }
+    
+    func highPriorityRemoteUid(in sessions: [VideoSession], fullSession: VideoSession?) -> UInt? {
+        if let fullSession = fullSession {
+            return fullSession.uid
+        } else {
+            return sessions.last?.uid
+        }
+    }
 }
 
 //MARK: - Agora SDK
 private extension LiveRoomViewController {
     func loadAgoraKit() {
-        rtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+        rtcEngine.delegate = self;
         rtcEngine.setChannelProfile(.liveBroadcasting)
         
         // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel

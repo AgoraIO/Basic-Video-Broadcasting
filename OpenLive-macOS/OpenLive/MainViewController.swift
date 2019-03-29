@@ -12,8 +12,29 @@ class MainViewController: NSViewController {
     
     @IBOutlet weak var roomInputTextField: NSTextField!
     
+    @IBOutlet weak var lastmileTestButton: NSButton!
+    @IBOutlet weak var lastmileTestIndicator: NSProgressIndicator!
+    @IBOutlet weak var qualityLabel: NSTextField!
+    @IBOutlet weak var rttLabel: NSTextField!
+    @IBOutlet weak var uplinkLabel: NSTextField!
+    @IBOutlet weak var downlinkLabel: NSTextField!
+    
+    lazy fileprivate var rtcEngine: AgoraRtcEngineKit = {
+        let engine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+        return engine
+    }()
     var videoProfile = AgoraVideoDimension640x480
-    fileprivate var agoraKit: AgoraRtcEngineKit!
+    
+    private var isLastmileProbeTesting = false {
+        didSet {
+            lastmileTestButton?.isHidden = isLastmileProbeTesting
+            if isLastmileProbeTesting {
+                lastmileTestIndicator?.startAnimation(nil)
+            } else {
+                lastmileTestIndicator?.stopAnimation(nil)
+            }
+        }
+    }
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -32,6 +53,7 @@ class MainViewController: NSViewController {
         } else if segueId == "mainToLive" {
             let liveVC = segue.destinationController as! LiveRoomViewController
             liveVC.roomName = roomInputTextField.stringValue
+            liveVC.rtcEngine = rtcEngine
             liveVC.videoProfile = videoProfile
             if let value = sender as? NSNumber, let role = AgoraClientRole(rawValue: value.intValue) {
                 liveVC.clientRole = role
@@ -41,6 +63,23 @@ class MainViewController: NSViewController {
     }
     
     //MARK: - user actions
+    @IBAction func doLastmileProbeTestPressed(_ sender: NSButton) {
+        let config = AgoraLastmileProbeConfig()
+        config.probeUplink = true
+        config.probeDownlink = true
+        config.expectedUplinkBitrate = 5000
+        config.expectedDownlinkBitrate = 5000
+        
+        rtcEngine.startLastmileProbeTest(config)
+        
+        isLastmileProbeTesting = true
+        
+        qualityLabel.isHidden = true
+        rttLabel.isHidden = true
+        uplinkLabel.isHidden = true
+        downlinkLabel.isHidden = true
+    }
+    
     @IBAction func doJoinAsAudienceClicked(_ sender: NSButton) {
         guard let roomName = roomInputTextField?.stringValue , !roomName.isEmpty else {
             return
@@ -84,5 +123,45 @@ extension MainViewController: LiveRoomVCDelegate {
         window.contentViewController = self
         
         liveVC.delegate = nil
+        rtcEngine.delegate = self
+    }
+}
+
+extension MainViewController: AgoraRtcEngineDelegate {
+    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileQuality quality: AgoraNetworkQuality) {
+        qualityLabel.stringValue = "quality: " + quality.description()
+        qualityLabel.isHidden = false
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
+        rttLabel.stringValue = "rtt: \(result.rtt)"
+        rttLabel.isHidden = false
+        uplinkLabel.stringValue = "up: \(result.uplinkReport.description())"
+        uplinkLabel.isHidden = false
+        downlinkLabel.stringValue = "down: \(result.downlinkReport.description())"
+        downlinkLabel.isHidden = false
+        
+        rtcEngine.stopLastmileProbeTest()
+        isLastmileProbeTesting = false
+    }
+}
+
+extension AgoraNetworkQuality {
+    func description() -> String {
+        switch self {
+        case .excellent: return "excellent"
+        case .good:      return "good"
+        case .poor:      return "poor"
+        case .bad:       return "bad"
+        case .vBad:      return "very bad"
+        case .down:      return "down"
+        case .unknown:   return "unknown"
+        }
+    }
+}
+
+extension AgoraLastmileProbeOneWayResult {
+    func description() -> String {
+        return "packetLoss: \(packetLossRate), jitter: \(jitter), availableBandwidth: \(availableBandwidth)"
     }
 }

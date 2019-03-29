@@ -7,7 +7,6 @@
 //
 
 #import "LiveRoomViewController.h"
-#import "KeyCenter.h"
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
 
@@ -17,12 +16,12 @@
 @property (weak) IBOutlet NSButton *broadcastButton;
 @property (weak) IBOutlet NSTextField *roomNameLabel;
 
-@property (nonatomic, strong) AgoraRtcEngineKit *rtcEngine;
 @property (nonatomic, assign) BOOL isBroadcaster;
 @property (nonatomic, assign) BOOL isMuted;
-@property (nonatomic, strong) NSMutableArray *videoSessions;
+@property (nonatomic, strong) NSMutableArray<VideoSession *> *videoSessions;
 @property (nonatomic, strong) VideoViewLayouter *viewLayouter;
 @property (nonatomic, strong) VideoSession *fullSession;
+@property (assign, nonatomic) NSUInteger highPriorityRemoteUid;
 @end
 
 @implementation LiveRoomViewController
@@ -35,6 +34,17 @@
         _viewLayouter = [[VideoViewLayouter alloc] init];
     }
     return _viewLayouter;
+}
+
+- (void)setClientRole:(AgoraClientRole)clientRole {
+    _clientRole = clientRole;
+    [self updateButtonsVisiablity];
+}
+
+- (void)setIsMuted:(BOOL)isMuted {
+    _isMuted = isMuted;
+    [self.rtcEngine muteLocalAudioStream:isMuted];
+    [self.muteAudioButton setImage:[NSImage imageNamed:(isMuted ? @"btn_mute_blue" : @"btn_mute")]];
 }
 
 - (NSMutableArray *)videoSessions {
@@ -63,19 +73,14 @@
     }
 }
 
-- (void)setRoomName:(NSString *)roomName {
-    _roomName = roomName;
-}
-
-- (void)setClientRole:(AgoraClientRole)clientRole {
-    _clientRole = clientRole;
-    [self updateButtonsVisiablity];
-}
-
-- (void)setIsMuted:(BOOL)isMuted {
-    _isMuted = isMuted;
-    [self.rtcEngine muteLocalAudioStream:isMuted];
-    [self.muteAudioButton setImage:[NSImage imageNamed:(isMuted ? @"btn_mute_blue" : @"btn_mute")]];
+- (void)setHighPriorityRemoteUid:(NSUInteger)highPriorityRemoteUid {
+    _highPriorityRemoteUid = highPriorityRemoteUid;
+    for (VideoSession *session in self.videoSessions) {
+        [self.rtcEngine setRemoteUserPriority:session.uid type:AgoraUserPriorityNormal];
+    }
+    if (highPriorityRemoteUid != 0) {
+        [self.rtcEngine setRemoteUserPriority:highPriorityRemoteUid type:AgoraUserPriorityHigh];
+    }
 }
 
 - (void)viewDidLoad {
@@ -85,17 +90,18 @@
 }
 
 - (void)loadAgoraKit {
-    self.rtcEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
+    self.rtcEngine.delegate = self;
     [self.rtcEngine setChannelProfile:(AgoraChannelProfileLiveBroadcasting)];
     
     // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
     [self.rtcEngine enableDualStreamMode:true];
     
     [self.rtcEngine enableVideo];
-    AgoraVideoEncoderConfiguration *configuration = [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
-                                                                                               frameRate:AgoraVideoFrameRateFps24
-                                                                                                 bitrate:AgoraVideoBitrateStandard
-                                                                                         orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    AgoraVideoEncoderConfiguration *configuration =
+        [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
+                                                   frameRate:AgoraVideoFrameRateFps24
+                                                     bitrate:AgoraVideoBitrateStandard
+                                             orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     [self.rtcEngine setVideoEncoderConfiguration:configuration];
     [self.rtcEngine setClientRole:(self.clientRole)];
     
@@ -110,8 +116,6 @@
         [self alertString:[NSString stringWithFormat:@"Join channel failed %d",code]];
     }
     [self updateButtonsVisiablity];
-    NSLog(@"sdk version - %@",[AgoraRtcEngineKit getSdkVersion]);
-    
 }
 
 - (IBAction)doMuteClicked:(NSButton *)sender {
@@ -162,6 +166,14 @@
     }
 }
 
+- (NSUInteger)highPriorityRemoteUidInSessions:(NSArray<VideoSession *> *)sessions fullSession:(VideoSession *)fullSession {
+    if (fullSession) {
+        return fullSession.uid;
+    } else {
+        return sessions.lastObject.uid;
+    }
+}
+
 - (void)updateInterface {
     NSArray *displaySessions = _videoSessions;
     if (self.videoSessions.count && !self.isBroadcaster) {
@@ -171,6 +183,7 @@
     }
     [self.viewLayouter layoutSessions:displaySessions fullSession:self.fullSession inContainer:self.remoteContainerView];
     [self setStreamTypeForSessions:displaySessions fullSession:self.fullSession];
+    self.highPriorityRemoteUid = [self highPriorityRemoteUidInSessions:displaySessions fullSession:self.fullSession];
 }
 
 - (void)leaveChannel {
