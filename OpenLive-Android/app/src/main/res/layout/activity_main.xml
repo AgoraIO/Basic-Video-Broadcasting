@@ -32,7 +32,14 @@
             android:gravity="center"
             android:hint="Input name of the Live?"
             android:inputType="text" />
-
+        <CheckBox
+            android:id="@+id/cb_lastmine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:onClick="onLastMileClick"
+            android:text="start lastmie probe Test" />
         <Button
             android:id="@+id/button_join"
             android:layout_width="wrap_content"
@@ -42,5 +49,24 @@
             android:onClick="onClickJoin"
             android:enabled="false"
             android:text="Join Room" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_lastmile_quality_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tv_lastmile_result"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_lastmile_Probe_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tv_lastmile_result"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
