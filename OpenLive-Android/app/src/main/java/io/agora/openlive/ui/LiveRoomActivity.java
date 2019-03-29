@@ -475,6 +475,20 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 log.debug("setRemoteVideoStreamType VIDEO_STREAM_HIGH " + mUidsList.size() + " " + (uid & 0xFFFFFFFFL));
             }
         }
+        boolean setRemoteUserPriorityFlag = false;
+        for (int i = 0; i < sizeLimit; i++) {
+            int uid = mGridVideoViewContainer.getItem(i).mUid;
+            if (config().mUid != uid) {
+                if (!setRemoteUserPriorityFlag) {
+                    setRemoteUserPriorityFlag = true;
+                    rtcEngine().setRemoteUserPriority(uid, Constants.USER_PRIORITY_HIGH);
+                    log.debug("setRemoteUserPriority USER_PRIORITY_HIGH " + mUidsList.size() + " " + (uid & 0xFFFFFFFFL));
+                } else {
+                    rtcEngine().setRemoteUserPriority(uid, Constants.USER_PRIORITY_NORANL);
+                    log.debug("setRemoteUserPriority USER_PRIORITY_NORANL " + mUidsList.size() + " " + (uid & 0xFFFFFFFFL));
+                }
+            }
+        }
     }
 
     private void switchToSmallVideoView(int uid) {
@@ -526,6 +540,19 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         if (!create) {
             mSmallVideoViewAdapter.notifyUiChanged(mUidsList, exceptUid, null, null);
         }
+        for (Integer tempUid : mUidsList.keySet()) {
+            if (config().mUid != tempUid) {
+                if (tempUid == exceptUid) {
+                    rtcEngine().setRemoteUserPriority(tempUid, Constants.USER_PRIORITY_HIGH);
+                    log.debug("setRemoteUserPriority USER_PRIORITY_HIGH " + mUidsList.size() + " " + (tempUid & 0xFFFFFFFFL));
+                } else {
+                    rtcEngine().setRemoteUserPriority(tempUid, Constants.USER_PRIORITY_NORANL);
+                    log.debug("setRemoteUserPriority USER_PRIORITY_NORANL " + mUidsList.size() + " " + (tempUid & 0xFFFFFFFFL));
+                }
+            }
+        }
+
+
         recycler.setVisibility(View.VISIBLE);
         mSmallVideoViewDock.setVisibility(View.VISIBLE);
     }
