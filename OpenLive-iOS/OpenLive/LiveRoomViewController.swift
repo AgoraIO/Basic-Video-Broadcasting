@@ -63,7 +63,7 @@ class LiveRoomViewController: UIViewController {
     fileprivate let viewLayouter = VideoViewLayouter()
     
     //MARK: - super resolution
-    var isEnableSuperResolution = true {
+    var isEnableSuperResolution = false {
         didSet {
             superResolutionButton?.setImage(isEnableSuperResolution ? #imageLiteral(resourceName: "btn_sr_blue.pdf") : #imageLiteral(resourceName: "btn_sr.pdf"), for: .normal)
         }

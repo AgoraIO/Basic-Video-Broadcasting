@@ -101,7 +101,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.videoSessions = [[NSMutableArray alloc] init];
-    self.isEnableSuperResolution = YES;
     
     self.roomNameLabel.text = self.roomName;
     [self updateButtonsVisiablity];

@@ -389,7 +389,7 @@
                                     <constraint firstAttribute="height" constant="54" id="DQj-GF-rhU"/>
                                     <constraint firstAttribute="width" constant="54" id="JzZ-b2-iU8"/>
                                 </constraints>
-                                <state key="normal" image="btn_sr_blue"/>
+                                <state key="normal" image="btn_sr"/>
                                 <connections>
                                     <action selector="doSuperResolutionPressed:" destination="jcF-oR-gRA" eventType="touchUpInside" id="U94-E6-imN"/>
                                 </connections>
@@ -682,6 +682,6 @@
         <image name="btn_mute" width="40" height="40"/>
         <image name="btn_overturn" width="40" height="40"/>
         <image name="btn_setting" width="23" height="23"/>
-        <image name="btn_sr_blue" width="40" height="40"/>
+        <image name="btn_sr" width="40" height="40"/>
     </resources>
 </document>
