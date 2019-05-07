@@ -68,8 +68,6 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
     @Override
     protected void initUIandEvent() {
-        event().addEventHandler(this);
-
         Intent i = getIntent();
         int cRole = i.getIntExtra(ConstantApp.ACTION_KEY_CROLE, 0);
 
@@ -120,6 +118,12 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         TextView textRoomName = (TextView) findViewById(R.id.room_name);
         textRoomName.setText(roomName);
     }
+
+    @Override
+    protected void workThreadInited() {
+        event().addEventHandler(this);
+    }
+
 
     private void broadcasterUI(final ImageView button1, ImageView button2, ImageView button3) {
         button1.setTag(true);

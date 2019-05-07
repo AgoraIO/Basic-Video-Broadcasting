@@ -22,6 +22,8 @@ public class MyEngineEventHandler {
 
     private final ConcurrentHashMap<AGEventHandler, Integer> mEventHandlerList = new ConcurrentHashMap<>();
 
+    private final ConcurrentHashMap<LastMileEventHandler, Integer> mLastMileEventHandlerList = new ConcurrentHashMap<>();
+
     public void addEventHandler(AGEventHandler handler) {
         this.mEventHandlerList.put(handler, 0);
     }
@@ -29,6 +31,15 @@ public class MyEngineEventHandler {
     public void removeEventHandler(AGEventHandler handler) {
         this.mEventHandlerList.remove(handler);
     }
+
+    public void addLastMileEventHandler(LastMileEventHandler handler) {
+        this.mLastMileEventHandlerList.put(handler, 0);
+    }
+
+    public void removeLastMileEventHandler(LastMileEventHandler handler) {
+        this.mLastMileEventHandlerList.remove(handler);
+    }
+
 
     final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -92,9 +103,9 @@ public class MyEngineEventHandler {
         @Override
         public void onLastmileQuality(int quality) {
             log.debug("onLastmileQuality " + quality);
-            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            Iterator<LastMileEventHandler> it = mLastMileEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
-                AGEventHandler handler = it.next();
+                LastMileEventHandler handler = it.next();
                 handler.onLastmileQuality(quality);
             }
         }
@@ -102,9 +113,9 @@ public class MyEngineEventHandler {
         @Override
         public void onLastmileProbeResult(IRtcEngineEventHandler.LastmileProbeResult result) {
             log.debug("onLastmileProbeResult " + result);
-            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            Iterator<LastMileEventHandler> it = mLastMileEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
-                AGEventHandler handler = it.next();
+                LastMileEventHandler handler = it.next();
                 handler.onLastmileProbeResult(result);
             }
         }

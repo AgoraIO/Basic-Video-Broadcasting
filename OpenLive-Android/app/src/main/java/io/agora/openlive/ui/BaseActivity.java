@@ -16,22 +16,25 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import io.agora.common.Constant;
 import io.agora.openlive.AGApplication;
 import io.agora.openlive.BuildConfig;
 import io.agora.openlive.model.AGEventHandler;
 import io.agora.openlive.model.ConstantApp;
 import io.agora.openlive.model.EngineConfig;
+import io.agora.openlive.model.LastMileEventHandler;
 import io.agora.openlive.model.MyEngineEventHandler;
 import io.agora.openlive.model.WorkerThread;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-public abstract class BaseActivity extends AppCompatActivity implements AGEventHandler {
+public abstract class BaseActivity extends AppCompatActivity{
     private final static Logger log = LoggerFactory.getLogger(BaseActivity.class);
 
     @Override
@@ -56,6 +59,8 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
     protected abstract void initUIandEvent();
 
     protected abstract void deInitUIandEvent();
+
+    protected abstract void workThreadInited();
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -194,9 +199,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
             }
         }
     }
-    protected void workThreadInited(){
-
-    }
 
     protected void initVersionInfo() {
         String version = "V " + BuildConfig.VERSION_NAME + "(Build: " + BuildConfig.VERSION_CODE
@@ -205,34 +207,4 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
 //        textVersion.setText(version);
     }
 
-
-    @Override
-    public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
-
-    }
-
-    @Override
-    public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
-
-    }
-
-    @Override
-    public void onUserOffline(int uid, int reason) {
-
-    }
-
-    @Override
-    public void onUserJoined(int uid, int elapsed) {
-
-    }
-
-    @Override
-    public void onLastmileQuality(final int quality) {
-
-    }
-
-    @Override
-    public void onLastmileProbeResult(final IRtcEngineEventHandler.LastmileProbeResult result) {
-
-    }
 }

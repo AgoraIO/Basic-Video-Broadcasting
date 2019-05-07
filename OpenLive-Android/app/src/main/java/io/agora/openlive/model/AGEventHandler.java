@@ -10,8 +10,4 @@ public interface AGEventHandler {
     void onUserOffline(int uid, int reason);
 
     void onUserJoined(int uid, int elapsed);
-
-    void onLastmileQuality(int quality);
-
-    void onLastmileProbeResult(IRtcEngineEventHandler.LastmileProbeResult result);
 }
