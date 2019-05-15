@@ -15,11 +15,15 @@
 
     <string name="label_beauty_effect">Beauty</string>
 
-    <string name="label_lightness">Lightness</string>
+    <string name="label_contrast">Ctrs</string>
 
-    <string name="label_smoothness">Smoothness</string>
+    <string name="label_lightness">Lgt</string>
+    <string name="label_smoothness">Smth</string>
+    <string name="label_redness">Red</string>
 
-    <string name="label_redness">Redness</string>
+    <string name="label_low">Lo</string>
+    <string name="label_normal">Norm</string>
+    <string name="label_high">High</string>
 
     <string-array
         name="string_array_resolutions">
