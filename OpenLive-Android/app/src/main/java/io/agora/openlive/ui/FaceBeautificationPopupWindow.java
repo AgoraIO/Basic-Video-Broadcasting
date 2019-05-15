@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import io.agora.common.Constant;
 import io.agora.openlive.R;
+import io.agora.rtc.video.BeautyOptions;
 import io.agora.ui.popup.BasePopupWindow;
 import io.agora.ui.popup.ItemClickHandler;
 
@@ -19,12 +24,16 @@ public class FaceBeautificationPopupWindow extends BasePopupWindow {
     public interface UserEventHandler {
         void onFBSwitch(boolean on);
 
+        void onContrastLevelSet(float contrast);
+
         void onLightnessSet(float lightness);
 
         void onSmoothnessSet(float smoothness);
 
         void onRednessSet(float redness);
     }
+
+    private static final DecimalFormat ParameterFormatOnView = new DecimalFormat("#0.00");
 
     public FaceBeautificationPopupWindow(Context ctx) {
         mCtx = ctx;
@@ -47,17 +56,37 @@ public class FaceBeautificationPopupWindow extends BasePopupWindow {
             }
         });
 
+        RadioGroup contrastRadioGroup = (RadioGroup) contentView.findViewById(R.id.set_contrast_radio_group);
+        RadioButton selected = (RadioButton) contrastRadioGroup.getChildAt(Constant.BEAUTY_OPTIONS.lighteningContrastLevel);
+        selected.setChecked(true);
+        contrastRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (mUserEventHandler != null) {
+                    if (checkedId == R.id.set_contrast_radio_group_low) {
+                        Constant.BEAUTY_OPTIONS.lighteningContrastLevel = BeautyOptions.LIGHTENING_CONTRAST_LOW;
+                    } else if (checkedId == R.id.set_contrast_radio_group_normal) {
+                        Constant.BEAUTY_OPTIONS.lighteningContrastLevel = BeautyOptions.LIGHTENING_CONTRAST_NORMAL;
+                    } else if (checkedId == R.id.set_contrast_radio_group_high) {
+                        Constant.BEAUTY_OPTIONS.lighteningContrastLevel = BeautyOptions.LIGHTENING_CONTRAST_HIGH;
+                    }
+
+                    mUserEventHandler.onContrastLevelSet(Constant.BEAUTY_OPTIONS.lighteningContrastLevel);
+                }
+            }
+        });
+
         SeekBar lightnessSeekBar = (SeekBar) contentView.findViewById(R.id.set_lightness_seek_bar);
         lightnessSeekBar.setMax((int) (Constant.BEAUTY_EFFECT_MAX_LIGHTNESS * 100.f));
         lightnessSeekBar.setProgress((int) (Constant.BEAUTY_OPTIONS.lighteningLevel * 100.f));
         final TextView lightnessValueView = (TextView) contentView.findViewById(R.id.set_lightness_label);
-        lightnessValueView.setText(mCtx.getString(R.string.label_lightness) + " " + Constant.BEAUTY_OPTIONS.lighteningLevel);
+        lightnessValueView.setText(mCtx.getString(R.string.label_lightness) + " " + ParameterFormatOnView.format(Constant.BEAUTY_OPTIONS.lighteningLevel));
         lightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     float realValue = progress * 1.f / 100.f;
-                    lightnessValueView.setText(mCtx.getString(R.string.label_lightness) + " " + realValue);
+                    lightnessValueView.setText(mCtx.getString(R.string.label_lightness) + " " + ParameterFormatOnView.format(realValue));
                     if (mUserEventHandler != null) {
                         mUserEventHandler.onLightnessSet(realValue);
                     }
@@ -78,13 +107,13 @@ public class FaceBeautificationPopupWindow extends BasePopupWindow {
         smoothnessSeekBar.setMax((int) (Constant.BEAUTY_EFFECT_MAX_SMOOTHNESS * 100.f));
         smoothnessSeekBar.setProgress((int) (Constant.BEAUTY_OPTIONS.smoothnessLevel * 100.f));
         final TextView smoothnessValueView = (TextView) contentView.findViewById(R.id.set_smoothness_label);
-        smoothnessValueView.setText(mCtx.getString(R.string.label_smoothness) + " " + Constant.BEAUTY_OPTIONS.smoothnessLevel);
+        smoothnessValueView.setText(mCtx.getString(R.string.label_smoothness) + " " + ParameterFormatOnView.format(Constant.BEAUTY_OPTIONS.smoothnessLevel));
         smoothnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     float realValue = progress * 1.f / 100.f;
-                    smoothnessValueView.setText(mCtx.getString(R.string.label_smoothness) + " " + realValue);
+                    smoothnessValueView.setText(mCtx.getString(R.string.label_smoothness) + " " + ParameterFormatOnView.format(realValue));
                     if (mUserEventHandler != null) {
                         mUserEventHandler.onSmoothnessSet(realValue);
                     }
@@ -105,13 +134,13 @@ public class FaceBeautificationPopupWindow extends BasePopupWindow {
         ctSeekBar.setMax((int) (Constant.BEAUTY_EFFECT_MAX_REDNESS * 100.f));
         ctSeekBar.setProgress((int) (Constant.BEAUTY_OPTIONS.rednessLevel * 100.f));
         final TextView rednessValueView = (TextView) contentView.findViewById(R.id.set_redness_label);
-        rednessValueView.setText(mCtx.getString(R.string.label_redness) + " " + Constant.BEAUTY_OPTIONS.rednessLevel);
+        rednessValueView.setText(mCtx.getString(R.string.label_redness) + " " + ParameterFormatOnView.format(Constant.BEAUTY_OPTIONS.rednessLevel));
         ctSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     float realValue = progress * 1.f / 100.f;
-                    rednessValueView.setText(mCtx.getString(R.string.label_redness) + " " + realValue);
+                    rednessValueView.setText(mCtx.getString(R.string.label_redness) + " " + ParameterFormatOnView.format(realValue));
                     if (mUserEventHandler != null) {
                         mUserEventHandler.onRednessSet(realValue);
                     }

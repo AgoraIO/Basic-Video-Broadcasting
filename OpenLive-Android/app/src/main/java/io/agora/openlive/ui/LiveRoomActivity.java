@@ -271,6 +271,11 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 }
 
                 @Override
+                public void onContrastLevelSet(float contrast) {
+                    worker().setBeautyEffectParameters(Constant.BEAUTY_OPTIONS.lighteningLevel, Constant.BEAUTY_OPTIONS.smoothnessLevel, Constant.BEAUTY_OPTIONS.rednessLevel);
+                }
+
+                @Override
                 public void onLightnessSet(float lightness) {
                     worker().setBeautyEffectParameters(lightness, Constant.BEAUTY_OPTIONS.smoothnessLevel, Constant.BEAUTY_OPTIONS.rednessLevel);
                 }

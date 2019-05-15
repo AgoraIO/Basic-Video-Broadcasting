@@ -4,5 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="fb_popup_window_width">240dp</dimen>
-    <dimen name="fb_popup_window_height">182dp</dimen>
+    <dimen name="fb_popup_window_height">224dp</dimen>
 </resources>
