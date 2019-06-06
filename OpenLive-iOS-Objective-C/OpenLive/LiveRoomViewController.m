@@ -109,8 +109,8 @@
     
     self.beautyOptions = [[AgoraBeautyOptions alloc] init];
     self.beautyOptions.lighteningContrastLevel = AgoraLighteningContrastNormal;
-    self.beautyOptions.lighteningLevel = 0.2;
-    self.beautyOptions.smoothnessLevel = 0.2;
+    self.beautyOptions.lighteningLevel = 0.7;
+    self.beautyOptions.smoothnessLevel = 0.5;
     self.beautyOptions.rednessLevel = 0.1;
     
     self.isBeautyOn = YES;

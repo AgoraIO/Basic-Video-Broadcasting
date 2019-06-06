@@ -96,8 +96,8 @@ class LiveRoomViewController: UIViewController {
     let beautyOptions: AgoraBeautyOptions = {
         let options = AgoraBeautyOptions()
         options.lighteningContrastLevel = .normal
-        options.lighteningLevel = 0.2
-        options.smoothnessLevel = 0.2
+        options.lighteningLevel = 0.7
+        options.smoothnessLevel = 0.5
         options.rednessLevel = 0.1
         return options
     }()
