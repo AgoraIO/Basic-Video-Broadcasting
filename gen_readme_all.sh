@@ -1,3 +1,4 @@
+./gen_readme.sh ./OpenLive-Android
 ./gen_readme.sh ./OpenLive-iOS
 ./gen_readme.sh ./OpenLive-iOS-Objective-C
 ./gen_readme.sh ./OpenLive-macOS
