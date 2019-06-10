@@ -10,7 +10,7 @@ import ButtonControl from '@/utils/ButtonControl';
 import { isSafari, isMobileSize, isChrome, isFirefox } from '@/utils/BrowserCheck';
 import Notify from '@/utils/Notify';
 import Renderer from '@/utils/Render';
-import { SHARE_ID, RESOLUTION_ARR, APP_ID_LIVE } from '@/utils/Settings';
+import { SHARE_ID, RESOLUTION_ARR, APP_ID_LIVE, Token } from '@/utils/Settings';
 import { logger, log } from '../../utils/Logger';
 // eslint-disable-next-line
 import Polyfill from '@/utils/Polyfill';
@@ -50,6 +50,7 @@ const optionsInit = () => {
 
   // Agora live
   options.key = APP_ID_LIVE;
+  options.token = Token;
 
   return options;
 };
@@ -85,7 +86,7 @@ const clientInit = (client, options) => {
       globalLog('AgoraRTC client initialized');
       let lowStreamParam = RESOLUTION_ARR[options.videoProfileLow];
       client.join(
-        options.key,
+        options.token,
         options.channel,
         options.uid,
         uid => {

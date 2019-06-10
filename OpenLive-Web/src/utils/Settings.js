@@ -50,3 +50,5 @@ export const RESOLUTION_ARR = {
 export const SHARE_ID = 1;
 // eslint-disable-next-line
 export const APP_ID_LIVE = "<#YOUR_APP_ID#>";
+// eslint-disable-next-line
+export const Token = "<#YOUR_ACCESS_TOKEN#>";

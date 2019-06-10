@@ -1,0 +1,55 @@
+Meta:
+  name: Open Live iOS for Objective-C
+  # en or cn
+  lang: en
+  project: OpenLive
+  # | 代表这里是字符串
+  description: |
+    The Open Live iOS for Objective-C Sample App is an open-source demo that will help you get live video chat integrated directly into your iOS applications using the Agora Video SDK.
+
+    With this sample app, you can:
+
+    - Join / leave channel
+    - Set role as broadcaster or audience
+    - Mute / unmute audio
+    - Switch camera
+    - Setup resolution, frame rate and bit rate
+
+    This demo is written in **Objective-C**, you can find **Swift** version here: [OpenLive-iOS](https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-iOS)
+
+    A tutorial demo can be found here: [Agora-iOS-Tutorial-Objective-C-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-iOS-Tutorial-Objective-C-1to1)
+
+Prerequisites:
+  - Xcode 10.0+
+  - Physical iOS device (iPhone or iPad)
+  - iOS simulator is NOT supported
+
+QuickStart:
+  description:
+    This section shows you how to prepare, build, and run the sample application.
+  sections:
+    - title: Obtain an App ID
+      content: |
+        $_{APPID}
+        5. Open `OpenLive.xcodeproj` and edit the `KeyCenter.m` file. Update `<#Your App Id#>` with your app ID, and assign the token variable with the temp Access Token generated from dashboard.
+
+            ```
+            + (NSString *)AppId {
+                return <#Your App Id#>;
+            }
+
+            // assign token to nil if you have not enabled app certificate
+            + (NSString *)Token {
+                return <#Temp Access Token#>;
+            }
+            ```
+    - title: Integrate the Agora Video SDK
+      content: |
+        $_{IOS_RUN}
+
+Resources:
+  document: https://docs.agora.io/en/
+  issue: https://github.com/AgoraIO/Basic-Video-Call/issues
+
+License:
+  type: MIT

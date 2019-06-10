@@ -236,7 +236,7 @@ private extension LiveRoomViewController {
         
         addLocalSession()
         
-        let code = rtcEngine.joinChannel(byToken: nil, channelId: roomName, info: nil, uid: 0, joinSuccess: nil)
+        let code = rtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: roomName, info: nil, uid: 0, joinSuccess: nil)
         if code != 0 {
             DispatchQueue.main.async(execute: {
                 self.alert(string: "Join channel failed: \(code)")

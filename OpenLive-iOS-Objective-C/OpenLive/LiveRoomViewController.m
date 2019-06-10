@@ -10,6 +10,7 @@
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
 #import "BeautyEffectTableViewController.h"
+#import "KeyCenter.h"
 
 @interface LiveRoomViewController () <AgoraRtcEngineDelegate, BeautyEffectTableVCDelegate, UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *roomNameLabel;
@@ -312,7 +313,7 @@
     
     [self addLocalSession];
     
-    int code = [self.rtcEngine joinChannelByToken:nil channelId:self.roomName info:nil uid:0 joinSuccess:nil];
+    int code = [self.rtcEngine joinChannelByToken:[KeyCenter Token] channelId:self.roomName info:nil uid:0 joinSuccess:nil];
     if (code == 0) {
         [self setIdleTimerActive:NO];
     } else {
