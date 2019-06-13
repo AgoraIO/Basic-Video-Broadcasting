@@ -21,6 +21,7 @@ using namespace agora::base;
 #define AG_ENGFLAG_AECON		0x00000400	// Echo Cancellation
 
 #define APP_ID				_T("")
+#define APP_TOKEN			""
 
 typedef struct _SEI_INFO
 {
