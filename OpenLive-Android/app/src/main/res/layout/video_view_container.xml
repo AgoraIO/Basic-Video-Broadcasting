@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/video_view_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
+    <include
+        layout="@layout/user_remote_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        layout="@layout/user_local_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

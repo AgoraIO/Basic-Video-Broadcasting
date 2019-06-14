@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import io.agora.common.Constant;
 import io.agora.openlive.AGApplication;
 import io.agora.openlive.BuildConfig;
@@ -26,6 +27,7 @@ import io.agora.openlive.model.MyEngineEventHandler;
 import io.agora.openlive.model.WorkerThread;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -194,7 +196,8 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
             }
         }
     }
-    protected void workThreadInited(){
+
+    protected void workThreadInited() {
 
     }
 
@@ -235,4 +238,30 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
     public void onLastmileProbeResult(final IRtcEngineEventHandler.LastmileProbeResult result) {
 
     }
+
+    @Override
+    public void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats) {
+
+    }
+
+    @Override
+    public void onRtcStats(IRtcEngineEventHandler.RtcStats stats) {
+
+    }
+
+    @Override
+    public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
+
+    }
+
+    @Override
+    public void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats) {
+
+    }
+
+    @Override/**/
+    public void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats) {
+
+    }
+
 }

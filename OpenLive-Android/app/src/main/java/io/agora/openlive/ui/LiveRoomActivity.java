@@ -28,6 +28,7 @@ import io.agora.openlive.model.AGEventHandler;
 import io.agora.openlive.model.ConstantApp;
 import io.agora.openlive.model.VideoStatusData;
 import io.agora.rtc.Constants;
+import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -39,7 +40,8 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
     private GridVideoViewContainer mGridVideoViewContainer;
 
     private RelativeLayout mSmallVideoViewDock;
-
+    private VideoEncoderConfiguration.VideoDimensions localVideoDimensions = null;
+    private HashMap<Integer,VideoStatusData> mAllUserData =  new HashMap<>();
     private final HashMap<Integer, SurfaceView> mUidsList = new HashMap<>(); // uid = 0 || uid == EngineConfig.mUid
 
     @Override
@@ -107,7 +109,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
             rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
 
             mUidsList.put(0, surfaceV); // get first surface view
-
+            mAllUserData.put(0,new VideoStatusData());
             mGridVideoViewContainer.initViewContainer(getApplicationContext(), 0, mUidsList); // first is now full view
             worker().preview(true, surfaceV, 0);
             broadcasterUI(button1, button2, button3);
@@ -192,7 +194,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
             prefIndex = ConstantApp.DEFAULT_PROFILE_IDX;
         }
         VideoEncoderConfiguration.VideoDimensions dimension = ConstantApp.VIDEO_DIMENSIONS[prefIndex];
-
+        localVideoDimensions = dimension;
         worker().configEngine(cRole, dimension);
     }
 
@@ -351,6 +353,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
                 SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
                 mUidsList.put(uid, surfaceV);
+                mAllUserData.put(uid,new VideoStatusData());
                 if (config().mUid == uid) {
                     rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, uid));
                 } else {
@@ -389,8 +392,12 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 worker().getEngineConfig().mUid = uid;
 
                 SurfaceView surfaceV = mUidsList.remove(0);
+                mAllUserData.remove(0);
                 if (surfaceV != null) {
                     mUidsList.put(uid, surfaceV);
+                    VideoStatusData videoStatusData = new VideoStatusData();
+                    videoStatusData.setLocalUid(true);
+                    mAllUserData.put(uid,videoStatusData);
                 }
             }
         });
@@ -405,6 +412,111 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
     @Override
     public void onUserJoined(int uid, int elapsed) {
         doRenderRemoteUi(uid);
+    }
+
+    @Override
+    public void onLocalVideoStats(final IRtcEngineEventHandler.LocalVideoStats stats) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing()) {
+                    return;
+                }
+                VideoStatusData videoLocalStatusData = getSecialUserDataInfo(config().mUid);
+                if(videoLocalStatusData!=null){
+                    videoLocalStatusData.setLocalResolutionInfo(localVideoDimensions.width,localVideoDimensions.height,stats.sentFrameRate);
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void onRtcStats(final IRtcEngineEventHandler.RtcStats stats) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing()) {
+                    return;
+                }
+                VideoStatusData videoLocalStatusData = getSecialUserDataInfo(config().mUid);
+                if (videoLocalStatusData != null) {
+                    videoLocalStatusData.setLocalVideoSendRecvInfo(stats.txVideoKBitRate, stats.rxVideoKBitRate);
+                    videoLocalStatusData.setLocalAudioSendRecvInfo(stats.txAudioKBitRate, stats.rxAudioKBitRate);
+                    videoLocalStatusData.setLocalLastmileDelayInfo(stats.lastmileDelay);
+                    videoLocalStatusData.setLocalCpuAppTotalInfo(stats.cpuAppUsage, stats.cpuTotalUsage);
+                    videoLocalStatusData.setLocalSendRecvLostInfo(stats.txPacketLossRate, stats.rxPacketLossRate);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onNetworkQuality(final int uid, final int txQuality, final int rxQuality) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing()) {
+                    return;
+                }
+                VideoStatusData videoStatusData = null;
+                if(uid == 0){
+                    videoStatusData = VideoViewAdapterUtil.getLocalUserData(mAllUserData);
+                }else{
+                    videoStatusData = getSecialUserDataInfo(uid);
+                }
+
+                if(videoStatusData!=null) {
+                    videoStatusData.setSendRecvQualityInfo(txQuality, rxQuality);
+                }
+                if(mGridVideoViewContainer!=null){
+                    mGridVideoViewContainer.notifyDataChange(mAllUserData);
+                }
+//                if(mSmallVideoViewAdapter!=null){
+//                    mSmallVideoViewAdapter.notifyDataChange(mAllUserData);
+//                }
+            }
+        });
+    }
+
+
+    @Override
+    public void onRemoteVideoStats(final IRtcEngineEventHandler.RemoteVideoStats stats) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing()) {
+                    return;
+                }
+                VideoStatusData videoRemoteStatusData = getSecialUserDataInfo(stats.uid);
+                if(videoRemoteStatusData!=null) {
+                    videoRemoteStatusData.setRemoteResolutionInfo(stats.width, stats.height, stats.decoderOutputFrameRate);
+                    videoRemoteStatusData.setRemoteVideoDelayInfo(stats.delay);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onRemoteAudioStats(final IRtcEngineEventHandler.RemoteAudioStats stats) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing()) {
+                    return;
+                }
+                VideoStatusData videoRemoteStatusData = getSecialUserDataInfo(stats.uid);
+                if(videoRemoteStatusData!=null) {
+                    videoRemoteStatusData.setRemoteAudioDelayJitterInfo(stats.networkTransportDelay, stats.jitterBufferDelay);
+                    videoRemoteStatusData.setRemoteAudioLostQualityInfo(stats.audioLossRate, stats.quality);
+                }
+            }
+        });
+    }
+
+    public VideoStatusData getSecialUserDataInfo(int uid){
+        return mAllUserData.get(uid);
     }
 
     private void requestRemoteStreamType(final int currentHostCount) {
@@ -443,7 +555,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 }
 
                 mUidsList.remove(uid);
-
+                mAllUserData.remove(uid);
                 int bigBgUid = -1;
                 if (mSmallVideoViewAdapter != null) {
                     bigBgUid = mSmallVideoViewAdapter.getExceptedUid();
