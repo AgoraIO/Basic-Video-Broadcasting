@@ -182,9 +182,3 @@ extension AgoraNetworkQuality {
         }
     }
 }
-
-extension String {
-    static var join: String {
-        return "\n"
-    }
-}
