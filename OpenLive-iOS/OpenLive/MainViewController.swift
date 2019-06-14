@@ -147,20 +147,6 @@ extension MainViewController: UITextFieldDelegate {
     }
 }
 
-extension AgoraNetworkQuality {
-    func description() -> String {
-        switch self {
-        case .excellent: return "excellent"
-        case .good:      return "good"
-        case .poor:      return "poor"
-        case .bad:       return "bad"
-        case .vBad:      return "very bad"
-        case .down:      return "down"
-        case .unknown:   return "unknown"
-        }
-    }
-}
-
 extension AgoraLastmileProbeOneWayResult {
     func description() -> String {
         return "packetLoss: \(packetLossRate), jitter: \(jitter), availableBandwidth: \(availableBandwidth)"

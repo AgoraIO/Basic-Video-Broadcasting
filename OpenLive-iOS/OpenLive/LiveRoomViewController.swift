@@ -258,8 +258,9 @@ private extension LiveRoomViewController {
         }
     }
     
-    func addLocalSession() {
+    func addLocalSession(fps: Int) {
         let localSession = VideoSession.localSession()
+        localSession.updateInfo(fps: fps)
         videoSessions.append(localSession)
         rtcEngine.setupLocalVideo(localSession.canvas)
     }
@@ -302,11 +303,13 @@ private extension LiveRoomViewController {
         // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
         rtcEngine.enableDualStreamMode(true)
         
+        let fps = AgoraVideoFrameRate.fps24
+        
         rtcEngine.enableVideo()
         rtcEngine.setVideoEncoderConfiguration(
             AgoraVideoEncoderConfiguration(
                 size: videoProfile,
-                frameRate: .fps24,
+                frameRate: fps,
                 bitrate: AgoraVideoBitrateStandard,
                 orientationMode: .adaptative
             )
@@ -318,7 +321,7 @@ private extension LiveRoomViewController {
             rtcEngine.startPreview()
         }
         
-        addLocalSession()
+        addLocalSession(fps: fps.rawValue)
         
         let code = rtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: roomName, info: nil, uid: 0, joinSuccess: nil)
         if code == 0 {
@@ -339,7 +342,8 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstLocalVideoFrameWith size: CGSize, elapsed: Int) {
-        if let _ = videoSessions.first {
+        if let selfSession = videoSessions.first {
+            selfSession.updateInfo(resolution: size)
             updateInterface(withAnimation: false)
         }
     }
@@ -360,6 +364,27 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
                 fullSession = nil
             }
         }
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, networkQuality uid: UInt, txQuality: AgoraNetworkQuality, rxQuality: AgoraNetworkQuality) {
+        let userSession = videoSession(ofUid: uid)
+        userSession.updateInfo(txQuality: txQuality, rxQuality: rxQuality)
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, reportRtcStats stats: AgoraChannelStats) {
+        if let selfSession = videoSessions.first {
+            selfSession.updateChannelStats(stats)
+        }
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
+        let userSession = videoSession(ofUid: stats.uid)
+        userSession.updateVideoStats(stats)
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStats stats: AgoraRtcRemoteAudioStats) {
+        let userSession = videoSession(ofUid: stats.uid)
+        userSession.updateAudioStats(stats)
     }
 }
 
