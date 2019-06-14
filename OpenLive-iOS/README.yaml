@@ -1,0 +1,46 @@
+Meta:
+  name: Open Live iOS for Swift
+  # en or cn
+  lang: en
+  project: OpenLive
+  # | 代表这里是字符串
+  description: |
+    This tutorial describes how to add live video chat to your iOS applications using Swift and the Agora Video SDK.
+
+    With this sample app, you can:
+
+    - [Join](#create-the-loadagorakit-method)/[leave](#create-the-leavechannel-method) a channel
+    - [Set user role as a broadcaster or audience member](#create-the-mainviewcontroller-extensions)
+    - [Mute/unmute audio](#define-private-variables)
+    - [Switch camera views](#create-the-doswitchcamerapressed-ibaction-method)
+    - [Set up the resolution, the frame rate, and the bit rate display](#create-the-loadagorakit-method)
+
+Prerequisites:
+  - Xcode 10.0+
+  - Physical iOS device (iPhone or iPad)
+
+QuickStart:
+  description:
+    This section shows you how to prepare, build, and run the sample application.
+  sections:
+    - title: Obtain an App ID
+      content: |
+        $_{APPID}
+        5. Open `OpenLive.xcodeproj` and edit the `KeyCenter.swift` file. In the `agoraKit` declaration, update `<#Your App Id#>` with your app ID, and assign the token variable with the temp Access Token generated from dashboard.
+
+            ``` Swift
+            static let AppId: String = <#Your App Id#>
+            // assign token to nil if you have not enabled app certificate
+            static var Token: String? = <#Temp Access Token#>
+            ```
+    - title: Integrate the Agora Video SDK
+      content: |
+
+        $_{IOS_RUN}
+
+Resources:
+  document: https://docs.agora.io/en/
+  issue: https://github.com/AgoraIO/Basic-Video-Call/issues
+
+License:
+  type: MIT

@@ -364,7 +364,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	lpRtcEngine->setupLocalVideo(vc);
 	lpRtcEngine->startPreview();
 
-	lpAgoraObject->JoinChannel(strChannelName);
+	lpAgoraObject->JoinChannel(strChannelName,0,strlen(APP_TOKEN) > 0 ? APP_TOKEN:NULL);
 
     lpAgoraObject->SetMsgHandlerWnd(m_dlgVideo.GetSafeHwnd());
     

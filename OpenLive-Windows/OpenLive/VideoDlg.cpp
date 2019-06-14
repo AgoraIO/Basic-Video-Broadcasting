@@ -107,7 +107,7 @@ void CVideoDlg::OnSize(UINT nType, int cx, int cy)
 	m_rcVideoArea.top += 24;
 	m_rcVideoArea.bottom -= 72;
 
-	// 2ÈË£¬ Top right corner sub-screen area
+	// 2ï¿½Ë£ï¿½ Top right corner sub-screen area
 	m_rcChildVideoArea.top = m_rcVideoArea.top + 10;
 	m_rcChildVideoArea.bottom = m_rcChildVideoArea.top + 144;
 	m_rcChildVideoArea.right = m_rcVideoArea.right - 14;
@@ -805,7 +805,7 @@ LRESULT CVideoDlg::OnRemoteVideoStat(WPARAM wParam, LPARAM lParam)
 		AGVIDEO_WNDINFO &rWndInfo = m_listWndInfo.GetNext(posNext);
 
 		if (rWndInfo.nUID == lpData->uid) {
-			rWndInfo.nFramerate = lpData->receivedFrameRate;
+			rWndInfo.nFramerate = lpData->rendererOutputFrameRate;
 			rWndInfo.nBitrate = lpData->receivedBitrate;
 			rWndInfo.nWidth = lpData->width;
 			rWndInfo.nHeight = lpData->height;

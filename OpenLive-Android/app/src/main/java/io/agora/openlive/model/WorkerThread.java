@@ -150,7 +150,12 @@ public class WorkerThread extends Thread {
         }
 
         ensureRtcEngineReadyLock();
-        mRtcEngine.joinChannel(null, channel, "OpenLive", uid);
+
+        String token = mContext.getString(R.string.agora_access_token);
+        if(TextUtils.isEmpty(token)) {
+            token = null;
+        }
+        mRtcEngine.joinChannel(token, channel, "OpenLive", uid);
 
         mEngineConfig.mChannel = channel;
 

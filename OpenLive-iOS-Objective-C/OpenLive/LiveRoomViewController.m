@@ -10,6 +10,7 @@
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
 #import "BeautyEffectTableViewController.h"
+#import "KeyCenter.h"
 
 @interface LiveRoomViewController () <AgoraRtcEngineDelegate, BeautyEffectTableVCDelegate, UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *roomNameLabel;
@@ -109,8 +110,8 @@
     
     self.beautyOptions = [[AgoraBeautyOptions alloc] init];
     self.beautyOptions.lighteningContrastLevel = AgoraLighteningContrastNormal;
-    self.beautyOptions.lighteningLevel = 0.2;
-    self.beautyOptions.smoothnessLevel = 0.2;
+    self.beautyOptions.lighteningLevel = 0.7;
+    self.beautyOptions.smoothnessLevel = 0.5;
     self.beautyOptions.rednessLevel = 0.1;
     
     self.isBeautyOn = YES;
@@ -312,7 +313,7 @@
     
     [self addLocalSession];
     
-    int code = [self.rtcEngine joinChannelByToken:nil channelId:self.roomName info:nil uid:0 joinSuccess:nil];
+    int code = [self.rtcEngine joinChannelByToken:[KeyCenter Token] channelId:self.roomName info:nil uid:0 joinSuccess:nil];
     if (code == 0) {
         [self setIdleTimerActive:NO];
     } else {

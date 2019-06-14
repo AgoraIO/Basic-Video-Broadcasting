@@ -9,6 +9,7 @@
 #import "LiveRoomViewController.h"
 #import "VideoSession.h"
 #import "VideoViewLayouter.h"
+#import "KeyCenter.h"
 
 @interface LiveRoomViewController ()<AgoraRtcEngineDelegate>
 @property (weak) IBOutlet NSView *remoteContainerView;
@@ -109,7 +110,7 @@
         [self.rtcEngine startPreview];
     }
     [self addLocalSession];
-    int code =   [self.rtcEngine joinChannelByToken:nil channelId:self.roomName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
+    int code = [self.rtcEngine joinChannelByToken:[KeyCenter Token] channelId:self.roomName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
 
     }];
     if (code != 0) {
