@@ -79,10 +79,6 @@ public class MyEngineEventHandler {
         public void onUserMuteVideo(int uid, boolean muted) {
         }
 
-        @Override
-        public void onRtcStats(RtcStats stats) {
-        }
-
 
         @Override
         public void onLeaveChannel(RtcStats stats) {
@@ -132,6 +128,56 @@ public class MyEngineEventHandler {
 
         public void onWarning(int warn) {
             log.debug("onWarning " + warn);
+        }
+
+        public void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats) {
+            log.debug("onLocalVideoStats");
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onLocalVideoStats(stats);
+            }
+        }
+
+        public void onRtcStats(IRtcEngineEventHandler.RtcStats stats) {
+            log.debug("onRtcStats " );
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onRtcStats(stats);
+            }
+        }
+
+        public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
+            log.debug("onNetworkQuality ");
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onNetworkQuality(uid, txQuality, rxQuality);
+            }
+        }
+
+        public void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats) {
+            log.debug("onRemoteVideoStats " );
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onRemoteVideoStats(stats);
+            }
+        }
+
+        public void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats) {
+            log.debug("onRemoteAudioStats ");
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onRemoteAudioStats(stats);
+            }
         }
 
     };

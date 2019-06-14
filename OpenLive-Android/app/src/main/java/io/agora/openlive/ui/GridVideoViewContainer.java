@@ -69,4 +69,10 @@ public class GridVideoViewContainer extends RecyclerView {
     public VideoStatusData getItem(int position) {
         return mGridVideoViewContainerAdapter.getItem(position);
     }
+
+    public void notifyDataChange(HashMap<Integer,VideoStatusData> mAllUserData){
+        if(mGridVideoViewContainerAdapter!=null){
+            mGridVideoViewContainerAdapter.notifyDataChange(mAllUserData);
+        }
+    }
 }

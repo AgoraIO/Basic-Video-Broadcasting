@@ -21,6 +21,7 @@ import java.util.HashMap;
 import io.agora.openlive.R;
 import io.agora.openlive.model.VideoStatusData;
 
+
 public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final static Logger log = LoggerFactory.getLogger(VideoViewAdapter.class);
@@ -31,6 +32,7 @@ public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView
     protected final ArrayList<VideoStatusData> mUsers;
 
     protected final VideoViewEventListener mListener;
+    private HashMap<Integer, VideoStatusData> mAllUserData;
 
     protected int exceptedUid;
 
@@ -89,11 +91,12 @@ public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         FrameLayout holderView = (FrameLayout) myHolder.itemView;
 
-        if (holderView.getChildCount() == 0) {
+        if(!myHolder.getIsUsed()){
             SurfaceView target = user.mView;
-            stripSurfaceView(target);
             target.setZOrderMediaOverlay(true);
-            holderView.addView(target, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            stripSurfaceView(target);
+            holderView.addView(target,0, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            myHolder.setIsUsed(true);
         }
 
         holderView.setOnTouchListener(new OnDoubleTapListener(mContext) {
@@ -108,7 +111,7 @@ public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView
             public void onSingleTapUp() {
             }
         });
-
+        VideoViewAdapterUtil.updateUIData(myHolder, user, mAllUserData);
     }
 
     @Override
@@ -128,4 +131,10 @@ public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         return (String.valueOf(user.mUid) + System.identityHashCode(view)).hashCode();
     }
+
+    public void notifyDataChange(HashMap<Integer, VideoStatusData> mAllUserData) {
+        this.mAllUserData = mAllUserData;
+        this.notifyDataSetChanged();
+    }
+
 }

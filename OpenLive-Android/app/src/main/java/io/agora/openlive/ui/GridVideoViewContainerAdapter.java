@@ -24,12 +24,13 @@ import io.agora.openlive.R;
 import io.agora.openlive.model.ConstantApp;
 import io.agora.openlive.model.VideoStatusData;
 
+
 public class GridVideoViewContainerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static Logger log = LoggerFactory.getLogger(GridVideoViewContainerAdapter.class);
 
     protected final LayoutInflater mInflater;
     protected final Context mContext;
-
+    private HashMap<Integer, VideoStatusData> mAllUserData;
     protected final VideoViewEventListener mListener;
 
     private ArrayList<VideoStatusData> mUsers;
@@ -154,11 +155,14 @@ public class GridVideoViewContainerAdapter extends RecyclerView.Adapter<Recycler
             }
         });
 
-        if (holderView.getChildCount() == 0) {
+        if(!myHolder.getIsUsed()){
             SurfaceView target = user.mView;
+            target.setZOrderMediaOverlay(true);
             stripSurfaceView(target);
-            holderView.addView(target, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            holderView.addView(target,0, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            myHolder.setIsUsed(true);
         }
+        VideoViewAdapterUtil.updateUIData(myHolder,user,mAllUserData);
     }
 
     @Override
@@ -184,5 +188,11 @@ public class GridVideoViewContainerAdapter extends RecyclerView.Adapter<Recycler
         }
 
         return (String.valueOf(user.mUid) + System.identityHashCode(view)).hashCode();
+    }
+
+
+    public void notifyDataChange(HashMap<Integer,VideoStatusData> mAllUserData){
+        this.mAllUserData = mAllUserData;
+        this.notifyDataSetChanged();
     }
 }
