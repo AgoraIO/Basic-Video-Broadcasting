@@ -20,28 +20,33 @@
             android:id="@+id/remote_resolution_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/OverlayText"
             android:maxLines="1" />
 
         <TextView
             android:id="@+id/remote_send_recv_quality_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/OverlayText"
             android:maxLines="1" />
 
         <TextView
             android:id="@+id/remote_video_delay_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/OverlayText"
             android:maxLines="1" />
         <TextView
             android:id="@+id/remote_audio_delay_jitter_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/OverlayText"
             android:maxLines="1" />
         <TextView
             android:id="@+id/remote_audio_lost_quality_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/OverlayText"
             android:maxLines="1" />
     </LinearLayout>
 
