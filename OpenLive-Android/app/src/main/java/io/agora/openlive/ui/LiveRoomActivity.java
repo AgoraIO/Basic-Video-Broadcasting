@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.HashMap;
 
 import io.agora.common.Constant;
@@ -27,11 +29,14 @@ import io.agora.openlive.R;
 import io.agora.openlive.model.AGEventHandler;
 import io.agora.openlive.model.ConstantApp;
 import io.agora.openlive.model.VideoStatusData;
+import io.agora.rtc.AgoraMediaRecorder;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.ISnapshotCallback;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtc.AgoraMediaRecorder;
 
 public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
@@ -103,6 +108,10 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         ImageView button1 = (ImageView) findViewById(R.id.btn_1);
         ImageView button2 = (ImageView) findViewById(R.id.btn_2);
         ImageView button3 = (ImageView) findViewById(R.id.btn_3);
+        //screenshot btn
+        ImageView recordBtn = (ImageView) findViewById(R.id.btn_6);
+        //record btn
+        ImageView screenshotBtn = (ImageView) findViewById(R.id.btn_5);
 
         if (isBroadcaster(cRole)) {
             SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
@@ -112,9 +121,9 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
             mAllUserData.put(0,new VideoStatusData());
             mGridVideoViewContainer.initViewContainer(getApplicationContext(), 0, mUidsList); // first is now full view
             worker().preview(true, surfaceV, 0);
-            broadcasterUI(button1, button2, button3);
+            broadcasterUI(button1, button2, button3, recordBtn, screenshotBtn);
         } else {
-            audienceUI(button1, button2, button3);
+            audienceUI(button1, button2, button3, recordBtn, screenshotBtn);
         }
 
         worker().joinChannel(roomName, config().mUid);
@@ -123,7 +132,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         textRoomName.setText(roomName);
     }
 
-    private void broadcasterUI(final ImageView button1, ImageView button2, ImageView button3) {
+    private void broadcasterUI(final ImageView button1, ImageView button2, ImageView button3, ImageView recordBtn, ImageView screenshotBtn) {
         button1.setTag(true);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,9 +173,53 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 }
             }
         });
+
+        //record btn
+        recordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Object tag = v.getTag();
+                boolean flag = true;
+                if (tag != null && (boolean) tag) {
+                    flag = false;
+                }
+                ImageView button = (ImageView) v;
+                button.setTag(flag);
+                if (flag) {
+                    File sdcard = Environment.getExternalStorageDirectory();
+                    File mp4file = new File(sdcard, "test.mp4");
+                    AgoraMediaRecorder.MediaRecorderConfiguration config = new AgoraMediaRecorder.MediaRecorderConfiguration(mp4file.getAbsolutePath(), 1, 3, 120, 0);
+                    worker().getMediaRecorder().startRecording(config);
+                    button.setColorFilter(getResources().getColor(R.color.agora_blue), PorterDuff.Mode.MULTIPLY);
+                } else {
+                    worker().getMediaRecorder().stopRecording();
+                    button.clearColorFilter();
+                }
+            }
+        });
+
+        //screenshot btn
+        screenshotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File sdcard = Environment.getExternalStorageDirectory();
+                File screenshot = new File(sdcard, "screenshot.jpeg");
+                worker().getRtcEngine().takeSnapshot(80, screenshot.getAbsolutePath(), new ISnapshotCallback() {
+                    @Override
+                    public void onSnapshotTaken(String filePath, int errorCode) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showLongToast("Snapshot taken!");
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
-    private void audienceUI(final ImageView button1, ImageView button2, ImageView button3) {
+    private void audienceUI(final ImageView button1, ImageView button2, ImageView button3, ImageView recordBtn, ImageView screenshotBtn) {
         button1.setTag(null);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +238,10 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         button3.setTag(null);
         button3.setVisibility(View.GONE);
         button3.clearColorFilter();
+        recordBtn.setVisibility(View.GONE);
+        recordBtn.clearColorFilter();
+        screenshotBtn.setVisibility((View.GONE));
+        screenshotBtn.clearColorFilter();
     }
 
     private void doConfigEngine(int cRole) {
@@ -307,6 +364,10 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         final ImageView button1 = (ImageView) findViewById(R.id.btn_1);
         final ImageView button2 = (ImageView) findViewById(R.id.btn_2);
         final ImageView button3 = (ImageView) findViewById(R.id.btn_3);
+        //screenshot btn
+        final ImageView recordBtn = (ImageView) findViewById(R.id.btn_6);
+        //record btn
+        final ImageView screenshotBtn = (ImageView) findViewById(R.id.btn_5);
         if (broadcaster) {
             doConfigEngine(Constants.CLIENT_ROLE_BROADCASTER);
 
@@ -314,7 +375,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 @Override
                 public void run() {
                     doRenderRemoteUi(uid);
-                    broadcasterUI(button1, button2, button3);
+                    broadcasterUI(button1, button2, button3, recordBtn, screenshotBtn);
                     button1.setEnabled(true);
                     doShowButtons(false);
                 }
@@ -336,7 +397,11 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 ImageView button1 = (ImageView) findViewById(R.id.btn_1);
                 ImageView button2 = (ImageView) findViewById(R.id.btn_2);
                 ImageView button3 = (ImageView) findViewById(R.id.btn_3);
-                audienceUI(button1, button2, button3);
+                //screenshot btn
+                ImageView recordBtn = (ImageView) findViewById(R.id.btn_6);
+                //record btn
+                ImageView screenshotBtn = (ImageView) findViewById(R.id.btn_5);
+                audienceUI(button1, button2, button3, recordBtn, screenshotBtn);
 
                 doShowButtons(false);
             }
@@ -479,6 +544,28 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         });
     }
 
+    @Override
+    public void onRecorderStateChanged(final int state, final int code) {
+        super.onRecorderStateChanged(state, code);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showLongToast("onRecorderStageChanged state: " + state + " code: " + code);
+            }
+        });
+    }
+
+    @Override
+    public void onRecorderInfoUpdate(final Object info) {
+        super.onRecorderInfoUpdate(info);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AgoraMediaRecorder.RecorderInfo obj = (AgoraMediaRecorder.RecorderInfo)info;
+                showLongToast("onRecorderInfoUpdate fileSize: " + obj.fileSize + ", fileName: " + obj.fileName + ", duration: " + obj.duration);
+            }
+        });
+    }
 
     @Override
     public void onRemoteVideoStats(final IRtcEngineEventHandler.RemoteVideoStats stats) {

@@ -111,6 +111,20 @@
                     android:scaleType="center"
                     android:src="@drawable/btn_mute" />
 
+                <ImageView
+                    android:id="@+id/btn_6"
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_record_cancel" />
+
+                <ImageView
+                    android:id="@+id/btn_5"
+                    android:layout_width="54dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_screenshot" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

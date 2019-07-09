@@ -25,4 +25,8 @@ public interface AGEventHandler {
 
     void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats);
 
+    void onRecorderStateChanged(int state, int code);
+
+    void onRecorderInfoUpdate(Object info);
+
 }

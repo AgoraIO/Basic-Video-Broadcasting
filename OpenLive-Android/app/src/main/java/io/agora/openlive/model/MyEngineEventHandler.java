@@ -2,6 +2,7 @@ package io.agora.openlive.model;
 
 import android.content.Context;
 
+import io.agora.rtc.AgoraMediaRecorder;
 import io.agora.rtc.IRtcEngineEventHandler;
 
 import org.slf4j.Logger;
@@ -29,6 +30,26 @@ public class MyEngineEventHandler {
     public void removeEventHandler(AGEventHandler handler) {
         this.mEventHandlerList.remove(handler);
     }
+
+    final AgoraMediaRecorder.IMediaRecorderCallback mMediaRecorderEventHandler = new AgoraMediaRecorder.IMediaRecorderCallback() {
+        @Override
+        public void onRecorderStateChanged(int state, int code) {
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onRecorderStateChanged(state, code);
+            }
+        }
+
+        @Override
+        public void onRecorderInfoUpdate(Object info) {
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onRecorderInfoUpdate(info);
+            }
+        }
+    };
 
     final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         private final Logger log = LoggerFactory.getLogger(this.getClass());

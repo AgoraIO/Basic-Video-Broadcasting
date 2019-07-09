@@ -264,4 +264,13 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
 
     }
 
+    @Override
+    public void onRecorderStateChanged(int state, int code) {
+
+    }
+
+    @Override
+    public void onRecorderInfoUpdate(Object info) {
+
+    }
 }

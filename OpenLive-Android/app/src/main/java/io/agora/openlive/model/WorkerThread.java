@@ -17,6 +17,7 @@ import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtc.AgoraMediaRecorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,6 +113,7 @@ public class WorkerThread extends Thread {
     }
 
     private RtcEngine mRtcEngine;
+    private AgoraMediaRecorder mRecorder;
 
     public final void enablePreProcessor() {
         if (mEngineConfig.mClientRole == Constants.CLIENT_ROLE_BROADCASTER) {
@@ -271,6 +273,16 @@ public class WorkerThread extends Thread {
 
     public RtcEngine getRtcEngine() {
         return mRtcEngine;
+    }
+
+    public AgoraMediaRecorder getMediaRecorder() {
+        if(mRtcEngine == null) {
+            return null;
+        }
+        if(mRecorder == null) {
+            mRecorder = AgoraMediaRecorder.getMediaRecorder(mRtcEngine, eventHandler().mMediaRecorderEventHandler);
+        }
+        return mRecorder;
     }
 
     /**
