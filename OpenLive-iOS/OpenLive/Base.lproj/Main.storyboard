@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ypF-Of-0Eu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ypF-Of-0Eu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -370,6 +370,28 @@
                                     <action selector="doMutePressed:" destination="jcF-oR-gRA" eventType="touchUpInside" id="l9z-w6-Uk7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bs-gg-qIY" userLabel="RecordBtn">
+                                <rect key="frame" x="169" y="620" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Bis-yx-G70"/>
+                                    <constraint firstAttribute="width" constant="40" id="Fti-IB-KW2"/>
+                                </constraints>
+                                <state key="normal" image="btn_record_cancel"/>
+                                <connections>
+                                    <action selector="doRecordPressed:" destination="jcF-oR-gRA" eventType="touchUpInside" id="fmO-Eq-tqs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrZ-co-4qb" userLabel="ScreenshotBtn">
+                                <rect key="frame" x="224" y="620" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="HN5-B3-tJA"/>
+                                    <constraint firstAttribute="height" constant="40" id="Kq3-4H-9HW"/>
+                                </constraints>
+                                <state key="normal" image="btn_screenshot"/>
+                                <connections>
+                                    <action selector="doScreenShot:" destination="jcF-oR-gRA" eventType="touchUpInside" id="70Y-rN-pT6"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yi-f8-nVm">
                                 <rect key="frame" x="267" y="613" width="54" height="54"/>
                                 <constraints>
@@ -397,13 +419,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="nrZ-co-4qb" firstAttribute="leading" secondItem="2Bs-gg-qIY" secondAttribute="trailing" constant="15" id="29L-mY-up0"/>
                             <constraint firstItem="jtZ-41-ZXH" firstAttribute="leading" secondItem="tjS-OE-tLx" secondAttribute="trailing" id="AQd-au-LQq"/>
                             <constraint firstItem="AUS-G6-i97" firstAttribute="leading" secondItem="cuo-ev-20t" secondAttribute="leading" id="HsA-jE-gBk"/>
                             <constraint firstItem="1yi-f8-nVm" firstAttribute="bottom" secondItem="cuo-ev-20t" secondAttribute="bottom" id="I1U-A0-CPc"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="tjS-OE-tLx" secondAttribute="bottom" id="IM6-Vq-fL2"/>
+                            <constraint firstItem="2Bs-gg-qIY" firstAttribute="centerY" secondItem="jtZ-41-ZXH" secondAttribute="centerY" id="Itj-71-2Ii"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="trailing" secondItem="dMj-UW-Quu" secondAttribute="trailing" id="R3c-3r-VCN"/>
                             <constraint firstAttribute="bottom" secondItem="Ca0-av-PZ7" secondAttribute="bottom" id="R6u-fi-SyQ"/>
                             <constraint firstItem="dMj-UW-Quu" firstAttribute="top" secondItem="cuo-ev-20t" secondAttribute="top" id="ReE-KL-4Rc"/>
+                            <constraint firstItem="2Bs-gg-qIY" firstAttribute="leading" secondItem="jtZ-41-ZXH" secondAttribute="trailing" constant="7" id="SZY-4v-Hfh"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="GQf-kN-B8a" secondAttribute="bottom" id="V1g-wy-kFG"/>
                             <constraint firstItem="Ca0-av-PZ7" firstAttribute="top" secondItem="uD4-xu-7ax" secondAttribute="top" id="Yqw-HO-boS"/>
                             <constraint firstItem="hfg-XL-B7H" firstAttribute="centerX" secondItem="cuo-ev-20t" secondAttribute="centerX" id="aPG-P1-1F2"/>
@@ -413,6 +438,7 @@
                             <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="jtZ-41-ZXH" secondAttribute="bottom" id="fG4-7y-lnk"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="bottom" secondItem="AUS-G6-i97" secondAttribute="bottom" id="gII-9r-wla"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="trailing" secondItem="Ca0-av-PZ7" secondAttribute="trailing" id="jdA-sH-4hP"/>
+                            <constraint firstItem="nrZ-co-4qb" firstAttribute="firstBaseline" secondItem="2Bs-gg-qIY" secondAttribute="firstBaseline" id="jph-Dn-cq4"/>
                             <constraint firstItem="Ca0-av-PZ7" firstAttribute="leading" secondItem="cuo-ev-20t" secondAttribute="leading" id="o22-Pm-Dq6"/>
                             <constraint firstItem="GQf-kN-B8a" firstAttribute="leading" secondItem="1yi-f8-nVm" secondAttribute="trailing" id="vRu-2x-4Gk"/>
                         </constraints>
@@ -422,8 +448,10 @@
                         <outlet property="audioMuteButton" destination="jtZ-41-ZXH" id="NcN-5X-mhe"/>
                         <outlet property="beautyEffectButton" destination="1yi-f8-nVm" id="QY5-9i-lXJ"/>
                         <outlet property="broadcastButton" destination="AUS-G6-i97" id="arb-yX-bus"/>
+                        <outlet property="recordButton" destination="2Bs-gg-qIY" id="huN-bI-lcK"/>
                         <outlet property="remoteContainerView" destination="Ca0-av-PZ7" id="au8-IP-tNc"/>
                         <outlet property="roomNameLabel" destination="hfg-XL-B7H" id="qHt-X0-M31"/>
+                        <outlet property="screenshotButton" destination="nrZ-co-4qb" id="NqN-cA-og3"/>
                         <outlet property="superResolutionButton" destination="GQf-kN-B8a" id="7ai-gt-JEl"/>
                         <outletCollection property="sessionButtons" destination="tjS-OE-tLx" collectionClass="NSMutableArray" id="xcY-7E-98c"/>
                         <outletCollection property="sessionButtons" destination="jtZ-41-ZXH" collectionClass="NSMutableArray" id="QF9-SZ-bRS"/>
@@ -681,6 +709,8 @@
         <image name="btn_join" width="40" height="40"/>
         <image name="btn_mute" width="40" height="40"/>
         <image name="btn_overturn" width="40" height="40"/>
+        <image name="btn_record_cancel" width="84" height="84"/>
+        <image name="btn_screenshot" width="84" height="84"/>
         <image name="btn_setting" width="23" height="23"/>
         <image name="btn_sr" width="40" height="40"/>
     </resources>

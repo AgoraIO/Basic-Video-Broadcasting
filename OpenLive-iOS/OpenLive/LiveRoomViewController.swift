@@ -22,6 +22,8 @@ class LiveRoomViewController: UIViewController {
     @IBOutlet weak var audioMuteButton: UIButton!
     @IBOutlet weak var beautyEffectButton: UIButton!
     @IBOutlet weak var superResolutionButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var screenshotButton: UIButton!
     
     var roomName: String!
     var clientRole = AgoraClientRole.audience {
@@ -34,6 +36,8 @@ class LiveRoomViewController: UIViewController {
     
     //MARK: - engine & session view
     var rtcEngine: AgoraRtcEngineKit!
+    var mediaRecorder: AgoraMediaRecorder?
+    
     fileprivate var isBroadcaster: Bool {
         return clientRole == .broadcaster
     }
@@ -66,6 +70,28 @@ class LiveRoomViewController: UIViewController {
     var isEnableSuperResolution = false {
         didSet {
             superResolutionButton?.setImage(isEnableSuperResolution ? #imageLiteral(resourceName: "btn_sr_blue.pdf") : #imageLiteral(resourceName: "btn_sr.pdf"), for: .normal)
+        }
+    }
+    var isEnableRecording = false {
+        didSet {
+            guard let rtcEngine  = rtcEngine else {return}
+            if (mediaRecorder == nil)
+            {
+                mediaRecorder = AgoraMediaRecorder.sharedMediaRecorder(withRtcEngine: rtcEngine, delegate: self)
+            }
+            
+            let config = AgoraMediaRecorderConfiguration()
+            if(isEnableRecording) {
+                if let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    //This gives you the string formed path
+                    let filePath = docUrl.appendingPathComponent("test.mp4")
+                    config.storagePath = filePath.absoluteString
+                    mediaRecorder?.startRecording(config)
+                }
+            } else {
+                mediaRecorder?.stopRecording()
+            }
+            recordButton?.setImage(isEnableRecording ? #imageLiteral(resourceName: "btn_record") : #imageLiteral(resourceName: "btn_record_cancel"), for: .normal)
         }
     }
     var highPriorityRemoteUid: UInt? {
@@ -173,7 +199,24 @@ class LiveRoomViewController: UIViewController {
     @IBAction func doLeavePressed(_ sender: UIButton) {
         leaveChannel()
     }
+    
+    @IBAction func doRecordPressed(_ sender: UIButton) {
+        isEnableRecording.toggle()
+    }
+    
+    @IBAction func doScreenShot(_ sender: UIButton) {
+        guard let rtcEngine = rtcEngine else {
+            return
+        }
+        if let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            //This gives you the string formed path
+            let filePath = docUrl.appendingPathComponent("test.jpeg")
+            rtcEngine.takeScreenshot(80, storagePath: filePath.absoluteString)
+            self.alert(string: "screenshot taken")
+        }
+    }
 }
+
 
 private extension LiveRoomViewController {
     func updateButtonsVisiablity() {
@@ -404,4 +447,17 @@ extension LiveRoomViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
+}
+
+//MARK: - recorder
+extension LiveRoomViewController: AgoraMediaRecorderDelegate {
+    func mediaRecorder(_ recorder: AgoraMediaRecorder, stateDidChanged state: AgoraMediaRecorderState, error: AgoraMediaRecorderErrorCode) {
+        print("stageDidChanged state: \(state.rawValue) error: \(error.rawValue)")
+    }
+    
+    func mediaRecorder(_ recorder: AgoraMediaRecorder, informationDidUpdated info: AgoraMediaRecorderInfo) {
+        print("informationDidUpdated filename: \(info.recorderFileName) filesize: \(info.fileSize) duration: \(info.duration)")
+    }
+    
+    
 }
