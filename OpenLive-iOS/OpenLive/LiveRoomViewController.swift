@@ -208,12 +208,8 @@ class LiveRoomViewController: UIViewController {
         guard let rtcEngine = rtcEngine else {
             return
         }
-        if let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            //This gives you the string formed path
-            let filePath = docUrl.appendingPathComponent("test.jpeg")
-            rtcEngine.takeScreenshot(80, storagePath: filePath.absoluteString)
-            self.alert(string: "screenshot taken")
-        }
+        let filepath:String = NSHomeDirectory() + "/Documents/test.jpeg"
+        rtcEngine.takeScreenshot(80, storagePath: filepath)
     }
 }
 
@@ -389,6 +385,11 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
             selfSession.updateInfo(resolution: size)
             updateInterface(withAnimation: false)
         }
+    }
+
+    func rtcEngine(_ engine: AgoraRtcEngineKit, screenshotDidFinishedInPath filePath: String, error: Int) {
+        let alertString = error == 0 ? "screenshot success" : "screenshot error";
+        self.alert(string: alertString)
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
