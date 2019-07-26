@@ -130,7 +130,9 @@ public class WorkerThread extends Thread {
         Constant.BEAUTY_OPTIONS.smoothnessLevel = smoothness;
         Constant.BEAUTY_OPTIONS.rednessLevel = redness;
 
-        mRtcEngine.setBeautyEffectOptions(true, Constant.BEAUTY_OPTIONS);
+        if (Constant.BEAUTY_EFFECT_ENABLED) {
+            mRtcEngine.setBeautyEffectOptions(true, Constant.BEAUTY_OPTIONS);
+        }
     }
 
     public final void disablePreProcessor() {
