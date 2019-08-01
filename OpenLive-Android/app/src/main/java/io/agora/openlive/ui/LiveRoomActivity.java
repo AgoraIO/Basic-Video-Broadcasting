@@ -13,9 +13,11 @@ import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,7 @@ import io.agora.openlive.model.VideoStatusData;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
+import io.agora.rtc.video.ChannelMediaRelayConfiguration;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
@@ -41,8 +44,12 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
     private RelativeLayout mSmallVideoViewDock;
     private VideoEncoderConfiguration.VideoDimensions localVideoDimensions = null;
-    private HashMap<Integer,VideoStatusData> mAllUserData =  new HashMap<>();
+    private HashMap<Integer, VideoStatusData> mAllUserData = new HashMap<>();
     private final HashMap<Integer, SurfaceView> mUidsList = new HashMap<>(); // uid = 0 || uid == EngineConfig.mUid
+    private CrossChannelDialog dialog = null;
+    private String srcRoomName = null;
+    private int srcUid = 0;
+    private String srcToken = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +86,8 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
             throw new RuntimeException("Should not reach here");
         }
 
-        String roomName = i.getStringExtra(ConstantApp.ACTION_KEY_ROOM_NAME);
-
+        srcRoomName = i.getStringExtra(ConstantApp.ACTION_KEY_ROOM_NAME);
+        srcToken = getBaseContext().getString(R.string.agora_access_token);
         doConfigEngine(cRole);
 
         mGridVideoViewContainer = (GridVideoViewContainer) findViewById(R.id.grid_video_view_container);
@@ -103,27 +110,27 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         ImageView button1 = (ImageView) findViewById(R.id.btn_1);
         ImageView button2 = (ImageView) findViewById(R.id.btn_2);
         ImageView button3 = (ImageView) findViewById(R.id.btn_3);
-
+        ImageView buttonCrossChannel = (ImageView) findViewById(R.id.btn_cross_channel);
         if (isBroadcaster(cRole)) {
             SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
             rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
 
             mUidsList.put(0, surfaceV); // get first surface view
-            mAllUserData.put(0,new VideoStatusData());
+            mAllUserData.put(0, new VideoStatusData());
             mGridVideoViewContainer.initViewContainer(getApplicationContext(), 0, mUidsList); // first is now full view
             worker().preview(true, surfaceV, 0);
-            broadcasterUI(button1, button2, button3);
+            broadcasterUI(button1, button2, button3, buttonCrossChannel);
         } else {
-            audienceUI(button1, button2, button3);
+            audienceUI(button1, button2, button3, buttonCrossChannel);
         }
 
-        worker().joinChannel(roomName, config().mUid);
+        worker().joinChannel(srcRoomName, config().mUid);
 
         TextView textRoomName = (TextView) findViewById(R.id.room_name);
-        textRoomName.setText(roomName);
+        textRoomName.setText(srcRoomName);
     }
 
-    private void broadcasterUI(final ImageView button1, ImageView button2, ImageView button3) {
+    private void broadcasterUI(final ImageView button1, ImageView button2, ImageView button3, ImageView buttonCrossChannel) {
         button1.setTag(true);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,9 +171,41 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 }
             }
         });
+        buttonCrossChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog == null) {
+                    dialog = new CrossChannelDialog();
+                    dialog.initCrossChannelDialog(getBaseContext());
+                }
+                dialog.show(getFragmentManager(), ConstantApp.TAG_CROSS_CHANNEL, true);
+                dialog.setDialogHandler(new CrossChannelDialog.CrossChannelDialogHandler() {
+                    @Override
+                    public void startCrossChannel(ChannelMediaRelayConfiguration configuration) {
+                        if (configuration == null) {
+                            showShortToast("dest channel should not be null");
+                        }
+                        worker().getRtcEngine().startChannelMediaRelay(configuration);
+                    }
+
+                    @Override
+                    public void stopCrossChannel() {
+                        worker().getRtcEngine().stopChannelMediaRelay();
+                    }
+
+                    @Override
+                    public void updateCrossChannel(ChannelMediaRelayConfiguration configuration) {
+                        if (configuration == null) {
+                            showShortToast("dest channel should not be null");
+                        }
+                        worker().getRtcEngine().updateChannelMediaRelay(configuration);
+                    }
+                });
+            }
+        });
     }
 
-    private void audienceUI(final ImageView button1, ImageView button2, ImageView button3) {
+    private void audienceUI(final ImageView button1, ImageView button2, ImageView button3, ImageView buttonCrossChannel) {
         button1.setTag(null);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +224,8 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         button3.setTag(null);
         button3.setVisibility(View.GONE);
         button3.clearColorFilter();
+        buttonCrossChannel.setVisibility(View.GONE);
+        buttonCrossChannel.clearColorFilter();
     }
 
     private void doConfigEngine(int cRole) {
@@ -237,14 +278,17 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         View button2 = findViewById(R.id.btn_2);
         View button3 = findViewById(R.id.btn_3);
         View button4 = findViewById(R.id.btn_4);
+        View buttonCrossChannel = findViewById(R.id.btn_cross_channel);
         if (isBroadcaster()) {
             button2.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
             button3.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
             button4.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
+            buttonCrossChannel.setVisibility(hide ? View.INVISIBLE : View.VISIBLE);
         } else {
             button2.setVisibility(View.INVISIBLE);
             button3.setVisibility(View.INVISIBLE);
             button4.setVisibility(View.INVISIBLE);
+            buttonCrossChannel.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -307,6 +351,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         final ImageView button1 = (ImageView) findViewById(R.id.btn_1);
         final ImageView button2 = (ImageView) findViewById(R.id.btn_2);
         final ImageView button3 = (ImageView) findViewById(R.id.btn_3);
+        final ImageView buttonCrossChannel = (ImageView) findViewById(R.id.btn_cross_channel);
         if (broadcaster) {
             doConfigEngine(Constants.CLIENT_ROLE_BROADCASTER);
 
@@ -314,7 +359,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 @Override
                 public void run() {
                     doRenderRemoteUi(uid);
-                    broadcasterUI(button1, button2, button3);
+                    broadcasterUI(button1, button2, button3, buttonCrossChannel);
                     button1.setEnabled(true);
                     doShowButtons(false);
                 }
@@ -336,7 +381,8 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                 ImageView button1 = (ImageView) findViewById(R.id.btn_1);
                 ImageView button2 = (ImageView) findViewById(R.id.btn_2);
                 ImageView button3 = (ImageView) findViewById(R.id.btn_3);
-                audienceUI(button1, button2, button3);
+                ImageView buttonCrossChannel = (ImageView) findViewById(R.id.btn_cross_channel);
+                audienceUI(button1, button2, button3, buttonCrossChannel);
 
                 doShowButtons(false);
             }
@@ -353,7 +399,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
                 SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
                 mUidsList.put(uid, surfaceV);
-                mAllUserData.put(uid,new VideoStatusData());
+                mAllUserData.put(uid, new VideoStatusData());
                 if (config().mUid == uid) {
                     rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, uid));
                 } else {
@@ -388,7 +434,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
                 final boolean isBroadcaster = isBroadcaster();
                 log.debug("onJoinChannelSuccess " + channel + " " + uid + " " + elapsed + " " + isBroadcaster);
-
+                srcUid = uid;
                 worker().getEngineConfig().mUid = uid;
 
                 SurfaceView surfaceV = mUidsList.remove(0);
@@ -397,7 +443,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                     mUidsList.put(uid, surfaceV);
                     VideoStatusData videoStatusData = new VideoStatusData();
                     videoStatusData.setLocalUid(true);
-                    mAllUserData.put(uid,videoStatusData);
+                    mAllUserData.put(uid, videoStatusData);
                 }
             }
         });
@@ -423,8 +469,8 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                     return;
                 }
                 VideoStatusData videoLocalStatusData = getSecialUserDataInfo(config().mUid);
-                if(videoLocalStatusData!=null){
-                    videoLocalStatusData.setLocalResolutionInfo(localVideoDimensions.width,localVideoDimensions.height,stats.sentFrameRate);
+                if (videoLocalStatusData != null) {
+                    videoLocalStatusData.setLocalResolutionInfo(localVideoDimensions.width, localVideoDimensions.height, stats.sentFrameRate);
                 }
 
             }
@@ -460,16 +506,16 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                     return;
                 }
                 VideoStatusData videoStatusData = null;
-                if(uid == 0){
+                if (uid == 0) {
                     videoStatusData = VideoViewAdapterUtil.getLocalUserData(mAllUserData);
-                }else{
+                } else {
                     videoStatusData = getSecialUserDataInfo(uid);
                 }
 
-                if(videoStatusData!=null) {
+                if (videoStatusData != null) {
                     videoStatusData.setSendRecvQualityInfo(txQuality, rxQuality);
                 }
-                if(mGridVideoViewContainer!=null){
+                if (mGridVideoViewContainer != null) {
                     mGridVideoViewContainer.notifyDataChange(mAllUserData);
                 }
 //                if(mSmallVideoViewAdapter!=null){
@@ -489,7 +535,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                     return;
                 }
                 VideoStatusData videoRemoteStatusData = getSecialUserDataInfo(stats.uid);
-                if(videoRemoteStatusData!=null) {
+                if (videoRemoteStatusData != null) {
                     videoRemoteStatusData.setRemoteResolutionInfo(stats.width, stats.height, stats.decoderOutputFrameRate);
                     videoRemoteStatusData.setRemoteVideoDelayInfo(stats.delay);
                 }
@@ -507,7 +553,7 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
                     return;
                 }
                 VideoStatusData videoRemoteStatusData = getSecialUserDataInfo(stats.uid);
-                if(videoRemoteStatusData!=null) {
+                if (videoRemoteStatusData != null) {
                     videoRemoteStatusData.setRemoteAudioDelayJitterInfo(stats.networkTransportDelay, stats.jitterBufferDelay);
                     videoRemoteStatusData.setRemoteAudioLostQualityInfo(stats.audioLossRate, stats.quality);
                 }
@@ -515,7 +561,21 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
         });
     }
 
-    public VideoStatusData getSecialUserDataInfo(int uid){
+    @Override
+    public void onChannelMediaRelayStateChanged(int state, int code) {
+        if (state == 2 && code == 0) {
+            showShortToast("cross channel success! and you have joined opposing channel");
+        }
+    }
+
+    @Override
+    public void onChannelMediaRelayEvent(int code) {
+        if (code == 7) {
+            showShortToast("udpate cross channel success!");
+        }
+    }
+
+    public VideoStatusData getSecialUserDataInfo(int uid) {
         return mAllUserData.get(uid);
     }
 
@@ -672,5 +732,14 @@ public class LiveRoomActivity extends BaseActivity implements AGEventHandler {
 
         recycler.setVisibility(View.VISIBLE);
         mSmallVideoViewDock.setVisibility(View.VISIBLE);
+    }
+
+    public final void showShortToast(final String msg) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

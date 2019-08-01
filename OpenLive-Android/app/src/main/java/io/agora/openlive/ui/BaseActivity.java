@@ -264,4 +264,13 @@ public abstract class BaseActivity extends AppCompatActivity implements AGEventH
 
     }
 
+
+    public void onChannelMediaRelayStateChanged(int state, int code) {
+
+    }
+
+    public void onChannelMediaRelayEvent(int code) {
+
+    }
+
 }

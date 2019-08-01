@@ -180,6 +180,26 @@ public class MyEngineEventHandler {
             }
         }
 
+        public void onChannelMediaRelayStateChanged(int state, int code) {
+            log.debug("onChannelMediaRelayStateChanged ");
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onChannelMediaRelayStateChanged(state,code);
+            }
+        }
+
+        public void onChannelMediaRelayEvent(int code) {
+            log.debug("onChannelMediaRelayEvent ");
+
+            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
+            while (it.hasNext()) {
+                AGEventHandler handler = it.next();
+                handler.onChannelMediaRelayEvent(code);
+            }
+        }
+
     };
 
 }

@@ -25,4 +25,7 @@ public interface AGEventHandler {
 
     void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats);
 
+    void onChannelMediaRelayStateChanged(int state, int code);
+
+    void onChannelMediaRelayEvent(int code);
 }

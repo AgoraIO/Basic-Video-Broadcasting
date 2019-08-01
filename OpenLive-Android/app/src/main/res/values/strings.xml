@@ -55,6 +55,22 @@
         <item>1000</item> // 720P
     </string-array>
 
+
+    <string name="label_cross_channel">Cross Channel</string>
+    <string name="label_cross_channel_num">Dest Channel Num:</string>
+    <string name="label_close_dialog">close dialog</string>
+
+
+    <string-array
+        name="string_array_cross_channel_num">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+
+
     <string name="label_title_resolution">Resolution\n(Width * Height)</string>
     <string name="label_title_frame_rate">Frame Rate\n(fps)</string>
     <string name="label_title_bit_rate">Bit Rate\n(kbps)</string>
