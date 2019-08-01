@@ -839,50 +839,42 @@ BOOL CAgoraObject::GetSEIInfoByIndex(int nIndex, LPSEI_INFO lpSEIInfo)
 
 BOOL CAgoraObject::EnableSEIPush(BOOL bEnable, COLORREF crBack)
 {
-	CStringA	strBackColor;
-	VideoCompositingLayout layout;
-	int	nRet = 0;
-
+	LiveTranscoding lts;
+	lts.audioBitrate = 48;
+	lts.audioChannels = 2;
+	lts.audioCodecProfile = AUDIO_CODEC_PROFILE_HE_AAC;
+	lts.audioSampleRate = AUDIO_SAMPLE_RATE_TYPE::AUDIO_SAMPLE_RATE_48000;
+	lts.backgroundColor = crBack;
+	lts.backgroundImage = NULL;
+	lts.height = m_nCanvasHeight;
+	lts.width = m_nCanvasWidth;
+	lts.lowLatency = false;
 	int nVideoCount = m_mapSEIInfo.GetCount();
 	if (nVideoCount <= 0)
 		return FALSE;
 
-	if (!bEnable) {
-		nRet = m_lpAgoraEngine->clearVideoCompositingLayout();
-		return nRet == 0 ? TRUE : FALSE;
-	}
-
-	VideoCompositingLayout::Region *lpRegion = new VideoCompositingLayout::Region[nVideoCount];
-	memset(lpRegion, 0, sizeof(VideoCompositingLayout::Region)*nVideoCount);
-
+	TranscodingUser *pTsu = new TranscodingUser[nVideoCount];	
 	POSITION pos = m_mapSEIInfo.GetStartPosition();
 	int nIndex = 0;
-
 	while (pos != NULL) {
 		SEI_INFO &seiInfo = m_mapSEIInfo.GetNextValue(pos);
 
-		lpRegion[nIndex].height = seiInfo.nHeight < m_nCanvasHeight ? (seiInfo.nHeight *1.0)/ m_nCanvasHeight : 1;
-		lpRegion[nIndex].width = seiInfo.nWidth < m_nCanvasWidth ? seiInfo.nWidth*1.0 / m_nCanvasWidth : 1;
-		lpRegion[nIndex].uid = seiInfo.nUID;
+		pTsu[nIndex].height = seiInfo.nHeight < m_nCanvasHeight ? (seiInfo.nHeight *1.0) / m_nCanvasHeight : 1;
+		pTsu[nIndex].width = seiInfo.nWidth < m_nCanvasWidth ? seiInfo.nWidth*1.0 / m_nCanvasWidth : 1;
+		pTsu[nIndex].uid = seiInfo.nUID;
 		
-		lpRegion[nIndex].x = seiInfo.x < m_nCanvasWidth ? seiInfo.x*1.0 / m_nCanvasWidth : 1;
-		lpRegion[nIndex].y = seiInfo.y < m_nCanvasHeight ? seiInfo.y*1.0 / m_nCanvasHeight : 1;
-		lpRegion[nIndex].renderMode = RENDER_MODE_FIT;
-		lpRegion[nIndex].zOrder = seiInfo.nIndex;
-		lpRegion[nIndex].alpha = 1;
+		pTsu[nIndex].x = seiInfo.x < m_nCanvasWidth ? seiInfo.x*1.0 / m_nCanvasWidth : 1;
+		pTsu[nIndex].y = seiInfo.y < m_nCanvasHeight ? seiInfo.y*1.0 / m_nCanvasHeight : 1;
+		pTsu[nIndex].zOrder = seiInfo.nIndex;
+		pTsu[nIndex].alpha = 1;
 		nIndex++;
 	}
 
-	strBackColor.Format("#%08X", crBack);
-	layout.backgroundColor = strBackColor;
-	layout.canvasWidth = m_nCanvasWidth;
-	layout.canvasHeight = m_nCanvasHeight;
-	layout.regions = lpRegion;
-	layout.regionCount = nVideoCount;
-	
-	nRet = m_lpAgoraEngine->setVideoCompositingLayout(layout);
+	lts.transcodingUsers = pTsu;
+	int nRet = m_lpAgoraEngine->setLiveTranscoding(lts);
 
-	delete[] lpRegion;
+	delete[] pTsu;
+	pTsu = NULL;
 
 	return nRet == 0 ? TRUE : FALSE;
 }
