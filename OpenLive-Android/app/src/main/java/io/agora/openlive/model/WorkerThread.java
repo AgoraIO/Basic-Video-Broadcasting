@@ -130,7 +130,9 @@ public class WorkerThread extends Thread {
         Constant.BEAUTY_OPTIONS.smoothnessLevel = smoothness;
         Constant.BEAUTY_OPTIONS.rednessLevel = redness;
 
-        mRtcEngine.setBeautyEffectOptions(true, Constant.BEAUTY_OPTIONS);
+        if (Constant.BEAUTY_EFFECT_ENABLED) {
+            mRtcEngine.setBeautyEffectOptions(true, Constant.BEAUTY_OPTIONS);
+        }
     }
 
     public final void disablePreProcessor() {
@@ -151,11 +153,11 @@ public class WorkerThread extends Thread {
 
         ensureRtcEngineReadyLock();
 
-        String token = mContext.getString(R.string.agora_access_token);
-        if(TextUtils.isEmpty(token)) {
-            token = null;
+        String accessToken = mContext.getString(R.string.agora_access_token);
+        if (TextUtils.isEmpty(accessToken) || TextUtils.equals(accessToken, "#YOUR ACCESS TOKEN#")) {
+            accessToken = null; // default, no token
         }
-        mRtcEngine.joinChannel(token, channel, "OpenLive", uid);
+        mRtcEngine.joinChannel(accessToken, channel, "OpenLive", uid);
 
         mEngineConfig.mChannel = channel;
 
