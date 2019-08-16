@@ -156,6 +156,9 @@ extension AgoraNetworkQuality {
         case .vBad:      return "very bad"
         case .down:      return "down"
         case .unknown:   return "unknown"
+        case .detecting: return "detecting"
+        case .unsupported: return "unsupported"
+        default:         return "unknown"
         }
     }
 }
