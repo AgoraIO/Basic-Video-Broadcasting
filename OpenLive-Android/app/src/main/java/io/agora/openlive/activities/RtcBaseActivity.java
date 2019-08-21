@@ -34,7 +34,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
         rtcEngine().joinChannel(null, config().getChannelName(), "", 0);
     }
 
-    protected SurfaceView prepareVideo(int uid, boolean local) {
+    protected SurfaceView prepareRtcVideo(int uid, boolean local) {
         SurfaceView surface = RtcEngine.CreateRendererView(getApplicationContext());
         if (local) {
             rtcEngine().setupLocalVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, 0));
@@ -44,7 +44,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
         return surface;
     }
 
-    protected void removeVideo(int uid, boolean local) {
+    protected void removeRtcVideo(int uid, boolean local) {
         if (local) {
             rtcEngine().setupLocalVideo(null);
         } else {
@@ -55,6 +55,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        removeRtcEventHandler(this);
         rtcEngine().leaveChannel();
     }
 }

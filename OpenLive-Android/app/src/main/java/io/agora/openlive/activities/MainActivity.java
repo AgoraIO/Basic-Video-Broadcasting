@@ -25,7 +25,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import io.agora.openlive.R;
-import io.agora.rtc.IRtcEngineEventHandler;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -144,9 +143,6 @@ public class MainActivity extends BaseActivity {
 
         mStartBtn = findViewById(R.id.start_broadcast_button);
         if (TextUtils.isEmpty(mTopicEdit.getText())) mStartBtn.setEnabled(false);
-
-//        tvLastmileQualityResult=(TextView)findViewById(R.id.tv_lastmile_quality_result);
-//        tvLastmileProbeResult=(TextView)findViewById(R.id.tv_lastmile_Probe_result);
     }
 
     @Override
@@ -236,11 +232,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void resetLayoutAndForward() {
-        closeImeDialogIfPossible();
+        closeImeDialogIfNeeded();
         forwardToLiveRoom();
     }
 
-    private void closeImeDialogIfPossible() {
+    private void closeImeDialogIfNeeded() {
         InputMethodManager manager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(mTopicEdit.getWindowToken(),
@@ -267,7 +263,7 @@ public class MainActivity extends BaseActivity {
 
     private void resetUI() {
         resetLogo();
-        closeImeDialogIfPossible();
+        closeImeDialogIfNeeded();
     }
 
     private void resetLogo() {

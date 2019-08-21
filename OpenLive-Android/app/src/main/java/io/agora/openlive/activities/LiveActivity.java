@@ -35,6 +35,8 @@ public class LiveActivity extends RtcBaseActivity {
         TextView roomName = findViewById(R.id.live_room_name);
         roomName.setText(config().getChannelName());
         roomName.setSelected(true);
+
+        // Takes an arbitrary
         initUserIcon();
 
         mMuteVideoBtn = findViewById(R.id.live_btn_mute_video);
@@ -52,7 +54,6 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     private void initUserIcon() {
-        // An arbitrary image
         Bitmap origin = BitmapFactory.decodeResource(getResources(), R.drawable.fake_user_icon);
         RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources(), origin);
         drawable.setCircular(true);
@@ -72,13 +73,13 @@ public class LiveActivity extends RtcBaseActivity {
 
     private void startBroadcast() {
         rtcEngine().setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
-        mVideoGridContainer.addUser(0, prepareVideo(0, true), true);
+        mVideoGridContainer.addUser(0, prepareRtcVideo(0, true), true);
         mMuteAudioBtn.setActivated(true);
     }
 
     private void stopBroadcast() {
         rtcEngine().setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
-        removeVideo(0, true);
+        removeRtcVideo(0, true);
         mVideoGridContainer.removeUser(0, true);
         mMuteAudioBtn.setActivated(false);
     }
@@ -114,12 +115,12 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     private void renderRemoteUser(int uid) {
-        SurfaceView surface = prepareVideo(uid, false);
+        SurfaceView surface = prepareRtcVideo(uid, false);
         mVideoGridContainer.addUser(uid, surface, false);
     }
 
     private void removeRemoteUser(int uid) {
-        removeVideo(uid, false);
+        removeRtcVideo(uid, false);
         mVideoGridContainer.removeUser(uid, false);
     }
 
