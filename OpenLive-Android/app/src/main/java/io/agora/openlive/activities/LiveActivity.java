@@ -35,8 +35,7 @@ public class LiveActivity extends RtcBaseActivity {
         TextView roomName = findViewById(R.id.live_room_name);
         roomName.setText(config().getChannelName());
         roomName.setSelected(true);
-
-        // Takes an arbitrary
+        
         initUserIcon();
 
         mMuteVideoBtn = findViewById(R.id.live_btn_mute_video);
