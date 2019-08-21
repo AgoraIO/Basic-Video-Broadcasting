@@ -2,10 +2,8 @@ package io.agora.openlive.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceView;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ public class VideoGridContainer extends RelativeLayout {
 
     private SparseArray<SurfaceView> mUserViewList = new SparseArray<>(MAX_USER);
     private List<Integer> mUidList = new ArrayList<>(MAX_USER);
-
 
     public VideoGridContainer(Context context) {
         super(context);
@@ -65,12 +62,6 @@ public class VideoGridContainer extends RelativeLayout {
         mUserViewList.append(uid, surfaceView);
 
         requestGridLayout();
-    }
-
-    private void removeAllVideo() {
-        removeAllViews();
-        mUserViewList.clear();
-        mUidList.clear();
     }
 
     public void removeUser(int uid, boolean isLocal) {
@@ -144,5 +135,11 @@ public class VideoGridContainer extends RelativeLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         removeAllVideo();
+    }
+
+    private void removeAllVideo() {
+        removeAllViews();
+        mUserViewList.clear();
+        mUidList.clear();
     }
 }
