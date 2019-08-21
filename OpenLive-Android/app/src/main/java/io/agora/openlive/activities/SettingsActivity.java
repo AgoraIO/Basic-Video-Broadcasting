@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,11 +16,12 @@ import io.agora.openlive.Constants;
 import io.agora.openlive.R;
 import io.agora.openlive.ui.ResolutionAdapter;
 
-import static io.agora.openlive.Constants.DEFAULT_PROFILE_IDX;
 import static io.agora.openlive.Constants.PREF_RESOLUTION_IDX;
 
 public class SettingsActivity extends BaseActivity {
     private static final int DEFAULT_SPAN = 3;
+
+    private TextView mVideoStatCheck;
 
     private int mItemPadding;
     private ResolutionAdapter mResolutionAdapter;
@@ -42,26 +44,30 @@ public class SettingsActivity extends BaseActivity {
                 }
             };
 
+    private SharedPreferences mPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        initUi();
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        initUI();
     }
 
-    private void initUi() {
+    private void initUI() {
         RecyclerView resolutionList = findViewById(R.id.resolution_list);
         resolutionList.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, DEFAULT_SPAN);
         resolutionList.setLayoutManager(layoutManager);
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        int prefIndex = pref.getInt(PREF_RESOLUTION_IDX, DEFAULT_PROFILE_IDX);
-        mResolutionAdapter = new ResolutionAdapter(this, prefIndex);
+        mResolutionAdapter = new ResolutionAdapter(this, config().getVideoDimenIndex());
         resolutionList.setAdapter(mResolutionAdapter);
         resolutionList.addItemDecoration(mItemDecoration);
 
         mItemPadding = getResources().getDimensionPixelSize(R.dimen.setting_resolution_item_padding);
+
+        mVideoStatCheck = findViewById(R.id.setting_stats_checkbox);
+        mVideoStatCheck.setActivated(config().ifShowVideoStats());
     }
 
     @Override
@@ -74,18 +80,34 @@ public class SettingsActivity extends BaseActivity {
         titleLayout.setLayoutParams(params);
     }
 
-    private void saveProfile() {
+    @Override
+    public void onBackPressed() {
+        onBackArrowPressed(null);
+    }
+
+    public void onBackArrowPressed(View view) {
+        saveResolution();
+        saveShowVideoStats();
+        finish();
+    }
+
+    private void saveResolution() {
         int profileIndex = mResolutionAdapter.getSelected();
+        config().setVideoDimenIndex(profileIndex);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(PREF_RESOLUTION_IDX, profileIndex);
         editor.apply();
-
-        config().setVideoDimension(Constants.VIDEO_DIMENSIONS[profileIndex]);
     }
 
-    public void onBackArrowPressed(View view) {
-        saveProfile();
-        finish();
+    private void saveShowVideoStats() {
+        config().setIfShowVideoStats(mVideoStatCheck.isActivated());
+        SharedPreferences.Editor editor = mPref.edit();
+        editor.putBoolean(Constants.PREF_SHOW_VIDEO_STATISTICS, mVideoStatCheck.isActivated());
+        editor.apply();
+    }
+
+    public void onStatsChecked(View view) {
+        view.setActivated(!view.isActivated());
     }
 }

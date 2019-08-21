@@ -22,6 +22,7 @@ public class LiveActivity extends RtcBaseActivity {
 
     private VideoGridContainer mVideoGridContainer;
     private ImageView mMuteAudioBtn;
+    private ImageView mMuteVideoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,8 @@ public class LiveActivity extends RtcBaseActivity {
         roomName.setSelected(true);
         initUserIcon();
 
-        ImageView muteVideoBtn = findViewById(R.id.live_btn_mute_video);
-        muteVideoBtn.setActivated(false);
+        mMuteVideoBtn = findViewById(R.id.live_btn_mute_video);
+        mMuteVideoBtn.setActivated(false);
 
         mMuteAudioBtn = findViewById(R.id.live_btn_mute_audio);
         mMuteAudioBtn.setActivated(false);
@@ -165,6 +166,8 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     public void onMuteAudioClicked(View view) {
+        if (!mMuteVideoBtn.isActivated()) return;
+
         rtcEngine().muteLocalAudioStream(view.isActivated());
         view.setActivated(!view.isActivated());
     }

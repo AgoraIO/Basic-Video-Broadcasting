@@ -21,7 +21,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
 
     private void configVideo() {
         rtcEngine().setVideoEncoderConfiguration(new VideoEncoderConfiguration(
-                config().getVideoDimension(),
+                io.agora.openlive.Constants.VIDEO_DIMENSIONS[config().getVideoDimenIndex()],
                 VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT

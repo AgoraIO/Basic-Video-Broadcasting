@@ -1,11 +1,13 @@
 package io.agora.openlive;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import io.agora.openlive.rtc.EngineConfig;
 import io.agora.openlive.rtc.AgoraEventHandler;
 import io.agora.openlive.rtc.EventHandler;
 import io.agora.openlive.utils.FileUtil;
+import io.agora.openlive.utils.PreferenceManager;
 import io.agora.rtc.RtcEngine;
 
 public class AgoraApplication extends Application {
@@ -24,6 +26,16 @@ public class AgoraApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        initEngineConfig();
+    }
+
+    private void initEngineConfig() {
+        SharedPreferences pref = PreferenceManager.getPreferences(this);
+        mGlobalConfig.setVideoDimenIndex(pref.getInt(
+                Constants.PREF_RESOLUTION_IDX, Constants.DEFAULT_PROFILE_IDX));
+        mGlobalConfig.setIfShowVideoStats(pref.getBoolean(
+                Constants.PREF_SHOW_VIDEO_STATISTICS, false));
     }
 
     public EngineConfig engineConfig() { return mGlobalConfig; }

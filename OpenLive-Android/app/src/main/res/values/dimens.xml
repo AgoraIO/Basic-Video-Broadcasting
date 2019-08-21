@@ -30,10 +30,18 @@
     <dimen name="setting_back_arrow_size">27dp</dimen>
     <dimen name="setting_back_arrow_left">18dp</dimen>
     <dimen name="setting_content_margin">28dp</dimen>
+    <dimen name="setting_content_margin_vertical">14dp</dimen>
     <dimen name="setting_resolution_item_height">48dp</dimen>
     <dimen name="setting_resolution_item_radius">24dp</dimen>
     <dimen name="setting_resolution_item_border">2px</dimen>
     <dimen name="setting_resolution_item_padding">6dp</dimen>
+    <dimen name="setting_divider_height">3px</dimen>
+    <dimen name="setting_item_height_normal">54dp</dimen>
+    <dimen name="setting_switch_width">56dp</dimen>
+    <dimen name="setting_switch_height">32dp</dimen>
+    <dimen name="setting_switch_radius">16dp</dimen>
+    <dimen name="setting_switch_thumb_size">28dp</dimen>
+    <dimen name="setting_switch_track_padding">2dp</dimen>
 
     <!-- Live Activity -->
     <dimen name="live_top_layout_height">76dp</dimen>

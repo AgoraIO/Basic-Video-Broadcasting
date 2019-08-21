@@ -8,10 +8,10 @@
     <string name="powered_by_agora" translatable="false">Powered by agora.io</string>
     <string name="need_necessary_permissions">Necessary permissions acquired</string>
 
-
     <!-- Setting Activity -->
     <string name="setting_title">Settings</string>
     <string name="setting_resolution_title">Resolution</string>
+    <string name="setting_stats_title">Show video statistics</string>
 
     <string-array name="string_array_resolutions">
         <item>320x240</item>
