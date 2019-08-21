@@ -11,7 +11,7 @@ public class FileUtil {
     private static final String LOG_FILE_NAME = "agora-rtc.log";
 
     /**
-     * Initialize and make sure the log folder are created
+     * Initialize the log folder
      * @param context Context to find the accessible file folder
      * @return the absolute path of the log file
      */
