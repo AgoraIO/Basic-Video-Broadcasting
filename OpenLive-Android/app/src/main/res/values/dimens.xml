@@ -5,4 +5,51 @@
 
     <dimen name="fb_popup_window_width">240dp</dimen>
     <dimen name="fb_popup_window_height">224dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+
+    <!-- Main Activity -->
+    <dimen name="setting_btn_margin_top">12dp</dimen>
+    <dimen name="setting_btn_margin_right">18dp</dimen>
+    <dimen name="setting_btn_size">36dp</dimen>
+    <dimen name="logo_size">158dp</dimen>
+    <dimen name="logo_margin_bottom">48dp</dimen>
+    <dimen name="edit_margin_bottom">42dp</dimen>
+    <dimen name="edit_text_padding">16dp</dimen>
+    <dimen name="start_broadcast_height">48dp</dimen>
+    <dimen name="start_broadcast_radius">25dp</dimen>
+    <dimen name="start_broadcast_padding">45dp</dimen>
+    <dimen name="info_margin_bottom">48dp</dimen>
+
+    <!-- Setting Activity -->
+    <dimen name="setting_title_layout_height">56dp</dimen>
+    <dimen name="setting_title_content_margin">12dp</dimen>
+    <dimen name="setting_back_arrow_size">27dp</dimen>
+    <dimen name="setting_back_arrow_left">18dp</dimen>
+    <dimen name="setting_content_margin">28dp</dimen>
+    <dimen name="setting_resolution_item_height">48dp</dimen>
+    <dimen name="setting_resolution_item_radius">24dp</dimen>
+    <dimen name="setting_resolution_item_border">2px</dimen>
+    <dimen name="setting_resolution_item_padding">6dp</dimen>
+
+    <!-- Live Activity -->
+    <dimen name="live_top_layout_height">76dp</dimen>
+    <dimen name="live_leave_btn_size">36dp</dimen>
+    <dimen name="live_leave_btn_icon_size">15dp</dimen>
+    <dimen name="live_top_layout_margin">22dp</dimen>
+    <dimen name="live_name_board_width">186dp</dimen>
+    <dimen name="live_name_board_height">48dp</dimen>
+    <dimen name="live_name_board_icon_size">44dp</dimen>
+    <dimen name="live_name_board_icon_margin">2dp</dimen>
+    <dimen name="live_name_board_fav_icon_margin">6dp</dimen>
+    <dimen name="live_name_board_fav_icon_size">36dp</dimen>
+    <dimen name="live_name_board_radius">36dp</dimen>
+    <dimen name="live_name_text_height">24dp</dimen>
+    <dimen name="live_name_text_margin_left">8dp</dimen>
+    <dimen name="live_bottom_btn_size">44dp</dimen>
+    <dimen name="live_bottom_layout_margin">18dp</dimen>
+    <dimen name="live_bottom_btn_margin">12dp</dimen>
 </resources>

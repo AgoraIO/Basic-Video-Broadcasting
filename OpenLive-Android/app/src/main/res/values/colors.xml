@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <color name="agora_blue">#FF00A0EB</color>
+    <color name="gray_light">#DEDEDE</color>
+    <color name="gray">#989898</color>
+    <color name="gray_dark">#666666</color>
+    <color name="gray_deep_dark">#333333</color>
 
-    <color name="grey_a">#FF878787</color>
-
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-
-    <color name="lightColorAccent">#30FF4081</color>
+    <color name="blue">#007AFF</color>
+    <color name="blue_medium">#44A2FC</color>
+    <color name="blue_light">#0ECFFF</color>
+    <color name="blue_alpha">#9CD9FF</color>
 
     <color name="dark_black">#CC262626</color>
+    <color name="black_half_transparent">#66000000</color>
+    <color name="black_full_transparent">#22000000</color>
 </resources>
