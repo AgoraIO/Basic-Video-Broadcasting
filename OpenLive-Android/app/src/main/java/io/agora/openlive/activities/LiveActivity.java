@@ -13,9 +13,13 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import io.agora.openlive.R;
+import io.agora.openlive.stats.LocalStatsData;
+import io.agora.openlive.stats.RemoteStatsData;
+import io.agora.openlive.stats.StatsData;
 import io.agora.openlive.ui.VideoGridContainer;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.video.VideoEncoderConfiguration;
 
 public class LiveActivity extends RtcBaseActivity {
     private static final String TAG = LiveActivity.class.getSimpleName();
@@ -24,11 +28,14 @@ public class LiveActivity extends RtcBaseActivity {
     private ImageView mMuteAudioBtn;
     private ImageView mMuteVideoBtn;
 
+    private VideoEncoderConfiguration.VideoDimensions mVideoDimension;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_room);
         initUI();
+        initData();
     }
 
     private void initUI() {
@@ -50,6 +57,7 @@ public class LiveActivity extends RtcBaseActivity {
                 io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
 
         mVideoGridContainer = findViewById(R.id.live_video_grid_layout);
+        mVideoGridContainer.setStatsManager(statsManager());
     }
 
     private void initUserIcon() {
@@ -58,6 +66,11 @@ public class LiveActivity extends RtcBaseActivity {
         drawable.setCircular(true);
         ImageView iconView = findViewById(R.id.live_name_board_icon);
         iconView.setImageDrawable(drawable);
+    }
+
+    private void initData() {
+        mVideoDimension = io.agora.openlive.Constants.VIDEO_DIMENSIONS[
+                config().getVideoDimenIndex()];
     }
 
     @Override
@@ -72,25 +85,26 @@ public class LiveActivity extends RtcBaseActivity {
 
     private void startBroadcast() {
         rtcEngine().setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
-        mVideoGridContainer.addUser(0, prepareRtcVideo(0, true), true);
+        SurfaceView surface = prepareRtcVideo(0, true);
+        mVideoGridContainer.addUserVideoSurface(0, surface, true);
         mMuteAudioBtn.setActivated(true);
     }
 
     private void stopBroadcast() {
         rtcEngine().setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
         removeRtcVideo(0, true);
-        mVideoGridContainer.removeUser(0, true);
+        mVideoGridContainer.removeUserVideo(0, true);
         mMuteAudioBtn.setActivated(false);
     }
 
     @Override
     public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
-
+        // Do nothing at the moment
     }
 
     @Override
     public void onUserJoined(int uid, int elapsed) {
-        super.onUserJoined(uid, elapsed);
+        // Do nothing at the moment
     }
 
     @Override
@@ -115,32 +129,85 @@ public class LiveActivity extends RtcBaseActivity {
 
     private void renderRemoteUser(int uid) {
         SurfaceView surface = prepareRtcVideo(uid, false);
-        mVideoGridContainer.addUser(uid, surface, false);
+        mVideoGridContainer.addUserVideoSurface(uid, surface, false);
     }
 
     private void removeRemoteUser(int uid) {
         removeRtcVideo(uid, false);
-        mVideoGridContainer.removeUser(uid, false);
+        mVideoGridContainer.removeUserVideo(uid, false);
     }
 
     @Override
     public void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats) {
+        if (!statsManager().isEnabled()) return;
 
+        LocalStatsData data = (LocalStatsData) statsManager().getStatsData(0);
+        if (data == null) return;
+
+        data.setWidth(mVideoDimension.width);
+        data.setHeight(mVideoDimension.height);
+        data.setFramerate(stats.sentFrameRate);
     }
 
     @Override
     public void onRtcStats(IRtcEngineEventHandler.RtcStats stats) {
+        if (!statsManager().isEnabled()) return;
 
+        LocalStatsData data = (LocalStatsData) statsManager().getStatsData(0);
+        if (data == null) return;
+
+        data.setLastMileDelay(stats.lastmileDelay);
+        data.setVideoSendBitrate(stats.txVideoKBitRate);
+        data.setVideoRecvBitrate(stats.rxVideoKBitRate);
+        data.setAudioSendBitrate(stats.txAudioKBitRate);
+        data.setAudioRecvBitrate(stats.rxAudioKBitRate);
+        data.setCpuApp(stats.cpuAppUsage);
+        data.setCpuTotal(stats.cpuAppUsage);
+        data.setSendLoss(stats.txPacketLossRate);
+        data.setRecvLoss(stats.rxPacketLossRate);
+    }
+
+    @Override
+    public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
+        if (!statsManager().isEnabled()) return;
+
+        StatsData data = statsManager().getStatsData(uid);
+        if (data == null) return;
+
+        data.setSendQuality(statsManager().qualityToString(txQuality));
+        data.setRecvQuality(statsManager().qualityToString(rxQuality));
     }
 
     @Override
     public void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats) {
+        if (!statsManager().isEnabled()) return;
 
+        RemoteStatsData data = (RemoteStatsData) statsManager().getStatsData(stats.uid);
+        if (data == null) return;
+
+        data.setWidth(stats.width);
+        data.setHeight(stats.height);
+        data.setFramerate(stats.rendererOutputFrameRate);
+        data.setVideoDelay(stats.delay);
+    }
+
+    @Override
+    public void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats) {
+        if (!statsManager().isEnabled()) return;
+
+        RemoteStatsData data = (RemoteStatsData) statsManager().getStatsData(stats.uid);
+        if (data == null) return;
+
+        data.setAudioNetDelay(stats.networkTransportDelay);
+        data.setAudioNetJitter(stats.jitterBufferDelay);
+        data.setAudioLoss(stats.audioLossRate);
+        data.setAudioQuality(statsManager().qualityToString(stats.quality));
     }
 
     @Override
     public void finish() {
         super.finish();
+        statsManager().clearAllData();
     }
 
     public void onLeaveClicked(View view) {
@@ -158,11 +225,11 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     public void onMoreClicked(View view) {
-
+        // Do nothing at the moment
     }
 
     public void onPushStreamClicked(View view) {
-
+        // Do nothing at the moment
     }
 
     public void onMuteAudioClicked(View view) {

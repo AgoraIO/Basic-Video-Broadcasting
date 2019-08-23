@@ -6,14 +6,16 @@ import android.content.SharedPreferences;
 import io.agora.openlive.rtc.EngineConfig;
 import io.agora.openlive.rtc.AgoraEventHandler;
 import io.agora.openlive.rtc.EventHandler;
+import io.agora.openlive.stats.StatsManager;
 import io.agora.openlive.utils.FileUtil;
-import io.agora.openlive.utils.PreferenceManager;
+import io.agora.openlive.utils.PrefManager;
 import io.agora.rtc.RtcEngine;
 
 public class AgoraApplication extends Application {
     private RtcEngine mRtcEngine;
     private EngineConfig mGlobalConfig = new EngineConfig();
     private AgoraEventHandler mHandler = new AgoraEventHandler();
+    private StatsManager mStatsManager = new StatsManager();
 
     @Override
     public void onCreate() {
@@ -27,20 +29,24 @@ public class AgoraApplication extends Application {
             e.printStackTrace();
         }
 
-        initEngineConfig();
+        initConfig();
     }
 
-    private void initEngineConfig() {
-        SharedPreferences pref = PreferenceManager.getPreferences(this);
+    private void initConfig() {
+        SharedPreferences pref = PrefManager.getPreferences(getApplicationContext() );
         mGlobalConfig.setVideoDimenIndex(pref.getInt(
                 Constants.PREF_RESOLUTION_IDX, Constants.DEFAULT_PROFILE_IDX));
-        mGlobalConfig.setIfShowVideoStats(pref.getBoolean(
-                Constants.PREF_SHOW_VIDEO_STATISTICS, false));
+
+        boolean showStats = pref.getBoolean(Constants.PREF_ENABLE_STATS, false);
+        mGlobalConfig.setIfShowVideoStats(showStats);
+        mStatsManager.enableStats(showStats);
     }
 
     public EngineConfig engineConfig() { return mGlobalConfig; }
 
     public RtcEngine rtcEngine() { return mRtcEngine; }
+
+    public StatsManager statsManager() { return mStatsManager; }
 
     public void registerEventHandler(EventHandler handler) { mHandler.addHandler(handler); }
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.agora.openlive.Constants;
 import io.agora.openlive.R;
 import io.agora.openlive.ui.ResolutionAdapter;
+import io.agora.openlive.utils.PrefManager;
 
 import static io.agora.openlive.Constants.PREF_RESOLUTION_IDX;
 
@@ -50,7 +51,7 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        mPref = PrefManager.getPreferences(getApplicationContext());
         initUI();
     }
 
@@ -87,27 +88,24 @@ public class SettingsActivity extends BaseActivity {
 
     public void onBackArrowPressed(View view) {
         saveResolution();
-        saveShowVideoStats();
+        saveShowStats();
         finish();
     }
 
     private void saveResolution() {
         int profileIndex = mResolutionAdapter.getSelected();
         config().setVideoDimenIndex(profileIndex);
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(PREF_RESOLUTION_IDX, profileIndex);
-        editor.apply();
+        mPref.edit().putInt(PREF_RESOLUTION_IDX, profileIndex).apply();
     }
 
-    private void saveShowVideoStats() {
+    private void saveShowStats() {
         config().setIfShowVideoStats(mVideoStatCheck.isActivated());
-        SharedPreferences.Editor editor = mPref.edit();
-        editor.putBoolean(Constants.PREF_SHOW_VIDEO_STATISTICS, mVideoStatCheck.isActivated());
-        editor.apply();
+        mPref.edit().putBoolean(Constants.PREF_ENABLE_STATS,
+                mVideoStatCheck.isActivated()).apply();
     }
 
     public void onStatsChecked(View view) {
         view.setActivated(!view.isActivated());
+        statsManager().enableStats(view.isActivated());
     }
 }

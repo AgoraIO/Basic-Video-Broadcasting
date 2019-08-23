@@ -1,34 +1,61 @@
 package io.agora.openlive.ui;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.SurfaceView;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoGridContainer extends RelativeLayout {
-    private static final int MAX_USER = 4;
+import io.agora.openlive.R;
+import io.agora.openlive.stats.StatsData;
+import io.agora.openlive.stats.StatsManager;
 
-    private SparseArray<SurfaceView> mUserViewList = new SparseArray<>(MAX_USER);
+public class VideoGridContainer extends RelativeLayout implements Runnable {
+    private static final int MAX_USER = 4;
+    private static final int STATS_REFRESH_INTERVAL = 2000;
+    private static final int STAT_LEFT_MARGIN = 34;
+    private static final int STAT_TEXT_SIZE = 10;
+
+    private SparseArray<ViewGroup> mUserViewList = new SparseArray<>(MAX_USER);
     private List<Integer> mUidList = new ArrayList<>(MAX_USER);
+    private StatsManager mStatsManager;
+    private Handler mHandler;
+    private int mStatMarginBottom;
 
     public VideoGridContainer(Context context) {
         super(context);
+        init();
     }
 
     public VideoGridContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public VideoGridContainer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
-    public void addUser(int uid, SurfaceView surfaceView, boolean isLocal) {
-        if (surfaceView == null) {
+    private void init() {
+        mStatMarginBottom = getResources().getDimensionPixelSize(
+                R.dimen.live_stat_margin_bottom);
+        mHandler = new Handler(getContext().getMainLooper());
+    }
+
+    public void setStatsManager(StatsManager manager) {
+        mStatsManager = manager;
+    }
+
+    public void addUserVideoSurface(int uid, SurfaceView surface, boolean isLocal) {
+        if (surface == null) {
             return;
         }
 
@@ -58,13 +85,49 @@ public class VideoGridContainer extends RelativeLayout {
         if (id == 0) mUidList.add(0, uid);
         else mUidList.add(uid);
 
-        surfaceView.setId(surfaceView.hashCode());
-        mUserViewList.append(uid, surfaceView);
+        if (id != -1) {
+            mUserViewList.append(uid, createVideoView(surface));
 
-        requestGridLayout();
+            if (mStatsManager != null) {
+                mStatsManager.addUserStats(uid, isLocal);
+                if (mStatsManager.isEnabled()) {
+                    mHandler.removeCallbacks(this);
+                    mHandler.postDelayed(this, STATS_REFRESH_INTERVAL);
+                }
+            }
+
+            requestGridLayout();
+        }
     }
 
-    public void removeUser(int uid, boolean isLocal) {
+    private ViewGroup createVideoView(SurfaceView surface) {
+        RelativeLayout layout = new RelativeLayout(getContext());
+
+        layout.setId(surface.hashCode());
+
+        RelativeLayout.LayoutParams videoLayoutParams =
+                new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+        layout.addView(surface, videoLayoutParams);
+
+        TextView text = new TextView(getContext());
+        text.setId(layout.hashCode());
+        RelativeLayout.LayoutParams textParams =
+                new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+        textParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        textParams.bottomMargin = mStatMarginBottom;
+        textParams.leftMargin = STAT_LEFT_MARGIN;
+        text.setTextColor(Color.WHITE);
+        text.setTextSize(STAT_TEXT_SIZE);
+
+        layout.addView(text, textParams);
+        return layout;
+    }
+
+    public void removeUserVideo(int uid, boolean isLocal) {
         if (isLocal && mUidList.contains(0)) {
             mUidList.remove((Integer) 0);
             mUserViewList.remove(0);
@@ -72,7 +135,13 @@ public class VideoGridContainer extends RelativeLayout {
             mUidList.remove((Integer) uid);
             mUserViewList.remove(uid);
         }
+
+        mStatsManager.removeUserStats(uid);
         requestGridLayout();
+
+        if (getChildCount() == 0) {
+            mHandler.removeCallbacks(this);
+        }
     }
 
     private void requestGridLayout() {
@@ -94,24 +163,21 @@ public class VideoGridContainer extends RelativeLayout {
         RelativeLayout.LayoutParams[] array =
                 new RelativeLayout.LayoutParams[size];
 
-        SurfaceView view;
-
         for (int i = 0; i < size; i++) {
             if (i == 0) {
-                array[i] = new RelativeLayout.LayoutParams(width, height);
-                array[i].addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-                array[i].addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+                array[0] = new RelativeLayout.LayoutParams(width, height);
+                array[0].addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+                array[0].addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
             } else if (i == 1) {
-                array[i] = new RelativeLayout.LayoutParams(width, height / 2);
-                array[i - 1].height = array[i].height;
-                array[i].addRule(RelativeLayout.BELOW, mUserViewList.get(mUidList.get(i - 1)).getId());
-                array[i].addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+                array[1] = new RelativeLayout.LayoutParams(width, height / 2);
+                array[0].height = array[1].height;
+                array[1].addRule(RelativeLayout.BELOW, mUserViewList.get(mUidList.get(0)).getId());
+                array[1].addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
             } else if (i == 2) {
                 array[i] = new RelativeLayout.LayoutParams(width / 2, height / 2);
                 array[i - 1].width = array[i].width;
-                view = mUserViewList.get(mUidList.get(i - 1));
-                array[i].addRule(RelativeLayout.RIGHT_OF, view.getId());
-                array[i].addRule(RelativeLayout.ALIGN_TOP, view.getId());
+                array[i].addRule(RelativeLayout.RIGHT_OF, mUserViewList.get(mUidList.get(i - 1)).getId());
+                array[i].addRule(RelativeLayout.ALIGN_TOP, mUserViewList.get(mUidList.get(i - 1)).getId());
             } else if (i == 3) {
                 array[i] = new RelativeLayout.LayoutParams(width / 2, height / 2);
                 array[0].width = width / 2;
@@ -134,12 +200,31 @@ public class VideoGridContainer extends RelativeLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeAllVideo();
+        clearAllVideo();
     }
 
-    private void removeAllVideo() {
+    private void clearAllVideo() {
         removeAllViews();
         mUserViewList.clear();
         mUidList.clear();
+        mHandler.removeCallbacks(this);
+    }
+
+    @Override
+    public void run() {
+        if (mStatsManager != null && mStatsManager.isEnabled()) {
+            int count = getChildCount();
+            for (int i = 0; i < count; i++) {
+                RelativeLayout layout = (RelativeLayout) getChildAt(i);
+                TextView text = layout.findViewById(layout.hashCode());
+                if (text != null) {
+                    StatsData data = mStatsManager.getStatsData(mUidList.get(i));
+                    String info = data != null ? data.toString() : null;
+                    if (info != null) text.setText(info);
+                }
+            }
+
+            mHandler.postDelayed(this, STATS_REFRESH_INTERVAL);
+        }
     }
 }
