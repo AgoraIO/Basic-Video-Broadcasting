@@ -91,7 +91,7 @@
                 android:textAlignment="gravity"
                 android:gravity="top"
                 android:text="@string/fake_user_name"
-                android:textColor="@color/gray_light"
+                android:textColor="@color/gray_lightest"
                 android:textSize="@dimen/text_size_small"/>
         </RelativeLayout>
     </RelativeLayout>

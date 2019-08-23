@@ -61,4 +61,5 @@
     <dimen name="live_bottom_layout_margin">18dp</dimen>
     <dimen name="live_bottom_btn_margin">12dp</dimen>
     <dimen name="live_stat_margin_bottom">68dp</dimen>
+    <dimen name="live_room_bg_icon_size">180dp</dimen>
 </resources>

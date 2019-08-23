@@ -62,7 +62,7 @@
         android:layout_marginRight="@dimen/setting_content_margin"
         android:layout_marginEnd="@dimen/setting_content_margin"
         android:layout_marginTop="@dimen/setting_content_margin_vertical"
-        android:background="@color/gray_light"
+        android:background="@color/gray_lightest"
         android:layout_below="@id/resolution_list"/>
     <RelativeLayout
         android:layout_width="match_parent"
