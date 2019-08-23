@@ -27,8 +27,8 @@
     <!-- Setting Activity -->
     <dimen name="setting_title_layout_height">56dp</dimen>
     <dimen name="setting_title_content_margin">12dp</dimen>
-    <dimen name="setting_back_arrow_size">27dp</dimen>
-    <dimen name="setting_back_arrow_left">18dp</dimen>
+    <dimen name="back_arrow_size">27dp</dimen>
+    <dimen name="back_arrow_left">18dp</dimen>
     <dimen name="setting_content_margin">28dp</dimen>
     <dimen name="setting_content_margin_vertical">14dp</dimen>
     <dimen name="setting_resolution_item_height">48dp</dimen>
@@ -62,4 +62,14 @@
     <dimen name="live_bottom_btn_margin">12dp</dimen>
     <dimen name="live_stat_margin_bottom">68dp</dimen>
     <dimen name="live_room_bg_icon_size">180dp</dimen>
+
+    <!-- Role Select Activity -->
+    <dimen name="role_block_width">342dp</dimen>
+    <dimen name="role_block_height">128dp</dimen>
+    <dimen name="role_block_corner">14dp</dimen>
+    <dimen name="role_block_margin_top">28dp</dimen>
+    <dimen name="role_block_icon_width">137dp</dimen>
+    <dimen name="role_block_content_width">120dp</dimen>
+    <dimen name="role_block_content_margin_right">32dp</dimen>
+    <dimen name="role_block_hint_margin_top">6dp</dimen>
 </resources>

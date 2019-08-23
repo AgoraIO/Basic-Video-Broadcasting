@@ -48,9 +48,6 @@ public class MainActivity extends BaseActivity {
     private TextView mStartBtn;
     private ImageView mLogo;
 
-    private TextView tvLastmileQualityResult;
-    private TextView tvLastmileProbeResult;
-
     private Animator.AnimatorListener mLogoAnimListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animator) {
@@ -233,7 +230,7 @@ public class MainActivity extends BaseActivity {
 
     private void resetLayoutAndForward() {
         closeImeDialogIfNeeded();
-        forwardToLiveRoom();
+        gotoRoleActivity();
     }
 
     private void closeImeDialogIfNeeded() {
@@ -243,8 +240,8 @@ public class MainActivity extends BaseActivity {
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
-    public void forwardToLiveRoom() {
-        Intent intent = new Intent(MainActivity.this, LiveActivity.class);
+    public void gotoRoleActivity() {
+        Intent intent = new Intent(MainActivity.this, RoleActivity.class);
         String room = mTopicEdit.getText().toString();
         config().setChannelName(room);
         startActivity(intent);

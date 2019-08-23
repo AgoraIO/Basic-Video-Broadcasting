@@ -2,7 +2,6 @@ package io.agora.openlive.activities;
 
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -74,7 +73,7 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onGlobalLayoutCompleted() {
         // Adjust for status bar height
-        RelativeLayout titleLayout = findViewById(R.id.setting_title_layout);
+        RelativeLayout titleLayout = findViewById(R.id.role_title_layout);
         RelativeLayout.LayoutParams params =
                 (RelativeLayout.LayoutParams) titleLayout.getLayoutParams();
         params.height += mStatusBarHeight;

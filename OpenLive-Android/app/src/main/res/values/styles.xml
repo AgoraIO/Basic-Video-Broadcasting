@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="select_role_block">
+        <item name="android:background">@drawable/select_role_block_bg</item>
+        <item name="android:layout_width">@dimen/role_block_width</item>
+        <item name="android:layout_height">@dimen/role_block_height</item>
+        <item name="android:layout_marginTop">@dimen/role_block_margin_top</item>
+    </style>
+
+    <style name="select_role_block_icon">
+        <item name="android:layout_width">@dimen/role_block_icon_width</item>
+        <item name="android:layout_height">@dimen/role_block_height</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+    </style>
+
+    <style name="select_role_block_content">
+        <item name="android:layout_width">@dimen/role_block_content_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginRight">@dimen/role_block_content_margin_right</item>
+        <item name="android:layout_marginEnd">@dimen/role_block_content_margin_right</item>
+    </style>
+
+    <style name="select_role_block_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:textColor">@color/gray_deep_dark</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="select_role_block_hint">
+        <item name="android:layout_width">@dimen/role_block_content_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray_light</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:layout_marginTop">@dimen/role_block_hint_margin_top</item>
+    </style>
+
+    <style name="select_role_block_arrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:background">@drawable/ic_arrow_right</item>
+    </style>
+</resources>

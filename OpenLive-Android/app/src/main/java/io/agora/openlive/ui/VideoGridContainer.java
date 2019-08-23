@@ -166,7 +166,9 @@ public class VideoGridContainer extends RelativeLayout implements Runnable {
 
         for (int i = 0; i < size; i++) {
             if (i == 0) {
-                array[0] = new RelativeLayout.LayoutParams(width, height);
+                array[0] = new RelativeLayout.LayoutParams(
+                        LayoutParams.MATCH_PARENT,
+                        LayoutParams.MATCH_PARENT);
                 array[0].addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
                 array[0].addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
             } else if (i == 1) {

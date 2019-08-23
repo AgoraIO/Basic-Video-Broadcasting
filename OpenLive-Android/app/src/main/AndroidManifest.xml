@@ -35,6 +35,10 @@
             android:name=".activities.LiveActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activities.RoleActivity"
+            android:screenOrientation="portrait"
+            android:noHistory="true"/>
+        <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait"/>
     </application>

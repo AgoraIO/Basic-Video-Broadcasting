@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/setting_title_layout"
+        android:id="@+id/role_title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_title_layout_height"
         android:background="@color/blue">
         <TextView
-            android:layout_width="@dimen/setting_back_arrow_size"
-            android:layout_height="@dimen/setting_back_arrow_size"
+            android:layout_width="@dimen/back_arrow_size"
+            android:layout_height="@dimen/back_arrow_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/setting_back_arrow_left"
-            android:layout_marginStart="@dimen/setting_back_arrow_left"
+            android:layout_marginLeft="@dimen/back_arrow_left"
+            android:layout_marginStart="@dimen/back_arrow_left"
             android:layout_marginBottom="@dimen/setting_title_content_margin"
             android:background="@drawable/btn_back_arrow"
             android:onClick="onBackArrowPressed"/>
@@ -43,7 +42,7 @@
         android:text="@string/setting_resolution_title"
         android:textColor="@color/gray_deep_dark"
         android:textSize="@dimen/text_size_normal"
-        android:layout_below="@id/setting_title_layout"/>
+        android:layout_below="@id/role_title_layout"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resolution_list"
         android:layout_width="match_parent"

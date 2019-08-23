@@ -45,11 +45,16 @@ public class LiveActivity extends RtcBaseActivity {
         
         initUserIcon();
 
+        int role = getIntent().getIntExtra(
+                io.agora.openlive.Constants.KEY_CLIENT_ROLE,
+                Constants.CLIENT_ROLE_AUDIENCE);
+        boolean isBroadcaster =  (role == Constants.CLIENT_ROLE_BROADCASTER);
+
         mMuteVideoBtn = findViewById(R.id.live_btn_mute_video);
-        mMuteVideoBtn.setActivated(false);
+        mMuteVideoBtn.setActivated(isBroadcaster);
 
         mMuteAudioBtn = findViewById(R.id.live_btn_mute_audio);
-        mMuteAudioBtn.setActivated(false);
+        mMuteAudioBtn.setActivated(isBroadcaster);
 
         ImageView beautyBtn = findViewById(R.id.live_btn_beautification);
         beautyBtn.setActivated(true);
@@ -58,6 +63,9 @@ public class LiveActivity extends RtcBaseActivity {
 
         mVideoGridContainer = findViewById(R.id.live_video_grid_layout);
         mVideoGridContainer.setStatsManager(statsManager());
+
+        rtcEngine().setClientRole(role);
+        if (isBroadcaster) startBroadcast();
     }
 
     private void initUserIcon() {

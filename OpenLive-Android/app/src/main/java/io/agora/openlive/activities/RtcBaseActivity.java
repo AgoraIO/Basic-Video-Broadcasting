@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.SurfaceView;
 
 import io.agora.openlive.rtc.EventHandler;
-import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -29,8 +28,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     }
 
     private void joinChannel() {
-        // Join the channel as an audience by default.
-        rtcEngine().setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
+        // Initialize token, extra info here before joining channel
         rtcEngine().joinChannel(null, config().getChannelName(), "", 0);
     }
 
