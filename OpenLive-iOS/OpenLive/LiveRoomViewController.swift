@@ -9,91 +9,22 @@
 import UIKit
 import AgoraRtcEngineKit
 
-protocol LiveRoomVCDelegate: NSObjectProtocol {
-    func liveVCNeedClose(_ liveVC: LiveRoomViewController)
+protocol LiveVCDataSource: NSObjectProtocol {
+    func liveVCNeedAgoraKit() -> AgoraRtcEngineKit
+    func liveVCNeedSettings() -> Settings
 }
 
 class LiveRoomViewController: UIViewController {
     
-    @IBOutlet weak var roomNameLabel: UILabel!
-    @IBOutlet weak var remoteContainerView: UIView!
-    @IBOutlet weak var broadcastButton: UIButton!
-    @IBOutlet var sessionButtons: [UIButton]!
+    @IBOutlet weak var broadcastersView: AGVideoCollectionView!
+    
+    @IBOutlet weak var videoMuteButton: UIButton!
     @IBOutlet weak var audioMuteButton: UIButton!
     @IBOutlet weak var beautyEffectButton: UIButton!
-    @IBOutlet weak var superResolutionButton: UIButton!
     
-    var roomName: String!
-    var clientRole = AgoraClientRole.audience {
-        didSet {
-            updateButtonsVisiablity()
-        }
-    }
-    var videoProfile: CGSize!
-    weak var delegate: LiveRoomVCDelegate?
+    @IBOutlet var sessionButtons: [UIButton]!
     
-    //MARK: - engine & session view
-    var rtcEngine: AgoraRtcEngineKit!
-    fileprivate var isBroadcaster: Bool {
-        return clientRole == .broadcaster
-    }
-    fileprivate var isMuted = false {
-        didSet {
-            rtcEngine?.muteLocalAudioStream(isMuted)
-            audioMuteButton?.setImage(isMuted ? #imageLiteral(resourceName: "btn_mute_cancel.pdf") : #imageLiteral(resourceName: "btn_mute.pdf"), for: .normal)
-        }
-    }
-    
-    fileprivate var videoSessions = [VideoSession]() {
-        didSet {
-            guard remoteContainerView != nil else {
-                return
-            }
-            updateInterface(withAnimation: true)
-        }
-    }
-    fileprivate var fullSession: VideoSession? {
-        didSet {
-            if fullSession != oldValue && remoteContainerView != nil {
-                updateInterface(withAnimation: true)
-            }
-        }
-    }
-    
-    fileprivate let viewLayouter = VideoViewLayouter()
-    
-    //MARK: - super resolution
-    var isEnableSuperResolution = false {
-        didSet {
-            superResolutionButton?.setImage(isEnableSuperResolution ? #imageLiteral(resourceName: "btn_sr_blue.pdf") : #imageLiteral(resourceName: "btn_sr.pdf"), for: .normal)
-        }
-    }
-    var highPriorityRemoteUid: UInt? {
-        didSet {
-            for session in videoSessions {
-                rtcEngine?.enableRemoteSuperResolution(session.uid, enabled: false)
-                rtcEngine?.setRemoteUserPriority(session.uid, type: .normal)
-            }
-            if let highPriorityRemoteUid = highPriorityRemoteUid {
-                if isEnableSuperResolution {
-                    rtcEngine?.enableRemoteSuperResolution(highPriorityRemoteUid, enabled: true)
-                }
-                rtcEngine?.setRemoteUserPriority(highPriorityRemoteUid, type: .high)
-            }
-        }
-    }
-    
-    //MARK: - Beauty
-    var isBeautyOn = true {
-        didSet {
-            guard let rtcEngine = rtcEngine else {
-                return
-            }
-            rtcEngine.setBeautyEffectOptions(isBeautyOn, options: beautyOptions)
-            beautyEffectButton?.setImage(isBeautyOn ? #imageLiteral(resourceName: "btn_beautiful_cancel") : #imageLiteral(resourceName: "btn_beautiful"), for: .normal)
-        }
-    }
-    let beautyOptions: AgoraBeautyOptions = {
+    private let beautyOptions: AgoraBeautyOptions = {
         let options = AgoraBeautyOptions()
         options.lighteningContrastLevel = .normal
         options.lighteningLevel = 0.7
@@ -102,72 +33,71 @@ class LiveRoomViewController: UIViewController {
         return options
     }()
     
+    private var agoraKit: AgoraRtcEngineKit {
+        return dataSource!.liveVCNeedAgoraKit()
+    }
+    
+    private var settings: Settings {
+        return dataSource!.liveVCNeedSettings()
+    }
+    
+    private var isMutedVideo = false {
+        didSet {
+            agoraKit.muteLocalVideoStream(isMutedVideo)
+            videoMuteButton.isSelected = isMutedVideo
+        }
+    }
+    
+    private var isMutedAudio = false {
+        didSet {
+            agoraKit.muteLocalAudioStream(isMutedAudio)
+            audioMuteButton.isSelected = isMutedAudio
+        }
+    }
+    
+    private var isBeautyOn = false {
+        didSet {
+            agoraKit.setBeautyEffectOptions(isBeautyOn,
+                                            options: isBeautyOn ? beautyOptions : nil)
+            beautyEffectButton.isSelected = isBeautyOn
+        }
+    }
+    
+    private var isSwitchCamera = false {
+        didSet {
+            agoraKit.switchCamera()
+        }
+    }
+    
+    private var videoSessions = [VideoSession]() {
+        didSet {
+            updateBroadcastersView()
+        }
+    }
+    
+    weak var dataSource: LiveVCDataSource?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        roomNameLabel.text = roomName
         updateButtonsVisiablity()
-        
         loadAgoraKit()
-        isBeautyOn = true
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let segueId = segue.identifier else {
-            return
-        }
-        
-        switch segueId {
-        case "roomVCPopBeautyList":
-            let vc = segue.destination as! BeautyEffectTableViewController
-            vc.isBeautyOn = isBeautyOn
-            vc.smoothness = beautyOptions.smoothnessLevel
-            vc.lightening = beautyOptions.lighteningLevel
-            vc.contrast = beautyOptions.lighteningContrastLevel
-            vc.redness = beautyOptions.rednessLevel
-            vc.delegate = self
-            vc.popoverPresentationController?.delegate = self
-        default:
-            break
-        }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
-    //MARK: - user action
+    //MARK: - ui action
     @IBAction func doSwitchCameraPressed(_ sender: UIButton) {
-        rtcEngine?.switchCamera()
+        isSwitchCamera.toggle()
     }
     
-    @IBAction func doMutePressed(_ sender: UIButton) {
-        isMuted = !isMuted
+    @IBAction func doMuteVideoPressed(_ sender: UIButton) {
+        isMutedVideo.toggle()
     }
     
-    @IBAction func doBroadcastPressed(_ sender: UIButton) {
-        if isBroadcaster {
-            clientRole = .audience
-            if fullSession?.uid == 0 {
-                fullSession = nil
-            }
-        } else {
-            clientRole = .broadcaster
-        }
-
-        rtcEngine.setClientRole(clientRole)
-        updateInterface(withAnimation :true)
-    }
-    
-    @IBAction func doSuperResolutionPressed(_ sender: UIButton) {
-        isEnableSuperResolution.toggle()
-        highPriorityRemoteUid = highPriorityRemoteUid(in: videoSessions, fullSession: fullSession)
-    }
-    
-    @IBAction func doDoubleTapped(_ sender: UITapGestureRecognizer) {
-        if fullSession == nil {
-            if let tappedSession = viewLayouter.responseSession(of: sender, inSessions: videoSessions, inContainerView: remoteContainerView) {
-                fullSession = tappedSession
-            }
-        } else {
-            fullSession = nil
-        }
+    @IBAction func doMuteAudioPressed(_ sender: UIButton) {
+        isMutedAudio.toggle()
     }
     
     @IBAction func doLeavePressed(_ sender: UIButton) {
@@ -176,107 +106,81 @@ class LiveRoomViewController: UIViewController {
 }
 
 private extension LiveRoomViewController {
+    func updateBroadcastersView() {
+        var rank: Int
+        var row: Int
+        
+        if videoSessions.count == 0 {
+            return
+        } else if videoSessions.count == 1 {
+            rank = 1
+            row = 1
+        } else if videoSessions.count == 2 {
+            rank = 1
+            row = 2
+        } else {
+            rank = 2
+            row = Int(ceil(Double(videoSessions.count) / Double(rank)))
+        }
+        
+        let itemWidth = CGFloat(1.0) / CGFloat(rank)
+        let itemHeight = CGFloat(1.0) / CGFloat(row)
+        let layout = AGVideoCollectionLayout(level: 0)
+                     .itemSize(width: itemWidth,
+                               height: itemHeight)
+        
+        broadcastersView
+            .listCount { [unowned self] (_) -> Int in
+                return self.videoSessions.count
+            }.listItem { [unowned self] (index) -> UIView in
+                return self.videoSessions[index.item].hostingView
+            }
+        
+        broadcastersView.setLayouts([layout], animated: true)
+    }
+    
     func updateButtonsVisiablity() {
         guard let sessionButtons = sessionButtons else {
             return
         }
         
-        broadcastButton?.setImage(isBroadcaster ? #imageLiteral(resourceName: "btn_join_cancel.pdf") : #imageLiteral(resourceName: "btn_join"), for: .normal)
+        let isHidden = settings.role == .audience
         
-        for button in sessionButtons {
-            button.isHidden = !isBroadcaster
+        for item in sessionButtons {
+            item.isHidden = isHidden
         }
     }
     
     func leaveChannel() {
         setIdleTimerActive(true)
         
-        rtcEngine.setupLocalVideo(nil)
-        rtcEngine.leaveChannel(nil)
-        if isBroadcaster {
-            rtcEngine.stopPreview()
+        agoraKit.setupLocalVideo(nil)
+        agoraKit.leaveChannel(nil)
+        
+        if settings.role == .broadcaster {
+            agoraKit.stopPreview()
         }
         
-        for session in videoSessions {
-            session.hostingView.removeFromSuperview()
-        }
-        videoSessions.removeAll()
-        
-        delegate?.liveVCNeedClose(self)
+        navigationController?.popViewController(animated: true)
     }
     
     func setIdleTimerActive(_ active: Bool) {
         UIApplication.shared.isIdleTimerDisabled = !active
     }
-    
-    func alert(string: String) {
-        guard !string.isEmpty else {
-            return
-        }
-        
-        let alert = UIAlertController(title: nil, message: string, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
 }
 
 private extension LiveRoomViewController {
-    func updateInterface(withAnimation animation: Bool) {
-        if animation {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.updateInterface()
-                self?.view.layoutIfNeeded()
-            })
-        } else {
-            updateInterface()
-        }
-    }
-    
-    func updateInterface() {
-        var displaySessions = videoSessions
-        if !isBroadcaster && !displaySessions.isEmpty {
-            displaySessions.removeFirst()
-        }
-        viewLayouter.layout(sessions: displaySessions, fullSession: fullSession, inContainer: remoteContainerView)
-        setStreamType(forSessions: displaySessions, fullSession: fullSession)
-        highPriorityRemoteUid = highPriorityRemoteUid(in: displaySessions, fullSession: fullSession)
-    }
-    
-    func setStreamType(forSessions sessions: [VideoSession], fullSession: VideoSession?) {
-        if let fullSession = fullSession {
-            for session in sessions {
-                if session == fullSession {
-                    rtcEngine.setRemoteVideoStream(fullSession.uid, type: .high)
-                } else {
-                    rtcEngine.setRemoteVideoStream(session.uid, type: .low)
-                }
-            }
-        } else {
-            for session in sessions {
-                rtcEngine.setRemoteVideoStream(session.uid, type: .high)
-            }
-        }
-    }
-    
-    func addLocalSession(fps: Int) {
-        let localSession = VideoSession.localSession()
-        localSession.updateInfo(fps: fps)
-        videoSessions.append(localSession)
-        rtcEngine.setupLocalVideo(localSession.canvas)
-    }
-    
-    func fetchSession(ofUid uid: UInt) -> VideoSession? {
+    func fetchSession(of uid: UInt) -> VideoSession? {
         for session in videoSessions {
             if session.uid == uid {
                 return session
             }
         }
-        
         return nil
     }
     
-    func videoSession(ofUid uid: UInt) -> VideoSession {
-        if let fetchedSession = fetchSession(ofUid: uid) {
+    func videoSession(of uid: UInt) -> VideoSession {
+        if let fetchedSession = fetchSession(of: uid) {
             return fetchedSession
         } else {
             let newSession = VideoSession(uid: uid)
@@ -284,107 +188,84 @@ private extension LiveRoomViewController {
             return newSession
         }
     }
-    
-    func highPriorityRemoteUid(in sessions: [VideoSession], fullSession: VideoSession?) -> UInt? {
-        if let fullSession = fullSession {
-            return fullSession.uid
-        } else {
-            return sessions.last?.uid
-        }
-    }
 }
 
 //MARK: - Agora Media SDK
 private extension LiveRoomViewController {
     func loadAgoraKit() {
-        rtcEngine.delegate = self        
-        rtcEngine.setChannelProfile(.liveBroadcasting)
+        guard let channelId = settings.roomName else {
+            return
+        }
+        
+        setIdleTimerActive(false)
+        
+        agoraKit.delegate = self
+        agoraKit.setChannelProfile(.liveBroadcasting)
         
         // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
-        rtcEngine.enableDualStreamMode(true)
+        agoraKit.enableDualStreamMode(true)
         
-        let fps = AgoraVideoFrameRate.fps24
-        
-        rtcEngine.enableVideo()
-        rtcEngine.setVideoEncoderConfiguration(
+        agoraKit.enableVideo()
+        agoraKit.setVideoEncoderConfiguration(
             AgoraVideoEncoderConfiguration(
-                size: videoProfile,
-                frameRate: fps,
+                size: settings.dimension,
+                frameRate: settings.frameRate,
                 bitrate: AgoraVideoBitrateStandard,
                 orientationMode: .adaptative
             )
         )
         
-        rtcEngine.setClientRole(clientRole)
+        agoraKit.setClientRole(settings.role)
         
-        if isBroadcaster {
-            rtcEngine.startPreview()
+        if settings.role == .broadcaster {
+            addLocalSession()
+            agoraKit.startPreview()
         }
         
-        addLocalSession(fps: fps.rawValue)
+        agoraKit.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: 0, joinSuccess: nil)
         
-        let code = rtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: roomName, info: nil, uid: 0, joinSuccess: nil)
-        if code == 0 {
-            setIdleTimerActive(false)
-            rtcEngine.setEnableSpeakerphone(true)
-        } else {
-            DispatchQueue.main.async(execute: {
-                self.alert(string: "Join channel failed: \(code)")
-            })
-        }
+        agoraKit.setEnableSpeakerphone(true)
+    }
+    
+    func addLocalSession() {
+        let localSession = VideoSession.localSession()
+        videoSessions.append(localSession)
+        agoraKit.setupLocalVideo(localSession.canvas)
+        
+        let mediaInfo = MediaInfo(dimension: settings.dimension,
+                                  fps: settings.frameRate.rawValue)
+        localSession.mediaInfo = mediaInfo
     }
 }
 
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        let userSession = videoSession(ofUid: uid)
-        rtcEngine.setupRemoteVideo(userSession.canvas)
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, firstLocalVideoFrameWith size: CGSize, elapsed: Int) {
-        if let selfSession = videoSessions.first {
-            selfSession.updateInfo(resolution: size)
-            updateInterface(withAnimation: false)
-        }
+    func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
+        let userSession = videoSession(of: uid)
+        userSession.updateMediaInfo(resolution: size)
+        agoraKit.setupRemoteVideo(userSession.canvas)
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         var indexToDelete: Int?
-        for (index, session) in videoSessions.enumerated() {
-            if session.uid == uid {
-                indexToDelete = index
-            }
+        for (index, session) in videoSessions.enumerated() where session.uid == uid {
+            indexToDelete = index
+            break
         }
         
         if let indexToDelete = indexToDelete {
             let deletedSession = videoSessions.remove(at: indexToDelete)
             deletedSession.hostingView.removeFromSuperview()
             
-            if deletedSession == fullSession {
-                fullSession = nil
-            }
-        }
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, networkQuality uid: UInt, txQuality: AgoraNetworkQuality, rxQuality: AgoraNetworkQuality) {
-        let userSession = videoSession(ofUid: uid)
-        userSession.updateInfo(txQuality: txQuality, rxQuality: rxQuality)
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, reportRtcStats stats: AgoraChannelStats) {
-        if let selfSession = videoSessions.first {
-            selfSession.updateChannelStats(stats)
+            // release canvas's view
+            deletedSession.canvas.view = nil
         }
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
-        let userSession = videoSession(ofUid: stats.uid)
-        userSession.updateVideoStats(stats)
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStats stats: AgoraRtcRemoteAudioStats) {
-        let userSession = videoSession(ofUid: stats.uid)
-        userSession.updateAudioStats(stats)
+        if let session = fetchSession(of: stats.uid) {
+            session.updateMediaInfo(resolution: CGSize(width: CGFloat(stats.width), height: CGFloat(stats.height)),
+                                    fps: Int(stats.rendererOutputFrameRate))
+        }
     }
 }
 

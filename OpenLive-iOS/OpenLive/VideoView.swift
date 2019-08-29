@@ -54,7 +54,7 @@ extension VideoView {
 }
 
 extension VideoView {
-    func update(with info: StatisticsInfo) {
+    func update(with info: MediaInfo) {
         infoLabel?.text = info.description()
     }
 }
