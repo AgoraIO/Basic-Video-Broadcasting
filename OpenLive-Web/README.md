@@ -1,65 +1,68 @@
-# Open Live for Web
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-*English | [中文](README.zh.md)*
+## Available Scripts
 
-This tutorial shows you how to quickly create a live app using Agora Web SDK.
+In the project directory, you can run:
 
-## Prerequisites
+### `npm start`
 
-- Node.js 6.9.1+
-- A web server that supports SSL (https)
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Quick Start
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-This section shows you how to prepare, build, and run the sample application.
+### `npm test`
 
-### Obtain an App ID
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-To build and run the sample application, get an App ID:
-1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
-2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
-3. Save the **App ID** from the Dashboard for later use.
-4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
+### `npm run build`
 
-5. Open the **src/utils/Settings.js** file. At the bottom of the file, replace `<#YOUR APP ID#>` with the App ID, and assign the token variable with the temp Access Token generated from dashboard.
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-    **Note:** Place the App ID/Token within single or double quotes.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-    ```xml
-    export const APP_ID_LIVE = <#YOUR APP ID#>;
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-    // Assign Token to null if you have not enabled app certificate
-    export const Token = "<#YOUR TEMP TOKEN HERE#>";
-    ```
+### `npm run eject`
 
-### Install dependencies and integrate the Agora Video SDK
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-1. Using the Terminal app, enter the `install` command in your project directory. This command installs libraries that are required to run the sample application.
-    ``` bash
-    # install dependencies
-    npm install
-    ```
-2. Start the application by entering the `run dev` or `run build` command.
-    The `run dev` command is for development purposes.
-    ``` bash
-    # serve with hot reload at localhost:8080
-    npm run dev
-    ```
-    The `run build` command is for production purposes and minifies code.
-    ``` bash
-    # build for production with minification
-    npm run build
-    ```
-3. Your default browser should open and display the sample application.
-    **Note:** In some cases, you may need to open a browser and enter `http://localhost:8080` as the URL.
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Resources
+## Learn More
 
-- You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Basic-Video-Call/issues)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## License
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-The MIT License (MIT)
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

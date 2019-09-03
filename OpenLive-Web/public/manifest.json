@@ -1,0 +1,120 @@
+{
+  "short_name": "Open Live",
+  "name": "Agora.io Open Live Web",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "avatar.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-add.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-back-hover.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-back.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-beauty.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-camera.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-camera-off.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-close.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-close-hover.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-exit.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-exit-hover.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-microphone.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-microphone-off.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-more.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-rotate.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-setting.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-setting-hover.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-share.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-text-actived.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icon-text.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "logo-open-live.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

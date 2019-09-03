@@ -1,0 +1,30 @@
+html,
+body{
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.MuiFormControl-root {
+  margin: 0.5rem 0 !important
+}
+
+.meeting {
+  display: flex;
+  flex: 1;
+}
+
+.localView {
+  display: flex;
+  flex: 1;
+}
+
+.stream-player {
+  display: flex;
+  flex: 1;
+}
