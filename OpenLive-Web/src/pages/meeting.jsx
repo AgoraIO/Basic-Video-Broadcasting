@@ -97,17 +97,6 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
     zIndex: '2',
   },
-  // streamContainer: {
-  //   left: '30px',
-  //   top: '91px',
-  //   height: '660px',
-  //   width: '233px',
-  //   position: 'absolute',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'flex-end',
-  //   zIndex: '2',
-  // }
 });
 
 const MeetingPage = () => {
@@ -201,20 +190,22 @@ const MeetingPage = () => {
                 <i onClick={handleClick('video')} className={clsx(classes.customBtn, stateCtx.video ? classes.muteVideo : classes.unmuteVideo)}/>
                 <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.audio ? classes.muteAudio : classes.unmuteAudio)}/>
                 <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? classes.startScreenShare : classes.stopScreenShare)}/>
-                <i onClick={handleClick('profile')} className={clsx(classes.customBtn, classes.showProfile)}/>
+                {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, classes.showProfile)}/> */}
               </div>
             </div>
-            <div className="quit" onClick={() => {
-              localClient.leave().then(() => {
-                routerCtx.history.push('/');
-              })
-            }}></div>
-            <div className="stream-container">
+            <div className="nav">
               <div className="avatar-container">
                 <div className="default-avatar"></div>
                 <div className="avatar-uid">{localStream.getId()}</div>
                 <div className="like"></div>
               </div>
+              <div className="quit" onClick={() => {
+                localClient.leave().then(() => {
+                  routerCtx.history.push('/');
+                })
+              }}></div>
+            </div>
+            <div className="stream-container">
               {streamList.filter((stream) => 
                 (stream.getId() !== localStream.getId())
               ).map((stream, index) => (
