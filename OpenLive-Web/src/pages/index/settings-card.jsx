@@ -3,7 +3,9 @@ import {useGlobalState, useGlobalMutation} from '../../utils/container';
 import useDevices from '../../utils/use-devices';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { FormGroup, Typography, Select, FormControlLabel, MenuItem, Switch } from '@material-ui/core';
+import { Select, FormControlLabel, MenuItem, Switch } from '@material-ui/core';
+import useRouter from '../../utils/use-router';
+import {NavLink} from 'react-router-dom';
 
 import {
   FormControl,
@@ -22,6 +24,21 @@ SettingsCard.propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
+  backBtn: {
+    '&:hover': {
+      backgroundImage: 'url("/icon-back-hover.png")',
+    },
+    backgroundSize: '32px',
+    backgroundImage: 'url("/icon-back.png")',
+    backgroundRepeat: 'no-repeat',
+    top: '1rem',
+    height: '32px',
+    position: 'absolute',
+    width: '32px',
+    left: '1rem',
+    cursor: 'pointer',
+    zIndex: '2'
+  },
   menuTitle: {
     color: '#333333',
     textAlign: 'center',
@@ -113,12 +130,15 @@ export default function SettingsCard() {
   const classes = useStyles();
 
   const stateCtx = useGlobalState();
+
   const mutationCtx = useGlobalMutation();
 
   const [ cameraList, microphoneList ] = useDevices();
 
   return (
-    <Box display="flex" flex="1" flexDirection="column" padding="0 1rem" justifyContent="flex-start">
+    <Box flex="1" display="flex" flexDirection="column">
+      <NavLink to="/" className={classes.backBtn} />
+      <Box display="flex" flex="1" flexDirection="column" padding="0 1rem" justifyContent="flex-start">
       <FormControl className={classes.menu}>
         <span className={classes.menuTitle}>Setting</span>
       </FormControl>
@@ -244,6 +264,7 @@ export default function SettingsCard() {
         />
         <div className={classes.hr}></div>
       </FormControl>
+    </Box>
     </Box>
   )
 }

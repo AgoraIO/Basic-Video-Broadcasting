@@ -5,9 +5,9 @@ import RTCClient from '../rtc-client';
 export default function useDevices () {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
+
   const client = useMemo(() => {
     const _rtcClient = new RTCClient()
-    _rtcClient.createClient({codec: stateCtx.codec, mode: stateCtx.mode});
     return _rtcClient;
   })
 
@@ -32,10 +32,8 @@ export default function useDevices () {
   useEffect(() => {
     console.log(`use devices ${stateCtx.devicesList.length}`)
     if (cameraList.length > 0 || microphoneList.length > 0) return;
-    mutationCtx.startLoading();
     client.getDevices().then((devices) => {
       mutationCtx.setDevicesList(devices);
-      mutationCtx.stopLoading();
     });
     return () => {
       client.destroy();
@@ -43,13 +41,17 @@ export default function useDevices () {
   }, []);
 
   useEffect(() => {
-    if (cameraList[0] && microphoneList[0]) {
+    if (cameraList[0] &&
+        microphoneList[0] &&
+        (!stateCtx.config.cameraId ||
+         !stateCtx.config.microphoneId)) {
       mutationCtx.updateConfig({
         cameraId: cameraList[0].value,
         microphoneId: microphoneList[0].value,
       });
+      mutationCtx.stopLoading();
     }
-  }, [cameraList[0], microphoneList[0]]);
+  }, [stateCtx.devicesList]);
 
   return [cameraList, microphoneList];
 }

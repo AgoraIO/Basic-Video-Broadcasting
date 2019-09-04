@@ -156,6 +156,9 @@ export default class RTCClient {
 
   getDevices () {
     return new Promise((resolve, reject) => {
+      if (!this._client)
+        this.createClient({codec: 'h264', mode: 'live'});
+      console.log("client use devices");
       this._createTmpStream().then(() => {
         AgoraRTC.getDevices((devices) => {
           this._localStream.close();

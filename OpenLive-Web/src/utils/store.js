@@ -1,6 +1,6 @@
 const defaultState = {
   // loading effect
-  loading: true,
+  loading: false,
   // media devices
   streams: [],
   localStream: null,
@@ -10,8 +10,8 @@ const defaultState = {
     uid: 0,
     channelName: '',
     token: null,
-    microphoneId: 0,
-    cameraId: 0,
+    microphoneId: '',
+    cameraId: '',
     resolution: '360p'
   },
   agoraClient: null,
