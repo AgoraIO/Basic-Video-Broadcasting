@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import clsx from 'clsx';
 import {useGlobalState, useGlobalMutation} from '../utils/container';
 import {makeStyles} from '@material-ui/core/styles';
@@ -35,21 +35,45 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   },
   muteVideo: {
+    '&:hover': {
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
+    },
     backgroundImage: 'url("/icon-camera.png")',
   },
   unmuteVideo: {
+    '&:hover': {
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
+    },
     backgroundImage: 'url("/icon-camera-off.png")',
   },
   muteAudio: {
+    '&:hover': {
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
+    },
     backgroundImage: 'url("/icon-microphone.png")',
   },
   unmuteAudio: {
+    '&:hover': {
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
+    },
     backgroundImage: 'url("/icon-microphone-off.png")',
   },
   startScreenShare: {
+    '&:hover': {
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
+    },
     backgroundImage: 'url("/icon-share.png")',
   },
   stopScreenShare: {
+    '&:hover': {
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
+    },
     backgroundImage: 'url("/icon-share.png")',
     '&::before': {
       backgroundColor: 'rgba(0, 0, 0, 1)',
@@ -59,6 +83,8 @@ const useStyles = makeStyles({
   showProfile: {
     '&:hover': {
       backgroundImage: 'url("/icon-text-actived.png")',
+      backgroundColor: '#44A2FC',
+      opacity: 1.0,
     },
     backgroundImage: 'url("/icon-text.png")',
   },
@@ -70,7 +96,18 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     zIndex: '2',
-  }
+  },
+  // streamContainer: {
+  //   left: '30px',
+  //   top: '91px',
+  //   height: '660px',
+  //   width: '233px',
+  //   position: 'absolute',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'flex-end',
+  //   zIndex: '2',
+  // }
 });
 
 const MeetingPage = () => {
@@ -83,7 +120,6 @@ const MeetingPage = () => {
   const localClient = useMemo(() => {
     const client = new RTCClient();
     client.createClient({codec: stateCtx.codec, mode: stateCtx.mode});
-    console.log("localClient memo >>>>>>>>>>> ");
     return client;
   }, []);
   const [localStream, streamList] = useStream(localClient);
@@ -96,8 +132,8 @@ const MeetingPage = () => {
       token: null,
       channel: stateCtx.config.channelName,
       uid: 0,
-      // microphoneId: stateCtx.config.microphoneId,
-      // cameraId: stateCtx.config.cameraId,
+      microphoneId: stateCtx.config.microphoneId,
+      cameraId: stateCtx.config.cameraId,
       resolution: stateCtx.config.resolution
     }).then(() => {
       console.log('localStream', localStream);
@@ -126,24 +162,21 @@ const MeetingPage = () => {
             localClient.createRTCStream({
               token: null,
               channel: stateCtx.config.channelName,
-            // microphoneId: stateCtx.config.microphoneId,
-            // cameraId: stateCtx.config.cameraId,
+              microphoneId: stateCtx.config.microphoneId,
               resolution: stateCtx.config.resolution
             }).then(() => {
               mutationCtx.setScreen(false)
-              // localClient.publish();
               console.log('start rtc stream')
             })
           } else {
             localClient.createScreenSharingStream({
               token: null,
               channel: stateCtx.config.channelName,
-            // microphoneId: stateCtx.config.microphoneId,
-            // cameraId: stateCtx.config.cameraId,
+              microphoneId: stateCtx.config.microphoneId,
+              cameraId: stateCtx.config.cameraId,
               resolution: stateCtx.config.resolution
             }).then(() => {
               mutationCtx.setScreen(true)
-              // localClient.publish();
               console.log('start rtc stream')
             })
           }
@@ -160,7 +193,7 @@ const MeetingPage = () => {
 
   return (
     <div className="meeting">
-      <div className="localView">
+      <div className="local-view">
         {localStream ?
           <StreamPlayer stream={localStream}>
             <div className={classes.menuContainer}>
@@ -170,6 +203,25 @@ const MeetingPage = () => {
                 <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? classes.startScreenShare : classes.stopScreenShare)}/>
                 <i onClick={handleClick('profile')} className={clsx(classes.customBtn, classes.showProfile)}/>
               </div>
+            </div>
+            <div className="quit" onClick={() => {
+              localClient.leave().then(() => {
+                routerCtx.history.push('/');
+              })
+            }}></div>
+            <div className="stream-container">
+              <div className="avatar-container">
+                <div className="default-avatar"></div>
+                <div className="avatar-uid">{localStream.getId()}</div>
+                <div className="like"></div>
+              </div>
+              {streamList.filter((stream) => 
+                (stream.getId() !== localStream.getId())
+              ).map((stream, index) => (
+                <StreamPlayer key={index} stream={stream}>
+                  <div className='stream-uid'>UID: {stream.getId()}</div>
+                </StreamPlayer>
+              )).slice(0, 4)}
             </div>
           </StreamPlayer> : null}
       </div>

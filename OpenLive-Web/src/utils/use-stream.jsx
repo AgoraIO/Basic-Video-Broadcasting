@@ -1,47 +1,62 @@
-import React, {useState, useReducer, useEffect} from 'react';
+import React, {useContext, useMemo, useEffect} from 'react';
+import {useGlobalState, useGlobalMutation} from './container';
 
 export default function useStream (client) {
-  const [streamList, setStreamList] = useState([]);
+  const stateCtx = useGlobalState();
+  const mutationCtx = useGlobalMutation();
 
-  const [localStream, setLocalStream] = useState(null);
+  const streamList = useMemo(() => {
+    return stateCtx.streams;
+  });
+
+  const localStream = useMemo(() => {
+    return stateCtx.localStream;
+  });
 
   useEffect(() => {
     const addLocal = (evt) => {
-      console.log("create local stream success");
       const {stream} = evt;
       const id = stream.getId();
-      setLocalStream(stream);
+      mutationCtx.setLocalStream(stream);
     }
 
     const addStream = (evt) => {
       const {stream} = evt;
       const id = stream.getId();
-      setStreamList(streamList => {
-        streamList.push(stream);
-        return streamList;
+      const _streamList = streamList;
+      _streamList.push(stream);
+      mutationCtx.setStreamList(_streamList);
+    }
+
+    const addRemoteStream = (evt) => {
+      const {stream} = evt;
+      client.subscribe(stream, (err) => {
+        console.error(`stream ${evt.stream.getId()} subscribe failed: ${err}`);
       });
+    }
+
+    const subscribeStream = (evt) => {
+      const {stream} = evt;
+      const id = stream.getId();
+      const _streamList = streamList;
+      _streamList.push(stream);
+      mutationCtx.setStreamList(_streamList);
     }
 
     const removeStream = (evt) => {
       const {stream} = evt;
-      const id = stream.getId();
-      const index = streamList.findIndex(item => item.getId() === id);
+      const id = stream ? stream.getId() : evt.id;
+      const _streamList = streamList;
+      const index = _streamList.findIndex(item => item.getId() === id);
       if (index !== -1) {
-        setStreamList(streamList => {
-          streamList.push(stream);
-          return streamList;
-        });
+        mutationCtx.setStreamList(_streamList.filter((stream, idx) => (idx !== index)));
       }
-    }
-
-    const subscribeStream = (evt) => {
-      client.subscribe(evt.stream);
     }
 
     if (client) {
       client.on("localStream-added", addLocal);
       client.on("stream-published", addStream);
-      client.on("stream-added", addStream);
+      client.on("stream-added", addRemoteStream);
       client.on("stream-removed", removeStream);
       client.on("stream-subscribed", subscribeStream);
       client.on("peer-leave", removeStream);

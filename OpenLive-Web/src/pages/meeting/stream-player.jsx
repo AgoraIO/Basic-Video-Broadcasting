@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useMemo, useState, useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 StreamPlayer.propTypes = {
@@ -11,9 +11,33 @@ export default function StreamPlayer (props) {
 
   const domId = `stream-player-${uid}`;
 
+  const [_resume, changeResume] = useState(false);
+  const resume = useMemo(() => {
+    return _resume;
+  });
+
+  const [_autoplay, changeAutoPlay] = useState(false);
+  const autoplay = useMemo(() => {
+    return _autoplay;
+  });
+
+  const handleClick = () => {
+    if (!resume) {
+      stream.resume();
+      console.log("stream")
+      changeResume(true);
+    }
+  }
+
   useEffect(() => {
+    console.log("load stream player ", domId);
     if (!stream.isPlaying()) {
-      stream.play(domId)
+      stream.play(domId, {fit: 'cover'}, (errState) => {
+        if (errState && errState.status !== 'aborted') {
+          console.log("play failed >>>>>>", domId)
+          changeAutoPlay(true);
+        }
+      })
     }
     return () => {
       if (stream.isPlaying()) {
@@ -24,7 +48,7 @@ export default function StreamPlayer (props) {
   }, [stream])
 
   return (
-    <div className="stream-player" id={domId}>
+    <div className={`stream-player ${autoplay ? "autoplay": ''}`} id={domId} onClick={handleClick}>
       {props.children}
     </div>
   )

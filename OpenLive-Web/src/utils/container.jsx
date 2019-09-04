@@ -68,6 +68,16 @@ export const ContainerProvider = ({children}) => {
       updateToasts([
         ...items
       ]);
+    },
+    setLocalStream(param) {
+      dispatch({type: 'localStream', payload: param});
+    },
+    setStreamList(param) {
+      console.log(`set stream to lists, ${param.map(e => e.getId())}`);
+      dispatch({type: 'streamList', payload: param});
+    },
+    setDevicesList(param) {
+      dispatch({type: 'devicesList', payload: param});
     }
   };
 

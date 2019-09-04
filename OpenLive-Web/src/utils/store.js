@@ -2,14 +2,11 @@ const defaultState = {
   // loading effect
   loading: true,
   // media devices
-  remoteStreams: [],
-  localStreams: [],
-  microphoneDevices: [],
-  cameraDevices: [],
-
+  streams: [],
+  localStream: null,
+  devicesList: [],
   // web sdk property
   config: {
-    // host: false,
     uid: 0,
     channelName: '',
     token: null,
@@ -47,6 +44,15 @@ const mutations = (state, action) => {
     }
     case 'screen': {
       return { ...state, screen: action.payload };
+    }
+    case 'localStream': {
+      return { ...state, localStream: action.payload };
+    }
+    case 'streamList': {
+      return { ...state, streams: action.payload };
+    }
+    case 'devicesList': {
+      return {...state, devicesList: action.payload};
     }
     default:
       throw new Error("mutation type not defined")

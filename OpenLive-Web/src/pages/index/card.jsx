@@ -16,11 +16,6 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundImage: 'url("./icon-back-hover.png")',
     },
-    '&::before': {
-      backgroundColor: 'rgba(0, 0, 0, 0.37)',
-      content: ' ',
-      display: 'block',
-    },
     backgroundSize: '32px',
     backgroundImage: 'url("./icon-back.png")',
     backgroundRepeat: 'no-repeat',
@@ -106,13 +101,15 @@ const useStyles = makeStyles(theme => ({
     margin: '0 !important',
   },
   button: {
+    height: '44px',
     width: '260px',
     '&:hover': {
       backgroundColor: '#307AFF',
     },
     margin: theme.spacing(1),
+    marginTop: '33px',
     backgroundColor: '#44a2fc',
-    borderRadius: '20px'
+    borderRadius: '30px'
   }
 }));
 

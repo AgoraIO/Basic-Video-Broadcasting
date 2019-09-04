@@ -18,6 +18,11 @@
       "sizes": "60x60"
     },
     {
+      "src": "icon-add-blue.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
       "src": "icon-back-hover.png",
       "type": "image/png",
       "sizes": "60x60"

@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import {useGlobalState, useGlobalMutation} from '../../utils/container';
+import useDevices from '../../utils/use-devices';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormGroup, Typography, Select, FormControlLabel, MenuItem, Switch } from '@material-ui/core';
@@ -22,10 +23,11 @@ SettingsCard.propTypes = {
 
 const useStyles = makeStyles(theme => ({
   menuTitle: {
+    color: '#333333',
     textAlign: 'center',
     fontSize: 'h6.fontSize',
     position: 'relative',
-    top: '4px',
+    top: '7px',
   },
   marginTop: {
     marginTop: "0 !important"
@@ -40,10 +42,11 @@ const useStyles = makeStyles(theme => ({
   },
   line: {
     marginTop: '0.2rem',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.42)'
+    marginBottom: '0.5rem',
+    borderBottom: '1px solid #EAEAEA'
   },
   hr: {
-    borderBottom: '1px solid rgba(0, 0, 0, 0.42)'
+    borderBottom: '1px solid #EAEAEA'
   },
   switchItem: {
     flexDirection: 'row-reverse !important',
@@ -112,6 +115,8 @@ export default function SettingsCard() {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
 
+  const [ cameraList, microphoneList ] = useDevices();
+
   return (
     <Box display="flex" flex="1" flexDirection="column" padding="0 1rem" justifyContent="flex-start">
       <FormControl className={classes.menu}>
@@ -160,7 +165,7 @@ export default function SettingsCard() {
         </Select>
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="videoDevices">Video Devices</InputLabel>
+        <InputLabel htmlFor="camera">Camera</InputLabel>
         <Select
           value={stateCtx.config.cameraId}
           onChange={(evt) => {
@@ -169,16 +174,21 @@ export default function SettingsCard() {
             })
           }}
           inputProps={{
-            name: 'videoDevices',
-            id: 'videoDevices',
+            name: 'camera',
+            id: 'camera',
           }}
         >
-          <MenuItem value={0}>video-device-0</MenuItem>
-          <MenuItem value={1}>video-device-1</MenuItem>
+          {cameraList.map(
+            (item, key) =>
+              <MenuItem
+                key={key}
+                value={item.value}
+              >{item.label}</MenuItem>
+          )}
         </Select>
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="audioDevices">Audio Devices</InputLabel>
+        <InputLabel htmlFor="Microphone">Microphone</InputLabel>
         <Select
           value={stateCtx.config.microphoneId}
           onChange={(evt) => {
@@ -187,12 +197,17 @@ export default function SettingsCard() {
             })
           }}
           inputProps={{
-            name: 'audioDevices',
-            id: 'audioDevices',
+            name: 'microphone',
+            id: 'microphone',
           }}
         >
-          <MenuItem value={0}>audio-device-0</MenuItem>
-          <MenuItem value={1}>audio-device-1</MenuItem>
+          {microphoneList.map(
+            (item, key) =>
+              <MenuItem
+                key={key}
+                value={item.value}
+              >{item.label}</MenuItem>
+          )}
         </Select>
       </FormControl>
       <FormControl>
