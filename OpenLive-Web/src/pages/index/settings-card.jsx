@@ -1,18 +1,16 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {useGlobalState, useGlobalMutation} from '../../utils/container';
 import useDevices from '../../utils/use-devices';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Select, FormControlLabel, MenuItem, Switch } from '@material-ui/core';
-import useRouter from '../../utils/use-router';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import Box from '@material-ui/core/Box';
+import MenuItem from '@material-ui/core/MenuItem';
+import Switch from '@material-ui/core/Switch';
 import {NavLink} from 'react-router-dom';
-
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Box,
-} from '@material-ui/core';
 
 SettingsCard.propTypes = {
   name: PropTypes.string,
@@ -143,12 +141,12 @@ export default function SettingsCard() {
         <span className={classes.menuTitle}>Setting</span>
       </FormControl>
       <div className={classes.line}></div>
-      <FormControl className={classes.marginTop}>
+      {/* <FormControl className={classes.marginTop}>
         <InputLabel htmlFor="name">Channel Name</InputLabel>
         <Input id="name"defaultValue={stateCtx.config.channelName} onChange={(evt) => {
             mutationCtx.updateConfig({channelName: evt.target.value})
         }}/>
-      </FormControl>
+      </FormControl> */}
       <FormControl>
         <InputLabel htmlFor="resolution">Resolution</InputLabel>
         <Select
@@ -163,9 +161,9 @@ export default function SettingsCard() {
             id: 'resolution',
           }}
         >
-          <MenuItem value={"360p"}>360p</MenuItem>
           <MenuItem value={"480p"}>480p</MenuItem>
           <MenuItem value={"720p"}>720p</MenuItem>
+          <MenuItem value={"1080p"}>1080p</MenuItem>
         </Select>
       </FormControl>
       <FormControl>

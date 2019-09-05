@@ -5,14 +5,14 @@ const defaultState = {
   streams: [],
   localStream: null,
   devicesList: [],
-  // web sdk property
+  // web sdk params
   config: {
     uid: 0,
     channelName: '',
     token: null,
     microphoneId: '',
     cameraId: '',
-    resolution: '360p'
+    resolution: '480p'
   },
   agoraClient: null,
   mode: 'live',
@@ -53,6 +53,22 @@ const mutations = (state, action) => {
     }
     case 'devicesList': {
       return {...state, devicesList: action.payload};
+    }
+    case 'resetStreamList': {
+      const {streams, localStream} = state;
+      streams.forEach((stream) => {
+        if (stream.isPlaying()) {
+          stream.stop();
+        }
+        stream.close();
+      });
+
+      if (localStream) {
+        localStream.isPlaying() &&
+        localStream.stop();
+        localStream.close();
+      }
+      return { ...state, localStream: null, streams: []};
     }
     default:
       throw new Error("mutation type not defined")

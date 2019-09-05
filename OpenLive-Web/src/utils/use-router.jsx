@@ -1,5 +1,5 @@
-import React, {useContext, useMemo} from "react";
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import React, {useContext} from "react";
+import { HashRouter as Router, Route} from 'react-router-dom';
 
 export const RouterContext = React.createContext({});
 

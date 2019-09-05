@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useReducer, useState, useEffect} from 'react';
+import React, {createContext, useContext, useReducer, useState} from 'react';
 import {mutations, defaultState} from './store';
 import CustomizedSnackbar from '../utils/snackbar-wrapper';
 import Loading from '../utils/loading';
@@ -73,11 +73,41 @@ export const ContainerProvider = ({children}) => {
       dispatch({type: 'localStream', payload: param});
     },
     setStreamList(param) {
-      console.log(`set stream to lists, ${param.map(e => e.getId())}`);
       dispatch({type: 'streamList', payload: param});
     },
     setDevicesList(param) {
       dispatch({type: 'devicesList', payload: param});
+    },
+    resetStreamList() {
+      dispatch({type: 'resetStreamList'});
+    },
+    addLocal (evt) {
+      const {stream} = evt;
+      methods.setLocalStream(stream);
+    },
+    addStream (evt) {
+      const {stream} = evt;
+      const _streamList = state.streams;
+      _streamList.push(stream);
+      methods.setStreamList(_streamList);
+    },
+    subscribeStream (evt) {
+      const {stream} = evt;
+      const _streamList = state.streams;
+      _streamList.push(stream);
+      methods.setStreamList(_streamList);
+    },
+    removeStream (evt) {
+      const {stream} = evt;
+      const id = stream ? stream.getId() : evt.id;
+      const _streamList = state.streams;
+      const index = _streamList.findIndex(item => item.getId() === id);
+      if (index !== -1) {
+        methods.setStreamList(_streamList.filter((stream, idx) => (idx !== index)));
+      }
+    },
+    connectionStateChanged (evt) {
+      methods.toastInfo(`${evt.curState}`);
     }
   };
 

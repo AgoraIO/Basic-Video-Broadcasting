@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';

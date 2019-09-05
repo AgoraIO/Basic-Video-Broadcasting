@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useGlobalState, useGlobalMutation } from '../utils/container';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Box } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import IndexCard from './index/card';
 
 const useStyles = makeStyles(() => ({
@@ -24,7 +24,7 @@ const Index = () => {
     if (stateCtx.loading === true) {
       mutationCtx.stopLoading();
     }
-  });
+  }, [stateCtx.loading, mutationCtx]);
 
   return (
     <Container maxWidth="sm" className={classes.container}>

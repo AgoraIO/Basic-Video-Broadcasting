@@ -1,72 +1,39 @@
-import React, {useContext, useMemo, useEffect} from 'react';
+import React, {useMemo, useEffect} from 'react';
 import {useGlobalState, useGlobalMutation} from './container';
 
 export default function useStream (client) {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
 
-  const streamList = useMemo(() => {
-    return stateCtx.streams;
-  });
-
-  const localStream = useMemo(() => {
-    return stateCtx.localStream;
-  });
+  const [streamList, localStream] = useMemo(() => {
+    return [stateCtx.streams, stateCtx.localStream];
+  }, [stateCtx]);
 
   useEffect(() => {
-    const addLocal = (evt) => {
-      const {stream} = evt;
-      const id = stream.getId();
-      mutationCtx.setLocalStream(stream);
-    }
-
-    const addStream = (evt) => {
-      const {stream} = evt;
-      const id = stream.getId();
-      const _streamList = streamList;
-      _streamList.push(stream);
-      mutationCtx.setStreamList(_streamList);
-    }
-
     const addRemoteStream = (evt) => {
       const {stream} = evt;
       client.subscribe(stream, (err) => {
-        console.error(`stream ${evt.stream.getId()} subscribe failed: ${err}`);
+        mutationCtx.toastError(`stream ${evt.stream.getId()} subscribe failed: ${err}`);
       });
     }
-
-    const subscribeStream = (evt) => {
-      const {stream} = evt;
-      const id = stream.getId();
-      const _streamList = streamList;
-      _streamList.push(stream);
-      mutationCtx.setStreamList(_streamList);
-    }
-
-    const removeStream = (evt) => {
-      const {stream} = evt;
-      const id = stream ? stream.getId() : evt.id;
-      const _streamList = streamList;
-      const index = _streamList.findIndex(item => item.getId() === id);
-      if (index !== -1) {
-        mutationCtx.setStreamList(_streamList.filter((stream, idx) => (idx !== index)));
-      }
-    }
-
-    if (client) {
-      client.on("localStream-added", addLocal);
-      client.on("stream-published", addStream);
+    // const canceledScreenSharing = () => {
+    //   if (stateCtx.localStream) {
+    //     stateCtx.localStream.close();
+    //   }
+    //   stateCtx.toastInfo('Screen Sharing Stopped');
+    // }
+    if (client && client._subscribed === false) {
+      // client.on("stopScreenSharing", canceledScreenSharing);
+      client.on("connection-state-change", mutationCtx.connectionStateChanged);
+      client.on("localStream-added", mutationCtx.addLocal);
+      client.on("stream-published", mutationCtx.addStream);
       client.on("stream-added", addRemoteStream);
-      client.on("stream-removed", removeStream);
-      client.on("stream-subscribed", subscribeStream);
-      client.on("peer-leave", removeStream);
+      client.on("stream-removed", mutationCtx.removeStream);
+      client.on("stream-subscribed", mutationCtx.subscribeStream);
+      client.on("peer-leave", mutationCtx.removeStream);
+      client._subscribed = true;
     }
-    return () => {
-      if (client) {
-        client.destroy();
-      }
-    }
-  }, [])
+  }, [client, mutationCtx])
 
   return [localStream, streamList];
 }

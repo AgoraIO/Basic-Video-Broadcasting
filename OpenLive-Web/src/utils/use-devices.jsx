@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {useGlobalState, useGlobalMutation} from '../utils/container';
 import RTCClient from '../rtc-client';
 
@@ -9,28 +9,26 @@ export default function useDevices () {
   const client = useMemo(() => {
     const _rtcClient = new RTCClient()
     return _rtcClient;
-  })
+  }, []);
 
-  const cameraList = useMemo(() => {
-    return stateCtx.devicesList
-    .filter((item) => item.kind === 'videoinput')
-    .map((item, idx) => ({
-      value: item.deviceId,
-      label: item.label ? item.label : `Video Input ${idx}`
-    }));
-  })
-
-  const microphoneList = useMemo(() => {
-    return stateCtx.devicesList
-    .filter((item) => item.kind === 'audioinput')
-    .map((item, idx) => ({
-      value: item.deviceId,
-      label: item.label ? item.label : `Audio Input ${idx}`
-    }));
-  })
+  const [cameraList, microphoneList] = useMemo(() => {
+    return [
+      stateCtx.devicesList
+      .filter((item) => item.kind === 'videoinput')
+      .map((item, idx) => ({
+        value: item.deviceId,
+        label: item.label ? item.label : `Video Input ${idx}`
+      })),
+      stateCtx.devicesList
+      .filter((item) => item.kind === 'audioinput')
+      .map((item, idx) => ({
+        value: item.deviceId,
+        label: item.label ? item.label : `Audio Input ${idx}`
+      }))
+    ];
+  }, [stateCtx.devicesList]);
 
   useEffect(() => {
-    console.log(`use devices ${stateCtx.devicesList.length}`)
     if (cameraList.length > 0 || microphoneList.length > 0) return;
     client.getDevices().then((devices) => {
       mutationCtx.setDevicesList(devices);
@@ -38,7 +36,7 @@ export default function useDevices () {
     return () => {
       client.destroy();
     }
-  }, []);
+  }, [microphoneList, mutationCtx, cameraList, client]);
 
   useEffect(() => {
     if (cameraList[0] &&
@@ -51,7 +49,7 @@ export default function useDevices () {
       });
       mutationCtx.stopLoading();
     }
-  }, [stateCtx.devicesList]);
+  }, [mutationCtx, stateCtx.devicesList, stateCtx.config, cameraList, microphoneList]);
 
   return [cameraList, microphoneList];
 }

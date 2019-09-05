@@ -108,30 +108,44 @@ const MeetingPage = () => {
 
   const localClient = useMemo(() => {
     const client = new RTCClient();
-    client.createClient({codec: stateCtx.codec, mode: stateCtx.mode});
-    return client;
-  }, []);
-  const [localStream, streamList] = useStream(localClient);
-  useEffect(() => {
-    console.log('localStream', localStream);
-    if (!stateCtx.config.channelName) {
-      routerCtx.history.push('/');
+    if (!client._created) {
+      client.createClient({codec: stateCtx.codec, mode: stateCtx.mode});
+      client._created = true;
     }
-    localClient.join({
+    return client;
+  }, [stateCtx.codec, stateCtx.mode]);
+
+  const [localStream, streamList] = useStream(localClient);
+
+  const config = useMemo(() => {
+    return {
       token: null,
       channel: stateCtx.config.channelName,
-      uid: 0,
       microphoneId: stateCtx.config.microphoneId,
       cameraId: stateCtx.config.cameraId,
-      resolution: stateCtx.config.resolution
-    }).then(() => {
-      console.log('localStream', localStream);
-      mutationCtx.stopLoading();
-    })
-    return () => {
-      localClient.destroy();
+      resolution: stateCtx.config.resolution,
+      video: stateCtx.video,
+      audio: stateCtx.audio,
+      uid: 0,
     }
-  }, [0])
+  }, [stateCtx]);
+
+  const history = routerCtx.history;
+
+  useEffect(() => {
+    if (!config.channel) {
+      history.push('/');
+    }
+  }, [config.channel, history]);
+
+  useEffect(() => {
+    if (localClient._created && localClient._joined === false) {
+      localClient.join(config).then(() => {
+        localClient.publish();
+        mutationCtx.stopLoading();
+      });
+    }
+  }, [localClient, mutationCtx, config]);
 
   const handleClick = (name) => {
     return (evt) => {
@@ -152,10 +166,12 @@ const MeetingPage = () => {
               token: null,
               channel: stateCtx.config.channelName,
               microphoneId: stateCtx.config.microphoneId,
-              resolution: stateCtx.config.resolution
+              resolution: stateCtx.config.resolution,
+              video: stateCtx.video,
+              audio: stateCtx.audio,
             }).then(() => {
+              localClient.publish();
               mutationCtx.setScreen(false)
-              console.log('start rtc stream')
             })
           } else {
             localClient.createScreenSharingStream({
@@ -165,8 +181,8 @@ const MeetingPage = () => {
               cameraId: stateCtx.config.cameraId,
               resolution: stateCtx.config.resolution
             }).then(() => {
+              localClient.publish();
               mutationCtx.setScreen(true)
-              console.log('start rtc stream')
             })
           }
           break;
@@ -189,7 +205,7 @@ const MeetingPage = () => {
               <div className={classes.menu}>
                 <i onClick={handleClick('video')} className={clsx(classes.customBtn, stateCtx.video ? classes.muteVideo : classes.unmuteVideo)}/>
                 <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.audio ? classes.muteAudio : classes.unmuteAudio)}/>
-                <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? classes.startScreenShare : classes.stopScreenShare)}/>
+                {/* <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? classes.startScreenShare : classes.stopScreenShare)}/> */}
                 {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, classes.showProfile)}/> */}
               </div>
             </div>
@@ -201,6 +217,7 @@ const MeetingPage = () => {
               </div>
               <div className="quit" onClick={() => {
                 localClient.leave().then(() => {
+                  mutationCtx.resetStreamList();
                   routerCtx.history.push('/');
                 })
               }}></div>

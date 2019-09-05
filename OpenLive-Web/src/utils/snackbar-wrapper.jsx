@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -62,8 +62,8 @@ function SnackbarWrapper(props) {
   useEffect(() => {
     setTimeout(() => {
       mutationCtx.removeTop();
-    }, 2000)
-  }, [])
+    }, 1500)
+  }, [mutationCtx]);
 
   return (
     <SnackbarContent

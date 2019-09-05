@@ -1,7 +1,6 @@
 import AgoraRTC from 'agora-rtc-sdk';
 import EventEmitter from 'events';
-const { appID } = require('../package.json');
-
+const appID = process.env.REACT_APP_AGORA_APP_ID;
 console.log("agora sdk version: " + AgoraRTC.VERSION + " compatible: " + AgoraRTC.checkSystemRequirements());
 export default class RTCClient {
   constructor() {
@@ -12,6 +11,8 @@ export default class RTCClient {
     this._uid = 0;
     this._eventBus = new EventEmitter();
     this._showProfile = false;
+    this._subscribed = false;
+    this._created = false;
   }
 
   createClient(data) {
@@ -20,15 +21,17 @@ export default class RTCClient {
   }
 
   destroy() {
+    this._created = false; 
     this._client = null;
   }
 
   on(evt, callback) {
     const customEvents = [
-      'localStream-added'
+      'localStream-added',
+      'screenShare-canceled'
     ]
 
-    if (customEvents.indexOf(evt) != -1) {
+    if (customEvents.indexOf(evt) !== -1) {
       this._eventBus.on(evt, callback)
       return;
     }
@@ -40,14 +43,12 @@ export default class RTCClient {
     return new Promise(resolve => {
       this._uid = this._localStream ? this._localStream.getId() : data.uid;
       if (this._localStream) {
-        console.log("verbose get uid", this._uid);
         this.unpublish();
         if (this._localStream.isPlaying()) {
           this._localStream.stop();
         }
         this._localStream.close();
       }
-      console.log("this.stream.uid", this._uid);
       // create rtc stream
       const rtcStream = AgoraRTC.createStream({
         streamID: this._uid,
@@ -58,19 +59,20 @@ export default class RTCClient {
         cameraId: data.cameraId
       });
 
-      if (data.resolution && data.resolution != 'default') {
+      if (data.resolution && data.resolution !== 'default') {
         rtcStream.setVideoProfile(data.resolution);
       }
 
       // init local stream
       rtcStream.init(() => {
-        console.log("init local stream success");
-
         this._localStream = rtcStream;
         this._eventBus.emit("localStream-added", { stream: this._localStream });
-        setTimeout(() => {
-          this.publish();
-        })
+        if (data.video === false) {
+          this._localStream.muteVideo()
+        }
+        if (data.audio === false) {
+          this._localStream.muteAudio()
+        }
         resolve();
       }, (err) => {
         //Toast.error("stream init failed, please open console see more detail");
@@ -91,7 +93,6 @@ export default class RTCClient {
         }
         this._localStream.close();
       }
-      console.log("this.stream.uid", this._uid)
       const screenSharingStream = AgoraRTC.createStream({
         streamID: this._uid,
         audio: true,
@@ -101,25 +102,23 @@ export default class RTCClient {
         cameraId: data.cameraId
       });
 
-      if (data.resolution && data.resolution != 'default') {
-        screenSharingStream.setVideoProfile(data.resolution);
+      if (data.resolution && data.resolution !== 'default') {
+        screenSharingStream.setScreenProfile(`${data.resolution}_1`);
       }
+
+      screenSharingStream.on("stopScreenSharing", (evt) => {
+        this._eventBus.emit("stopScreenSharing", evt);
+      })
 
       // init local stream
       screenSharingStream.init(() => {
-        console.log("init local stream success");
-
         this._localStream = screenSharingStream
         
         // run callback
         this._eventBus.emit("localStream-added", { stream: this._localStream });
-        setTimeout(() => {
-          this.publish();
-        })
         resolve();
       }, (err) => {
-        //Toast.error("stream init failed, please open console see more detail");
-        console.error("init local stream failed ", err);
+        resolve(err);
       })
     })
   }
@@ -144,7 +143,6 @@ export default class RTCClient {
 
       // init local stream
       _tmpStream.init(() => {
-        console.log("init local stream success");
         this._localStream = _tmpStream;
         resolve();
       }, (err) => {
@@ -158,7 +156,6 @@ export default class RTCClient {
     return new Promise((resolve, reject) => {
       if (!this._client)
         this.createClient({codec: 'h264', mode: 'live'});
-      console.log("client use devices");
       this._createTmpStream().then(() => {
         AgoraRTC.getDevices((devices) => {
           this._localStream.close();
@@ -169,6 +166,7 @@ export default class RTCClient {
   }
 
   join(data) {
+    this._joined = 'pending'
     return new Promise((resolve, reject) => {
 
       /**
@@ -186,8 +184,6 @@ export default class RTCClient {
 
       // init client
       this._client.init(appID, () => {
-        console.log("init success");
-
         /**
          * Joins an AgoraRTC Channel
          * This method joins an AgoraRTC channel.
@@ -219,12 +215,12 @@ export default class RTCClient {
           this.createRTCStream(data).then(() => {
             resolve();
           });
-        }, function (err) {
-          //Toast.error("client join failed, please open console see more detail");
+        }, (err) => {
+          this._joined = false;
           console.error("client join failed", err);
         })
       }, (err) => {
-        //Toast.error("client init failed, please open console see more detail");
+        this._joined = false;
         console.error(err);
       });
     })
@@ -233,7 +229,6 @@ export default class RTCClient {
   publish() {
     // publish localStream
     this._client.publish(this._localStream, (err) => {
-      console.log("publish failed");
       console.error(err);
     })
   }
@@ -243,7 +238,6 @@ export default class RTCClient {
       return;
     }
     this._client.unpublish(this._localStream, (err) => {
-      console.log("unpublish failed");
       console.error(err);
     });
   }
@@ -252,6 +246,8 @@ export default class RTCClient {
     return new Promise(resolve => {
       // leave channel
       this._client.leave(() => {
+        this._joined = false;
+        this.destroy();
         resolve();
       }, (err) => {
         console.log("channel leave failed");

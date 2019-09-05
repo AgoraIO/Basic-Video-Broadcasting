@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Index from './pages/index';
 import Meeting from './pages/meeting';
 import {BrowserRouterHook} from './utils/use-router';
