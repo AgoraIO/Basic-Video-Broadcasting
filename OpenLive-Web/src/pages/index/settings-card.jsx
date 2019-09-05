@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 SettingsCard.propTypes = {
   name: PropTypes.string,
@@ -22,21 +22,6 @@ SettingsCard.propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
-  backBtn: {
-    '&:hover': {
-      backgroundImage: 'url("/icon-back-hover.png")',
-    },
-    backgroundSize: '32px',
-    backgroundImage: 'url("/icon-back.png")',
-    backgroundRepeat: 'no-repeat',
-    top: '1rem',
-    height: '32px',
-    position: 'absolute',
-    width: '32px',
-    left: '1rem',
-    cursor: 'pointer',
-    zIndex: '2'
-  },
   menuTitle: {
     color: '#333333',
     textAlign: 'center',
@@ -125,6 +110,7 @@ const CustomSwitch = withStyles(theme => ({
 });
 
 export default function SettingsCard() {
+
   const classes = useStyles();
 
   const stateCtx = useGlobalState();
@@ -135,7 +121,7 @@ export default function SettingsCard() {
 
   return (
     <Box flex="1" display="flex" flexDirection="column">
-      <NavLink to="/" className={classes.backBtn} />
+      <Link to="/" className='back-btn' />
       <Box display="flex" flex="1" flexDirection="column" padding="0 1rem" justifyContent="flex-start">
       <FormControl className={classes.menu}>
         <span className={classes.menuTitle}>Setting</span>

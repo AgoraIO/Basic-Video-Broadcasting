@@ -34,60 +34,6 @@ const useStyles = makeStyles({
     flex: '1',
     justifyContent: 'center'
   },
-  muteVideo: {
-    '&:hover': {
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-camera.png")',
-  },
-  unmuteVideo: {
-    '&:hover': {
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-camera-off.png")',
-  },
-  muteAudio: {
-    '&:hover': {
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-microphone.png")',
-  },
-  unmuteAudio: {
-    '&:hover': {
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-microphone-off.png")',
-  },
-  startScreenShare: {
-    '&:hover': {
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-share.png")',
-  },
-  stopScreenShare: {
-    '&:hover': {
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-share.png")',
-    '&::before': {
-      backgroundColor: 'rgba(0, 0, 0, 1)',
-      opacity: 0.2,
-    }
-  },
-  showProfile: {
-    '&:hover': {
-      backgroundImage: 'url("/icon-text-actived.png")',
-      backgroundColor: '#44A2FC',
-      opacity: 1.0,
-    },
-    backgroundImage: 'url("/icon-text.png")',
-  },
   menuContainer: {
     width: '100%',
     height: '100%',
@@ -139,7 +85,7 @@ const MeetingPage = () => {
   }, [config.channel, history]);
 
   useEffect(() => {
-    if (localClient._created && localClient._joined === false) {
+    if (config.channel && localClient._created && localClient._joined === false) {
       localClient.join(config).then(() => {
         localClient.publish();
         mutationCtx.stopLoading();
@@ -203,10 +149,10 @@ const MeetingPage = () => {
           <StreamPlayer stream={localStream}>
             <div className={classes.menuContainer}>
               <div className={classes.menu}>
-                <i onClick={handleClick('video')} className={clsx(classes.customBtn, stateCtx.video ? classes.muteVideo : classes.unmuteVideo)}/>
-                <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.audio ? classes.muteAudio : classes.unmuteAudio)}/>
-                {/* <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? classes.startScreenShare : classes.stopScreenShare)}/> */}
-                {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, classes.showProfile)}/> */}
+                <i onClick={handleClick('video')} className={clsx(classes.customBtn, stateCtx.video ? 'mute-video' : 'unmute-video')}/>
+                <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.audio ? 'mute-audio' : 'unmute-audio')}/>
+                {/* <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? 'start-screen-share' : 'stop-screen-share)}/> */}
+                {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
               </div>
             </div>
             <div className="nav">

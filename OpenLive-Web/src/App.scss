@@ -71,7 +71,7 @@ body{
 }
 
 .default-avatar {
-  background-image: url("/avatar.png");
+  background-image: url("./assets/avatar.png");
   background-size: 38px;
   display: block;
   width: 38px;
@@ -111,7 +111,7 @@ body{
   display: block;
   margin-top: 36px;
   margin-right: 36px;
-  background-image: url(/icon-exit.png);
+  background-image: url("./assets/icon-exit.png");
   background-size: 32px;
   width: 32px;
   height: 32px;
@@ -122,12 +122,12 @@ body{
 }
 
 .quit:hover {
-  background-image: url("/icon-exit-hover.png");
+  background-image: url("./assets/icon-exit-hover.png");
 }
 
 .like {
   cursor: pointer;
-  background-image: url("/icon-add-blue.png");
+  background-image: url("./assets/icon-add-blue.png");
   background-size: 30px;
   display: block;
   width: 30px;
@@ -141,7 +141,7 @@ body{
 }
 
 .like:hover {
-  background-image: url("/icon-add-blue.png");
+  background-image: url("./assets/icon-add-blue.png");
 }
 
 .stream-uid {
@@ -163,4 +163,102 @@ body{
   font-family: HelveticaNeue;
   color: rgba(255,255,255,1);
   line-height: 14px;
+}
+
+.mute-video {
+  &:hover {
+    background-color: #44A2FC;
+    opacity: 1.0;
+  }
+  background-image: url("./assets/icon-camera.png");
+}
+
+.unmute-video {
+  &:hover {
+    background-color: #44A2FC;
+    opacity: 1.0;
+  }
+  background-image: url("./assets/icon-camera-off.png");
+}
+
+.mute-audio {
+  &:hover {
+    background-color: #44A2FC;
+    opacity: 1.0;
+  }
+  background-image: url("./assets/icon-microphone.png");
+}
+
+.unmute-audio {
+  &:hover {
+    background-color: #44A2FC;
+    opacity: 1.0;
+  }
+  background-image: url("./assets/icon-microphone-off.png");
+}
+
+.stop-screen-share {
+  &:hover {
+    background-color: #44A2FC;
+    opacity: 1.0;
+  }
+  background-image: url("./assets/icon-share.png");
+}
+
+.start-screen-share {
+  &:hover {
+    background-color: #44A2FC;
+    opacity: 1.0;
+  }
+  background-image: url("./assets/icon-share.png");
+}
+
+.show-profile {
+  &:hover {
+    opacity: 1.0;
+    background-image: url("./assets/icon-text-actived.png");
+    background-color: #44A2FC;
+  }
+  background-image: url("./assets/icon-text.png");
+}
+
+.back-btn {
+  &:hover {
+    background-image: url("./assets/icon-back-hover.png");
+  }
+  background-size: 32px;
+  background-image: url("./assets/icon-back.png");
+  background-repeat: no-repeat;
+  top: 1rem;
+  height: 32px;
+  position: absolute;
+  width: 32px;
+  left: 1rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.setting-btn {
+  &:hover {
+    background-image: url("./assets/icon-setting-hover.png");
+  }
+  background-size: 32px;
+  background-image: url("./assets/icon-setting.png");
+  background-repeat: no-repeat;
+  top: 1rem;
+  height: 32px;
+  position: absolute;
+  width: 32px;
+  right: 1rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.cover-image {
+  margin-top: 4rem;
+  width: 180px;
+  height: 180px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("./assets/logo-open-live.png");
 }

@@ -1,26 +1,11 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import IndexCard from './index-card';
 import SettingsCard from './settings-card';
-
 const useStyles = makeStyles(theme => ({
-  settingBtn: {
-    '&:hover': {
-      backgroundImage: 'url("/icon-setting-hover.png")',
-    },
-    backgroundImage: 'url("/icon-setting.png")',
-    backgroundSize: '32px',
-    backgroundRepeat: 'no-repeat',
-    top: '1rem',
-    height: '32px',
-    position: 'absolute',
-    width: '32px',
-    right: '1rem',
-    cursor: 'pointer',
-  },
   fontStyle: {
     color: '#9ee2ff',
   },
@@ -45,14 +30,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     color: '#fff',
-  },
-  coverImage: {
-    marginTop: '4rem',
-    width: '180px',
-    height: '180px',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: 'url("./logo-open-live.png")'
   },
   coverRight: {
     position: 'relative',
@@ -102,7 +79,7 @@ export default function CardPage() {
         <Box display="flex" flex="1">
           <div className={classes.coverLeft}>
             <div className={classes.item}>
-              <div className={classes.coverImage} />
+              <div className='cover-image' />
             </div>
             <div className={classes.item}>
               <div className={classes.coverContent}>
@@ -114,10 +91,8 @@ export default function CardPage() {
           </div>
           <div className={classes.coverRight}>
             <Switch>
-              <Router>
-                <Route exact path="/" component={IndexCard}></Route>
-                <Route path="/setting" component={SettingsCard}></Route>
-              </Router>
+              <Route exact path="/" component={IndexCard}></Route>
+              <Route path="/setting" component={SettingsCard}></Route>
             </Switch>
           </div>
         </Box>

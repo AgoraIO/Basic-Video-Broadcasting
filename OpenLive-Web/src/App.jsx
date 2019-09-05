@@ -1,14 +1,16 @@
 import React from 'react';
-import './App.css';
-import { Route } from 'react-router-dom';
+import './App.scss';
+import { Route, Switch } from 'react-router-dom';
 import Index from './pages/index';
 import Meeting from './pages/meeting';
 import {BrowserRouterHook} from './utils/use-router';
 function App() {
   return (
     <BrowserRouterHook>
-      <Route exact path="/" component={Index}></Route>
-      <Route exact path="/meeting/:name" component={Meeting}></Route>
+      <Switch>
+        <Route exact path="/meeting/:name" component={Meeting}></Route>
+        <Route path="/" component={Index}></Route>
+      </Switch>
     </BrowserRouterHook>
   );
 }

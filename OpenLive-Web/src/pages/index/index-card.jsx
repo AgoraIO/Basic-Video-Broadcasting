@@ -8,38 +8,9 @@ import Input from '@material-ui/core/Input';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import useRouter from '../../utils/use-router';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
-  backBtn: {
-    '&:hover': {
-      backgroundImage: 'url("./icon-back-hover.png")',
-    },
-    backgroundSize: '32px',
-    backgroundImage: 'url("./icon-back.png")',
-    backgroundRepeat: 'no-repeat',
-    top: '1rem',
-    height: '32px',
-    position: 'absolute',
-    width: '32px',
-    left: '1rem',
-    cursor: 'pointer',
-    zIndex: '2'
-  },
-  settingBtn: {
-    '&:hover': {
-      backgroundImage: 'url("./icon-setting-hover.png")',
-    },
-    backgroundImage: 'url("./icon-setting.png")',
-    backgroundSize: '32px',
-    backgroundRepeat: 'no-repeat',
-    top: '1rem',
-    height: '32px',
-    position: 'absolute',
-    width: '32px',
-    right: '1rem',
-    cursor: 'pointer',
-  },
   fontStyle: {
     color: '#9ee2ff',
   },
@@ -64,14 +35,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     color: '#fff',
-  },
-  coverImage: {
-    marginTop: '4rem',
-    width: '180px',
-    height: '180px',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: 'url("./logo-open-live.png")'
   },
   coverRight: {
     position: 'relative',
@@ -127,12 +90,12 @@ export default function IndexCard () {
     }
 
     mutationCtx.startLoading();
-    routerCtx.history.push(`/meeting/${stateCtx.config.channelName}`);
+    routerCtx.history.push({pathname: `/meeting/${stateCtx.config.channelName}`});
   }
 
   return (
     <Box flex="1" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-      <NavLink to="/setting" className={classes.settingBtn} />
+      <Link to="/setting" className='setting-btn' />
       <FormControl className={clsx(classes.input, classes.grid)}>
         <InputLabel htmlFor="channelName">Channel Name</InputLabel>
         <Input
