@@ -1,13 +1,15 @@
-import React, {useMemo, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useGlobalState, useGlobalMutation} from './container';
 
 export default function useStream (client) {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
 
-  const [streamList, localStream] = useMemo(() => {
-    return [stateCtx.streams, stateCtx.localStream];
-  }, [stateCtx]);
+  const [streamList, localStream, currentStream] = [stateCtx.streams, stateCtx.localStream, stateCtx.currentStream];
+
+  // const [streamList, localStream, currentStream] = useMemo(() => {
+  //   return [stateCtx.streams, stateCtx.localStream, stateCtx.currentStream];
+  // }, [stateCtx]);
 
   useEffect(() => {
     const addRemoteStream = (evt) => {
@@ -35,5 +37,5 @@ export default function useStream (client) {
     }
   }, [client, mutationCtx])
 
-  return [localStream, streamList];
+  return [localStream, currentStream, streamList];
 }

@@ -4,10 +4,12 @@ const defaultState = {
   // media devices
   streams: [],
   localStream: null,
+  currentStream: null,
   devicesList: [],
   // web sdk params
   config: {
     uid: 0,
+    host: true,
     channelName: '',
     token: null,
     microphoneId: '',
@@ -17,8 +19,8 @@ const defaultState = {
   agoraClient: null,
   mode: 'live',
   codec: 'h264',
-  video: true,
-  audio: true,
+  muteVideo: true,
+  muteAudio: true,
   screen: false
 };
 
@@ -37,10 +39,10 @@ const mutations = (state, action) => {
       return { ...state, codec: action.payload };
     }
     case 'video': {
-      return { ...state, video: action.payload };
+      return { ...state, muteVideo: action.payload };
     }
     case 'audio': {
-      return { ...state, audio: action.payload };
+      return { ...state, muteAudio: action.payload };
     }
     case 'screen': {
       return { ...state, screen: action.payload };
@@ -48,7 +50,11 @@ const mutations = (state, action) => {
     case 'localStream': {
       return { ...state, localStream: action.payload };
     }
+    case 'currentStream': {
+      return { ...state, currentStream: action.payload };
+    }
     case 'streamList': {
+      window.streams = action.payload;
       return { ...state, streams: action.payload };
     }
     case 'devicesList': {

@@ -1,14 +1,41 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {useGlobalState, useGlobalMutation} from '../../utils/container';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Box from '@material-ui/core/Box';
+import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import useRouter from '../../utils/use-router';
 import {Link} from 'react-router-dom';
+
+const CustomRadio = withStyles({
+  root: {
+    color: '#999999',
+    '&$checked': {
+      color: '#44A2FC',
+    },
+    '&:hover': {
+      backgroundColor: 'inherit',
+    }
+  },
+})(({children, ...props}) => {
+  return (
+    <div className="role-item">
+      {children}
+      <div className="radio-row">
+        <div className="custom-radio">
+          <input type="radio" value={props.value} checked={props.checked} onChange={props.onChange} />
+          <div className="checkmark"></div>
+        </div>
+        <Box flex="1" className="role-name">{props.value}</Box>
+      </div>
+    </div>
+  );
+});
 
 const useStyles = makeStyles(theme => ({
   fontStyle: {
@@ -36,11 +63,6 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     color: '#fff',
   },
-  coverRight: {
-    position: 'relative',
-    flex: 1,
-    display: 'flex',
-  },
   container: {
     display: 'flex',
     justifyContent: 'center',
@@ -63,15 +85,26 @@ const useStyles = makeStyles(theme => ({
     margin: '0 !important',
   },
   button: {
+    lineHeight: '21px',
+    color:'rgba(255,255,255,1)',
+    fontSize: '17px',
+    textTransform: 'none',
     height: '44px',
     width: '260px',
     '&:hover': {
-      backgroundColor: '#307AFF',
+      backgroundColor: '#82C2FF',
     },
     margin: theme.spacing(1),
     marginTop: '33px',
     backgroundColor: '#44a2fc',
     borderRadius: '30px'
+  },
+  radio: {
+    padding: '0',
+    fontSize: '14px',
+    // display: 'flex',
+    alignItems: 'center',
+    paddingRight: '5px',
   }
 }));
 
@@ -83,9 +116,8 @@ export default function IndexCard () {
   const mutationCtx = useGlobalMutation();
 
   const handleClick = () => {
-
     if (!stateCtx.config.channelName) {
-      mutationCtx.toastError(`channelName can't be blank`)
+      mutationCtx.toastError(`You need enter the topic`)
       return;
     }
 
@@ -93,24 +125,51 @@ export default function IndexCard () {
     routerCtx.history.push({pathname: `/meeting/${stateCtx.config.channelName}`});
   }
 
+  const handleChange = (evt) => {
+    const {value} = evt.target;
+    mutationCtx.updateConfig({
+      host: value === 'host'
+    });
+  }
+
   return (
-    <Box flex="1" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+    <Box marginTop="114px" flex="1" display="flex" alignItems="center" justifyContent="flex-start" flexDirection="column">
       <Link to="/setting" className='setting-btn' />
-      <FormControl className={clsx(classes.input, classes.grid)}>
-        <InputLabel htmlFor="channelName">Channel Name</InputLabel>
-        <Input
-          id="channelName"
-          name="channelName"
-          defaultValue={stateCtx.config.channelName}
-          onChange={(evt) => {
-            mutationCtx.updateConfig({channelName: evt.target.value})
-          }}/>
-      </FormControl>
-      <FormControl className={classes.grid}>
-        <Button onClick={handleClick} variant="contained" color="primary" className={classes.button}>
-          Start Live Broadcast
-        </Button>
-      </FormControl>
+      <div className="role-container">
+        <CustomRadio
+          className={classes.radio}
+          value="host"
+          checked={stateCtx.config.host}
+          onChange={handleChange}
+        >
+          <div className="icon-host"></div>
+        </CustomRadio>
+        <CustomRadio
+          className={classes.radio}
+          value="audience"
+          checked={!stateCtx.config.host}
+          onChange={handleChange}
+        >
+          <div className="icon-audience"></div>
+        </CustomRadio>
+      </div>
+      <Box marginTop="92" flex="1" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+        <FormControl className={clsx(classes.input, classes.grid)}>
+          <InputLabel htmlFor="channelName">Pick a topic to chat</InputLabel>
+          <Input
+            id="channelName"
+            name="channelName"
+            defaultValue={stateCtx.config.channelName}
+            onChange={(evt) => {
+              mutationCtx.updateConfig({channelName: evt.target.value})
+            }}/>
+        </FormControl>
+        <FormControl className={classes.grid}>
+          <Button onClick={handleClick} variant="contained" color="primary" className={classes.button}>
+            Start Live Broadcast
+          </Button>
+        </FormControl>
+      </Box>
     </Box>
   )
 }

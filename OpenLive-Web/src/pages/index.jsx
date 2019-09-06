@@ -11,7 +11,8 @@ const useStyles = makeStyles(() => ({
     minWidth: 800,
     minHeight: 600,
     boxSizing: 'content-box',
-    display: 'flex'
+    display: 'flex',
+    justifyContent: "center"
   }
 }));
 

@@ -2,6 +2,7 @@ html,
 body{
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 #root {
@@ -11,8 +12,16 @@ body{
   background: #FAFAFA;
 }
 
-.MuiFormControl-root {
-  margin: 0.3rem 0 !important
+.margin-right-19 {
+  margin-right: 19px;
+}
+
+.btn-container {
+  width: 52px;
+  height: 52px;
+  border-radius: 30px;
+  background-color: #000;
+  opacity: 0.4;
 }
 
 .meeting {
@@ -60,9 +69,9 @@ body{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height:44px;
+  height: 44px;
   background:rgba(0,0,0,0.4);
-  border-radius:24px;
+  border-radius: 24px;
   flex-direction: row;
   box-sizing: border-box;
   width: 200px;
@@ -77,6 +86,7 @@ body{
   width: 38px;
   height: 38px;
   margin: 3px;
+  margin-left: 0px;
   border-radius: 28px;
 }
 
@@ -84,8 +94,9 @@ body{
   cursor: pointer;
 }
 
-.avatar-uid {
+.avatar-text {
   display: flex;
+  justify-content: center;
   border-radius: 28px;
   width: 100px;
   height: 20px;
@@ -111,7 +122,7 @@ body{
   display: block;
   margin-top: 36px;
   margin-right: 36px;
-  background-image: url("./assets/icon-exit.png");
+  background-image: url("./assets/icon-exit-hover.png");
   background-size: 32px;
   width: 32px;
   height: 32px;
@@ -122,8 +133,19 @@ body{
 }
 
 .quit:hover {
-  background-image: url("./assets/icon-exit-hover.png");
+  background-color: #44A2FC;
+  opacity: 1.0;
 }
+
+// .custom-snackbar {
+//   min-width: 180px !important;
+//   min-height: 40px !important;
+//   background: rgba(0,0,0,0.7);
+//   box-shadow: 0px 2px 4px 0px rgba(42,62,84,0.24);
+//   border-radius: 20px;
+//   justify-content: center;
+//   padding: 0 11px;
+// }
 
 .like {
   cursor: pointer;
@@ -134,10 +156,6 @@ body{
   height: 30px;
   margin: 4px;
   border-radius: 28px;
-}
-
-.MuiInput-underline:before {
-  border-bottom: 1px solid #EAEAEA !important;
 }
 
 .like:hover {
@@ -254,6 +272,102 @@ body{
   z-index: 2;
 }
 
+.role-container {
+  display: flex;
+  width: 350px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.role-item {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.role-name {
+  padding-left: 5px;
+  font-size: 14px;
+}
+
+.custom-radio {
+  position: relative;
+  width: 14px;
+  height: 14px;  
+  /* When the radio button is checked, add a blue background */
+  &:hover {
+    [type="radio"] ~ .checkmark {
+      background-color: #ccc;
+    }
+  }
+  [type="radio"]:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  & {
+    [type="radio"],.checkmark {
+      width: 14px;
+      height: 14px;
+    }
+    [type="radio"] {
+      margin: 0;
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 4;
+    }
+
+    [type="radio"]:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      top: 4px;
+      left: 4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .checkmark {
+      top: 0;
+      left: 0;
+      background-color: #eee;
+      border-radius: 50%;
+    }
+  }
+}
+
+
+.radio-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 75px;
+  max-width: 75px;
+  position: absolute;
+  bottom: top;
+  top: 132px;
+  left: 19px;
+  &:nth-child(2) {
+    left: 13px;
+  }
+}
+
+.error-icon {
+  padding-right: 10px;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-image: url("./assets/icon-error.png");
+}
+
 .cover-image {
   margin-top: 4rem;
   width: 180px;
@@ -261,4 +375,26 @@ body{
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("./assets/logo-open-live.png");
+}
+
+.form-group {
+
+}
+
+.icon-audience {
+  width: 100px;
+  height: 118px;
+  background-size: 100px 118px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("./assets/icon-audience.png");
+}
+
+.icon-host {
+  width: 100px;
+  height: 118px;
+  background-size: 100px 118px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("./assets/icon-host.png");
 }

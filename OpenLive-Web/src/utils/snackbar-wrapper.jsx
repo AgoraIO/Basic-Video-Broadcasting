@@ -44,10 +44,18 @@ const useStyles1 = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  customSnackbar: {
+    minWidth: '180px !important',
+    minHeight: '40px !important',
+    background: 'rgba(0,0,0,0.7)',
+    boxShadow: '0px 2px 4px 0px rgba(42,62,84,0.24)',
+    borderRadius: '30px',
+    justifyContent: 'center',
+    padding: '0 11px'
+  }
 }));
 
 SnackbarWrapper.propTypes = {
-  className: PropTypes.string,
   message: PropTypes.string,
   onClose: PropTypes.func,
   variant: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
@@ -56,29 +64,34 @@ SnackbarWrapper.propTypes = {
 function SnackbarWrapper(props) {
   const classes = useStyles1();
   const mutationCtx = useGlobalMutation();
-  const { className, message, onClose, variant, ...other } = props;
+  const { message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       mutationCtx.removeTop();
-    }, 1500)
+    }, 1000)
+    return () => {
+      clearTimeout(timer);
+    }
   }, [mutationCtx]);
-
   return (
     <SnackbarContent
-      className={clsx(classes[variant], className)}
+      className={clsx(classes[variant], classes.customSnackbar)}
       aria-describedby="client-snackbar"
       message={
         <span id="client-snackbar" className={classes.message}>
-          <Icon className={clsx(classes.icon, classes.iconVariant)} />
+          {variant === 'error' ? <i className="error-icon" /> :
+            <Icon className={clsx(classes.icon, classes.iconVariant)} />}
           {message}
         </span>
       }
       action={[
-        <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
-          <CloseIcon className={classes.icon} />
-        </IconButton>,
+        <IconButton key="close" aria-label="close" color="inherit" onClick={() => {
+          mutationCtx.removeTop();
+        }}>
+          <CloseIcon className={clsx(classes.icon)} />
+        </IconButton>
       ]}
       {...other}
     />
@@ -87,26 +100,28 @@ function SnackbarWrapper(props) {
 
 export default function CustomizedSnackbar(props) {
 
-  const handleClose = (evt) => { }
+  const handleClose = (evt) => {
+
+   }
   return (
-    <div className="">
+    <>
       {props.toasts.map((item, index) => 
         <Snackbar
           key={index}
           open={true}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            vertical: 'top',
+            horizontal: 'center',
           }}
-          onClose={handleClose}
+          // onClose={handleClose}
         >
           <SnackbarWrapper
             onClose={handleClose}
             variant={item.variant}
-            message={item.message}
+            message={`${item.message}`}
           />
         </Snackbar>
       )}
-    </div>
+    </>
   )
 }

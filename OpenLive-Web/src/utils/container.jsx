@@ -72,6 +72,9 @@ export const ContainerProvider = ({children}) => {
     setLocalStream(param) {
       dispatch({type: 'localStream', payload: param});
     },
+    setCurrentStream(param) {
+      dispatch({type: 'currentStream', payload: param});
+    },
     setStreamList(param) {
       dispatch({type: 'streamList', payload: param});
     },
@@ -84,18 +87,23 @@ export const ContainerProvider = ({children}) => {
     addLocal (evt) {
       const {stream} = evt;
       methods.setLocalStream(stream);
+      methods.setCurrentStream(stream);
     },
     addStream (evt) {
       const {stream} = evt;
       const _streamList = state.streams;
       _streamList.push(stream);
-      methods.setStreamList(_streamList);
+      if (_streamList.length <= 4) {
+        methods.setStreamList(_streamList);
+      }
     },
     subscribeStream (evt) {
       const {stream} = evt;
       const _streamList = state.streams;
       _streamList.push(stream);
-      methods.setStreamList(_streamList);
+      if (_streamList.length <= 4) {
+        methods.setStreamList(_streamList);
+      }
     },
     removeStream (evt) {
       const {stream} = evt;
@@ -103,7 +111,7 @@ export const ContainerProvider = ({children}) => {
       const _streamList = state.streams;
       const index = _streamList.findIndex(item => item.getId() === id);
       if (index !== -1) {
-        methods.setStreamList(_streamList.filter((stream, idx) => (idx !== index)));
+        methods.removeStream(_streamList.filter((stream, idx) => (idx !== index)));
       }
     },
     connectionStateChanged (evt) {

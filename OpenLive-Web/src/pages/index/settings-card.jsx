@@ -218,11 +218,11 @@ export default function SettingsCard() {
         <FormControlLabel
           control={
             <CustomSwitch
-              checked={stateCtx.video}
+              checked={stateCtx.muteVideo}
               onChange={() => {
-                mutationCtx.setVideo(!stateCtx.video)
+                mutationCtx.setVideo(!stateCtx.muteVideo)
               }}
-              value={stateCtx.video}
+              value={stateCtx.muteVideo}
               color="primary"
             />
           }
@@ -235,11 +235,11 @@ export default function SettingsCard() {
         <FormControlLabel
           control={
             <CustomSwitch
-              checked={stateCtx.audio}
+              checked={stateCtx.muteAudio}
               onChange={() => {
-                mutationCtx.setAudio(!stateCtx.audio)
+                mutationCtx.setAudio(!stateCtx.muteAudio)
               }}
-              value={stateCtx.audio}
+              value={stateCtx.muteAudio}
               color="primary"
             />
           }

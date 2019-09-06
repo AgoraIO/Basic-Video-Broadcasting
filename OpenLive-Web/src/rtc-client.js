@@ -39,8 +39,12 @@ export default class RTCClient {
     this._client.on(evt, callback);
   }
 
+  setClientRole(role) {
+    this._client.setClientRole(role);
+  }
+
   createRTCStream(data) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this._uid = this._localStream ? this._localStream.getId() : data.uid;
       if (this._localStream) {
         this.unpublish();
@@ -67,14 +71,15 @@ export default class RTCClient {
       rtcStream.init(() => {
         this._localStream = rtcStream;
         this._eventBus.emit("localStream-added", { stream: this._localStream });
-        if (data.video === false) {
+        if (data.muteVideo === false) {
           this._localStream.muteVideo()
         }
-        if (data.audio === false) {
+        if (data.muteAudio === false) {
           this._localStream.muteAudio()
         }
         resolve();
       }, (err) => {
+        reject(err);
         //Toast.error("stream init failed, please open console see more detail");
         console.error("init local stream failed ", err);
       })
@@ -82,7 +87,7 @@ export default class RTCClient {
   }
 
   createScreenSharingStream(data) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       // create screen sharing stream
       this._uid = this._localStream ? this._localStream.getId() : data.uid;
       if (this._localStream) {
@@ -129,7 +134,7 @@ export default class RTCClient {
 
   _createTmpStream() {
     this._uid = 0
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       if (this._localStream) {
         this._localStream.close();
       }
@@ -146,6 +151,7 @@ export default class RTCClient {
         this._localStream = _tmpStream;
         resolve();
       }, (err) => {
+        reject(err);
         //Toast.error("stream init failed, please open console see more detail");
         console.error("init local stream failed ", err);
       })
@@ -214,13 +220,17 @@ export default class RTCClient {
 
           this.createRTCStream(data).then(() => {
             resolve();
-          });
+          }).catch((err) => {
+            reject(err);
+          })
         }, (err) => {
           this._joined = false;
+          reject(err);
           console.error("client join failed", err);
         })
       }, (err) => {
         this._joined = false;
+        reject(err);
         console.error(err);
       });
     })

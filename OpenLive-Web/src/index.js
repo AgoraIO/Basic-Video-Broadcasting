@@ -5,18 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ContainerProvider } from './utils/container';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-const THEME = createMuiTheme({
-  typography: {
-   "fontFamily": '-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", sans-serif',
-   "fontSize": 14,
-   "fontWeightLight": 300,
-   "fontWeightRegular": 400,
-   "fontWeightMedium": 500,
-   "color": "#333"
-  }
-});
+import THEME from './utils/theme';
 
 ReactDOM.render(
   <ThemeProvider theme={THEME}>

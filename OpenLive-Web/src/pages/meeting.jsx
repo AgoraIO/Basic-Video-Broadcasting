@@ -18,10 +18,8 @@ const useStyles = makeStyles({
     width: '50px',
     height: '50px',
     borderRadius: '26px',
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    opacity: 0.4,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     backgroundSize: '50px',
-    margin: '0 19px',
     cursor: 'pointer',
   },
   leftAlign: {
@@ -61,7 +59,7 @@ const MeetingPage = () => {
     return client;
   }, [stateCtx.codec, stateCtx.mode]);
 
-  const [localStream, streamList] = useStream(localClient);
+  const [localStream, currentStream, streamList] = useStream(localClient);
 
   const config = useMemo(() => {
     return {
@@ -70,8 +68,8 @@ const MeetingPage = () => {
       microphoneId: stateCtx.config.microphoneId,
       cameraId: stateCtx.config.cameraId,
       resolution: stateCtx.config.resolution,
-      video: stateCtx.video,
-      audio: stateCtx.audio,
+      muteVideo: stateCtx.muteVideo,
+      muteAudio: stateCtx.muteAudio,
       uid: 0,
     }
   }, [stateCtx]);
@@ -87,23 +85,31 @@ const MeetingPage = () => {
   useEffect(() => {
     if (config.channel && localClient._created && localClient._joined === false) {
       localClient.join(config).then(() => {
-        localClient.publish();
+        config.host ? 
+          localClient.setClientRole('host') :
+          localClient.setClientRole('audience')
+        if (config.host) {
+          localClient.publish();
+        }
         mutationCtx.stopLoading();
-      });
+      }).catch((err) => {
+        mutationCtx.toastError(`Media ${err.info}`);
+        routerCtx.history.push('/');
+      })
     }
-  }, [localClient, mutationCtx, config]);
+  }, [localClient, mutationCtx, config, routerCtx]);
 
   const handleClick = (name) => {
     return (evt) => {
       switch (name) {
         case 'video': {
-          stateCtx.video ? localStream.muteVideo() : localStream.unmuteVideo()
-          mutationCtx.setVideo(!stateCtx.video)
+          stateCtx.muteVideo ? localStream.muteVideo() : localStream.unmuteVideo();
+          mutationCtx.setVideo(!stateCtx.muteVideo);
           break;
         }
         case 'audio': {
-          stateCtx.audio ? localStream.muteAudio() : localStream.unmuteAudio()
-          mutationCtx.setAudio(!stateCtx.audio)
+          stateCtx.muteAudio ? localStream.muteAudio() : localStream.unmuteAudio();
+          mutationCtx.setAudio(!stateCtx.muteAudio);
           break;
         }
         case 'screen': {
@@ -118,7 +124,11 @@ const MeetingPage = () => {
             }).then(() => {
               localClient.publish();
               mutationCtx.setScreen(false)
-            })
+            }).catch((err) => {
+              console.log(err)
+              mutationCtx.toastError(`Media ${err.info}`);
+              routerCtx.history.push('/');
+            });
           } else {
             localClient.createScreenSharingStream({
               token: null,
@@ -129,7 +139,11 @@ const MeetingPage = () => {
             }).then(() => {
               localClient.publish();
               mutationCtx.setScreen(true)
-            })
+            }).catch((err) => {
+              console.log(err)
+              mutationCtx.toastError(`Media ${err.info}`);
+              routerCtx.history.push('/');
+            });
           }
           break;
         }
@@ -142,15 +156,27 @@ const MeetingPage = () => {
     }
   }
 
+  const handleDoubleClick = (evt) => {
+    const index = streamList.findIndex((stream) => stream === currentStream);
+    const targetIndex = (index+1) % streamList.length;
+    console.log("handledouble click>>>>>>>>>>>  ", targetIndex);
+    mutationCtx.setCurrentStream(streamList[targetIndex]);
+    console.log(`change current stream >>>>>>>>> ${targetIndex}, ${streamList[targetIndex].getId()} ${streamList[targetIndex].isPlaying()}`);
+  }
+
   return (
     <div className="meeting">
       <div className="local-view">
-        {localStream ?
-          <StreamPlayer stream={localStream}>
+        {currentStream ?
+          <StreamPlayer stream={currentStream} onDoubleClick={handleDoubleClick}>
             <div className={classes.menuContainer}>
               <div className={classes.menu}>
-                <i onClick={handleClick('video')} className={clsx(classes.customBtn, stateCtx.video ? 'mute-video' : 'unmute-video')}/>
-                <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.audio ? 'mute-audio' : 'unmute-audio')}/>
+                {/* <div className="btn-container"> */}
+                  <i onClick={handleClick('video')} className={clsx(classes.customBtn, 'margin-right-19', stateCtx.muteVideo ? 'mute-video' : 'unmute-video')}/>
+                {/* </div> */}
+                {/* <div className="btn-container"> */}
+                  <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio')}/>
+                {/* </div> */}
                 {/* <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? 'start-screen-share' : 'stop-screen-share)}/> */}
                 {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
               </div>
@@ -158,7 +184,7 @@ const MeetingPage = () => {
             <div className="nav">
               <div className="avatar-container">
                 <div className="default-avatar"></div>
-                <div className="avatar-uid">{localStream.getId()}</div>
+                <div className="avatar-text">Agora Test</div>
                 <div className="like"></div>
               </div>
               <div className="quit" onClick={() => {
@@ -170,9 +196,9 @@ const MeetingPage = () => {
             </div>
             <div className="stream-container">
               {streamList.filter((stream) => 
-                (stream.getId() !== localStream.getId())
+                (stream.getId() !== currentStream.getId())
               ).map((stream, index) => (
-                <StreamPlayer key={index} stream={stream}>
+                <StreamPlayer key={index} stream={stream} onDoubleClick={handleDoubleClick}>
                   <div className='stream-uid'>UID: {stream.getId()}</div>
                 </StreamPlayer>
               )).slice(0, 4)}
