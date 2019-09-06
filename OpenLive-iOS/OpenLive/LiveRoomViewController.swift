@@ -17,6 +17,7 @@ protocol LiveVCDataSource: NSObjectProtocol {
 class LiveRoomViewController: UIViewController {
     
     @IBOutlet weak var broadcastersView: AGVideoCollectionView!
+    @IBOutlet weak var placeholderView: UIImageView!
     
     @IBOutlet weak var videoMuteButton: UIButton!
     @IBOutlet weak var audioMuteButton: UIButton!
@@ -71,6 +72,7 @@ class LiveRoomViewController: UIViewController {
     
     private var videoSessions = [VideoSession]() {
         didSet {
+            placeholderView.isHidden = (videoSessions.count == 0 ? false : true)
             updateBroadcastersView()
         }
     }

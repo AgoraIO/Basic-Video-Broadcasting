@@ -324,9 +324,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ca0-av-PZ7" customClass="AGVideoCollectionView" customModule="OpenLive" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.61176470589999998" green="0.85098039219999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="uoE-PS-esO">
+                                <rect key="frame" x="97.5" y="211.5" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="993-MS-88v"/>
+                                    <constraint firstAttribute="width" secondItem="uoE-PS-esO" secondAttribute="height" id="ev7-4o-gY7"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMj-UW-Quu">
                                 <rect key="frame" x="322" y="18" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39760809075342468" colorSpace="calibratedRGB"/>
@@ -456,20 +463,22 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tjS-OE-tLx" firstAttribute="centerY" secondItem="AUS-G6-i97" secondAttribute="centerY" id="0vR-WW-UMV"/>
                             <constraint firstItem="1yi-f8-nVm" firstAttribute="height" secondItem="AUS-G6-i97" secondAttribute="height" id="1iK-tk-Sja"/>
                             <constraint firstItem="AUS-G6-i97" firstAttribute="bottom" secondItem="cuo-ev-20t" secondAttribute="bottom" constant="-18" id="21m-rc-YJQ"/>
+                            <constraint firstItem="Ca0-av-PZ7" firstAttribute="top" secondItem="uD4-xu-7ax" secondAttribute="top" id="5tY-ie-3Ns"/>
                             <constraint firstItem="dMj-UW-Quu" firstAttribute="height" secondItem="AUS-G6-i97" secondAttribute="height" id="764-Eh-5Cw"/>
                             <constraint firstItem="AUS-G6-i97" firstAttribute="leading" secondItem="cuo-ev-20t" secondAttribute="leading" constant="15" id="8NO-MY-Aga"/>
+                            <constraint firstAttribute="bottom" secondItem="Ca0-av-PZ7" secondAttribute="bottom" id="9Fj-p1-9IM"/>
                             <constraint firstItem="QUw-yY-Ap3" firstAttribute="leading" secondItem="cuo-ev-20t" secondAttribute="leading" constant="15" id="9Ja-3i-K9c"/>
+                            <constraint firstItem="uoE-PS-esO" firstAttribute="centerY" secondItem="uD4-xu-7ax" secondAttribute="centerY" id="9hc-yY-Ey1"/>
                             <constraint firstItem="1yi-f8-nVm" firstAttribute="centerY" secondItem="tjS-OE-tLx" secondAttribute="centerY" id="O1i-li-rYe"/>
                             <constraint firstItem="GQf-kN-B8a" firstAttribute="height" secondItem="AUS-G6-i97" secondAttribute="height" id="P1m-qt-mgR"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="trailing" secondItem="dMj-UW-Quu" secondAttribute="trailing" constant="15" id="R3c-3r-VCN"/>
-                            <constraint firstAttribute="bottom" secondItem="Ca0-av-PZ7" secondAttribute="bottom" id="R6u-fi-SyQ"/>
                             <constraint firstItem="tjS-OE-tLx" firstAttribute="width" secondItem="AUS-G6-i97" secondAttribute="width" id="VDz-xp-59S"/>
-                            <constraint firstItem="Ca0-av-PZ7" firstAttribute="top" secondItem="uD4-xu-7ax" secondAttribute="top" id="Yqw-HO-boS"/>
+                            <constraint firstItem="uoE-PS-esO" firstAttribute="centerX" secondItem="uD4-xu-7ax" secondAttribute="centerX" id="aRd-TP-ohD"/>
                             <constraint firstItem="tjS-OE-tLx" firstAttribute="leading" secondItem="AUS-G6-i97" secondAttribute="trailing" constant="15" id="asV-6H-jOY"/>
                             <constraint firstItem="cuo-ev-20t" firstAttribute="trailing" secondItem="GQf-kN-B8a" secondAttribute="trailing" constant="15" id="bFn-27-rs8"/>
                             <constraint firstItem="GQf-kN-B8a" firstAttribute="width" secondItem="AUS-G6-i97" secondAttribute="width" id="hBL-ME-W8a"/>
@@ -489,6 +498,7 @@
                         <outlet property="audioMuteButton" destination="GQf-kN-B8a" id="ZBH-CP-xCP"/>
                         <outlet property="beautyEffectButton" destination="tjS-OE-tLx" id="Fsx-Ya-1vY"/>
                         <outlet property="broadcastersView" destination="Ca0-av-PZ7" id="HLO-rG-hr6"/>
+                        <outlet property="placeholderView" destination="uoE-PS-esO" id="64s-xJ-TCS"/>
                         <outlet property="videoMuteButton" destination="1yi-f8-nVm" id="cpk-MV-vJr"/>
                         <outletCollection property="sessionButtons" destination="tjS-OE-tLx" collectionClass="NSMutableArray" id="xcY-7E-98c"/>
                         <outletCollection property="sessionButtons" destination="1yi-f8-nVm" collectionClass="NSMutableArray" id="TAN-eP-eFW"/>
@@ -692,5 +702,6 @@
         <image name="icon-rotate" width="38" height="38"/>
         <image name="icon-setting" width="32" height="32"/>
         <image name="logo" width="182" height="182"/>
+        <image name="placeholder" width="364" height="364"/>
     </resources>
 </document>
