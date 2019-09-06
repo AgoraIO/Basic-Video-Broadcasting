@@ -78,7 +78,7 @@ private extension VideoView {
         
         addSubview(infoView)
         let infoViewH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[info]|", options: [], metrics: nil, views: ["info": infoView])
-        let infoViewV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[info(==135)]", options: [], metrics: nil, views: ["info": infoView])
+        let infoViewV = NSLayoutConstraint.constraints(withVisualFormat: "V:[info(==135)]|", options: [], metrics: nil, views: ["info": infoView])
         NSLayoutConstraint.activate(infoViewH + infoViewV)
         
         func createInfoLabel() -> UILabel {

@@ -90,6 +90,7 @@ private extension MainViewController {
         let attributedString = NSMutableAttributedString(string: "Pick a topic to chat", attributes: attributed)
         inputTextField.attributedPlaceholder = attributedString
         
+        startButton.layer.shadowOpacity = 0.3
         startButton.layer.shadowColor = UIColor.black.cgColor
         
         if UIScreen.main.bounds.height <= 568 {

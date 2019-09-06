@@ -92,6 +92,10 @@ class LiveRoomViewController: UIViewController {
         isSwitchCamera.toggle()
     }
     
+    @IBAction func doBeautyPressed(_ sender: UIButton) {
+        isBeautyOn.toggle()
+    }
+    
     @IBAction func doMuteVideoPressed(_ sender: UIButton) {
         isMutedVideo.toggle()
     }
@@ -240,6 +244,10 @@ private extension LiveRoomViewController {
 
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
+        guard videoSessions.count < 5 else {
+            return
+        }
+        
         let userSession = videoSession(of: uid)
         userSession.updateMediaInfo(resolution: size)
         agoraKit.setupRemoteVideo(userSession.canvas)
