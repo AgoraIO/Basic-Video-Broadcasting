@@ -6,20 +6,20 @@ StreamPlayer.propTypes = {
 }
 
 export default function StreamPlayer (props) {
+
   const {stream} = props;
+
   const uid = stream.getId();
+
+  // const stream = useState(props.stream)[0];
+  // const uid = useState(stream.getId())[0];
+  // const [stream, uid] = useMemo(() => [props.stream, props.stream.getId()], [props]);
 
   const domId = `stream-player-${uid}`;
 
-  const [_resume, changeResume] = useState(false);
-  const resume = useMemo(() => {
-    return _resume;
-  }, [_resume]);
+  const [resume, changeResume] = useState(false);
 
-  const [_autoplay, changeAutoPlay] = useState(false);
-  const autoplay = useMemo(() => {
-    return _autoplay;
-  }, [_autoplay]);
+  const [autoplay, changeAutoplay] = useState(false);
 
   const handleClick = () => {
     if (autoplay && !resume) {
@@ -28,27 +28,41 @@ export default function StreamPlayer (props) {
     }
   }
 
+  const [isPlaying, setPlaying] = useState(stream.isPlaying());
+
   useEffect(() => {
-    console.log(`stream load >>>>>>> ${domId} stream.isPlaying(): ${stream.isPlaying()}`)
-    if (!stream.isPlaying()) {
+    // console.log(`stream-player ${domId} stream.isPlaying(): ${stream.isPlaying()}`)
+    if (!isPlaying) {
       stream.play(domId, {fit: 'cover'}, (errState) => {
         if (errState && errState.status !== 'aborted') {
-          console.log("play failed ", domId)
-          changeAutoPlay(true);
+          console.log("stream-player play failed ", domId)
+          changeAutoplay(true);
+        } else {
+          console.log(`${stream.getId()}#played`);
         }
       });
     }
     return () => {
-      if (stream.isPlaying()) {
-        console.log(`stream unload >>>>>>> ${domId} stream.isPlaying(): ${stream.isPlaying()}`)
+      if (isPlaying) {
+        console.log(`${stream.getId()}#stop >>>> ${domId} ${isPlaying}`)
         stream.stop();
       }
     }
-  }, [stream, domId])
+  }, [stream, uid, domId]);
+
+  // useEffect(() => {
+  //   console.log(`change playing ${domId}`, stream.isPlaying());
+  //   setPlaying(stream.isPlaying());
+  //   return () => {
+  //     setPlaying(stream.isPlaying());
+  //     console.log(`final change playing  ${domId}`, stream.isPlaying());
+  //   }
+  // }, [stream]);
 
   return (
-    <div className={`stream-player ${autoplay ? "autoplay": ''}`} onDoubleClick={props.onDoubleClick} id={domId} onClick={handleClick}>
+    <div className={`stream-player ${autoplay ? "autoplay": ''}`} id={domId} onClick={handleClick} onDoubleClick={props.onDoubleClick}>
       {props.children}
+      {props.uid ? <div className='stream-uid'>UID: {stream.getId()}</div> : null }
     </div>
   )
 }

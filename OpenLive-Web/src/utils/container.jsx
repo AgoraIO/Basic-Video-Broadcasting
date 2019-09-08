@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useReducer, useState} from 'react';
-import {mutations, defaultState} from './store';
+import {reducer, defaultState} from './store';
 import CustomizedSnackbar from '../utils/snackbar-wrapper';
 import Loading from '../utils/loading';
 
@@ -7,7 +7,7 @@ const StateContext = createContext({});
 const MutationContext = createContext({});
 
 export const ContainerProvider = ({children}) => {
-  const [state, dispatch] = useReducer(mutations, defaultState);
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
   const [toasts, updateToasts] = useState([]);
 
@@ -75,14 +75,11 @@ export const ContainerProvider = ({children}) => {
     setCurrentStream(param) {
       dispatch({type: 'currentStream', payload: param});
     },
-    setStreamList(param) {
-      dispatch({type: 'streamList', payload: param});
-    },
     setDevicesList(param) {
       dispatch({type: 'devicesList', payload: param});
     },
-    resetStreamList() {
-      dispatch({type: 'resetStreamList'});
+    clearAllStream() {
+      dispatch({type: 'clearAllStream'});
     },
     addLocal (evt) {
       const {stream} = evt;
@@ -91,28 +88,11 @@ export const ContainerProvider = ({children}) => {
     },
     addStream (evt) {
       const {stream} = evt;
-      const _streamList = state.streams;
-      _streamList.push(stream);
-      if (_streamList.length <= 4) {
-        methods.setStreamList(_streamList);
-      }
-    },
-    subscribeStream (evt) {
-      const {stream} = evt;
-      const _streamList = state.streams;
-      _streamList.push(stream);
-      if (_streamList.length <= 4) {
-        methods.setStreamList(_streamList);
-      }
+      dispatch({type: 'addStream', payload: stream});
     },
     removeStream (evt) {
       const {stream} = evt;
-      const id = stream ? stream.getId() : evt.id;
-      const _streamList = state.streams;
-      const index = _streamList.findIndex(item => item.getId() === id);
-      if (index !== -1) {
-        methods.removeStream(_streamList.filter((stream, idx) => (idx !== index)));
-      }
+      dispatch({type: 'removeStream', payload: stream});
     },
     connectionStateChanged (evt) {
       methods.toastInfo(`${evt.curState}`);

@@ -218,11 +218,15 @@ export default class RTCClient {
 
           data.uid = uid;
 
-          this.createRTCStream(data).then(() => {
+          if (data.host) {
+            this.createRTCStream(data).then(() => {
+              resolve();
+            }).catch((err) => {
+              reject(err);
+            })
+          } else {
             resolve();
-          }).catch((err) => {
-            reject(err);
-          })
+          }
         }, (err) => {
           this._joined = false;
           reject(err);

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import clsx from 'clsx';
 import {useGlobalState, useGlobalMutation} from '../utils/container';
 import {makeStyles} from '@material-ui/core/styles';
@@ -71,12 +71,14 @@ const MeetingPage = () => {
       muteVideo: stateCtx.muteVideo,
       muteAudio: stateCtx.muteAudio,
       uid: 0,
+      host: stateCtx.config.host
     }
   }, [stateCtx]);
 
   const history = routerCtx.history;
 
   useEffect(() => {
+    console.log("meeting-page >>>> ");
     if (!config.channel) {
       history.push('/');
     }
@@ -156,30 +158,33 @@ const MeetingPage = () => {
     }
   }
 
+  // const [otherStreams, updateOtherStreams] = useState
+
+  // const otherStreams = stateCtx.streams
+        // .filter((stream) => (stream.getId() !== currentStream.getId()));
+
   const handleDoubleClick = (evt) => {
+    console.log("handle double click >>>>>")
+    evt.stopPropagation();
     const index = streamList.findIndex((stream) => stream === currentStream);
     const targetIndex = (index+1) % streamList.length;
-    console.log("handledouble click>>>>>>>>>>>  ", targetIndex);
     mutationCtx.setCurrentStream(streamList[targetIndex]);
-    console.log(`change current stream >>>>>>>>> ${targetIndex}, ${streamList[targetIndex].getId()} ${streamList[targetIndex].isPlaying()}`);
   }
 
   return (
     <div className="meeting">
+      cur: {currentStream && currentStream.getId()}
+      streams: {stateCtx.otherStreams.length && stateCtx.otherStreams.map(it => it.getId())}
       <div className="local-view">
-        {currentStream ?
-          <StreamPlayer stream={currentStream} onDoubleClick={handleDoubleClick}>
+        {stateCtx.currentStream ?
+          <StreamPlayer stream={stateCtx.currentStream} onDoubleClick={handleDoubleClick}>
             <div className={classes.menuContainer}>
-              <div className={classes.menu}>
-                {/* <div className="btn-container"> */}
+              {config.host && <div className={classes.menu}>
                   <i onClick={handleClick('video')} className={clsx(classes.customBtn, 'margin-right-19', stateCtx.muteVideo ? 'mute-video' : 'unmute-video')}/>
-                {/* </div> */}
-                {/* <div className="btn-container"> */}
                   <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio')}/>
-                {/* </div> */}
                 {/* <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? 'start-screen-share' : 'stop-screen-share)}/> */}
                 {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
-              </div>
+              </div>}
             </div>
             <div className="nav">
               <div className="avatar-container">
@@ -189,19 +194,23 @@ const MeetingPage = () => {
               </div>
               <div className="quit" onClick={() => {
                 localClient.leave().then(() => {
-                  mutationCtx.resetStreamList();
+                  mutationCtx.clearAllStream();
                   routerCtx.history.push('/');
-                })
+                });
               }}></div>
             </div>
             <div className="stream-container">
-              {streamList.filter((stream) => 
-                (stream.getId() !== currentStream.getId())
-              ).map((stream, index) => (
+              {/* {stateCtx.streams
+                .filter((stream) => (stream.getId() !== currentStream.getId()))
+                .map((stream, index) => (
                 <StreamPlayer key={index} stream={stream} onDoubleClick={handleDoubleClick}>
                   <div className='stream-uid'>UID: {stream.getId()}</div>
                 </StreamPlayer>
-              )).slice(0, 4)}
+              ))} */}
+              {stateCtx.otherStreams.map((stream, index) => (
+                <StreamPlayer key={index} stream={stream} uid={stream.getId()} onDoubleClick={handleDoubleClick}>
+                </StreamPlayer>
+              ))}
             </div>
           </StreamPlayer> : null}
       </div>

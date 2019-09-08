@@ -1,11 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {useGlobalState, useGlobalMutation} from './container';
 
 export default function useStream (client) {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
 
-  const [streamList, localStream, currentStream] = [stateCtx.streams, stateCtx.localStream, stateCtx.currentStream];
+  const [localStream, currentStream] = [stateCtx.localStream, stateCtx.currentStream];
+
+  const otherStreams = useMemo(
+    () => stateCtx.streams.filter(stream => stream.getId() !== currentStream.getId()),
+    [stateCtx, currentStream]);
+
+  // const streamList = stateCtx.streams.filter((it) => it.getId() !== currentStream.getId());
 
   // const [streamList, localStream, currentStream] = useMemo(() => {
   //   return [stateCtx.streams, stateCtx.localStream, stateCtx.currentStream];
@@ -31,11 +37,11 @@ export default function useStream (client) {
       client.on("stream-published", mutationCtx.addStream);
       client.on("stream-added", addRemoteStream);
       client.on("stream-removed", mutationCtx.removeStream);
-      client.on("stream-subscribed", mutationCtx.subscribeStream);
+      client.on("stream-subscribed", mutationCtx.addStream);
       client.on("peer-leave", mutationCtx.removeStream);
       client._subscribed = true;
     }
   }, [client, mutationCtx])
 
-  return [localStream, currentStream, streamList];
+  return [localStream, currentStream, otherStreams];
 }

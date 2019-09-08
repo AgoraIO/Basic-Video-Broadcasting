@@ -5,6 +5,7 @@ const defaultState = {
   streams: [],
   localStream: null,
   currentStream: null,
+  otherStreams: [],
   devicesList: [],
   // web sdk params
   config: {
@@ -24,7 +25,7 @@ const defaultState = {
   screen: false
 };
 
-const mutations = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case 'config': {
       return {...state, config: action.payload};
@@ -47,21 +48,49 @@ const mutations = (state, action) => {
     case 'screen': {
       return { ...state, screen: action.payload };
     }
+    case 'devicesList': {
+      return {...state, devicesList: action.payload};
+    }
     case 'localStream': {
       return { ...state, localStream: action.payload };
     }
     case 'currentStream': {
-      return { ...state, currentStream: action.payload };
+      const {streams} = state;
+      const newCurrentStream = action.payload;
+      let otherStreams = streams.filter(it => it.getId() !== newCurrentStream.getId());
+      console.log("otherStreams >>>> ", otherStreams.map(e => [e.getId(), e]));
+      return { ...state, currentStream: newCurrentStream, otherStreams };
     }
-    case 'streamList': {
-      window.streams = action.payload;
-      return { ...state, streams: action.payload };
+    case 'addStream': {
+      const {streams, currentStream} = state;
+      const newStream = action.payload;
+      let newCurrentStream = currentStream;
+      if (!newCurrentStream) {
+        newCurrentStream = newStream;
+      }
+      if (streams.length === 4) return { ...state };
+      let newStreams = [...streams, newStream];
+      let otherStreams = newStreams.filter(it => it.getId() !== newCurrentStream.getId());
+      return { ...state, streams: newStreams, currentStream: newCurrentStream, otherStreams};
     }
-    case 'devicesList': {
-      return {...state, devicesList: action.payload};
+    case 'removeStream': {
+      const {streams, currentStream} = state;
+      const targetStream = action.payload;
+      let newCurrentStream = currentStream;
+      const newStreams = streams
+        .filter((stream) => (stream.getId() !== targetStream.getId()));
+      if (targetStream === currentStream) {
+        if (newStreams.length === 0) {
+          newCurrentStream = null;
+        } else {
+          newCurrentStream = newStreams[0];
+        }
+      }
+      let otherStreams = newCurrentStream ? newStreams.filter(it => it.getId() !== newCurrentStream.getId()) : [];
+      return { ...state, streams: newStreams, currentStream: newCurrentStream, otherStreams};
     }
-    case 'resetStreamList': {
-      const {streams, localStream} = state;
+    case 'clearAllStream': {
+      const {streams, localStream, currentStream} = state;
       streams.forEach((stream) => {
         if (stream.isPlaying()) {
           stream.stop();
@@ -74,7 +103,12 @@ const mutations = (state, action) => {
         localStream.stop();
         localStream.close();
       }
-      return { ...state, localStream: null, streams: []};
+      if (currentStream) {
+        currentStream.isPlaying() &&
+        currentStream.stop();
+        currentStream.close();
+      }
+      return { ...state, currentStream: null, localStream: null, streams: []};
     }
     default:
       throw new Error("mutation type not defined")
@@ -82,6 +116,6 @@ const mutations = (state, action) => {
 };
 
 export {
-  mutations,
+  reducer,
   defaultState,
 };
