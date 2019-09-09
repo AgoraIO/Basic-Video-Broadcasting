@@ -29,10 +29,15 @@ body{
   flex: 1;
 }
 
-.local-view {
+.current-view {
   display: flex;
   flex: 1;
   position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #666;
+  background-size: 280px;
+  background-image: url('./assets/logo-open-live-gray.png');
 }
 
 .stream-player {
@@ -64,7 +69,7 @@ body{
 
 .stream-container > .stream-player > div:nth-child(2n) {
   // border-radius: 2px;
-  background: #D8D8D8 !important;
+  // background: #D8D8D8 !important;
 }
 
 .avatar-container {
@@ -82,6 +87,7 @@ body{
 }
 
 .default-avatar {
+  background-color: #ffffffde;
   background-image: url("./assets/avatar.png");
   background-size: 38px;
   display: block;
@@ -165,7 +171,7 @@ body{
 }
 
 .stream-uid {
-  padding: .2rem;
+  padding: 2px 11px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -276,7 +282,7 @@ body{
 
 .role-container {
   display: flex;
-  width: 350px;
+  width: 300px;
   align-items: center;
   justify-content: space-around;
 }
@@ -288,9 +294,16 @@ body{
   position: relative;
 }
 
-.role-name {
+.role-name-inactive {
   padding-left: 5px;
   font-size: 14px;
+  color: #eaeaea;
+}
+
+.role-name-active {
+  padding-left: 5px;
+  font-size: 14px;
+  color: #44A2FC;
 }
 
 .custom-radio {
@@ -356,7 +369,10 @@ body{
   bottom: top;
   top: 132px;
   left: 19px;
-  &:nth-child(2) {
+  &.host {
+    left: 22px;
+  }
+  &.audience {
     left: 13px;
   }
 }
@@ -379,11 +395,7 @@ body{
   background-image: url("./assets/logo-open-live.png");
 }
 
-.form-group {
-
-}
-
-.icon-audience {
+.icon-audience-active {
   width: 100px;
   height: 118px;
   background-size: 100px 118px;
@@ -392,11 +404,65 @@ body{
   background-image: url("./assets/icon-audience.png");
 }
 
-.icon-host {
+.icon-audience-inactive {
+  width: 100px;
+  height: 118px;
+  background-size: 100px 118px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("./assets/icon-audience-inactived.png");
+}
+
+.icon-host-active {
   width: 100px;
   height: 118px;
   background-size: 100px 118px;
   background-position: center;
   background-repeat: no-repeat;
   background-image: url("./assets/icon-host.png");
+}
+
+.icon-host-inactive {
+  width: 100px;
+  height: 118px;
+  background-size: 100px 118px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("./assets/icon-host-inactived.png");
+}
+
+.stream-container .stream-profile {
+  top: 12px;
+  left: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  padding: 5px 5px;
+}
+
+.main-stream-profile {
+  width: 150px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  padding: 5px 5px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  text-shadow: black 0.1em 0.1em 0.2em;
+  font-size: 14px;
+  color: #fff;
+  right: 80px;
+  top: 30px;
+}
+
+.stream-profile {
+  left: 0;
+  z-index: 2;
+  color: #fff;
+  opacity: 0.9;
+  text-shadow: black 0.1em 0.1em 0.2em;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
 }

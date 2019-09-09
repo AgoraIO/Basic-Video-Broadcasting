@@ -6,16 +6,7 @@ StreamPlayer.propTypes = {
 }
 
 export default function StreamPlayer (props) {
-
-  const {stream} = props;
-
-  const uid = stream.getId();
-
-  // const stream = useState(props.stream)[0];
-  // const uid = useState(stream.getId())[0];
-  // const [stream, uid] = useMemo(() => [props.stream, props.stream.getId()], [props]);
-
-  const domId = `stream-player-${uid}`;
+  const {stream, domId, uid} = props;
 
   const [resume, changeResume] = useState(false);
 
@@ -28,41 +19,79 @@ export default function StreamPlayer (props) {
     }
   }
 
-  const [isPlaying, setPlaying] = useState(stream.isPlaying());
+  const handleDoubleClick = (evt) => {
+    evt.stopPropagation();
+    props.onDoubleClick(stream);
+  }
+
+  const [state, setState] = useState({
+    accessDelay: 0,
+    fps: 0,
+    resolution: 0,    
+  });
+
+  const analytics = useMemo(() => state, [state]);
 
   useEffect(() => {
-    // console.log(`stream-player ${domId} stream.isPlaying(): ${stream.isPlaying()}`)
-    if (!isPlaying) {
+
+    const timer = setInterval(() => {
+      stream.getStats((stats) => {
+        const width = props.local ? stats.videoSendResolutionWidth : stats.videoReceiveResolutionWidth;
+        const height = props.local ? stats.videoSendResolutionHeight : stats.videoReceiveResolutionHeight;
+        const fps = props.local ? stats.videoSendFrameRate : stats.videoReceiveFrameRate;
+        setState({
+          accessDelay: `${stats.accessDelay ? stats.accessDelay : 0}`,
+          resolution: `${width}x${height}`,
+          fps: `${fps ? fps : 0}`,
+        })
+      })
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    }
+  }, [stream]);
+
+  useEffect(() => {
+    if (!stream.isPlaying()) {
       stream.play(domId, {fit: 'cover'}, (errState) => {
         if (errState && errState.status !== 'aborted') {
           console.log("stream-player play failed ", domId)
           changeAutoplay(true);
         } else {
-          console.log(`${stream.getId()}#played`);
+          console.log(`>>>> ${stream.getId()}#played`);
         }
       });
+    } else {
+      stream.stop();
     }
     return () => {
-      if (isPlaying) {
-        console.log(`${stream.getId()}#stop >>>> ${domId} ${isPlaying}`)
+      if (stream.isPlaying()) {
+        console.log(`>>>> ${stream.getId()}#stop >>>> ${domId}`)
         stream.stop();
+      } else {
+        stream.play(domId, {fit: 'cover'}, (errState) => {
+          if (errState && errState.status !== 'aborted') {
+            console.log("stream-player play failed ", domId)
+            changeAutoplay(true);
+          } else {
+            console.log(`>>>> ${stream.getId()}#played`);
+          }
+        });
       }
     }
-  }, [stream, uid, domId]);
-
-  // useEffect(() => {
-  //   console.log(`change playing ${domId}`, stream.isPlaying());
-  //   setPlaying(stream.isPlaying());
-  //   return () => {
-  //     setPlaying(stream.isPlaying());
-  //     console.log(`final change playing  ${domId}`, stream.isPlaying());
-  //   }
-  // }, [stream]);
+  }, [stream.isPlaying(), domId]);
 
   return (
-    <div className={`stream-player ${autoplay ? "autoplay": ''}`} id={domId} onClick={handleClick} onDoubleClick={props.onDoubleClick}>
+    <div className={`stream-player ${autoplay ? "autoplay": ''}`} id={domId} onClick={handleClick} onDoubleClick={handleDoubleClick}>
       {props.children}
-      {props.uid ? <div className='stream-uid'>UID: {stream.getId()}</div> : null }
+      {props.showProfile ? 
+        <div className={props.className}>
+          <span>SD-RTN delay: {analytics.accessDelay}ms</span>
+          <span>Video: {analytics.fps}fps {analytics.resolution}</span>
+        </div>
+      : null}
+      {props.showUid && uid ? <div className='stream-uid'>UID: {uid}</div> : null }
     </div>
   )
 }

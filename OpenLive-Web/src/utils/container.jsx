@@ -36,6 +36,9 @@ export const ContainerProvider = ({children}) => {
     setScreen(param) {
       dispatch({type: 'screen', payload: param});
     },
+    setProfile(param) {
+      dispatch({type: 'profile', payload: param});
+    },
     toastSuccess(message) {
       updateToasts([
         ...toasts,

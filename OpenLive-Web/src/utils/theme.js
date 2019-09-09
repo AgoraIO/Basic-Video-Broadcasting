@@ -39,9 +39,11 @@ export default createMuiTheme({
         '&:before': {
           borderBottom: '1px solid #EAEAEA',
         },
+        '&:hover:not($disabled):not($focused):not($error):before': {
+          borderBottom: `2px solid #EAEAEA`,
+        },
         '&$focused': {
           '&:after': {
-
             borderBottom: '2px solid #44a2fc',
           }
         },

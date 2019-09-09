@@ -22,7 +22,8 @@ const defaultState = {
   codec: 'h264',
   muteVideo: true,
   muteAudio: true,
-  screen: false
+  screen: false,
+  profile: false,
 };
 
 const reducer = (state, action) => {
@@ -54,11 +55,13 @@ const reducer = (state, action) => {
     case 'localStream': {
       return { ...state, localStream: action.payload };
     }
+    case 'profile': {
+      return { ...state, profile: action.payload };
+    }
     case 'currentStream': {
       const {streams} = state;
       const newCurrentStream = action.payload;
       let otherStreams = streams.filter(it => it.getId() !== newCurrentStream.getId());
-      console.log("otherStreams >>>> ", otherStreams.map(e => [e.getId(), e]));
       return { ...state, currentStream: newCurrentStream, otherStreams };
     }
     case 'addStream': {

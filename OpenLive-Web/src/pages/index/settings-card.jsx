@@ -96,7 +96,6 @@ const CustomSwitch = withStyles(theme => ({
   return (
     <Switch
       focusVisibleClassName={classes.focusVisible}
-      disableRipple
       classes={{
         root: classes.root,
         switchBase: classes.switchBase,
@@ -127,12 +126,6 @@ export default function SettingsCard() {
         <span className={classes.menuTitle}>Setting</span>
       </FormControl>
       <div className={classes.line}></div>
-      {/* <FormControl className={classes.marginTop}>
-        <InputLabel htmlFor="name">Channel Name</InputLabel>
-        <Input id="name"defaultValue={stateCtx.config.channelName} onChange={(evt) => {
-            mutationCtx.updateConfig({channelName: evt.target.value})
-        }}/>
-      </FormControl> */}
       <FormControl>
         <InputLabel htmlFor="resolution">Resolution</InputLabel>
         <Select
@@ -246,6 +239,23 @@ export default function SettingsCard() {
           className={classes.switchItem}
           label="Audio"
         />
+        <div className={classes.hr}></div>
+      </FormControl>
+      <FormControl>
+      <FormControlLabel
+        control={
+          <CustomSwitch
+            checked={stateCtx.profile}
+            onChange={() => {
+              mutationCtx.setProfile(!stateCtx.profile)
+            }}
+            value={stateCtx.profile}
+            color="primary"
+          />
+        }
+        className={classes.switchItem}
+        label="Profile"
+      />
         <div className={classes.hr}></div>
       </FormControl>
     </Box>

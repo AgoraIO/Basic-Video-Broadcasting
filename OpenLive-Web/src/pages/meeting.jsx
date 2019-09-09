@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import clsx from 'clsx';
 import {useGlobalState, useGlobalMutation} from '../utils/container';
 import {makeStyles} from '@material-ui/core/styles';
@@ -59,7 +59,7 @@ const MeetingPage = () => {
     return client;
   }, [stateCtx.codec, stateCtx.mode]);
 
-  const [localStream, currentStream, streamList] = useStream(localClient);
+  const [localStream, currentStream] = useStream(localClient);
 
   const config = useMemo(() => {
     return {
@@ -78,7 +78,6 @@ const MeetingPage = () => {
   const history = routerCtx.history;
 
   useEffect(() => {
-    console.log("meeting-page >>>> ");
     if (!config.channel) {
       history.push('/');
     }
@@ -103,6 +102,7 @@ const MeetingPage = () => {
 
   const handleClick = (name) => {
     return (evt) => {
+      evt.stopPropagation();
       switch (name) {
         case 'video': {
           stateCtx.muteVideo ? localStream.muteVideo() : localStream.unmuteVideo();
@@ -158,26 +158,39 @@ const MeetingPage = () => {
     }
   }
 
-  // const [otherStreams, updateOtherStreams] = useState
-
-  // const otherStreams = stateCtx.streams
-        // .filter((stream) => (stream.getId() !== currentStream.getId()));
-
-  const handleDoubleClick = (evt) => {
-    console.log("handle double click >>>>>")
-    evt.stopPropagation();
-    const index = streamList.findIndex((stream) => stream === currentStream);
-    const targetIndex = (index+1) % streamList.length;
-    mutationCtx.setCurrentStream(streamList[targetIndex]);
+  const handleDoubleClick = (stream) => {
+    mutationCtx.setCurrentStream(stream);
   }
+
+  const otherStreams = useMemo(() => {
+    return stateCtx.streams.filter(it => it.getId() !== currentStream.getId());
+  }, [currentStream, stateCtx]);
 
   return (
     <div className="meeting">
-      cur: {currentStream && currentStream.getId()}
-      streams: {stateCtx.otherStreams.length && stateCtx.otherStreams.map(it => it.getId())}
-      <div className="local-view">
-        {stateCtx.currentStream ?
-          <StreamPlayer stream={stateCtx.currentStream} onDoubleClick={handleDoubleClick}>
+      <div className="current-view">
+        <div className="nav">
+          <div className="avatar-container">
+            <div className="default-avatar"></div>
+            <div className="avatar-text">Agora Test</div>
+            <div className="like"></div>
+          </div>
+          <div className="quit" onClick={() => {
+            localClient.leave().then(() => {
+              mutationCtx.clearAllStream();
+              routerCtx.history.push('/');
+            });
+          }}></div>
+        </div>
+        {currentStream ?
+          <StreamPlayer
+            className={'main-stream-profile'}
+            showProfile={stateCtx.profile}
+            local={config.host ? currentStream.getId() === localStream.getId() : false}
+            stream={currentStream}
+            onDoubleClick={handleDoubleClick}
+            uid={currentStream.getId()}
+            domId={`stream-player-${currentStream.getId()}`}>
             <div className={classes.menuContainer}>
               {config.host && <div className={classes.menu}>
                   <i onClick={handleClick('video')} className={clsx(classes.customBtn, 'margin-right-19', stateCtx.muteVideo ? 'mute-video' : 'unmute-video')}/>
@@ -186,29 +199,20 @@ const MeetingPage = () => {
                 {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
               </div>}
             </div>
-            <div className="nav">
-              <div className="avatar-container">
-                <div className="default-avatar"></div>
-                <div className="avatar-text">Agora Test</div>
-                <div className="like"></div>
-              </div>
-              <div className="quit" onClick={() => {
-                localClient.leave().then(() => {
-                  mutationCtx.clearAllStream();
-                  routerCtx.history.push('/');
-                });
-              }}></div>
-            </div>
             <div className="stream-container">
-              {/* {stateCtx.streams
-                .filter((stream) => (stream.getId() !== currentStream.getId()))
-                .map((stream, index) => (
-                <StreamPlayer key={index} stream={stream} onDoubleClick={handleDoubleClick}>
-                  <div className='stream-uid'>UID: {stream.getId()}</div>
-                </StreamPlayer>
-              ))} */}
-              {stateCtx.otherStreams.map((stream, index) => (
-                <StreamPlayer key={index} stream={stream} uid={stream.getId()} onDoubleClick={handleDoubleClick}>
+              {otherStreams.map((stream, index) => (
+                <StreamPlayer
+                  className={'stream-profile'}
+                  showProfile={stateCtx.profile}
+                  local={config.host ? stream.getId() === localStream.getId() : false}
+                  key={index}
+                  stream={stream}
+                  isPlaying={stream.isPlaying()}
+                  uid={stream.getId()}
+                  domId={`stream-player-${stream.getId()}`}
+                  onDoubleClick={handleDoubleClick}
+                  showUid={true}
+                >
                 </StreamPlayer>
               ))}
             </div>

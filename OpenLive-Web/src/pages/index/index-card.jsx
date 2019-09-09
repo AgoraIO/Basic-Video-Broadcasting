@@ -8,7 +8,6 @@ import Input from '@material-ui/core/Input';
 import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import useRouter from '../../utils/use-router';
 import {Link} from 'react-router-dom';
 
@@ -25,13 +24,13 @@ const CustomRadio = withStyles({
 })(({children, ...props}) => {
   return (
     <div className="role-item">
-      {children}
-      <div className="radio-row">
+      <div className={`icon-${props.value}-${props.checked ? 'active' : 'inactive'}`}></div>
+      <div className={`radio-row ${props.value}`}>
         <div className="custom-radio">
           <input type="radio" value={props.value} checked={props.checked} onChange={props.onChange} />
           <div className="checkmark"></div>
         </div>
-        <Box flex="1" className="role-name">{props.value}</Box>
+        <Box flex="1" className={`role-name-${props.checked ? 'active' : 'inactive'}`}>{props.value}</Box>
       </div>
     </div>
   );
@@ -142,15 +141,13 @@ export default function IndexCard () {
           checked={stateCtx.config.host}
           onChange={handleChange}
         >
-          <div className="icon-host"></div>
         </CustomRadio>
         <CustomRadio
           className={classes.radio}
           value="audience"
           checked={!stateCtx.config.host}
           onChange={handleChange}
-        >
-          <div className="icon-audience"></div>
+        >          
         </CustomRadio>
       </div>
       <Box marginTop="92" flex="1" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
