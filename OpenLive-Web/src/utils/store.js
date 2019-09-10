@@ -78,11 +78,12 @@ const reducer = (state, action) => {
     }
     case 'removeStream': {
       const {streams, currentStream} = state;
-      const targetStream = action.payload;
+      const {stream, uid} = action;
+      const targetId = stream ? stream.getId() : uid;
       let newCurrentStream = currentStream;
       const newStreams = streams
-        .filter((stream) => (stream.getId() !== targetStream.getId()));
-      if (targetStream === currentStream) {
+        .filter((stream) => (stream.getId() !== targetId));
+      if (targetId === currentStream.getId()) {
         if (newStreams.length === 0) {
           newCurrentStream = null;
         } else {

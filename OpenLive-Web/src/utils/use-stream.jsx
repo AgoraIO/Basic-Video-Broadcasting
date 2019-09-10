@@ -38,7 +38,7 @@ export default function useStream (client) {
       client.on("stream-added", addRemoteStream);
       client.on("stream-removed", mutationCtx.removeStream);
       client.on("stream-subscribed", mutationCtx.addStream);
-      client.on("peer-leave", mutationCtx.removeStream);
+      client.on("peer-leave", mutationCtx.removeStreamById);
       client._subscribed = true;
     }
   }, [client, mutationCtx])

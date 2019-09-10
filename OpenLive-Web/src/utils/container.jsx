@@ -95,7 +95,11 @@ export const ContainerProvider = ({children}) => {
     },
     removeStream (evt) {
       const {stream} = evt;
-      dispatch({type: 'removeStream', payload: stream});
+      dispatch({type: 'removeStream', stream: stream});
+    },
+    remoteStreamById (evt) {
+      const {stream} = evt;
+      dispatch({type: 'removeStream', uid: stream});
     },
     connectionStateChanged (evt) {
       methods.toastInfo(`${evt.curState}`);
