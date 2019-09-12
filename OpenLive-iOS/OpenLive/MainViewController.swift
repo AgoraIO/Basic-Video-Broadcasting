@@ -12,7 +12,6 @@ import AgoraRtcEngineKit
 class MainViewController: UIViewController {
 
     @IBOutlet weak var roomNameTextField: UITextField!
-    @IBOutlet weak var popoverSourceView: UIView!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var logoTop: NSLayoutConstraint!

@@ -44,6 +44,7 @@ class LiveRoomViewController: UIViewController {
     
     private var isMutedVideo = false {
         didSet {
+            // mute local video
             agoraKit.muteLocalVideoStream(isMutedVideo)
             videoMuteButton.isSelected = isMutedVideo
         }
@@ -51,6 +52,7 @@ class LiveRoomViewController: UIViewController {
     
     private var isMutedAudio = false {
         didSet {
+            // mute local audio
             agoraKit.muteLocalAudioStream(isMutedAudio)
             audioMuteButton.isSelected = isMutedAudio
         }
@@ -58,6 +60,7 @@ class LiveRoomViewController: UIViewController {
     
     private var isBeautyOn = false {
         didSet {
+            // improve local render view
             agoraKit.setBeautyEffectOptions(isBeautyOn,
                                             options: isBeautyOn ? beautyOptions : nil)
             beautyEffectButton.isSelected = isBeautyOn
@@ -73,6 +76,7 @@ class LiveRoomViewController: UIViewController {
     private var videoSessions = [VideoSession]() {
         didSet {
             placeholderView.isHidden = (videoSessions.count == 0 ? false : true)
+            // update render view layout
             updateBroadcastersView()
         }
     }
@@ -157,19 +161,6 @@ private extension LiveRoomViewController {
         }
     }
     
-    func leaveChannel() {
-        setIdleTimerActive(true)
-        
-        agoraKit.setupLocalVideo(nil)
-        agoraKit.leaveChannel(nil)
-        
-        if settings.role == .broadcaster {
-            agoraKit.stopPreview()
-        }
-        
-        navigationController?.popViewController(animated: true)
-    }
-    
     func setIdleTimerActive(_ active: Bool) {
         UIApplication.shared.isIdleTimerDisabled = !active
     }
@@ -205,13 +196,19 @@ private extension LiveRoomViewController {
         
         setIdleTimerActive(false)
         
+        // Step 1, set delegate
         agoraKit.delegate = self
+        // Step 2, set live broadcasting mode
         agoraKit.setChannelProfile(.liveBroadcasting)
+        // set client role
+        agoraKit.setClientRole(settings.role)
         
-        // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
+        // Step 3, Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
         agoraKit.enableDualStreamMode(true)
         
+        // Step 4, enable the video module
         agoraKit.enableVideo()
+        // set video configuration
         agoraKit.setVideoEncoderConfiguration(
             AgoraVideoEncoderConfiguration(
                 size: settings.dimension,
@@ -221,15 +218,18 @@ private extension LiveRoomViewController {
             )
         )
         
-        agoraKit.setClientRole(settings.role)
-        
+        // if current role is broadcaster, add local render view and start preview
         if settings.role == .broadcaster {
             addLocalSession()
             agoraKit.startPreview()
         }
         
+        // Step 5, join channel and start group chat
+        // If join  channel success, agoraKit triggers it's delegate function
+        // 'rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int)'
         agoraKit.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: 0, joinSuccess: nil)
         
+        // Step 6, set speaker audio route
         agoraKit.setEnableSpeakerphone(true)
     }
     
@@ -242,9 +242,27 @@ private extension LiveRoomViewController {
                                   fps: settings.frameRate.rawValue)
         localSession.mediaInfo = mediaInfo
     }
+    
+    func leaveChannel() {
+        // Step 1, release local AgoraRtcVideoCanvas instance
+        agoraKit.setupLocalVideo(nil)
+        // Step 2, leave channel and end group chat
+        agoraKit.leaveChannel(nil)
+        
+        // Step 3, if current role is broadcaster,  stop preview after leave channel
+        if settings.role == .broadcaster {
+            agoraKit.stopPreview()
+        }
+        
+        setIdleTimerActive(true)
+        
+        navigationController?.popViewController(animated: true)
+    }
 }
 
+// MARK: - AgoraRtcEngineDelegate
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
+    // first remote video frame
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
         guard videoSessions.count < 5 else {
             return
@@ -255,6 +273,7 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         agoraKit.setupRemoteVideo(userSession.canvas)
     }
     
+    // user offline
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         var indexToDelete: Int?
         for (index, session) in videoSessions.enumerated() where session.uid == uid {
@@ -271,28 +290,11 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         }
     }
     
+    // remote stat
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
         if let session = fetchSession(of: stats.uid) {
             session.updateMediaInfo(resolution: CGSize(width: CGFloat(stats.width), height: CGFloat(stats.height)),
                                     fps: Int(stats.rendererOutputFrameRate))
         }
-    }
-}
-
-//MARK: - enhancer
-extension LiveRoomViewController: BeautyEffectTableVCDelegate {
-    func beautyEffectTableVCDidChange(_ enhancerTableVC: BeautyEffectTableViewController) {
-        beautyOptions.lighteningLevel = enhancerTableVC.lightening
-        beautyOptions.smoothnessLevel = enhancerTableVC.smoothness
-        beautyOptions.lighteningContrastLevel = enhancerTableVC.contrast
-        beautyOptions.rednessLevel = enhancerTableVC.redness
-        isBeautyOn = enhancerTableVC.isBeautyOn
-    }
-}
-
-//MARK: - vc
-extension LiveRoomViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
     }
 }

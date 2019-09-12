@@ -9,8 +9,9 @@ With this sample app, you can:
 - [Join](#create-the-loadagorakit-method)/[leave](#create-the-leavechannel-method) a channel
 - [Set user role as a broadcaster or audience member](#create-the-mainviewcontroller-extensions)
 - [Mute/unmute audio](#define-private-variables)
+- [Mute/unmute video](#define-private-variables)
 - [Switch camera views](#create-the-doswitchcamerapressed-ibaction-method)
-- [Set up the resolution, the frame rate, and the bit rate display](#create-the-loadagorakit-method)
+- [Set up the resolution, the frame rate display](#create-the-loadagorakit-method)
 
 ## Prerequisites
 
