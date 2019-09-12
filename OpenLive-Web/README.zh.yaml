@@ -1,0 +1,34 @@
+Meta:
+  name: Open Live for Web
+  # en or cn
+  lang: cn
+  # | 代表这里是字符串
+  description: |
+    这个开源示例项目演示了如何快速集成 Agora 视频 SDK，实现视频直播。
+
+Prerequisites:
+  - Node.js LTS
+
+QuickStart:
+  description:
+    这个段落主要讲解了如何编译和运行示例程序。
+  sections:
+    - title: 创建Agora账号并获取AppId
+      content: |
+        $_{APPID}
+        5. 把文件 **.env.example** 重命名为 **.env** file. 在这个文件中，将`<#YOUR APP ID#>`替换为您自己的App ID。
+        
+            ```bash
+            REACT_APP_AGORA_APP_ID=<#YOUR Agora.io APP ID#>
+            REACT_APP_AGORA_LOG=true
+            ```
+    - title: 集成 Agora 视频 SDK
+      content: |
+        $_{WEB_RUN}
+
+Resources:
+  document: https://docs.agora.io/cn/
+  issue: https://github.com/AgoraIO/Basic-Video-Broadcasting/issues
+
+License:
+  type: MIT
