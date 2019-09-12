@@ -58,8 +58,6 @@ export default function StreamPlayer (props) {
         if (errState && errState.status !== 'aborted') {
           console.log("stream-player play failed ", domId)
           changeAutoplay(true);
-        } else {
-          console.log(`>>>> ${stream.getId()}#played`);
         }
       });
     } else {
@@ -67,15 +65,12 @@ export default function StreamPlayer (props) {
     }
     return () => {
       if (stream.isPlaying()) {
-        console.log(`>>>> ${stream.getId()}#stop >>>> ${domId}`)
         stream.stop();
       } else {
         stream.play(domId, {fit: 'cover'}, (errState) => {
           if (errState && errState.status !== 'aborted') {
             console.log("stream-player play failed ", domId)
             changeAutoplay(true);
-          } else {
-            console.log(`>>>> ${stream.getId()}#played`);
           }
         });
       }
