@@ -7,8 +7,7 @@ Meta:
     This tutorial shows you how to quickly create a live app using Agora Web SDK.
 
 Prerequisites:
-  - Node.js 6.9.1+
-  - A web server that supports SSL (https)
+  - Node.js LTS
 
 QuickStart:
   description:
@@ -17,15 +16,11 @@ QuickStart:
     - title: Obtain an App ID
       content: |
         $_{APPID}
-        5. Open the **src/utils/Settings.js** file. At the bottom of the file, replace `<#YOUR APP ID#>` with the App ID, and assign the token variable with the temp Access Token generated from dashboard.
+        5. Rename **.env.example** to **.env** file. In this file, replace `<#YOUR Agora.io APP ID#>` with the App ID, and assign the token variable with the temp Access Token generated from dashboard.
 
-            **Note:** Place the App ID/Token within single or double quotes.
-
-            ```xml
-            export const APP_ID_LIVE = <#YOUR APP ID#>;
-
-            // Assign Token to null if you have not enabled app certificate
-            export const Token = "<#YOUR TEMP TOKEN HERE#>";
+            ```bash
+            REACT_APP_AGORA_APP_ID=<#YOUR Agora.io APP ID#>
+            REACT_APP_AGORA_LOG=true
             ```
     - title: Install dependencies and integrate the Agora Video SDK
       content: |
@@ -34,7 +29,7 @@ QuickStart:
 
 Resources:
   document: https://docs.agora.io/en/
-  issue: https://github.com/AgoraIO/Basic-Video-Call/issues
+  issue: https://github.com/AgoraIO/Basic-Video-Broadcasting/issues
 
 License:
   type: MIT

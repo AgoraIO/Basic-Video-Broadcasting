@@ -7,8 +7,7 @@ Meta:
     这个开源示例项目演示了如何快速集成 Agora 视频 SDK，实现视频直播。
 
 Prerequisites:
-  - Node.js 6.9.1+
-  - 支持SSL(https)的服务器
+  - Node.js LTS
 
 QuickStart:
   description:
@@ -17,14 +16,11 @@ QuickStart:
     - title: 创建Agora账号并获取AppId
       content: |
         $_{APPID}
-        5. 打开 **src/utils/Settings.js** 文件。在文件的底部，将`<#YOUR APP ID#>`替换为您自己的App ID，然后将`<#YOUR TEMP TOKEN#>`替换为dashboard计算的Token。
+        5. 把文件 **.env.example** 重命名为 **.env** file. 在这个文件中，将`<#YOUR APP ID#>`替换为您自己的App ID。
         
-            **注意：** App ID是字符串类型，需要双引号或者单引号
-            ```javascript
-            export const APP_ID = <#YOUR APP ID#>;
-
-            // 如果你没有打开Token功能，token可以直接给null
-            export const Token = "<#YOUR TEMP TOKEN HERE#>";
+            ```bash
+            REACT_APP_AGORA_APP_ID=<#YOUR Agora.io APP ID#>
+            REACT_APP_AGORA_LOG=true
             ```
     - title: 集成 Agora 视频 SDK
       content: |
@@ -32,7 +28,7 @@ QuickStart:
 
 Resources:
   document: https://docs.agora.io/cn/
-  issue: https://github.com/AgoraIO/Basic-Video-Call/issues
+  issue: https://github.com/AgoraIO/Basic-Video-Broadcasting/issues
 
 License:
   type: MIT

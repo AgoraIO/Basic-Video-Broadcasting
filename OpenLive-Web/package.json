@@ -1,93 +1,41 @@
 {
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|scss|sass|styl)$": "<rootDir>/__mocks__/styleMock.js"
-    }
+  "name": "openlive-web",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.2.1",
+    "agora-rtc-sdk": "^2.8.0",
+    "clsx": "^1.0.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1"
   },
   "scripts": {
-    "test": "jest ./test",
-    "lint": "eslint src/**/*.{js,jsx} --fix",
-    "dev": "cross-env NODE_ENV=development webpack-serve",
-    "start": "npm run dev",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "deploy": "./deploy.sh devops@58.211.16.78 && ./deploy.sh devops@119.9.106.225",
-    "deploy:avc": "cross-env AGORA_PROFILE=avc NODE_ENV=production webpack --progress --hide-modules && cross-env AGORA_DEPLOY_PATH=live npm run deploy",
-    "deploy:al": "cross-env AGORA_PROFILE=al NODE_ENV=production webpack --progress --hide-modules && cross-env AGORA_DEPLOY_PATH=agoralive npm run deploy",
-    "deploy:all": "npm run deploy:avc && npm run deploy:al",
-    "precommit": "lint-staged"
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "lint-staged": {
-    "./src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "./src/**/*.{css,scss,json,md}": [
-      "prettier --write",
-      "git add"
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
-    "autoprefixer": "^7.2.6",
-    "babel-core": "^6.26.0",
-    "babel-jest": "^23.0.1",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.18",
-    "copy-webpack-plugin": "^4.4.1",
-    "cross-env": "^5.1.3",
-    "css-loader": "^0.28.11",
-    "cssnano": "^3.10.0",
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-config-xo": "^0.20.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "file-loader": "^1.1.11",
-    "html-loader": "^0.5.1",
-    "html-webpack-plugin": "^3.1.0",
-    "husky": "^0.14.3",
-    "jest": "^22.4.3",
-    "lint-staged": "^7.2.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "node-sass": "^4.9.0",
-    "optimize-css-assets-webpack-plugin": "^4.0.0",
-    "postcss-import": "^11.1.0",
-    "postcss-loader": "^2.1.3",
-    "prettier": "^1.13.7",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.1",
-    "uglifyjs-webpack-plugin": "^1.2.4",
-    "url-loader": "^0.6.2",
-    "webpack": "^4.10.2",
-    "webpack-bundle-analyzer": "^3.0.2",
-    "webpack-cli": "^2.1.4",
-    "webpack-serve": "^0.3.1"
-  },
-  "name": "agora-live",
-  "author": {
-    "name": "Menthays"
-  },
-  "description": "Agora Live in VanillaJs",
-  "dependencies": {
-    "bulma": "^0.6.1",
-    "bulma-checkradio": "^0.1.11",
-    "bulma-switch": "^0.1.12",
-    "jquery": "^3.2.1",
-    "js-cookie": "^2.2.0",
-    "lodash-es": "^4.17.11"
+    "node-sass": "^4.12.0"
   }
 }
