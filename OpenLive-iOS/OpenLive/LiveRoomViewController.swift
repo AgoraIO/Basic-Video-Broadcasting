@@ -168,7 +168,7 @@ private extension LiveRoomViewController {
 }
 
 private extension LiveRoomViewController {
-    func fetchSession(of uid: UInt) -> VideoSession? {
+    func getSession(of uid: UInt) -> VideoSession? {
         for session in videoSessions {
             if session.uid == uid {
                 return session
@@ -178,7 +178,7 @@ private extension LiveRoomViewController {
     }
     
     func videoSession(of uid: UInt) -> VideoSession {
-        if let fetchedSession = fetchSession(of: uid) {
+        if let fetchedSession = getSession(of: uid) {
             return fetchedSession
         } else {
             let newSession = VideoSession(uid: uid)
@@ -305,14 +305,14 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
     
     // remote video stats
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
-        if let session = fetchSession(of: stats.uid) {
+        if let session = getSession(of: stats.uid) {
             session.updateVideoStats(stats)
         }
     }
     
     // remote audio stats
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStats stats: AgoraRtcRemoteAudioStats) {
-        if let session = fetchSession(of: stats.uid) {
+        if let session = getSession(of: stats.uid) {
             session.updateAudioStats(stats)
         }
     }

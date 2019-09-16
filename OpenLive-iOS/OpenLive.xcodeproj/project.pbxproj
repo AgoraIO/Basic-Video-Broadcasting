@@ -38,6 +38,7 @@
 		A7DEDEB523177D5D00E34432 /* AGVideoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DEDEB323177D5D00E34432 /* AGVideoCollectionView.swift */; };
 		A7DEE04A232F65BC00E34432 /* AgoraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DEE049232F65BC00E34432 /* AgoraExtension.swift */; };
 		A7DEE04C232F69DC00E34432 /* StatisticsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DEE04B232F69DC00E34432 /* StatisticsInfo.swift */; };
+		A7DEE04F232F735C00E34432 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A7DEE04E232F735C00E34432 /* README.md */; };
 		F25F5A728839E012C51CC7E1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54B70FC0F83493878247735 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		A7DEDEB323177D5D00E34432 /* AGVideoCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGVideoCollectionView.swift; sourceTree = "<group>"; };
 		A7DEE049232F65BC00E34432 /* AgoraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraExtension.swift; sourceTree = "<group>"; };
 		A7DEE04B232F69DC00E34432 /* StatisticsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsInfo.swift; sourceTree = "<group>"; };
+		A7DEE04E232F735C00E34432 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F54B70FC0F83493878247735 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 		078012E01D1E57730093DE24 = {
 			isa = PBXGroup;
 			children = (
+				A7DEE04E232F735C00E34432 /* README.md */,
 				078012EB1D1E57730093DE24 /* OpenLive */,
 				078012EA1D1E57730093DE24 /* Products */,
 				0745273B1E9E050C0054D2D4 /* Frameworks */,
@@ -280,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7DEE04F232F735C00E34432 /* README.md in Resources */,
 				382885C52249E5AB0023BCFA /* model.bundle in Resources */,
 				382885C42249E5AB0023BCFA /* srmetal.metallib in Resources */,
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
