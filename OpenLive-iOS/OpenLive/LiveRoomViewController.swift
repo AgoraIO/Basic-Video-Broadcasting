@@ -117,6 +117,7 @@ class LiveRoomViewController: UIViewController {
 
 private extension LiveRoomViewController {
     func updateBroadcastersView() {
+        // video views layout
         var rank: Int
         var row: Int
         
@@ -196,9 +197,10 @@ private extension LiveRoomViewController {
         
         setIdleTimerActive(false)
         
-        // Step 1, set delegate
+        // Step 1, set delegate to inform the app on AgoraRtcEngineKit events
         agoraKit.delegate = self
         // Step 2, set live broadcasting mode
+        // for details: https://docs.agora.io/cn/Video/API%20Reference/oc/Classes/AgoraRtcEngineKit.html#//api/name/setChannelProfile:
         agoraKit.setChannelProfile(.liveBroadcasting)
         // set client role
         agoraKit.setClientRole(settings.role)
@@ -235,12 +237,9 @@ private extension LiveRoomViewController {
     
     func addLocalSession() {
         let localSession = VideoSession.localSession()
+        localSession.updateInfo(fps: settings.frameRate.rawValue)
         videoSessions.append(localSession)
         agoraKit.setupLocalVideo(localSession.canvas)
-        
-        let mediaInfo = MediaInfo(dimension: settings.dimension,
-                                  fps: settings.frameRate.rawValue)
-        localSession.mediaInfo = mediaInfo
     }
     
     func leaveChannel() {
@@ -262,6 +261,20 @@ private extension LiveRoomViewController {
 
 // MARK: - AgoraRtcEngineDelegate
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
+    // first local video frame
+    func rtcEngine(_ engine: AgoraRtcEngineKit, firstLocalVideoFrameWith size: CGSize, elapsed: Int) {
+        if let selfSession = videoSessions.first {
+            selfSession.updateInfo(resolution: size)
+        }
+    }
+    
+    // local stats
+    func rtcEngine(_ engine: AgoraRtcEngineKit, reportRtcStats stats: AgoraChannelStats) {
+        if let selfSession = videoSessions.first {
+            selfSession.updateChannelStats(stats)
+        }
+    }
+    
     // first remote video frame
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
         guard videoSessions.count < 5 else {
@@ -269,7 +282,7 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         }
         
         let userSession = videoSession(of: uid)
-        userSession.updateMediaInfo(resolution: size)
+        userSession.updateInfo(resolution: size)
         agoraKit.setupRemoteVideo(userSession.canvas)
     }
     
@@ -290,11 +303,27 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         }
     }
     
-    // remote stat
+    // remote video stats
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
         if let session = fetchSession(of: stats.uid) {
-            session.updateMediaInfo(resolution: CGSize(width: CGFloat(stats.width), height: CGFloat(stats.height)),
-                                    fps: Int(stats.rendererOutputFrameRate))
+            session.updateVideoStats(stats)
         }
+    }
+    
+    // remote audio stats
+    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStats stats: AgoraRtcRemoteAudioStats) {
+        if let session = fetchSession(of: stats.uid) {
+            session.updateAudioStats(stats)
+        }
+    }
+    
+    // warning code
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurWarning warningCode: AgoraWarningCode) {
+        print("warning code: \(warningCode.description)")
+    }
+    
+    // error code
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
+        print("warning code: \(errorCode.description)")
     }
 }
