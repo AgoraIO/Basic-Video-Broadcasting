@@ -1,4 +1,4 @@
-﻿# Open Live Windows
+# Open Live Windows
 
 *其他语言版本： [简体中文](README.zh.md)*
 
@@ -21,23 +21,13 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 
 #define APP_ID _T("Your App ID")
 
-If you don't want to modify the code part, you can create an AppId.ini file under Debug/Release. Modify the appId value to the App ID you just applied.
-
-#[AppID]
-
-#AppID=xxxxxxxxxxxxxxxxxxx
-
 Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the **sdk** to the project folder(the old one may be over written).
 
-Finally, Open OpenLive.sln with your VC++ 2013(or higher) and build all solution and run.
-
-Note：
-  1. After the program is compiled, if the program "xxx\xxx\xxx\Debug\Language\English.dll" cannot be started when running the program, 
-      please select the OpenLive project in the Solution Explorer and right click. In the pop-up menu bar, select "Set as startup project" to solve. Then run the program again.
-  2. You may encounter crash when running this demo under debug mode. Please run this demo under release mode.
+Finally, Open OpenLive.pro with your Qt5.6(or higher) and build current project and run.
   
 ## Developer Environment Requirements
 * VC++ 2013(or higher)
+* QT5.6(or higher)
 * Windows 7(or higher)
 
 ## Connect Us

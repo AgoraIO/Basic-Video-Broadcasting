@@ -72,7 +72,7 @@ CAgoraObject::CAgoraObject(QObject *parent):
 {
     agora::rtc::RtcEngineContext context;
     context.eventHandler = m_eventHandler.get();
-    context.appId = APPID;
+    context.appId = APP_ID;
     if (*context.appId == '\0')
     {
         QMessageBox::critical(nullptr, ("AgoraOpenLive"),

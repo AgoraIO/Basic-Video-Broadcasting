@@ -5,7 +5,7 @@
 #include <mutex>
 
 //Specify your APP ID here
-#define APPID "aab8b8f5a8cd4469a63042fcfafe7063"
+#define APP_ID ""
 
 #include <QString>
 #include <QVariant>
