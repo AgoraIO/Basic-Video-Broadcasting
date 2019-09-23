@@ -155,6 +155,23 @@ body{
 //   padding: 0 11px;
 // }
 
+.github {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  position: absolute;
+  background-image: url("./assets/github.png");
+  background-size: 30px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 4px;
+  border-radius: 28px;
+  top: 13px;
+  right: 58px;
+  cursor: pointer;
+  z-index: 3;
+}
+
 .like {
   cursor: pointer;
   background-image: url("./assets/icon-add-blue.png");
