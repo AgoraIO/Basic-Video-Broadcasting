@@ -134,6 +134,7 @@ export default function IndexCard () {
   return (
     <Box marginTop="114px" flex="1" display="flex" alignItems="center" justifyContent="flex-start" flexDirection="column">
       <Link to="/setting" className='setting-btn' />
+      <a href="https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-Web" className="github"></a>
       <div className="role-container">
         <CustomRadio
           className={classes.radio}
