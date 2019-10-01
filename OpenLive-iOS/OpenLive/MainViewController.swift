@@ -12,143 +12,128 @@ import AgoraRtcEngineKit
 class MainViewController: UIViewController {
 
     @IBOutlet weak var roomNameTextField: UITextField!
-    @IBOutlet weak var popoverSourceView: UIView!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var logoTop: NSLayoutConstraint!
+    @IBOutlet weak var inputTextFieldTop: NSLayoutConstraint!
     
-    @IBOutlet weak var lastmileTestButton: UIButton!
-    @IBOutlet weak var lastmileTestIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var qualityLabel: UILabel!
-    @IBOutlet weak var rttLabel: UILabel!
-    @IBOutlet weak var uplinkLabel: UILabel!
-    @IBOutlet weak var downlinkLabel: UILabel!
-    @IBOutlet var infoLabels: [UILabel]!
-    
-    lazy fileprivate var rtcEngine: AgoraRtcEngineKit = {
-        let engine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+    private lazy var agoraKit: AgoraRtcEngineKit = {
+        let engine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: nil)
+        engine.setLogFilter(AgoraLogFilter.info.rawValue)
+        engine.setLogFile(FileCenter.logFilePath())
         return engine
     }()
-    fileprivate var videoProfile = AgoraVideoDimension640x480
     
-    private var isLastmileProbeTesting = false {
-        didSet {
-            lastmileTestButton?.isHidden = isLastmileProbeTesting
-            if isLastmileProbeTesting {
-                lastmileTestIndicator?.startAnimating()
-            } else {
-                lastmileTestIndicator?.stopAnimating()
-            }
-        }
+    private var settings = Settings()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        inputTextField.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let segueId = segue.identifier else {
+        guard let segueId = segue.identifier,
+            segueId.count > 0 else {
             return
         }
         
         switch segueId {
         case "mainToSettings":
-            let settingsVC = segue.destination as! SettingsViewController
-            settingsVC.videoProfile = videoProfile
-            settingsVC.delegate = self
-        case "mainToLive":
-            let liveVC = segue.destination as! LiveRoomViewController
-            liveVC.roomName = roomNameTextField.text!
-            liveVC.rtcEngine = rtcEngine
-            liveVC.videoProfile = videoProfile
-            if let value = sender as? NSNumber, let role = AgoraClientRole(rawValue: value.intValue) {
-                liveVC.clientRole = role
-            }
-            liveVC.delegate = self
+            let settingsVC = segue.destination as? SettingsViewController
+            settingsVC?.delegate = self
+            settingsVC?.dataSource = self
+        case "mainToRole":
+            let roleVC = segue.destination as? RoleViewController
+            roleVC?.delegate = self
         default:
             break
         }
     }
     
-    @IBAction func doLastmileProbeTestPressed(_ sender: UIButton) {
-        let config = AgoraLastmileProbeConfig()
-        config.probeUplink = true
-        config.probeDownlink = true
-        config.expectedUplinkBitrate = 5000
-        config.expectedDownlinkBitrate = 5000
-        
-        rtcEngine.startLastmileProbeTest(config)
-        
-        isLastmileProbeTesting = true
-        
-        for label in infoLabels {
-            label.isHidden = true
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        inputTextField.endEditing(true)
+    }
+    
+    @IBAction func doStartButton(_ sender: UIButton) {
+        guard let roomName = roomNameTextField.text,
+            roomName.count > 0 else {
+                return
         }
+        settings.roomName = roomName
+        performSegue(withIdentifier: "mainToRole", sender: nil)
+    }
+    
+    @IBAction func doExitPressed(_ sender: UIStoryboardSegue) {
     }
 }
 
 private extension MainViewController {
-    func showRoleSelection() {
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let broadcaster = UIAlertAction(title: "Broadcaster", style: .default) { [weak self] _ in
-            self?.join(withRole: .broadcaster)
+    func updateViews() {
+        let key = NSAttributedString.Key.foregroundColor
+        let color = UIColor(red: 156.0 / 255.0, green: 217.0 / 255.0, blue: 1.0, alpha: 1)
+        let attributed = [key: color]
+        let attributedString = NSMutableAttributedString(string: "Pick a topic to chat", attributes: attributed)
+        inputTextField.attributedPlaceholder = attributedString
+        
+        startButton.layer.shadowOpacity = 0.3
+        startButton.layer.shadowColor = UIColor.black.cgColor
+        
+        if UIScreen.main.bounds.height <= 568 {
+            logoTop.constant = 69
+            inputTextFieldTop.constant = 37
         }
-        let audience = UIAlertAction(title: "Audience", style: .default) { [weak self] _ in
-            self?.join(withRole: .audience)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        sheet.addAction(broadcaster)
-        sheet.addAction(audience)
-        sheet.addAction(cancel)
-        sheet.popoverPresentationController?.sourceView = popoverSourceView
-        sheet.popoverPresentationController?.permittedArrowDirections = .up
-        present(sheet, animated: true, completion: nil)
     }
 }
 
-private extension MainViewController {
-    func join(withRole role: AgoraClientRole) {
-        performSegue(withIdentifier: "mainToLive", sender: NSNumber(value: role.rawValue as Int))
+extension MainViewController: LiveVCDataSource {
+    func liveVCNeedSettings() -> Settings {
+        return settings
+    }
+    
+    func liveVCNeedAgoraKit() -> AgoraRtcEngineKit {
+        return agoraKit
     }
 }
 
 extension MainViewController: SettingsVCDelegate {
-    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: CGSize) {
-        videoProfile = profile
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-extension MainViewController: LiveRoomVCDelegate {
-    func liveVCNeedClose(_ liveVC: LiveRoomViewController) {
-        let _ = navigationController?.popViewController(animated: true)
-        rtcEngine.delegate = self
-    }
-}
-
-extension MainViewController: AgoraRtcEngineDelegate {
-    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileQuality quality: AgoraNetworkQuality) {
-        qualityLabel.text = "quality: " + quality.description()
-        qualityLabel.isHidden = false
+    func settingsVC(_ vc: SettingsViewController, didSelect dimension: CGSize) {
+        settings.dimension = dimension
     }
     
-    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
-        rttLabel.text = "rtt: \(result.rtt)"
-        rttLabel.isHidden = false
-        uplinkLabel.text = "up: \(result.uplinkReport.description())"
-        uplinkLabel.isHidden = false
-        downlinkLabel.text = "down: \(result.downlinkReport.description())"
-        downlinkLabel.isHidden = false
-        
-        rtcEngine.stopLastmileProbeTest()
-        isLastmileProbeTesting = false
+    func settingsVC(_ vc: SettingsViewController, didSelect frameRate: AgoraVideoFrameRate) {
+        settings.frameRate = frameRate
+    }
+}
+
+extension MainViewController: SettingsVCDataSource {
+    func settingsVCNeedSettings() -> Settings {
+        return settings
+    }
+}
+
+extension MainViewController: RoleVCDelegate {
+    func roleVC(_ vc: RoleViewController, didSelect role: AgoraClientRole) {
+        settings.role = role
     }
 }
 
 extension MainViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let string = textField.text , !string.isEmpty {
-            showRoleSelection()
-        }
+        inputTextField.endEditing(true)
         return true
-    }
-}
-
-extension AgoraLastmileProbeOneWayResult {
-    func description() -> String {
-        return "packetLoss: \(packetLossRate), jitter: \(jitter), availableBandwidth: \(availableBandwidth)"
     }
 }

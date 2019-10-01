@@ -9,8 +9,9 @@
 - 加入通话和离开通话；
 - 主播和观众模式切换；
 - 静音和解除静音；
+- 发送和停止发送视频流；
 - 切换前置摄像头和后置摄像头；
-- 选择分辨率、码率和帧率；
+- 选择分辨率、帧率；
 
 本开源项目使用 **Swift** 语言，你可以在这里找到使用 **Objective-C** 的项目：[OpenLive-iOS-Objective-C](https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-iOS-Objective-C)
 
