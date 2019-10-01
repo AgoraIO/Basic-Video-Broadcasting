@@ -5,4 +5,71 @@
 
     <dimen name="fb_popup_window_width">240dp</dimen>
     <dimen name="fb_popup_window_height">224dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+
+    <!-- Main Activity -->
+    <dimen name="setting_btn_margin_top">12dp</dimen>
+    <dimen name="setting_btn_margin_right">18dp</dimen>
+    <dimen name="setting_btn_size">36dp</dimen>
+    <dimen name="logo_size">158dp</dimen>
+    <dimen name="logo_margin_bottom">48dp</dimen>
+    <dimen name="edit_margin_bottom">42dp</dimen>
+    <dimen name="edit_text_padding">16dp</dimen>
+    <dimen name="start_broadcast_height">48dp</dimen>
+    <dimen name="start_broadcast_radius">25dp</dimen>
+    <dimen name="start_broadcast_padding">45dp</dimen>
+    <dimen name="info_margin_bottom">48dp</dimen>
+
+    <!-- Setting Activity -->
+    <dimen name="setting_title_layout_height">56dp</dimen>
+    <dimen name="setting_title_content_margin">12dp</dimen>
+    <dimen name="back_arrow_size">27dp</dimen>
+    <dimen name="back_arrow_left">18dp</dimen>
+    <dimen name="setting_content_margin">28dp</dimen>
+    <dimen name="setting_content_margin_vertical">14dp</dimen>
+    <dimen name="setting_resolution_item_height">48dp</dimen>
+    <dimen name="setting_resolution_item_radius">24dp</dimen>
+    <dimen name="setting_resolution_item_border">2px</dimen>
+    <dimen name="setting_resolution_item_padding">6dp</dimen>
+    <dimen name="setting_divider_height">3px</dimen>
+    <dimen name="setting_item_height_normal">54dp</dimen>
+    <dimen name="setting_switch_width">56dp</dimen>
+    <dimen name="setting_switch_height">32dp</dimen>
+    <dimen name="setting_switch_radius">16dp</dimen>
+    <dimen name="setting_switch_thumb_size">28dp</dimen>
+    <dimen name="setting_switch_track_padding">2dp</dimen>
+
+    <!-- Live Activity -->
+    <dimen name="live_top_layout_height">76dp</dimen>
+    <dimen name="live_leave_btn_size">36dp</dimen>
+    <dimen name="live_leave_btn_icon_size">15dp</dimen>
+    <dimen name="live_top_layout_margin">22dp</dimen>
+    <dimen name="live_name_board_width">186dp</dimen>
+    <dimen name="live_name_board_height">48dp</dimen>
+    <dimen name="live_name_board_icon_size">44dp</dimen>
+    <dimen name="live_name_board_icon_margin">2dp</dimen>
+    <dimen name="live_name_board_fav_icon_margin">6dp</dimen>
+    <dimen name="live_name_board_fav_icon_size">36dp</dimen>
+    <dimen name="live_name_board_radius">36dp</dimen>
+    <dimen name="live_name_text_height">24dp</dimen>
+    <dimen name="live_name_text_margin_left">8dp</dimen>
+    <dimen name="live_bottom_btn_size">44dp</dimen>
+    <dimen name="live_bottom_layout_margin">18dp</dimen>
+    <dimen name="live_bottom_btn_margin">12dp</dimen>
+    <dimen name="live_stat_margin_bottom">68dp</dimen>
+    <dimen name="live_room_bg_icon_size">180dp</dimen>
+
+    <!-- Role Select Activity -->
+    <dimen name="role_block_width">342dp</dimen>
+    <dimen name="role_block_height">128dp</dimen>
+    <dimen name="role_block_corner">14dp</dimen>
+    <dimen name="role_block_margin_top">28dp</dimen>
+    <dimen name="role_block_icon_width">137dp</dimen>
+    <dimen name="role_block_content_width">120dp</dimen>
+    <dimen name="role_block_content_margin_right">32dp</dimen>
+    <dimen name="role_block_hint_margin_top">6dp</dimen>
 </resources>
