@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>736</width>
+    <height>536</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>736</width>
+    <height>536</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑 Light</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/uiresource/Open live-win.jpg);</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/uiresource/pic-win01.png);</string>
+   </property>
+   <widget class="QPushButton" name="btnmin">
+    <property name="geometry">
+     <rect>
+      <x>652</x>
+      <y>39</y>
+      <width>18</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#btnmin {
+	border-image: url(:/uiresource/min-normal.png);
+}
+
+QPushButton#btnmin:hover {
+	border-image: url(:/uiresource/min-hover.png);
+}
+
+QPushButton#btnmin:pressed {
+	border-image: url(:/uiresource/min-pushed.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnclose">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>39</y>
+      <width>18</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#btnclose {
+border-image: url(:/uiresource/close-normal.png);
+}
+QPushButton#btnclose:hover {
+border-image: url(:/uiresource/close-hover.png);
+}
+QPushButton#btnclose:pressed {
+border-image: url(:/uiresource/close-pushed.png);
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnset">
+    <property name="geometry">
+     <rect>
+      <x>388</x>
+      <y>32</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#btnset{
+border-image: url(:/uiresource/icon-setting.png);
+background-image: url(:/uiresource/icon-setting.png);
+}
+QPushButton#btnset:hover{
+	background-image: url(:/uiresource/icon-setting hover.png);
+	border-image: url(:/uiresource/icon-setting hover.png);
+}
+QPushButton#btnset:pressed{
+border-image: url(:/uiresource/icon-setting.png);
+background-image: url(:/uiresource/icon-setting.png);
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnjoin">
+    <property name="geometry">
+     <rect>
+      <x>411</x>
+      <y>390</y>
+      <width>260</width>
+      <height>44</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>9</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#btnjoin{
+border-image: url(:/uiresource/button-default.png);
+background-image: url(:/uiresource/button-default.png);
+color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+}
+
+QPushButton#btnjoin:hover{
+border-image: url(:/uiresource/button-hover.png);
+background-image: url(:/uiresource/button-hover.png);
+color: rgb(0, 0, 0);
+font: 75 9pt &quot;微软雅黑&quot;;
+}
+
+QPushButton#btnjoin:pressed{
+border-image: url(:/uiresource/button-default.png);
+background-image: url(:/uiresource/button-default.png);
+color: rgb(255, 255, 255);
+font: 75 9pt &quot;微软雅黑&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>Start Live Broadcast</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leditRoomId">
+    <property name="geometry">
+     <rect>
+      <x>416</x>
+      <y>340</y>
+      <width>250</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit#leditRoomId{
+     padding-left: 20px;
+ }
+
+ QLineEdit:!hover#leditRoomId{
+     border: 1px solid #ffffff;
+     border-radius: 2px;
+     font-family: 微软雅黑;
+     font-size: 14px;
+	 background-color: #fafafa;
+	 color: #999999;
+	 border-image: url(:/uiresource/channel_name_edittext.png);
+	 background-image: url(:/uiresource/channel_name_edittext.png);
+ }
+
+ QLineEdit:hover#leditRoomId{
+     border: 1px solid #0e88eb;
+     border-radius: 2px;
+     font-family: 微软雅黑;
+     font-size: 14px;
+	 background-color: #fafafa;
+	 color: #999999;
+	 border-image: url(:/uiresource/channel_name_edittext.png);
+	 background-image: url(:/uiresource/channel_name_edittext.png);
+ }
+
+ QLineEdit:focus#leditRoomId{
+     border: 1px solid #0e88eb;
+     border-radius: 2px;
+     font-family: 微软雅黑;
+     font-size: 14px;
+	 background-color: #ffffff;
+	 color: #999999;
+ }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="placeholderText">
+     <string>Pick a topic to chat</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rbLive">
+    <property name="geometry">
+     <rect>
+      <x>429</x>
+      <y>259</y>
+      <width>14</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton::indicator{
+	width:14px;
+	height:14px;
+}
+
+QRadioButton::indicator::checked {
+	background-image: url(:/uiresource/radio_checked.png);
+}
+QRadioButton::indicator:checked:hover {
+	background-image: url(:/uiresource/radio_checked.png);
+}
+
+QRadioButton::indicator::unchecked {
+	background-image: url(:/uiresource/radio_unchecked.png);
+}
+QRadioButton::indicator:unchecked :hover {
+	background-image: url(:/uiresource/radio_unchecked.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="laLive">
+    <property name="geometry">
+     <rect>
+      <x>448</x>
+      <y>256</y>
+      <width>56</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+background-image: url(:/uiresource/white.png);
+color:#44A2FC
+}</string>
+    </property>
+    <property name="text">
+     <string>Host</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbLiveLogo">
+    <property name="geometry">
+     <rect>
+      <x>416</x>
+      <y>126</y>
+      <width>100</width>
+      <height>118</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+background-image: url(:/uiresource/pic-live 02.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbguideLogo">
+    <property name="geometry">
+     <rect>
+      <x>566</x>
+      <y>126</y>
+      <width>100</width>
+      <height>118</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-image: url(:/uiresource/pic-guide 01.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbguide">
+    <property name="geometry">
+     <rect>
+      <x>598</x>
+      <y>256</y>
+      <width>56</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+background-image: url(:/uiresource/white.png);
+color:#999999
+}</string>
+    </property>
+    <property name="text">
+     <string>Audience</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rbguide">
+    <property name="geometry">
+     <rect>
+      <x>579</x>
+      <y>259</y>
+      <width>14</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton::indicator{
+	width:14px;
+	height:14px;
+}
+
+QRadioButton::indicator::checked {
+	background-image: url(:/uiresource/radio_checked.png);
+}
+QRadioButton::indicator:checked:hover{
+	background-image: url(:/uiresource/radio_checked.png);
+}
+
+QRadioButton::indicator::unchecked {
+	background-image: url(:/uiresource/radio_unchecked.png);
+}
+QRadioButton::indicator:unchecked:hover {
+	background-image: url(:/uiresource/radio_unchecked.png);
+}</string>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

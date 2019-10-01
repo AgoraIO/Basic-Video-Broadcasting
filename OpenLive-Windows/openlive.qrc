@@ -1,0 +1,56 @@
+<RCC>
+    <qresource prefix="/">
+        <file>uiresource/page_settings.png</file>
+        <file>uiresource/min-hover.png</file>
+        <file>uiresource/min-normal.png</file>
+        <file>uiresource/min-pushed.png</file>
+        <file>uiresource/close-hover.png</file>
+        <file>uiresource/close-normal.png</file>
+        <file>uiresource/close-pushed.png</file>
+        <file>uiresource/icon-setting hover.png</file>
+        <file>uiresource/icon-setting.png</file>
+        <file>uiresource/button-default.png</file>
+        <file>uiresource/button-hover.png</file>
+        <file>uiresource/icon-back hover.png</file>
+        <file>uiresource/icon-back.png</file>
+        <file>uiresource/switch-off.png</file>
+        <file>uiresource/switch-open.png</file>
+        <file>uiresource/white.png</file>
+        <file>uiresource/radio_checked.png</file>
+        <file>uiresource/radio_unchecked.png</file>
+        <file>uiresource/pic-guide 01.png</file>
+        <file>uiresource/pic-guide 02.png</file>
+        <file>uiresource/pic-live 02.png</file>
+        <file>uiresource/pic-live01.png</file>
+        <file>uiresource/normal.png</file>
+        <file>uiresource/channel_name_edittext.png</file>
+        <file>uiresource/pic-win01.png</file>
+        <file>uiresource/pic-win03.png</file>
+        <file>uiresource/dropdow-01.png</file>
+        <file>uiresource/dropdown-02.png</file>
+        <file>uiresource/dropdown-03.png</file>
+        <file>uiresource/box-01.png</file>
+        <file>uiresource/box-02.png</file>
+        <file>uiresource/box-03.png</file>
+        <file>uiresource/list.png</file>
+        <file>uiresource/Open live-03.jpg</file>
+        <file>uiresource/Group 31.png</file>
+        <file>uiresource/icon-exit hover.png</file>
+        <file>uiresource/icon-exit.png</file>
+        <file>uiresource/Groupparam.png</file>
+        <file>uiresource/icon-camera hover.png</file>
+        <file>uiresource/icon-camera off hover.png</file>
+        <file>uiresource/icon-camera off.png</file>
+        <file>uiresource/icon-camera.png</file>
+        <file>uiresource/icon-microphone hover.png</file>
+        <file>uiresource/icon-microphone off hover.png</file>
+        <file>uiresource/icon-microphone off.png</file>
+        <file>uiresource/icon-microphone.png</file>
+        <file>uiresource/allmute remote.png</file>
+        <file>uiresource/allmute.png</file>
+        <file>uiresource/count.png</file>
+        <file>uiresource/mutevideo remote.png</file>
+        <file>uiresource/mutevideo.png</file>
+        <file>uiresource/remoteuid.png</file>
+    </qresource>
+</RCC>
