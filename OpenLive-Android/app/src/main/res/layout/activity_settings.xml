@@ -1,35 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.SettingsActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/title"
+    <RelativeLayout
+        android:id="@+id/role_title_layout"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:orientation="horizontal">
-
+        android:layout_height="@dimen/setting_title_layout_height"
+        android:background="@color/blue">
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/label_title_resolution"
-            android:gravity="center" />
-
+            android:layout_width="@dimen/back_arrow_size"
+            android:layout_height="@dimen/back_arrow_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/back_arrow_left"
+            android:layout_marginStart="@dimen/back_arrow_left"
+            android:layout_marginBottom="@dimen/setting_title_content_margin"
+            android:background="@drawable/btn_back_arrow"
+            android:onClick="onBackArrowPressed"/>
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/label_title_frame_rate"
-            android:gravity="center" />
-
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/profiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/setting_title_content_margin"
+            android:text="@string/setting_title"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@android:color/white"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/setting_resolution_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/setting_content_margin"
+        android:layout_marginRight="@dimen/setting_content_margin"
+        android:layout_marginStart="@dimen/setting_content_margin"
+        android:layout_marginEnd="@dimen/setting_content_margin"
+        android:layout_marginTop="@dimen/setting_content_margin_vertical"
+        android:layout_marginBottom="@dimen/setting_content_margin_vertical"
+        android:text="@string/setting_resolution_title"
+        android:textColor="@color/gray_deep_dark"
+        android:textSize="@dimen/text_size_normal"
+        android:layout_below="@id/role_title_layout"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resolution_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/setting_content_margin"
+        android:layout_marginRight="@dimen/setting_content_margin"
+        android:layout_marginStart="@dimen/setting_content_margin"
+        android:layout_marginEnd="@dimen/setting_content_margin"
+        android:layout_below="@id/setting_resolution_title"/>
+    <View
+        android:id="@+id/setting_content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_divider_height"
+        android:layout_marginLeft="@dimen/setting_content_margin"
+        android:layout_marginStart="@dimen/setting_content_margin"
+        android:layout_marginRight="@dimen/setting_content_margin"
+        android:layout_marginEnd="@dimen/setting_content_margin"
+        android:layout_marginTop="@dimen/setting_content_margin_vertical"
+        android:background="@color/gray_lightest"
+        android:layout_below="@id/resolution_list"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height_normal"
+        android:layout_below="@id/setting_content_divider">
+        <TextView
+            android:id="@+id/setting_stats_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/setting_content_margin"
+            android:layout_marginStart="@dimen/setting_content_margin"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/setting_stats_title"
+            android:textColor="@color/gray_deep_dark"
+            android:textSize="@dimen/text_size_normal" />
+        <TextView
+            android:id="@+id/setting_stats_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/setting_content_margin"
+            android:layout_marginEnd="@dimen/setting_content_margin"
+            android:layout_centerVertical="true"
+            android:background="@drawable/setting_switch"
+            android:onClick="onStatsChecked"/>
+    </RelativeLayout>
 </RelativeLayout>

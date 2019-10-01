@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main Activity -->
+    <string name="start_broadcast_title">开始直播</string>
+    <string name="topic_edit_hint">输入一个聊天话题</string>
+    <string name="need_necessary_permissions">缺少必要权限</string>
+
+    <!-- Setting Activity -->
+    <string name="setting_title">设置</string>
+    <string name="setting_resolution_title">分辨率</string>
+    <string name="setting_stats_title">显示视频统计数据</string>
+
+    <!-- Role Choose Activity -->
+    <string name="select_role_title">请选择你的身份</string>
+    <string name="select_role_broadcaster">我是主播</string>
+    <string name="select_role_audience">我是观众</string>
+    <string name="select_role_broadcaster_hint">以主播身份进入</string>
+    <string name="select_role_audience_hint">以观众身份进入</string>
+</resources>

@@ -1,65 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <resources>
-    <string name="app_name">Open Live</string>
+    <string name="app_name" translatable="false">Open Live</string>
 
-    <string name="label_settings">Settings</string>
+    <!-- Main Activity -->
+    <string name="start_broadcast_title">Start Live Broadcast</string>
+    <string name="topic_edit_hint">Pick a topic to chat</string>
+    <string name="powered_by_agora" translatable="false">Powered by agora.io</string>
+    <string name="need_necessary_permissions">Necessary permissions acquired</string>
 
-    <string name="msg_choose_role">Would you like to be the broadcaster or an audience?</string>
+    <!-- Setting Activity -->
+    <string name="setting_title">Settings</string>
+    <string name="setting_resolution_title">Resolution</string>
+    <string name="setting_stats_title">Show video statistics</string>
 
-    <string name="label_audience">Audience</string>
-
-    <string name="label_broadcaster">Broadcaster</string>
-
-    <string name="label_confirm">Confirm</string>
-
-    <string name="label_beauty_effect">Beauty</string>
-
-    <string name="label_contrast">Ctrs</string>
-
-    <string name="label_lightness">Lgt</string>
-    <string name="label_smoothness">Smth</string>
-    <string name="label_redness">Red</string>
-
-    <string name="label_low">Lo</string>
-    <string name="label_normal">Norm</string>
-    <string name="label_high">High</string>
-
-    <string-array
-        name="string_array_resolutions">
-        <item>160x120</item> // 120P
-        <item>320x180</item> // 180P
-        <item>320x240</item> // 240P the default one
-        <item>640x360</item> // 360P
-        <item>640x480</item> // 480P
-        <item>1280x720</item> // 720P
+    <string-array name="string_array_resolutions">
+        <item>320x240</item>
+        <item>480x360</item>
+        <item>640x360</item>
+        <item>640x480</item>
+        <item>960x540</item>
+        <item>1280x720</item>
     </string-array>
 
-    <string-array
-        name="string_array_frame_rate">
-        <item>15</item> // 120P
-        <item>15</item> // 180P
-        <item>15</item> // 240P
-        <item>15</item> // 360P
-        <item>15</item> // 480P
-        <item>15</item> // 720P
-    </string-array>
+    <!-- Live Activity -->
+    <string name="fake_user_name" translatable="false">Shakespeare</string>
 
-    <string-array
-        name="string_array_bit_rate">
-        <item>80</item> // 120P
-        <item>160</item> // 180P
-        <item>200</item> // 240P
-        <item>400</item> // 360P
-        <item>500</item> // 480P
-        <item>1000</item> // 720P
-    </string-array>
+    <!-- Role Choose Activity -->
+    <string name="select_role_title">Please choose your role</string>
+    <string name="select_role_broadcaster">Broadcaster</string>
+    <string name="select_role_audience">Audience</string>
+    <string name="select_role_broadcaster_hint">Join as broadcaster</string>
+    <string name="select_role_audience_hint">Join as audience</string>
 
-    <string name="label_title_resolution">Resolution\n(Width * Height)</string>
-    <string name="label_title_frame_rate">Frame Rate\n(fps)</string>
-    <string name="label_title_bit_rate">Bit Rate\n(kbps)</string>
-
-    // DO NOT TRANSLATE
-    <string name="bit_rate_value_with_unit">%d kbps</string>
-    <string name="frame_rate_value_with_unit">%d fps</string>
+    <!-- Legal digits for channel names -->
+    <string name="legal_channel_name_characters" translatable="false">&#xA0;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&amp;()+,-:;&lt;=.>?@[]^_`{|}~</string>
 </resources>

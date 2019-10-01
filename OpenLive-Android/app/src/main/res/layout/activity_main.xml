@@ -1,72 +1,84 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".ui.MainActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/setting_button"
+        android:layout_width="@dimen/setting_btn_size"
+        android:layout_height="@dimen/setting_btn_size"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/setting_btn_margin_top"
+        android:layout_marginRight="@dimen/setting_btn_margin_right"
+        android:layout_marginEnd="@dimen/setting_btn_margin_right"
+        android:src="@drawable/btn_setting"
+        android:onClick="onSettingClicked"/>
+
+    <RelativeLayout
+        android:id="@+id/middle_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
-
-        <TextView
+        android:layout_alignParentTop="true"
+        android:focusableInTouchMode="true">
+        <ImageView
+            android:id="@+id/main_logo"
+            android:layout_width="@dimen/logo_size"
+            android:layout_height="@dimen/logo_size"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/logo_margin_bottom"
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_logo"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/topic_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/main_logo"
+            android:layout_alignLeft="@id/start_broadcast_button"
+            android:layout_alignRight="@id/start_broadcast_button"
+            android:layout_alignStart="@id/start_broadcast_button"
+            android:layout_alignEnd="@id/start_broadcast_button"
+            android:layout_marginBottom="@dimen/edit_margin_bottom"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/edit_text_padding"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@color/blue_alpha"
+            android:hint="@string/topic_edit_hint"
+            android:textColorHint="@color/blue_alpha"
+            android:textCursorDrawable="@null"
+            android:backgroundTint="@color/blue_alpha"
             android:gravity="center"
-            android:text="Welcome to Open Live!"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/room_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="40dp"
+            android:digits="@string/legal_channel_name_characters"
+            android:lines="1"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/start_broadcast_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/start_broadcast_height"
+            android:layout_below="@id/topic_edit"
+            android:paddingLeft="@dimen/start_broadcast_padding"
+            android:paddingRight="@dimen/start_broadcast_padding"
+            android:paddingStart="@dimen/start_broadcast_padding"
+            android:paddingEnd="@dimen/start_broadcast_padding"
+            android:textAlignment="gravity"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:hint="Input name of the Live?"
-            android:inputType="text" />
-        <CheckBox
-            android:id="@+id/cb_lastmine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:onClick="onLastMileClick"
-            android:text="start lastmie probe Test" />
-        <Button
-            android:id="@+id/button_join"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:onClick="onClickJoin"
-            android:enabled="false"
-            android:text="Join Room" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_lastmile_quality_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tv_lastmile_result"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
-            <TextView
-                android:id="@+id/tv_lastmile_Probe_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tv_lastmile_result"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </LinearLayout>
+            android:text="@string/start_broadcast_title"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/start_broadcast_text_color"
+            android:textAllCaps="false"
+            android:onClick="onStartBroadcastClicked"
+            android:background="@drawable/start_broadcast_bg"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/info_margin_bottom"
+        android:text="@string/powered_by_agora"
+        android:textSize="@dimen/text_size_small"
+        android:textColor="@android:color/white" />
 </RelativeLayout>
