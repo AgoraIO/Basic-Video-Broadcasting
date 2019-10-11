@@ -16,10 +16,11 @@ QuickStart:
     - title: 创建Agora账号并获取AppId
       content: |
         $_{APPID}
-        5. 把文件 **.env.example** 重命名为 **.env** file. 在这个文件中，将`<#YOUR APP ID#>`替换为您自己的App ID。
+        5. 把文件 **.env.example** 重命名为 **.env**. 在这个文件中，分别将`<#YOUR APP ID#>`替换为您自己的App ID，将`<#YOUR Agora.io APP TOKEN#>`替换为您创建的临时token。
         
             ```bash
             REACT_APP_AGORA_APP_ID=<#YOUR Agora.io APP ID#>
+            REACT_APP_AGORA_APP_TOKEN=<#YOUR Agora.io APP TOKEN#>
             REACT_APP_AGORA_LOG=true
             ```
     - title: 集成 Agora 视频 SDK

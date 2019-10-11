@@ -20,10 +20,11 @@
 3. 复制后台的 **App ID** 并备注，稍后启动应用时会用到它
 4. 在项目页面生成临时 **Access Token** (24小时内有效)并备注，注意生成的Token只能适用于对应的频道名。
 
-5. 把文件 **.env.example** 重命名为 **.env** file. 在这个文件中，将`<#YOUR APP ID#>`替换为您自己的App ID。
+5. 把文件 **.env.example** 重命名为 **.env**. 在这个文件中，分别将`<#YOUR APP ID#>`替换为您自己的App ID，将`<#YOUR Agora.io APP TOKEN#>`替换为您创建的临时token。
 
     ```bash
     REACT_APP_AGORA_APP_ID=<#YOUR Agora.io APP ID#>
+    REACT_APP_AGORA_APP_TOKEN=<#YOUR Agora.io APP TOKEN#>
     REACT_APP_AGORA_LOG=true
     ```
 
