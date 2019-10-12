@@ -6,7 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
-    "agora-rtc-sdk": "^2.8.0",
+    "agora-rtc-sdk": "2.9.0",
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
