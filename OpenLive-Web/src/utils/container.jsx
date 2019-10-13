@@ -97,7 +97,7 @@ export const ContainerProvider = ({children}) => {
       const {stream} = evt;
       dispatch({type: 'removeStream', stream: stream});
     },
-    remoteStreamById (evt) {
+    removeStreamById (evt) {
       const {stream} = evt;
       dispatch({type: 'removeStream', uid: stream});
     },
