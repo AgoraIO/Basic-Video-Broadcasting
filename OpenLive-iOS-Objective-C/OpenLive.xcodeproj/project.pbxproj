@@ -29,8 +29,8 @@
 		07D29C3A1E9E187D00C3583C /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C391E9E187D00C3583C /* AgoraRtcEngineKit.framework */; };
 		07D29C3C1E9E192A00C3583C /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C3B1E9E192A00C3583C /* libresolv.tbd */; };
 		382885B52249DC390023BCFA /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B42249DC390023BCFA /* CoreML.framework */; };
-		382885BF2249E57A0023BCFA /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 382885BD2249E57A0023BCFA /* srmetal.metallib */; };
 		382885C02249E57A0023BCFA /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382885BE2249E57A0023BCFA /* model.bundle */; };
+		38CC6BAA2368251D001B279D /* pvc_jnqd.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 38CC6BA92368251D001B279D /* pvc_jnqd.bundle */; };
 		38D618B8224A5FAE004A6C87 /* BeautyEffectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D618B7224A5FAE004A6C87 /* BeautyEffectTableViewController.m */; };
 		704E32D31FEB50A10027B6DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */; };
 		A7C50EF5212168BD00774322 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF4212168BD00774322 /* Accelerate.framework */; };
@@ -69,8 +69,8 @@
 		07D29C391E9E187D00C3583C /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		07D29C3B1E9E192A00C3583C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		382885B42249DC390023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		382885BD2249E57A0023BCFA /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; path = srmetal.metallib; sourceTree = "<group>"; };
 		382885BE2249E57A0023BCFA /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = model.bundle; sourceTree = "<group>"; };
+		38CC6BA92368251D001B279D /* pvc_jnqd.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = pvc_jnqd.bundle; sourceTree = "<group>"; };
 		38D618B6224A5FAE004A6C87 /* BeautyEffectTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeautyEffectTableViewController.h; sourceTree = "<group>"; };
 		38D618B7224A5FAE004A6C87 /* BeautyEffectTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeautyEffectTableViewController.m; sourceTree = "<group>"; };
 		704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -178,7 +178,7 @@
 		382885BC2249E57A0023BCFA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				382885BD2249E57A0023BCFA /* srmetal.metallib */,
+				38CC6BA92368251D001B279D /* pvc_jnqd.bundle */,
 				382885BE2249E57A0023BCFA /* model.bundle */,
 			);
 			name = Resources;
@@ -250,9 +250,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				382885C02249E57A0023BCFA /* model.bundle in Resources */,
-				382885BF2249E57A0023BCFA /* srmetal.metallib in Resources */,
 				07D24D061D866704002C69BF /* LaunchScreen.storyboard in Resources */,
 				07D24D031D866704002C69BF /* Assets.xcassets in Resources */,
+				38CC6BAA2368251D001B279D /* pvc_jnqd.bundle in Resources */,
 				07D24D011D866704002C69BF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

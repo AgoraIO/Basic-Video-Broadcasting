@@ -27,8 +27,8 @@
 		0790F1641D1EBE24003F8C18 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0790F1631D1EBE24003F8C18 /* libc++.tbd */; };
 		07D29C381E9E152200C3583C /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C371E9E152200C3583C /* AgoraRtcEngineKit.framework */; };
 		382885B32249DBB10023BCFA /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B22249DBB10023BCFA /* CoreML.framework */; };
-		382885C42249E5AB0023BCFA /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 382885C22249E5AB0023BCFA /* srmetal.metallib */; };
 		382885C52249E5AB0023BCFA /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382885C32249E5AB0023BCFA /* model.bundle */; };
+		38CC6BA82368211B001B279D /* pvc_jnqd.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 38CC6BA72368211B001B279D /* pvc_jnqd.bundle */; };
 		A75BF8C822B38B5F0072AF13 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF8C722B38B5F0072AF13 /* VideoView.swift */; };
 		A7C54A92230BD9C9003D65E3 /* FileCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C54A91230BD9C9003D65E3 /* FileCenter.swift */; };
 		A7C54A98230BE275003D65E3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C54A97230BE275003D65E3 /* Settings.swift */; };
@@ -65,8 +65,8 @@
 		0790F1631D1EBE24003F8C18 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		07D29C371E9E152200C3583C /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		382885C22249E5AB0023BCFA /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; path = srmetal.metallib; sourceTree = "<group>"; };
 		382885C32249E5AB0023BCFA /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = model.bundle; sourceTree = "<group>"; };
+		38CC6BA72368211B001B279D /* pvc_jnqd.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = pvc_jnqd.bundle; sourceTree = "<group>"; };
 		A75BF8C722B38B5F0072AF13 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A7C54A91230BD9C9003D65E3 /* FileCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCenter.swift; sourceTree = "<group>"; };
 		A7C54A97230BE275003D65E3 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		382885C12249E5AB0023BCFA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				382885C22249E5AB0023BCFA /* srmetal.metallib */,
+				38CC6BA72368211B001B279D /* pvc_jnqd.bundle */,
 				382885C32249E5AB0023BCFA /* model.bundle */,
 			);
 			name = Resources;
@@ -283,9 +283,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38CC6BA82368211B001B279D /* pvc_jnqd.bundle in Resources */,
 				A7DEE04F232F735C00E34432 /* README.md in Resources */,
 				382885C52249E5AB0023BCFA /* model.bundle in Resources */,
-				382885C42249E5AB0023BCFA /* srmetal.metallib in Resources */,
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
 				078012F41D1E57730093DE24 /* Assets.xcassets in Resources */,
 				078012F21D1E57730093DE24 /* Main.storyboard in Resources */,
