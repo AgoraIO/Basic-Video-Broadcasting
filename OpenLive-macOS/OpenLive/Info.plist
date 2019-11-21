@@ -28,11 +28,11 @@
 	<string>Copyright © 2016年 Agora. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Use camera to start video live broadcast</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Use microphone to start video live broadcast</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Use camera to start video call</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Use microphone to start video call</string>
 </dict>
 </plist>

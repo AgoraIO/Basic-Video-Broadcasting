@@ -29,7 +29,7 @@
 		1AFA9DD0202BF0A600D782CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DCF202BF0A600D782CB /* main.m */; };
 		1AFA9DF5202BF28900D782CB /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DF4202BF28900D782CB /* MainWindowController.m */; };
 		1AFA9DF8202BF2C100D782CB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DF7202BF2C100D782CB /* MainViewController.m */; };
-		70FF4E612068C0120017FAF1 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */; };
+		A76C26692386557C0047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26682386557C0047E150 /* AgoraRtcKit.framework */; };
 		A7C50EF12121663D00774322 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF02121663D00774322 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +69,7 @@
 		1AFA9DF4202BF28900D782CB /* MainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		1AFA9DF6202BF2C100D782CB /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		1AFA9DF7202BF2C100D782CB /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		A76C26682386557C0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A7C50EF02121663D00774322 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -78,8 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A76C26692386557C0047E150 /* AgoraRtcKit.framework in Frameworks */,
 				A7C50EF12121663D00774322 /* Accelerate.framework in Frameworks */,
-				70FF4E612068C0120017FAF1 /* AgoraRtcEngineKit.framework in Frameworks */,
 				1A2F45B5202D75E6003783AE /* AVFoundation.framework in Frameworks */,
 				1A2F45B3202D75E0003783AE /* VideoToolbox.framework in Frameworks */,
 				1A2F45B1202D75DB003783AE /* AudioToolbox.framework in Frameworks */,
@@ -147,8 +147,8 @@
 				1A2F458D202C8897003783AE /* VideoViewLayouter.m */,
 				1A2F4594202D4405003783AE /* MediaInfo.h */,
 				1A2F4595202D4405003783AE /* MediaInfo.m */,
-				70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */,
 				38127CDD21FB2D1D0025C28F /* Supporting Files */,
+				A76C26682386557C0047E150 /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
 			sourceTree = "<group>";
