@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AgoraRtcEngineKit
+import AgoraRtcKit
 
 protocol LiveVCDataSource: NSObjectProtocol {
     func liveVCNeedAgoraKit() -> AgoraRtcEngineKit
@@ -16,7 +16,7 @@ protocol LiveVCDataSource: NSObjectProtocol {
 
 class LiveRoomViewController: UIViewController {
     
-    @IBOutlet weak var broadcastersView: AGVideoCollectionView!
+    @IBOutlet weak var broadcastersView: AGEVideoContainer!
     @IBOutlet weak var placeholderView: UIImageView!
     
     @IBOutlet weak var videoMuteButton: UIButton!
@@ -136,18 +136,20 @@ private extension LiveRoomViewController {
         
         let itemWidth = CGFloat(1.0) / CGFloat(rank)
         let itemHeight = CGFloat(1.0) / CGFloat(row)
-        let layout = AGVideoCollectionLayout(level: 0)
-                     .itemSize(width: itemWidth,
-                               height: itemHeight)
+        let itemSize = CGSize(width: itemWidth, height: itemHeight)
+        let layout = AGEVideoLayout(level: 0)
+                    .itemSize(.scale(itemSize))
         
         broadcastersView
             .listCount { [unowned self] (_) -> Int in
+                print("count: \(self.videoSessions.count)")
                 return self.videoSessions.count
             }.listItem { [unowned self] (index) -> UIView in
                 return self.videoSessions[index.item].hostingView
             }
         
-        broadcastersView.setLayouts([layout], animated: true)
+        broadcastersView.setLayouts([layout])
+        broadcastersView.reload(level: 0, animated: true)
     }
     
     func updateButtonsVisiablity() {
