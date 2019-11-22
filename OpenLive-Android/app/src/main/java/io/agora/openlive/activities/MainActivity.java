@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,8 +27,9 @@ import androidx.core.content.ContextCompat;
 
 import io.agora.openlive.R;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int DEBUG_MODE_THRESHOLD = 500;
     private static final int MIN_INPUT_METHOD_HEIGHT = 200;
     private static final int ANIM_DURATION = 200;
 
@@ -47,6 +49,16 @@ public class MainActivity extends BaseActivity {
     private EditText mTopicEdit;
     private TextView mStartBtn;
     private ImageView mLogo;
+
+    private int mMainLogoClickCount = 0;
+
+    private Handler mDebugModeHandler;
+    private Runnable mDebugModeCancelRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mMainLogoClickCount = 0;
+        }
+    };
 
     private Animator.AnimatorListener mLogoAnimListener = new Animator.AnimatorListener() {
         @Override
@@ -129,11 +141,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+        mDebugModeHandler = new Handler(getMainLooper());
     }
 
     private void initUI() {
         mBodyLayout = findViewById(R.id.middle_layout);
         mLogo = findViewById(R.id.main_logo);
+        mLogo.setOnClickListener(this);
 
         mTopicEdit = findViewById(R.id.topic_edit);
         mTopicEdit.addTextChangedListener(mTextWatcher);
@@ -283,5 +297,22 @@ public class MainActivity extends BaseActivity {
     private void removeLayoutObserverForSoftKeyboard() {
         View view = getWindow().getDecorView().getRootView();
         view.getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutObserverListener);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.main_logo) {
+            if (config().isDebugMode()) {
+                return;
+            }
+
+            mDebugModeHandler.removeCallbacks(mDebugModeCancelRunnable);
+            mDebugModeHandler.postDelayed(mDebugModeCancelRunnable, DEBUG_MODE_THRESHOLD);
+            mMainLogoClickCount++;
+            if (mMainLogoClickCount >= 5) {
+                config().setDebugMode(true);
+                Toast.makeText(this, R.string.debug_mode_notification, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

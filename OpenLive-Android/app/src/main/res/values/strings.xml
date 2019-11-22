@@ -7,19 +7,40 @@
     <string name="topic_edit_hint">Pick a topic to chat</string>
     <string name="powered_by_agora" translatable="false">Powered by agora.io</string>
     <string name="need_necessary_permissions">Necessary permissions acquired</string>
+    <string name="debug_mode_notification">Already In Developer Debug Mode</string>
 
     <!-- Setting Activity -->
     <string name="setting_title">Settings</string>
     <string name="setting_resolution_title">Resolution</string>
     <string name="setting_stats_title">Show video statistics</string>
+    <string name="label_frame_rate">Frame Rate</string>
+    <string name="label_codec_type">Codec Type</string>
+    <string name="label_use_face_detection">Face Detection</string>
+    <string name="label_prefer_bitrate">Prefer Bitrate (%d k)</string>
+    <string name="label_min_bitrate">Min Bitrate (%d k)</string>
+    <string name="label_fec_outside_bw">Fec Outside Bandwidth Ratio (%d)</string>
 
     <string-array name="string_array_resolutions">
         <item>320x240</item>
+        <item>480x270</item>
         <item>480x360</item>
         <item>640x360</item>
         <item>640x480</item>
         <item>960x540</item>
         <item>1280x720</item>
+    </string-array>
+
+    <string-array name="frame_rate_selector">
+        <item>10</item>
+        <item>15</item>
+        <item>24</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="codec_type_selector">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
 
     <!-- Live Activity -->

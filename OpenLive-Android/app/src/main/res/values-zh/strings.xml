@@ -4,11 +4,18 @@
     <string name="start_broadcast_title">开始直播</string>
     <string name="topic_edit_hint">输入一个聊天话题</string>
     <string name="need_necessary_permissions">缺少必要权限</string>
+    <string name="debug_mode_notification">您已处于开发者调试模式</string>
 
     <!-- Setting Activity -->
     <string name="setting_title">设置</string>
     <string name="setting_resolution_title">分辨率</string>
     <string name="setting_stats_title">显示视频统计数据</string>
+    <string name="label_frame_rate">帧率</string>
+    <string name="label_codec_type">编码器类型</string>
+    <string name="label_use_face_detection">启用面部识别</string>
+    <string name="label_prefer_bitrate">目标码率 (%d k)</string>
+    <string name="label_min_bitrate">最小码率 (%d k)</string>
+    <string name="label_fec_outside_bw">Fec Outside Bw Ratio (%d)</string>
 
     <!-- Role Choose Activity -->
     <string name="select_role_title">请选择你的身份</string>

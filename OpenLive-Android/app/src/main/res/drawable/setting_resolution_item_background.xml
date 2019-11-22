@@ -8,7 +8,7 @@
     </item>
     <item>
         <shape>
-            <stroke android:color="@color/gray_lightest"
+            <stroke android:color="@color/gray"
                 android:width="@dimen/setting_resolution_item_border"/>
             <corners android:radius="@dimen/setting_resolution_item_radius"/>
         </shape>

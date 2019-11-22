@@ -25,6 +25,7 @@ public class AgoraApplication extends Application {
             mRtcEngine.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
             mRtcEngine.enableVideo();
             mRtcEngine.setLogFile(FileUtil.initializeLogFile(this));
+            mRtcEngine.setParameters("{\"rtc.log_filter\":65535}");
         } catch (Exception e) {
             e.printStackTrace();
         }

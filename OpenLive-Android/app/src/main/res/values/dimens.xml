@@ -42,6 +42,8 @@
     <dimen name="setting_switch_radius">16dp</dimen>
     <dimen name="setting_switch_thumb_size">28dp</dimen>
     <dimen name="setting_switch_track_padding">2dp</dimen>
+    <dimen name="codec_type_spinner_width">86dp</dimen>
+    <dimen name="setting_page_margin_bottom">100dp</dimen>
 
     <!-- Live Activity -->
     <dimen name="live_top_layout_height">76dp</dimen>

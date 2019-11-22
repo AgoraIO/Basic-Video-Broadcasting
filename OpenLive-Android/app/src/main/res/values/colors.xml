@@ -14,4 +14,5 @@
     <color name="dark_black">#CC262626</color>
     <color name="black_half_transparent">#66000000</color>
     <color name="black_full_transparent">#22000000</color>
+    <color name="new_theme_grey_d">#FFEFEFEF</color>
 </resources>
