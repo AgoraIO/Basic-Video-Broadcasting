@@ -25,4 +25,8 @@ public class WindowUtil {
                 "status_bar_height", "dimen", "android");
         return id > 0 ? context.getResources().getDimensionPixelSize(id) : id;
     }
+
+    public static void keepScreenOn(Window window) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 }

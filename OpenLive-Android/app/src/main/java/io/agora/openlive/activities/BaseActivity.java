@@ -24,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowUtil.hideWindowStatusBar(getWindow());
+        WindowUtil.keepScreenOn(getWindow());
         setGlobalLayoutListener();
         getDisplayMetrics();
         initStatusBarHeight();
