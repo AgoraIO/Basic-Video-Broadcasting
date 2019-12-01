@@ -63,7 +63,7 @@ const MeetingPage = () => {
 
   const config = useMemo(() => {
     return {
-      token: null,
+      token: stateCtx.config.token,
       channel: stateCtx.config.channelName,
       microphoneId: stateCtx.config.microphoneId,
       cameraId: stateCtx.config.cameraId,
