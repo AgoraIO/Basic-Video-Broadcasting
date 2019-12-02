@@ -24,6 +24,7 @@ const defaultState = {
   muteAudio: true,
   screen: false,
   profile: false,
+  beauty: true
 };
 
 const reducer = (state, action) => {
@@ -113,6 +114,12 @@ const reducer = (state, action) => {
         currentStream.close();
       }
       return { ...state, currentStream: null, localStream: null, streams: []};
+    }
+    case 'enableBeauty': {
+      return {
+        ...state,
+        beauty: action.enable
+      }
     }
     default:
       throw new Error("mutation type not defined")

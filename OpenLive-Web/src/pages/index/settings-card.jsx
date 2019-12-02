@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useGlobalState, useGlobalMutation} from '../../utils/container';
 import useDevices from '../../utils/use-devices';
 import PropTypes from 'prop-types';
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: "0 !important"
   },
   menu: {
-    margin: '0.4rem 0',
+    margin: '0.25rem 0',
     position: 'relative',
     height: '39px',
     display: 'flex',
@@ -256,6 +256,22 @@ export default function SettingsCard() {
         className={classes.switchItem}
         label="Profile"
       />
+        <div className={classes.hr}></div>
+      </FormControl>
+      <FormControl>
+        <FormControlLabel
+          control={
+            <CustomSwitch
+              checked={stateCtx.beauty}
+              onChange={() => {
+                mutationCtx.enableBeauty(!stateCtx.beauty)
+              }}
+              color="primary"
+            />
+          }
+          className={classes.switchItem}
+          label="Beauty"
+        />
         <div className={classes.hr}></div>
       </FormControl>
     </Box>
