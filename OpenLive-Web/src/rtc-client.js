@@ -77,6 +77,14 @@ export default class RTCClient {
         if (data.muteAudio === false) {
           this._localStream.muteAudio()
         }
+        if (data.beauty === true) {
+          this._localStream.setBeautyEffectOptions(true, {
+            lighteningContrastLevel: 1,
+            lighteningLevel: 0.7,
+            smoothnessLevel: 0.5,
+            rednessLevel: 0.1
+          })
+        }
         resolve();
       }, (err) => {
         reject(err);

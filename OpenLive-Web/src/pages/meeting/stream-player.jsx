@@ -53,29 +53,34 @@ export default function StreamPlayer (props) {
   }, [stream]);
 
   useEffect(() => {
-    if (!stream.isPlaying()) {
-      stream.play(domId, {fit: 'cover'}, (errState) => {
-        if (errState && errState.status !== 'aborted') {
-          console.log("stream-player play failed ", domId)
-          changeAutoplay(true);
-        }
-      });
-    } else {
-      stream.stop();
-    }
-    return () => {
-      if (stream.isPlaying()) {
-        stream.stop();
-      } else {
+    if (stream) {
+      if (!stream.isPlaying()) {
         stream.play(domId, {fit: 'cover'}, (errState) => {
           if (errState && errState.status !== 'aborted') {
             console.log("stream-player play failed ", domId)
             changeAutoplay(true);
           }
         });
+      } else {
+        stream.stop();
       }
     }
-  }, [stream.isPlaying(), domId]);
+    return () => {
+      if (stream) {
+        if (stream.isPlaying()) {
+          stream.stop();
+        } else {
+          stream.play(domId, {fit: 'cover'}, (errState) => {
+            if (errState && errState.status !== 'aborted') {
+              console.log("stream-player play failed ", domId)
+              changeAutoplay(true);
+            }
+          });
+        }
+      }
+
+    }
+  }, [stream, domId]);
 
   return (
     <div className={`stream-player ${autoplay ? "autoplay": ''}`} id={domId} onClick={handleClick} onDoubleClick={handleDoubleClick}>

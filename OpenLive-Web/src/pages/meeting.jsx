@@ -71,7 +71,8 @@ const MeetingPage = () => {
       muteVideo: stateCtx.muteVideo,
       muteAudio: stateCtx.muteAudio,
       uid: 0,
-      host: stateCtx.config.host
+      host: stateCtx.config.host,
+      beauty: stateCtx.beauty
     }
   }, [stateCtx]);
 
@@ -86,9 +87,6 @@ const MeetingPage = () => {
   useEffect(() => {
     if (config.channel && localClient._created && localClient._joined === false) {
       localClient.join(config).then(() => {
-        config.host ? 
-          localClient.setClientRole('host') :
-          localClient.setClientRole('audience')
         if (config.host) {
           localClient.publish();
         }
@@ -123,6 +121,7 @@ const MeetingPage = () => {
               resolution: stateCtx.config.resolution,
               video: stateCtx.video,
               audio: stateCtx.audio,
+              beauty: stateCtx.beauty,
             }).then(() => {
               localClient.publish();
               mutationCtx.setScreen(false)
@@ -186,7 +185,7 @@ const MeetingPage = () => {
           <StreamPlayer
             className={'main-stream-profile'}
             showProfile={stateCtx.profile}
-            local={config.host ? currentStream.getId() === localStream.getId() : false}
+            local={config.host ? currentStream && currentStream.getId() === localStream && localStream.getId() : false}
             stream={currentStream}
             onDoubleClick={handleDoubleClick}
             uid={currentStream.getId()}
@@ -204,7 +203,7 @@ const MeetingPage = () => {
                 <StreamPlayer
                   className={'stream-profile'}
                   showProfile={stateCtx.profile}
-                  local={config.host ? stream.getId() === localStream.getId() : false}
+                  local={config.host ? stream.getId() === localStream && localStream.getId() : false}
                   key={index}
                   stream={stream}
                   isPlaying={stream.isPlaying()}
