@@ -326,4 +326,12 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
         print("warning code: \(errorCode.description)")
     }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, networkTypeChangedTo type: AgoraNetworkType) {
+        if type != .disconnected {
+            let vc = UIAlertController(title: nil, message: "请检查网络连接", preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
 }

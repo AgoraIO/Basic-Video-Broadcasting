@@ -4,6 +4,7 @@
     <string name="start_broadcast_title">开始直播</string>
     <string name="topic_edit_hint">输入一个聊天话题</string>
     <string name="need_necessary_permissions">缺少必要权限</string>
+    <string name="need_network">请检查网络连接</string>
 
     <!-- Setting Activity -->
     <string name="setting_title">设置</string>

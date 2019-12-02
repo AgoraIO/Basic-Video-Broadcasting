@@ -1,20 +1,28 @@
 package io.agora.openlive.rtc;
 
-import android.graphics.PixelFormat;
-
 import java.util.ArrayList;
 
 import io.agora.rtc.IRtcEngineEventHandler;
 
 public class AgoraEventHandler extends IRtcEngineEventHandler {
     private ArrayList<EventHandler> mHandler = new ArrayList<>();
+    private int networkType;
 
     public void addHandler(EventHandler handler) {
         mHandler.add(handler);
+        handler.onNetworkTypeChanged(networkType);
     }
 
     public void removeHandler(EventHandler handler) {
         mHandler.remove(handler);
+    }
+
+    @Override
+    public void onNetworkTypeChanged(int type) {
+        networkType = type;
+        for (EventHandler handler : mHandler) {
+            handler.onNetworkTypeChanged(type);
+        }
     }
 
     @Override

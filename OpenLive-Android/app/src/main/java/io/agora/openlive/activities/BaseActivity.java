@@ -5,14 +5,17 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import io.agora.openlive.AgoraApplication;
-import io.agora.openlive.rtc.EventHandler;
+import io.agora.openlive.R;
 import io.agora.openlive.rtc.EngineConfig;
+import io.agora.openlive.rtc.EventHandler;
 import io.agora.openlive.stats.StatsManager;
 import io.agora.openlive.utils.WindowUtil;
+import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 
@@ -73,7 +76,9 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
         return application().engineConfig();
     }
 
-    protected StatsManager statsManager() { return application().statsManager(); }
+    protected StatsManager statsManager() {
+        return application().statsManager();
+    }
 
     protected void registerRtcEventHandler(EventHandler handler) {
         application().registerEventHandler(handler);
@@ -141,5 +146,17 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
     @Override
     public void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats) {
 
+    }
+
+    @Override
+    public void onNetworkTypeChanged(int type) {
+        if (type == Constants.NETWORK_TYPE_DISCONNECTED) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BaseActivity.this, R.string.need_network, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }

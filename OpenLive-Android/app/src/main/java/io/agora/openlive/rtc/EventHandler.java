@@ -27,4 +27,5 @@ public interface EventHandler {
 
     void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats);
 
+    void onNetworkTypeChanged(int type);
 }

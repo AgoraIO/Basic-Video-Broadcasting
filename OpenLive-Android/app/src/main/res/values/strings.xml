@@ -7,6 +7,7 @@
     <string name="topic_edit_hint">Pick a topic to chat</string>
     <string name="powered_by_agora" translatable="false">Powered by agora.io</string>
     <string name="need_necessary_permissions">Necessary permissions acquired</string>
+    <string name="need_network">Please check the network connection</string>
 
     <!-- Setting Activity -->
     <string name="setting_title">Settings</string>
