@@ -121,7 +121,7 @@ public class VideoGridContainer extends RelativeLayout implements Runnable {
         textParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         textParams.bottomMargin = mStatMarginBottom;
         textParams.leftMargin = STAT_LEFT_MARGIN;
-        text.setTextColor(Color.WHITE);
+        text.setTextColor(Color.GREEN);
         text.setTextSize(STAT_TEXT_SIZE);
 
         layout.addView(text, textParams);
