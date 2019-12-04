@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name" translatable="false">Large Group</string>
+
+    <!-- Main Activity -->
+    <string name="start_broadcast_title">Start Live Broadcast</string>
+    <string name="topic_edit_hint">Pick a topic to chat</string>
+    <string name="powered_by_agora" translatable="false">Powered by agora.io</string>
+    <string name="need_necessary_permissions">Necessary permissions acquired</string>
+
+    <!-- Setting Activity -->
+    <string name="setting_title">Settings</string>
+    <string name="setting_resolution_title">Resolution</string>
+    <string name="setting_stats_title">Show video statistics</string>
+
+    <string-array name="string_array_resolutions">
+        <item>320x240</item>
+        <item>480x360</item>
+        <item>640x360</item>
+        <item>640x480</item>
+        <item>960x540</item>
+        <item>1280x720</item>
+    </string-array>
+
+    <!-- Live Activity -->
+    <string name="fake_user_name" translatable="false">Shakespeare</string>
+
+    <!-- Legal digits for channel names -->
+    <string name="legal_channel_name_characters" translatable="false">&#xA0;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&amp;()+,-:;&lt;=.>?@[]^_`{|}~</string>
+</resources>
