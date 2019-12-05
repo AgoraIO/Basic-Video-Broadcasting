@@ -108,7 +108,7 @@ export const ContainerProvider = ({children}) => {
       dispatch({type: 'enableBeauty', enable});
     }
   };
-
+  
   return (
     <StateContext.Provider value={state}>
       <MutationContext.Provider value={methods}>

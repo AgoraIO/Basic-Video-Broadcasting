@@ -95,12 +95,12 @@ const reducer = (state, action) => {
       return { ...state, streams: newStreams, currentStream: newCurrentStream, otherStreams};
     }
     case 'clearAllStream': {
-      const {streams, localStream, currentStream} = state;
+      const {streams, localStream, currentStream, beauty} = state;
       streams.forEach((stream) => {
         if (stream.isPlaying()) {
           stream.stop();
         }
-        stream.close();
+        // stream.close();
       });
 
       if (localStream) {

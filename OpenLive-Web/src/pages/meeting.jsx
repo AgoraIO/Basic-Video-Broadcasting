@@ -221,6 +221,4 @@ const MeetingPage = () => {
   )
 };
 
-// const MeetingPage = Meeting(props);
-
 export default MeetingPage;

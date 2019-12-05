@@ -7,6 +7,7 @@ export default class RTCClient {
     this._client = null;
     this._joined = false;
     this._localStream = null;
+    this._enableBeauty = false;
     this._params = {};
     this._uid = 0;
     this._eventBus = new EventEmitter();
@@ -84,6 +85,7 @@ export default class RTCClient {
             smoothnessLevel: 0.5,
             rednessLevel: 0.1
           })
+          this._enableBeauty = true;
         }
         resolve();
       }, (err) => {
@@ -270,6 +272,9 @@ export default class RTCClient {
       this._client.leave(() => {
         this._joined = false;
         this.destroy();
+        if (this._localStream && this._enableBeauty) {
+          this._localStream.setBeautyEffectOptions(false);
+        }
         resolve();
       }, (err) => {
         console.log("channel leave failed");
