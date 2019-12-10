@@ -1,10 +1,13 @@
 parameters:
   project: ''
+  vmImage: ''
 
 jobs:
-
   - job: ${{ parameters.project }}_build
     - displayName: ${{ parameters.project }}
+
+    pool:
+      vmImage: ${{ parameters.vmImage }}
 
     steps:
       - script: cd ${{ parameters.project }} && ls && python ci.env.py && echo env.AGORA_APP_ID
