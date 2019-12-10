@@ -17,4 +17,5 @@ jobs:
 - template: 'OpenLive-Android/open-live-template.yml'
   parameters:
     project: 'OpenLive-Android'
+    name: 'OpenLive_Android'
     vmImage: 'macos-latest'
