@@ -5,16 +5,16 @@
 
 trigger:
 - master
+- dev/3.0.0
 
 pool:
   vmImage: 'macos-latest'
 
-steps:
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug'
+variables:
+- group: AgoraKeys
+
+jobs:
+- template: 'OpenLive-Android/open-live-template.yml'
+  parameters:
+    project: 'OpenLive-Android'
+
