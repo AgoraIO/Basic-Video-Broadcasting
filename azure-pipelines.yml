@@ -17,4 +17,3 @@ jobs:
 - template: 'OpenLive-Android/open-live-template.yml'
   parameters:
     project: 'OpenLive-Android'
-
