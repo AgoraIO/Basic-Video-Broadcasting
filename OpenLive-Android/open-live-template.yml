@@ -4,7 +4,7 @@ parameters:
 
 jobs:
   - job: ${{ parameters.project }}_build
-    - displayName: ${{ parameters.project }}
+    displayName: ${{ parameters.project }}
 
     pool:
       vmImage: ${{ parameters.vmImage }}
