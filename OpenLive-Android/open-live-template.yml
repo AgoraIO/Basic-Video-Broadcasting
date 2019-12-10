@@ -1,10 +1,11 @@
 parameters:
   project: ''
   vmImage: ''
+  name: ''
 
 jobs:
-  - job: ${{ parameters.project }}_build
-    displayName: ${{ parameters.project }}
+  - job: ${{ parameters.name }}_build
+    displayName: ${{ parameters.name }}
 
     pool:
       vmImage: ${{ parameters.vmImage }}
