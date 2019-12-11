@@ -11,7 +11,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
 
     steps:
-      - script: cd ${{ parameters.project }} && ls && python ci.env.py && echo env.AGORA_APP_ID
+      - script: cd ${{ parameters.project }} && ls && python ci.env.py
         env:
           AGORA_APP_ID: $(agora.appId)
 
