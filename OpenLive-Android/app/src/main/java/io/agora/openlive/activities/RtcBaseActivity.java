@@ -26,7 +26,6 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT
         );
-        configuration.mirrorMode = Constants.VIDEO_MIRROR_MODES[config().getMirrorEncodeIndex()];
         rtcEngine().setVideoEncoderConfiguration(configuration);
     }
 
@@ -38,23 +37,11 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     protected SurfaceView prepareRtcVideo(int uid, boolean local) {
         SurfaceView surface = RtcEngine.CreateRendererView(getApplicationContext());
         if (local) {
-            rtcEngine().setupLocalVideo(
-                    new VideoCanvas(
-                            surface,
-                            VideoCanvas.RENDER_MODE_HIDDEN,
-                            0,
-                            Constants.VIDEO_MIRROR_MODES[config().getMirrorLocalIndex()]
-                    )
-            );
+            rtcEngine().setupLocalVideo(new VideoCanvas(
+                    surface, VideoCanvas.RENDER_MODE_HIDDEN, 0));
         } else {
-            rtcEngine().setupRemoteVideo(
-                    new VideoCanvas(
-                            surface,
-                            VideoCanvas.RENDER_MODE_HIDDEN,
-                            uid,
-                            Constants.VIDEO_MIRROR_MODES[config().getMirrorRemoteIndex()]
-                    )
-            );
+            rtcEngine().setupRemoteVideo(new VideoCanvas(
+                    surface, VideoCanvas.RENDER_MODE_HIDDEN, uid));
         }
         return surface;
     }
