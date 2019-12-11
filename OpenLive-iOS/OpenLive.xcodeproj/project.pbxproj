@@ -22,8 +22,6 @@
 		A76C267E238657850047E150 /* AGEEventsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C2679238657850047E150 /* AGEEventsObserver.swift */; };
 		A76C267F238657850047E150 /* AGEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C267A238657850047E150 /* AGEView.swift */; };
 		A76C2680238657850047E150 /* AGEVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C267B238657850047E150 /* AGEVideoContainer.swift */; };
-		A76C2685238658790047E150 /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A76C2683238658790047E150 /* model.bundle */; };
-		A76C2686238658790047E150 /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = A76C2684238658790047E150 /* srmetal.metallib */; };
 		A76C268C23865ABC0047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26882386594F0047E150 /* AgoraRtcKit.framework */; };
 		A76C268D23865ABC0047E150 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26882386594F0047E150 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7C54A92230BD9C9003D65E3 /* FileCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C54A91230BD9C9003D65E3 /* FileCenter.swift */; };
@@ -59,26 +57,17 @@
 		078012F31D1E57730093DE24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		078012F61D1E57730093DE24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		078012F81D1E57730093DE24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0790F1131D1E6325003F8C18 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		0790F1151D1E632D003F8C18 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		0790F1171D1E6332003F8C18 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		0790F11D1D1E639D003F8C18 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		0790F11F1D1E63A2003F8C18 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		0790F1211D1E63A8003F8C18 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		0790F1231D1E63DD003F8C18 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0790F1251D1E6450003F8C18 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
 		0790F1501D1E9631003F8C18 /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
-		0790F1631D1EBE24003F8C18 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		A70E3D7323A0E63400B7F68C /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A75BF8C722B38B5F0072AF13 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A76C2677238657850047E150 /* AGEVideoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoLayout.swift; sourceTree = "<group>"; };
 		A76C2678238657850047E150 /* AGEVideoConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoConstraints.swift; sourceTree = "<group>"; };
 		A76C2679238657850047E150 /* AGEEventsObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEEventsObserver.swift; sourceTree = "<group>"; };
 		A76C267A238657850047E150 /* AGEView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEView.swift; sourceTree = "<group>"; };
 		A76C267B238657850047E150 /* AGEVideoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoContainer.swift; sourceTree = "<group>"; };
-		A76C2683238658790047E150 /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = model.bundle; path = OpenLive/AgoraRtcKit.framework/AgoraResources/model.bundle; sourceTree = SOURCE_ROOT; };
-		A76C2684238658790047E150 /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = srmetal.metallib; path = OpenLive/AgoraRtcKit.framework/AgoraResources/srmetal.metallib; sourceTree = SOURCE_ROOT; };
 		A76C26882386594F0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A76C268F23865F4B0047E150 /* libswiftCoreML.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCoreML.tbd; path = usr/lib/swift/libswiftCoreML.tbd; sourceTree = SDKROOT; };
 		A7C54A91230BD9C9003D65E3 /* FileCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCenter.swift; sourceTree = "<group>"; };
@@ -140,36 +129,10 @@
 				A7C54A95230BD9E4003D65E3 /* Views */,
 				A7C54A93230BD9D6003D65E3 /* Models */,
 				A76C2676238657850047E150 /* AGEVideoLayout */,
-				382885C12249E5AB0023BCFA /* Resources */,
 				A76C2675238657670047E150 /* Supporting Files */,
-				0790F1191D1E633C003F8C18 /* Frameworks */,
+				A70E3D7323A0E63400B7F68C /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
-			sourceTree = "<group>";
-		};
-		0790F1191D1E633C003F8C18 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0790F1631D1EBE24003F8C18 /* libc++.tbd */,
-				0790F1231D1E63DD003F8C18 /* SystemConfiguration.framework */,
-				0790F1211D1E63A8003F8C18 /* CoreTelephony.framework */,
-				0790F11F1D1E63A2003F8C18 /* VideoToolbox.framework */,
-				0790F11D1D1E639D003F8C18 /* AudioToolbox.framework */,
-				0790F1171D1E6332003F8C18 /* CoreMotion.framework */,
-				0790F1151D1E632D003F8C18 /* CoreMedia.framework */,
-				0790F1131D1E6325003F8C18 /* AVFoundation.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		382885C12249E5AB0023BCFA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A76C2683238658790047E150 /* model.bundle */,
-				A76C2684238658790047E150 /* srmetal.metallib */,
-			);
-			name = Resources;
-			path = AgoraRtcEngineKit.framework/Resources;
 			sourceTree = "<group>";
 		};
 		A76C2675238657670047E150 /* Supporting Files */ = {
@@ -295,11 +258,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A76C2685238658790047E150 /* model.bundle in Resources */,
 				A7DEE04F232F735C00E34432 /* README.md in Resources */,
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
 				078012F41D1E57730093DE24 /* Assets.xcassets in Resources */,
-				A76C2686238658790047E150 /* srmetal.metallib in Resources */,
 				078012F21D1E57730093DE24 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

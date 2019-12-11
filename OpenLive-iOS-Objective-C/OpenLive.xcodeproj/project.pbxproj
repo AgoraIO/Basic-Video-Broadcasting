@@ -22,8 +22,6 @@
 		38D618B8224A5FAE004A6C87 /* BeautyEffectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D618B7224A5FAE004A6C87 /* BeautyEffectTableViewController.m */; };
 		A76C26E2238690720047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26E1238690720047E150 /* AgoraRtcKit.framework */; };
 		A76C26E3238690720047E150 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26E1238690720047E150 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A76C26ED238690DA0047E150 /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = A76C26EB238690D90047E150 /* srmetal.metallib */; };
-		A76C26EE238690DA0047E150 /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A76C26EC238690DA0047E150 /* model.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,8 +75,6 @@
 		704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A76C26E1238690720047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A76C26E52386907A0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
-		A76C26EB238690D90047E150 /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = srmetal.metallib; path = OpenLive/AgoraRtcKit.framework/AgoraResources/srmetal.metallib; sourceTree = SOURCE_ROOT; };
-		A76C26EC238690DA0047E150 /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = model.bundle; path = OpenLive/AgoraRtcKit.framework/AgoraResources/model.bundle; sourceTree = SOURCE_ROOT; };
 		A7C50EF4212168BD00774322 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -131,7 +127,6 @@
 				07D24D2D1D867644002C69BF /* VideoViewLayouter.m */,
 				07D24D281D867644002C69BF /* ProfileCell.h */,
 				07D24D291D867644002C69BF /* ProfileCell.m */,
-				382885BC2249E57A0023BCFA /* Resources */,
 				07D24CF61D866704002C69BF /* Supporting Files */,
 				A76C26E52386907A0047E150 /* AgoraRtcKit.framework */,
 			);
@@ -168,16 +163,6 @@
 				07D24D141D8667DC002C69BF /* AVFoundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		382885BC2249E57A0023BCFA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A76C26EC238690DA0047E150 /* model.bundle */,
-				A76C26EB238690D90047E150 /* srmetal.metallib */,
-			);
-			name = Resources;
-			path = AgoraRtcEngineKit.framework/Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,8 +230,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A76C26EE238690DA0047E150 /* model.bundle in Resources */,
-				A76C26ED238690DA0047E150 /* srmetal.metallib in Resources */,
 				07D24D061D866704002C69BF /* LaunchScreen.storyboard in Resources */,
 				07D24D031D866704002C69BF /* Assets.xcassets in Resources */,
 				07D24D011D866704002C69BF /* Main.storyboard in Resources */,
