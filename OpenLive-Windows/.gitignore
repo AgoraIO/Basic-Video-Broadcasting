@@ -3,6 +3,7 @@ sdk/
 debug/
 release/
 *.sdf
+*.opensdf
 *.suo
 *.vcxproj
 *.vcxproj.filters
