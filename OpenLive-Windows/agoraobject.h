@@ -5,7 +5,7 @@
 #include <mutex>
 
 //Specify your APP ID here
-#define APP_ID ""
+#define APP_ID "aab8b8f5a8cd4469a63042fcfafe7063"
 
 #include <QString>
 #include <QVariant>
@@ -48,6 +48,8 @@ public:
     BOOL setRecordingIndex(int nIndex);
     BOOL setPlayoutIndex(int nIndex);
     BOOL setVideoIndex(int nIndex);
+
+	bool setBeautyEffectOptions(bool enabled, BeautyOptions& options);
 
 signals:
     void sender_videoStopped();

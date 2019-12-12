@@ -24,6 +24,7 @@ private slots:
     void OnClickLastPage();
     void OnOptAudio();
     void OnOptVideo();
+	void OnOptBeauty();
     void OnCbVPIndexChanged();
 
     void on_cbVideoProfile_activated(const QString &arg1);
@@ -31,11 +32,18 @@ private slots:
     void on_cbVideoDevices_activated(int index);
     void on_cbPlayDevices_activated(int index);
 
+	void on_cbContrastLevel_activated(int index);
+	void on_valueChanged_horizontalSlider_Redness(int value);
+	void on_valueChanged_horizontalSlider_Smoothness(int value);
+	void on_valueChanged_horizontalSlider_Lightening(int value);
+
 protected:
     virtual void mousePressEvent(QMouseEvent *e);
     virtual void mouseMoveEvent(QMouseEvent *e);
     virtual void mouseReleaseEvent(QMouseEvent *e);
 
+	void enableVideoBeutyControl(bool bEnable);
+	void updateBeautyOptions();
 private:
     const int lnGapWidth = 18;
     const int lnGapHeight = 12;
@@ -51,6 +59,7 @@ private:
 private:
     bool    m_bEnableAudio;
     bool    m_bEnableVideo;
+	bool    m_bEnableBeauty;
 };
 
 #endif // ROOMSETTINGS_H
