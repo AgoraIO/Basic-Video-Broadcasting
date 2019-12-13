@@ -52,33 +52,23 @@ export default function StreamPlayer (props) {
     }
   }, [stream]);
 
+  const lockPlay = React.useRef(false);
+
   useEffect(() => {
     if (stream) {
       if (!stream.isPlaying()) {
+        lockPlay.current = true;
         stream.play(domId, {fit: 'cover'}, (errState) => {
           if (errState && errState.status !== 'aborted') {
             console.log("stream-player play failed ", domId)
             changeAutoplay(true);
           }
+          lockPlay.current = false;
         });
-      } else {
-        stream.stop();
       }
-    }
-    return () => {
-      if (stream) {
-        if (stream.isPlaying()) {
-          stream.stop();
-        } else {
-          stream.play(domId, {fit: 'cover'}, (errState) => {
-            if (errState && errState.status !== 'aborted') {
-              console.log("stream-player play failed ", domId)
-              changeAutoplay(true);
-            }
-          });
-        }
+      return () => {
+        stream && stream.isPlaying() && stream.stop();
       }
-
     }
   }, [stream, domId]);
 
