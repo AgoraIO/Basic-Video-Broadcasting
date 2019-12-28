@@ -7,7 +7,8 @@ release/
 *.suo
 *.vcxproj
 *.vcxproj.filters
-*.vcxproj.user
+*.user
 *.ini
 *.sln
 ui_*
+Makefile*
