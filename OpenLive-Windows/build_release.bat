@@ -1,12 +1,25 @@
 @echo off
 title qmake and nmake build prompt
-set VCINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC
-set QTDIR=C:\Qt\Qt5.6.2\5.6\msvc2013
+itle qmake and nmake build prompt
+::C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC
+::C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build;
+set VCINSTALLDIR=%~1
+::C:\Qt\5.12.2\msvc2017;C:\Qt\5.12.2\msvc2017_64
+set QTDIR=%~2
+::x86;x64
+set Machine=%~3
+echo vsdir: %VCINSTALLDIR%
+echo qtdir:%QTDIR%
+echo machine:%Machine%
+
 set PATH=%VCINSTALLDIR%\bin;%QTDIR%\bin;C:\Program Files\7-Zip;%PATH%
+
 ::shadow build
-call "%VCINSTALLDIR%\vcvarsall.bat"
+set vsdevpath=%VCINSTALLDIR%\vcvarsall.bat
+echo vsdevpath:%vsdevpath%
+call "%VCINSTALLDIR%\vcvarsall.bat" %Machine%
+
 qmake OpenLive.pro -spec win32-msvc2013 "CONFIG+=release" "CONFIG+=qml_release"
 nmake
 cd release
 windeployqt OpenLive.exe
-OpenLive.exe
