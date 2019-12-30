@@ -46,3 +46,10 @@ INCLUDEPATH += $$PWD/sdk/include
 LIBS += -L$$PWD/sdk/lib/ -lagora_rtc_sdk
 LIBS += User32.LIB
 }
+
+win64: {
+INCLUDEPATH += $$PWD/sdk/include
+LIBS += -L$$PWD/sdk/lib/ -lagora_rtc_sdk
+LIBS += User32.LIB
+}
+
