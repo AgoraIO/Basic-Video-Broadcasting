@@ -19,7 +19,7 @@ set vsdevpath=%VCINSTALLDIR%\vcvarsall.bat
 echo vsdevpath:%vsdevpath%
 call "%VCINSTALLDIR%\vcvarsall.bat" %Machine%
 
-qmake OpenLive.pro -spec win32-msvc2013 "CONFIG+=release" "CONFIG+=qml_release"
+qmake OpenLive.pro "CONFIG+=release" "CONFIG+=qml_release"
 nmake
 cd release
 windeployqt OpenLive.exe
