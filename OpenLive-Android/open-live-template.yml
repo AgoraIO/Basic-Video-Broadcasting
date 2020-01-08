@@ -1,14 +1,16 @@
 parameters:
   project: ''
-  vmImage: ''
   name: ''
 
 jobs:
   - job: ${{ parameters.name }}_build
     displayName: ${{ parameters.name }}
-
+    
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: 'macos-latest'
+    
+    variables:
+      - group: AgoraKeys
 
     steps:
       - script: cd ${{ parameters.project }} && pwd && ls && python ci.env.py
