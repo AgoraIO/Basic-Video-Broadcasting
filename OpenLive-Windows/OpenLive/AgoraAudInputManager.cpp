@@ -43,9 +43,13 @@ void CAgoraAudInputManager::Close()
 		m_lpCollection = NULL;
 	}
 
-	if (m_ptrDeviceManager && m_ptrDeviceManager != NULL) {
-		delete m_ptrDeviceManager;
-		m_ptrDeviceManager = NULL;
+	if (m_ptrDeviceManager) {
+		if (m_ptrDeviceManager != NULL) {
+			if (m_ptrDeviceManager->get())
+				m_ptrDeviceManager->release();
+			delete m_ptrDeviceManager;
+			m_ptrDeviceManager = NULL;
+		}
 	}
 }
 

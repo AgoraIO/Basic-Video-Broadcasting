@@ -43,6 +43,8 @@ void CAgoraCameraManager::Close()
 	}
 
 	if (m_ptrDeviceManager != NULL) {
+		if (m_ptrDeviceManager->get())
+			m_ptrDeviceManager->release();
 		delete m_ptrDeviceManager;
 		m_ptrDeviceManager = NULL;
 	}
