@@ -17,6 +17,9 @@ CAgoraCameraManager::~CAgoraCameraManager()
 BOOL CAgoraCameraManager::Create(IRtcEngine *lpRtcEngine)
 {
 	m_ptrDeviceManager = new AVideoDeviceManager(lpRtcEngine);
+	if (!m_ptrDeviceManager)
+		return FALSE;
+
 	if (m_ptrDeviceManager->get() == NULL) {
 		delete m_ptrDeviceManager;
 		m_ptrDeviceManager = NULL;

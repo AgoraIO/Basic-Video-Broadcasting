@@ -72,16 +72,41 @@ protected:
 	
 	afx_msg LRESULT OnEIDFirstLocalFrame(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDFirstRemoteVideoFrame(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEIDUserJoined(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEIDUserOffline(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEIDConnectionLost(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEIDVideoDeviceChanged(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnRemoteVideoStat(WPARAM wParam, LPARAM lParam);
-
-	afx_msg LRESULT OnStartRecordingService(WPARAM wParam, LPARAM lParam);
-	afx_msg LRESULT OnStopRecordingService(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnApiCallExecuted(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnWindowShareStart(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnNetworkQuality(WPARAM wParam, LPARAM lParam);
+
+	afx_msg LRESULT OnEIDError(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDAudioQuality(WPARAM wParam, LPARAM lParam);
+		afx_msg LRESULT OnEIDAudioDeviceStateChanged(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDVideoDeviceStateChanged(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam);
+
+	
+	afx_msg LRESULT OnEIDUserMuteAudio(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDUserMuteVideo(WPARAM wParam, LPARAM lParam);
+
+	afx_msg LRESULT OnEIDLocalVideoStat(WPARAM wParam, LPARAM lParam);
+	
+	afx_msg LRESULT OnEIDApiExecuted(WPARAM wParam, LPARAM lParam);
+
+	//EID_ERROR
+	//EID_AUDIO_QUALITY
+	//EID_LEAVE_CHANNEL
+
+	//EID_AUDIO_DEVICE_STATE_CHANGED
+	//EID_VIDEO_DEVICE_STATE_CHANGED
+	//EID_FIRST_REMOTE_VIDEO_FRAME
+	//EID_USER_MUTE_AUDIO
+	//EID_USER_MUTE_VIDEO
+	//EID_LOCAL_VIDEO_STAT
+	//EID_REFREASH_RCDSRV
 	DECLARE_MESSAGE_MAP()
 
 protected:
