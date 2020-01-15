@@ -54,14 +54,24 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_FIRST_LOCAL_VIDEO_FRAME), &CVideoDlg::OnEIDFirstLocalFrame)
 
 	ON_MESSAGE(WM_MSGID(EID_FIRST_REMOTE_VIDEO_DECODED), &CVideoDlg::OnEIDFirstRemoteFrameDecoded)
+	ON_MESSAGE(WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), &CVideoDlg::OnEIDFirstRemoteVideoFrame)
+	
 	ON_MESSAGE(WM_MSGID(EID_USER_JOINED),&CVideoDlg::OnEIDUserJoined)
 	ON_MESSAGE(WM_MSGID(EID_USER_OFFLINE), &CVideoDlg::OnEIDUserOffline)
 	
 	ON_MESSAGE(WM_MSGID(EID_REMOTE_VIDEO_STAT), &CVideoDlg::OnRemoteVideoStat)
 
-	ON_MESSAGE(WM_MSGID(EID_START_RCDSRV), &CVideoDlg::OnStartRecordingService)
-	ON_MESSAGE(WM_MSGID(EID_STOP_RCDSRV), &CVideoDlg::OnStopRecordingService)
-	
+
+	ON_MESSAGE(WM_MSGID(EID_ERROR), &CVideoDlg::OnEIDError)
+	ON_MESSAGE(WM_MSGID(EID_AUDIO_QUALITY), &CVideoDlg::OnEIDAudioQuality)
+	ON_MESSAGE(WM_MSGID(EID_AUDIO_DEVICE_STATE_CHANGED), &CVideoDlg::OnEIDAudioDeviceStateChanged)
+	ON_MESSAGE(WM_MSGID(EID_VIDEO_DEVICE_STATE_CHANGED), &CVideoDlg::OnEIDVideoDeviceStateChanged)
+	ON_MESSAGE(WM_MSGID(EID_USER_MUTE_AUDIO), &CVideoDlg::OnEIDUserMuteAudio)
+	ON_MESSAGE(WM_MSGID(EID_USER_MUTE_VIDEO), &CVideoDlg::OnEIDUserMuteVideo)
+	ON_MESSAGE(WM_MSGID(EID_LOCAL_VIDEO_STAT), &CVideoDlg::OnEIDLocalVideoStat)
+	ON_MESSAGE(WM_MSGID(EID_APICALL_EXECUTED), &CVideoDlg::OnEIDApiExecuted)
+	ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &CVideoDlg::OnNetworkQuality)
+	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &CVideoDlg::OnEIDLeaveChannel)
     ON_BN_CLICKED(IDC_BTNMIN_VIDEO, &CVideoDlg::OnBnClickedBtnmin)
 	ON_BN_CLICKED(IDC_BTNCLOSE_VIDEO, &CVideoDlg::OnBnClickedBtnclose)
 	ON_BN_CLICKED(IDC_BTNRSTO_VIDEO, &CVideoDlg::OnBnClickedBtnrest)
@@ -667,171 +677,6 @@ void CVideoDlg::OnBnClickedBtnaudio()
 	}
 }
 
-LRESULT CVideoDlg::OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_JOINCHANNEL_SUCCESS lpData = (LPAGE_JOINCHANNEL_SUCCESS)wParam;
-
-	m_listWndInfo.RemoveAll();
-	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
-	
-	lpAgoraObject->SetSelfUID(lpData->uid);
-
-	SEI_INFO seiInfo;
-	if (lpAgoraObject->GetSEIInfo(0, &seiInfo))
-		seiInfo.nUID = lpAgoraObject->GetSelfUID();
-
-	lpAgoraObject->RemoveSEIInfo(0);
-	lpAgoraObject->SetSEIInfo(lpAgoraObject->GetSelfUID(), &seiInfo);
-
-	delete lpData;
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnEIDReJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_REJOINCHANNEL_SUCCESS lpData = (LPAGE_REJOINCHANNEL_SUCCESS)wParam;
-
-	m_listWndInfo.RemoveAll();
-	delete lpData;
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnEIDFirstLocalFrame(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_FIRST_LOCAL_VIDEO_FRAME lpData = (LPAGE_FIRST_LOCAL_VIDEO_FRAME)wParam;
-
-	if (m_listWndInfo.GetCount() == 0)
-		ShowVideo1();
-
-	SEI_INFO seiInfo;
-
-	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
-
-	memset(&seiInfo, 0, sizeof(SEI_INFO));
-
-	seiInfo.nUID = lpAgoraObject->GetSelfUID();
-	seiInfo.nWidth = lpData->width;
-	seiInfo.nHeight = lpData->height;
-	lpAgoraObject->SetSEIInfo(seiInfo.nUID, &seiInfo);
-
-	delete lpData;
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam)
-{
-	return false;
-}
-
-LRESULT CVideoDlg::OnEIDUserJoined(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_FIRST_REMOTE_VIDEO_DECODED lpData = (LPAGE_FIRST_REMOTE_VIDEO_DECODED)wParam;
-	BOOL bFound = FALSE;
-	SEI_INFO seiInfo;
-
-	POSITION pos = m_listWndInfo.GetHeadPosition();
-	while (pos != NULL) {
-		AGVIDEO_WNDINFO &agvWndInfo = m_listWndInfo.GetNext(pos);
-		if (agvWndInfo.nUID == lpData->uid) {
-			bFound = TRUE;
-			break;
-		}
-	}
-
-	if (!bFound) {
-		AGVIDEO_WNDINFO agvWndInfo;
-		memset(&agvWndInfo, 0, sizeof(AGVIDEO_WNDINFO));
-		agvWndInfo.nUID = lpData->uid;
-		agvWndInfo.nWidth = lpData->width;
-		agvWndInfo.nHeight = lpData->height;
-
-		m_listWndInfo.AddTail(agvWndInfo);
-	}
-
-	RebindVideoWnd();
-
-	memset(&seiInfo, 0, sizeof(SEI_INFO));
-
-	seiInfo.nUID = lpData->uid;
-	seiInfo.nWidth = lpData->width;
-	seiInfo.nHeight = lpData->height;
-	CAgoraObject::GetAgoraObject()->SetSEIInfo(seiInfo.nUID, &seiInfo);
-
-	delete lpData;
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnEIDUserOffline(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_USER_OFFLINE lpData = (LPAGE_USER_OFFLINE)wParam;
-
-	POSITION pos = m_listWndInfo.GetHeadPosition();
-	while (pos != NULL){
-		if (m_listWndInfo.GetAt(pos).nUID == lpData->uid) {
-			m_listWndInfo.RemoveAt(pos);
-			RebindVideoWnd();
-			break;
-		}
-
-		m_listWndInfo.GetNext(pos);
-	}
-
-	delete lpData;
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnEIDConnectionLost(WPARAM wParam, LPARAM lParam)
-{
-	return 0;
-}
-
-LRESULT CVideoDlg::OnEIDVideoDeviceChanged(WPARAM wParam, LPARAM lParam)
-{
-	return 0;
-}
-
-LRESULT CVideoDlg::OnRemoteVideoStat(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_REMOTE_VIDEO_STAT lpData = (LPAGE_REMOTE_VIDEO_STAT)wParam;
-
-	POSITION posNext = m_listWndInfo.GetHeadPosition();
-
-	while (posNext != NULL) {
-		AGVIDEO_WNDINFO &rWndInfo = m_listWndInfo.GetNext(posNext);
-
-		if (rWndInfo.nUID == lpData->uid) {
-			rWndInfo.nFramerate = lpData->rendererOutputFrameRate;
-			rWndInfo.nBitrate = lpData->receivedBitrate;
-			rWndInfo.nWidth = lpData->width;
-			rWndInfo.nHeight = lpData->height;
-			m_wndVideo[rWndInfo.nIndex].SetFrameRateInfo(rWndInfo.nFramerate);
-			m_wndVideo[rWndInfo.nIndex].SetBitrateInfo(rWndInfo.nBitrate);
-			m_wndVideo[rWndInfo.nIndex].SetVideoResolution(rWndInfo.nWidth, rWndInfo.nHeight);
-			break;
-		}
-	}
-
-	delete lpData;
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnStartRecordingService(WPARAM wParam, LPARAM lParam)
-{
-
-	return 0;
-}
-
-LRESULT CVideoDlg::OnStopRecordingService(WPARAM wParam, LPARAM lParam)
-{
-	return 0;
-}
-
 void CVideoDlg::DrawHead(CDC *pDC)
 {
 	CRect rcTitle;
@@ -881,12 +726,12 @@ void CVideoDlg::InitCtrls()
 	m_btnTip.Create(NULL, WS_VISIBLE | WS_CHILD, CRect(0, 0, 1, 1), this, IDC_BTNTIP_VIDEO);
 	
 	for (int nIndex = 0; nIndex < 4; nIndex++){
-		m_wndVideo[nIndex].Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + nIndex);
+		m_wndVideo[nIndex].Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + nIndex);
 		m_wndVideo[nIndex].SetBackImage(IDB_BACKGROUND_VIDEO, 96, 96, RGB(0x44, 0x44, 0x44));
 		m_wndVideo[nIndex].SetFaceColor(RGB(0x58, 0x58, 0x58));
 	}
 
-	m_wndLocal.Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + 4);
+	m_wndLocal.Create(NULL, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, CRect(0, 0, 1, 1), this, IDC_BASEWND_VIDEO + 4);
 	m_wndLocal.SetBackImage(IDB_BACKGROUND_VIDEO, 96, 96, RGB(0x44, 0x44, 0x44));
 	m_wndLocal.SetFaceColor(RGB(0x58, 0x58, 0x58));
 	m_wndLocal.SetUID(0);
@@ -1201,5 +1046,258 @@ LRESULT CVideoDlg::OnWindowShareStart(WPARAM wParam, LPARAM lParam)
 	CAgoraObject::GetAgoraObject()->EnableScreenCapture((HWND)wParam, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
+	return 0;
+}
+
+
+LRESULT CVideoDlg::OnEIDJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_JOINCHANNEL_SUCCESS lpData = (LPAGE_JOINCHANNEL_SUCCESS)wParam;
+
+	m_listWndInfo.RemoveAll();
+	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
+
+	lpAgoraObject->SetSelfUID(lpData->uid);
+
+	SEI_INFO seiInfo;
+	if (lpAgoraObject->GetSEIInfo(0, &seiInfo))
+		seiInfo.nUID = lpAgoraObject->GetSelfUID();
+
+	lpAgoraObject->RemoveSEIInfo(0);
+	lpAgoraObject->SetSEIInfo(lpAgoraObject->GetSelfUID(), &seiInfo);
+
+	delete[] lpData->channel; lpData->channel = NULL;
+	delete lpData; lpData = NULL;
+
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDReJoinChannelSuccess(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_REJOINCHANNEL_SUCCESS lpData = (LPAGE_REJOINCHANNEL_SUCCESS)wParam;
+
+	m_listWndInfo.RemoveAll();
+	delete[] lpData->channel; lpData->channel = NULL;
+	delete lpData; lpData = NULL;
+
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDFirstLocalFrame(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_FIRST_LOCAL_VIDEO_FRAME lpData = (LPAGE_FIRST_LOCAL_VIDEO_FRAME)wParam;
+
+	if (m_listWndInfo.GetCount() == 0)
+		ShowVideo1();
+
+	SEI_INFO seiInfo;
+
+	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
+
+	memset(&seiInfo, 0, sizeof(SEI_INFO));
+
+	seiInfo.nUID = lpAgoraObject->GetSelfUID();
+	seiInfo.nWidth = lpData->width;
+	seiInfo.nHeight = lpData->height;
+	lpAgoraObject->SetSEIInfo(seiInfo.nUID, &seiInfo);
+
+	delete lpData;
+
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_FIRST_REMOTE_VIDEO_DECODED lpData = (LPAGE_FIRST_REMOTE_VIDEO_DECODED)wParam;
+	delete lpData;
+	lpData = NULL;
+	return false;
+}
+
+LRESULT CVideoDlg::OnEIDFirstRemoteVideoFrame(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_FIRST_REMOTE_VIDEO_FRAME lpData = (LPAGE_FIRST_REMOTE_VIDEO_FRAME)wParam;
+
+	POSITION pos = m_listWndInfo.GetHeadPosition();
+	while (pos != NULL) {
+		AGVIDEO_WNDINFO &agvWndInfo = m_listWndInfo.GetNext(pos);
+		if (agvWndInfo.nUID == lpData->uid) {
+			agvWndInfo.nWidth = lpData->width;
+			agvWndInfo.nHeight = lpData->height;
+			break;
+		}
+	}
+	
+	RebindVideoWnd();
+	
+	SEI_INFO seiInfo;
+	memset(&seiInfo, 0, sizeof(SEI_INFO));
+	seiInfo.nUID = lpData->uid;
+	seiInfo.nWidth = lpData->width;
+	seiInfo.nHeight = lpData->height;
+	CAgoraObject::GetAgoraObject()->SetSEIInfo(seiInfo.nUID, &seiInfo);
+
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDUserJoined(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_USER_JOINED lpData = (LPAGE_USER_JOINED)wParam;
+	BOOL bFound = FALSE;
+
+	POSITION pos = m_listWndInfo.GetHeadPosition();
+	while (pos != NULL) {
+		AGVIDEO_WNDINFO &agvWndInfo = m_listWndInfo.GetNext(pos);
+		if (agvWndInfo.nUID == lpData->uid) {
+			bFound = TRUE;
+			break;
+		}
+	}
+
+	if (!bFound) {
+		AGVIDEO_WNDINFO agvWndInfo;
+		memset(&agvWndInfo, 0, sizeof(AGVIDEO_WNDINFO));
+		agvWndInfo.nUID = lpData->uid;
+		m_listWndInfo.AddTail(agvWndInfo);
+	}
+
+	delete lpData;
+
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDUserOffline(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_USER_OFFLINE lpData = (LPAGE_USER_OFFLINE)wParam;
+
+	POSITION pos = m_listWndInfo.GetHeadPosition();
+	while (pos != NULL){
+		if (m_listWndInfo.GetAt(pos).nUID == lpData->uid) {
+			m_listWndInfo.RemoveAt(pos);
+			RebindVideoWnd();
+			break;
+		}
+
+		m_listWndInfo.GetNext(pos);
+	}
+
+	delete lpData;
+
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDConnectionLost(WPARAM wParam, LPARAM lParam)
+{
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDVideoDeviceChanged(WPARAM wParam, LPARAM lParam)
+{
+	return 0;
+}
+
+LRESULT CVideoDlg::OnRemoteVideoStat(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_REMOTE_VIDEO_STAT lpData = (LPAGE_REMOTE_VIDEO_STAT)wParam;
+
+	POSITION posNext = m_listWndInfo.GetHeadPosition();
+
+	while (posNext != NULL) {
+		AGVIDEO_WNDINFO &rWndInfo = m_listWndInfo.GetNext(posNext);
+
+		if (rWndInfo.nUID == lpData->uid) {
+			rWndInfo.nFramerate = lpData->rendererOutputFrameRate;
+			rWndInfo.nBitrate = lpData->receivedBitrate;
+			rWndInfo.nWidth = lpData->width;
+			rWndInfo.nHeight = lpData->height;
+			m_wndVideo[rWndInfo.nIndex].SetFrameRateInfo(rWndInfo.nFramerate);
+			m_wndVideo[rWndInfo.nIndex].SetBitrateInfo(rWndInfo.nBitrate);
+			m_wndVideo[rWndInfo.nIndex].SetVideoResolution(rWndInfo.nWidth, rWndInfo.nHeight);
+			break;
+		}
+	}
+
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDError(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_ERROR lpData = (LPAGE_ERROR)wParam;
+	delete[] lpData->msg; lpData->msg = NULL;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+LRESULT CVideoDlg::OnEIDAudioQuality(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_AUDIO_QUALITY lpData = (LPAGE_AUDIO_QUALITY)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+//LRESULT CVideoDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam){}
+LRESULT CVideoDlg::OnEIDAudioDeviceStateChanged(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_AUDIO_DEVICE_STATE_CHANGED lpData = (LPAGE_AUDIO_DEVICE_STATE_CHANGED)wParam;
+	delete[] lpData->deviceId; lpData->deviceId = NULL;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDVideoDeviceStateChanged(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_VIDEO_DEVICE_STATE_CHANGED lpData = (LPAGE_VIDEO_DEVICE_STATE_CHANGED)wParam;
+	delete[] lpData->deviceId; lpData->deviceId = NULL;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDUserMuteAudio(WPARAM wParam, LPARAM lParam)
+{
+	return 0;
+}
+LRESULT CVideoDlg::OnEIDUserMuteVideo(WPARAM wParam, LPARAM lParam)
+{
+	return 0;
+}
+
+LRESULT CVideoDlg::OnEIDLocalVideoStat(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_REMOTE_VIDEO_STAT lpData = (LPAGE_REMOTE_VIDEO_STAT)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+
+LRESULT CVideoDlg::OnEIDApiExecuted(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_APICALL_EXECUTED lpData = (LPAGE_APICALL_EXECUTED)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+
+LRESULT CVideoDlg::OnNetworkQuality(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_NETWORK_QUALITY lpData = (LPAGE_NETWORK_QUALITY)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+
+LRESULT CVideoDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
+	delete lpData;
+	lpData = NULL;
 	return 0;
 }

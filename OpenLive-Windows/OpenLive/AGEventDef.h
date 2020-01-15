@@ -103,7 +103,9 @@ typedef struct _AGE_AUDIO_DEVICE_STATE_CHANGED
 
 typedef struct _AGE_NETWORK_QUALITY
 {
-	int quality;
+	unsigned int uid;  
+	int txQuality;
+	int rxQuality;
 
 } AGE_NETWORK_QUALITY, *PAGE_NETWORK_QUALITY, *LPAGE_NETWORK_QUALITY;
 
@@ -175,8 +177,19 @@ typedef struct _AGE_AUDIO_RECORDER_EXCEPTION
 
 typedef struct _AGE_LOCAL_VIDEO_STAT
 {
+	uid_t uid;
+	/**
+	* The bitrate (Kbps) of the video sent in the reported interval.
+	*/
 	int sentBitrate;
+	/**
+	* The frame rate (fps) of the video sent in the reported interval.
+	*/
 	int sentFrameRate;
+	/**
+	* The target bitrate (Kbps) of the current encoder. This value is estimated by the SDK based on the current network conditions.
+	*/
+	int targetBitrate;
 
 } AGE_LOCAL_VIDEO_STAT, *PAGE_LOCAL_VIDEO_STAT, *LPAGE_LOCAL_VIDEO_STAT;
 
@@ -220,17 +233,6 @@ typedef struct _AGE_VIDEO_DEVICE_STATE_CHANGED
 #define EID_VIDEO_DEVICE_STATE_CHANGED		0x0000001B
 
 #define EID_VIDEO_STOPPED					0x0000001C
-
-#define EID_START_RCDSRV					0x0000001D
-#define EID_STOP_RCDSRV						0x0000001E
-
-typedef struct _AGE_RCDSRV_STATUS
-{
-	int status;
-
-}AGE_RCDSRV_STATUS, *PAGE_RCDSRV_STATUS, *LPAGE_RCDSRV_STATUS;
-
-#define EID_REFREASH_RCDSRV					0x0000001F
 
 typedef struct _AGE_APICALL_EXECUTED
 {

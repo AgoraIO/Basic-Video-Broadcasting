@@ -30,7 +30,7 @@ using namespace agora::base;
     Leave this value empty if Security keys/Token is not enabled for your project
     <string name="agora_access_token"><#YOUR TOKEN#></string>
 */
-#define APP_ID				_T("")
+#define APP_ID				_T("aab8b8f5a8cd4469a63042fcfafe7063")
 #define APP_TOKEN			""
 
 typedef struct _SEI_INFO
@@ -166,6 +166,8 @@ public:
 	static BOOL EnableWhiteboardVer(BOOL bEnable);
 	static BOOL EnableWhiteboardFeq(BOOL bEnable);
 
+
+	bool IsJoinChannel(){ return bJoinedChannel; }
 protected:
 	CAgoraObject(void);
 
@@ -205,6 +207,8 @@ private:
 	int			m_nCanvasHeight;
 
 	CAtlMap<UINT, SEI_INFO>	m_mapSEIInfo;
+
+	bool bJoinedChannel = false;;
 public:
 	static CAgoraObject *GetAgoraObject(LPCTSTR lpVendorKey = NULL);
 	static void CloseAgoraObject();

@@ -38,6 +38,7 @@ protected:
 	afx_msg void OnBnClickedBtncancelDevice();
 	afx_msg void OnBnClickedBtnconfirmDevice();
 	afx_msg void OnBnClickedBtnapplyDevice();
+	afx_msg LRESULT OnNetworkQuality(WPARAM wParam, LPARAM lParam);
 
 	afx_msg LRESULT OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam);
 
