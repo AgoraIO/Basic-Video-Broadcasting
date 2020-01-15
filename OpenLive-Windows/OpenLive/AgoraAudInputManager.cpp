@@ -43,9 +43,13 @@ void CAgoraAudInputManager::Close()
 		m_lpCollection = NULL;
 	}
 
-	if (m_ptrDeviceManager && m_ptrDeviceManager != NULL) {
-		delete m_ptrDeviceManager;
-		m_ptrDeviceManager = NULL;
+	if (m_ptrDeviceManager) {
+		if (m_ptrDeviceManager != NULL) {
+			if (m_ptrDeviceManager->get())
+				m_ptrDeviceManager->release();
+			delete m_ptrDeviceManager;
+			m_ptrDeviceManager = NULL;
+		}
 	}
 }
 
@@ -157,7 +161,7 @@ void CAgoraAudInputManager::TestAudInputDevice(HWND hMsgWnd, BOOL bTestOn)
 
 		IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
 		RtcEngineParameters rep(*lpRtcEngine);
-		rep.enableAudioVolumeIndication(1000, 10,true);
+		rep.enableAudioVolumeIndication(1000, 10);
 		(*m_ptrDeviceManager)->startRecordingDeviceTest(1000);
 	}
 	else if (!bTestOn && m_bTestingOn){
