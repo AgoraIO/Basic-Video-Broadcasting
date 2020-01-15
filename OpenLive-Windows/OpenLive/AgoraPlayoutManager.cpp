@@ -18,6 +18,9 @@ CAgoraPlayoutManager::~CAgoraPlayoutManager()
 BOOL CAgoraPlayoutManager::Create(IRtcEngine *lpRtcEngine)
 {
 	m_ptrDeviceManager = new AAudioDeviceManager(lpRtcEngine);
+	if (!m_ptrDeviceManager)
+		return FALSE;
+
 	if (m_ptrDeviceManager->get() == NULL) {
 		delete m_ptrDeviceManager;
 		m_ptrDeviceManager = NULL;
@@ -41,6 +44,8 @@ void CAgoraPlayoutManager::Close()
 	}
 
 	if (m_ptrDeviceManager != NULL) {
+		if (m_ptrDeviceManager->get())
+			m_ptrDeviceManager->release();
 		delete m_ptrDeviceManager;
 		m_ptrDeviceManager = NULL;
 	}
@@ -49,6 +54,8 @@ void CAgoraPlayoutManager::Close()
 UINT CAgoraPlayoutManager::GetVolume()
 {
 	int nVol = 0;
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return 0;
 
 	(*m_ptrDeviceManager)->getPlaybackDeviceVolume(&nVol);
 
@@ -57,6 +64,8 @@ UINT CAgoraPlayoutManager::GetVolume()
 
 BOOL CAgoraPlayoutManager::SetVolume(UINT nVol)
 {
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return FALSE;
 	int nRet = (*m_ptrDeviceManager)->setPlaybackDeviceVolume((int)nVol);
 
 	return nRet == 0 ? TRUE : FALSE;
@@ -64,12 +73,18 @@ BOOL CAgoraPlayoutManager::SetVolume(UINT nVol)
 
 UINT CAgoraPlayoutManager::GetDeviceCount()
 {
+	if (!m_lpCollection)
+		return 0;
+
 	return (UINT)m_lpCollection->getCount();
 }
 
 BOOL CAgoraPlayoutManager::GetDevice(UINT nIndex, CString &rDeviceName, CString &rDeviceID)
 {
-	CHAR szDeviceName[MAX_DEVICE_ID_LENGTH];
+	if (!m_lpCollection)
+		return FALSE;
+
+    CHAR szDeviceName[MAX_DEVICE_ID_LENGTH];
 	CHAR szDeviceID[MAX_DEVICE_ID_LENGTH];
 
 	ASSERT(nIndex < GetDeviceCount());
@@ -98,7 +113,8 @@ CString CAgoraPlayoutManager::GetCurDeviceID()
 {
 	CString		str;
 	CHAR		szDeviceID[MAX_DEVICE_ID_LENGTH];
-	
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return _T(""); 
 	(*m_ptrDeviceManager)->getPlaybackDevice(szDeviceID);
 
 #ifdef UNICODE
@@ -113,6 +129,8 @@ CString CAgoraPlayoutManager::GetCurDeviceID()
 
 BOOL CAgoraPlayoutManager::SetCurDevice(LPCTSTR lpDeviceID)
 {
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return FALSE;
 #ifdef UNICODE
 	CHAR szDeviceID[128];
 	::WideCharToMultiByte(CP_ACP, 0, lpDeviceID, -1, szDeviceID, 128, NULL, NULL);
