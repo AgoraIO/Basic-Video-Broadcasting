@@ -166,6 +166,8 @@ public:
 	static BOOL EnableWhiteboardVer(BOOL bEnable);
 	static BOOL EnableWhiteboardFeq(BOOL bEnable);
 
+
+	bool IsJoinChannel(){ return bJoinedChannel; }
 protected:
 	CAgoraObject(void);
 
@@ -205,6 +207,8 @@ private:
 	int			m_nCanvasHeight;
 
 	CAtlMap<UINT, SEI_INFO>	m_mapSEIInfo;
+
+	bool bJoinedChannel = false;;
 public:
 	static CAgoraObject *GetAgoraObject(LPCTSTR lpVendorKey = NULL);
 	static void CloseAgoraObject();

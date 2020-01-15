@@ -55,6 +55,7 @@ void CAGEngineEventHandler::onWarning(int warn, const char* msg)
 
 void CAGEngineEventHandler::onError(int err, const char* msg)
 {
+
 	LPAGE_ERROR lpData = new AGE_ERROR;
 
 	int nMsgLen = 0;
@@ -123,16 +124,6 @@ void CAGEngineEventHandler::onRtcStats(const RtcStats& stat)
 }
 
 
-void CAGEngineEventHandler::onMediaEngineEvent(int evt)
-{
-	LPAGE_MEDIA_ENGINE_EVENT lpData = new AGE_MEDIA_ENGINE_EVENT;
-
-	lpData->evt = evt;
-
-	if (m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_MEDIA_ENGINE_EVENT), (WPARAM)lpData, 0);
-
-}
 
 void CAGEngineEventHandler::onAudioDeviceStateChanged(const char* deviceId, int deviceType, int deviceState)
 {
@@ -168,11 +159,14 @@ void CAGEngineEventHandler::onVideoDeviceStateChanged(const char* deviceId, int 
 
 }
 
-void CAGEngineEventHandler::onNetworkQuality(int quality)
+void CAGEngineEventHandler::onNetworkQuality(uid_t uid, int txQuality, int rxQuality)
 {
 	LPAGE_NETWORK_QUALITY lpData = new AGE_NETWORK_QUALITY;
 
-	lpData->quality = quality;
+	lpData->uid = uid;
+
+	lpData->txQuality = txQuality;
+	lpData->rxQuality = rxQuality;
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_NETWORK_QUALITY), (WPARAM)lpData, 0);
@@ -245,34 +239,25 @@ void CAGEngineEventHandler::onUserOffline(uid_t uid, USER_OFFLINE_REASON_TYPE re
 
 void CAGEngineEventHandler::onUserMuteAudio(uid_t uid, bool muted)
 {
-	LPAGE_USER_MUTE_AUDIO lpData = new AGE_USER_MUTE_AUDIO;
-
-	lpData->uid = uid;
-	lpData->muted = muted;
-
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_AUDIO), (WPARAM)lpData, 0);
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_AUDIO), (WPARAM)uid, (LPARAM)muted);
 
 }
 
 void CAGEngineEventHandler::onUserMuteVideo(uid_t uid, bool muted)
 {
-	LPAGE_USER_MUTE_VIDEO lpData = new AGE_USER_MUTE_VIDEO;
-
-	lpData->uid = uid;
-	lpData->muted = muted;
-
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_VIDEO), (WPARAM)lpData, 0);
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_VIDEO), (WPARAM)uid, (LPARAM)muted);
 
 }
 
-void CAGEngineEventHandler::onApiCallExecuted(const char* api, int error)
+void CAGEngineEventHandler::onApiCallExecuted(int err, const char* api, const char* result)
 {
+	return;
 	LPAGE_APICALL_EXECUTED lpData = new AGE_APICALL_EXECUTED;
-
+	memset(lpData->api, 0, 128);
 	strcpy_s(lpData->api, 128, api);
-	lpData->error = error;
+	lpData->error = err;
 
 	if (m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_APICALL_EXECUTED), (WPARAM)lpData, 0);
@@ -283,7 +268,13 @@ void CAGEngineEventHandler::onLocalVideoStats(const LocalVideoStats& stats)
 	LPAGE_LOCAL_VIDEO_STAT lpData = new AGE_LOCAL_VIDEO_STAT;
 
 	lpData->sentBitrate = stats.sentBitrate;
-	lpData->sentFrameRate = stats.sentFrameRate;
+	lpData->sentFrameRate      = stats.sentFrameRate;
+	lpData->codecType          = stats.codecType;
+	lpData->encodedBitrate     = stats.encodedBitrate; 
+	lpData->encodedFrameCount  = stats.encodedFrameCount;
+	lpData->encodedFrameHeight = stats.encodedFrameHeight;
+	lpData->encodedFrameWidth  = stats.encodedFrameWidth;
+	lpData->targetBitrate = stats.targetBitrate;
 
 	if(m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_LOCAL_VIDEO_STAT), (WPARAM)lpData, 0);
@@ -334,31 +325,4 @@ void CAGEngineEventHandler::onConnectionInterrupted()
 
 void CAGEngineEventHandler::onUserEnableVideo(uid_t uid, bool enabled)
 {
-//	if (m_hMainWnd != NULL)
-//		::PostMessage(m_hMainWnd, WM_MSGID(EID_CONNECTION_LOST), 0, 0);
-
-}
-
-void CAGEngineEventHandler::onStartRecordingService(int error)
-{
-	if (m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_START_RCDSRV), 0, 0);
-
-}
-
-void CAGEngineEventHandler::onStopRecordingService(int error)
-{
-	if (m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_STOP_RCDSRV), 0, 0);
-
-}
-
-void CAGEngineEventHandler::onRefreshRecordingServiceStatus(int status)
-{
-	LPAGE_RCDSRV_STATUS lpData = new AGE_RCDSRV_STATUS;
-
-	lpData->status = status;
-
-	if (m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_REFREASH_RCDSRV), (WPARAM)lpData, 0);
 }
