@@ -82,7 +82,11 @@ BEGIN_MESSAGE_MAP(COpenLiveDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BTNCLOSE, &COpenLiveDlg::OnBnClickedBtnclose)
 
     ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &COpenLiveDlg::OnNetworkQuality)
+	
+	ON_MESSAGE(WM_MSGID(EID_APICALL_EXECUTED), &COpenLiveDlg::OnEIDApiExecuted)
+	ON_MESSAGE(WM_MSGID(EID_ERROR), &COpenLiveDlg::OnEIDError)
 
+	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &COpenLiveDlg::OnEIDLeaveChannel)
     ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
@@ -301,6 +305,7 @@ void COpenLiveDlg::OnBnClickedBtnmin()
 
 void COpenLiveDlg::OnBnClickedBtnclose()
 {
+	CAgoraObject::GetAgoraObject()->CloseAgoraObject();
 	// TODO:  在此添加控件通知处理程序代码
 	CDialogEx::OnCancel();
 }
@@ -396,6 +401,33 @@ LRESULT COpenLiveDlg::OnNetworkQuality(WPARAM wParam, LPARAM lParam)
 void COpenLiveDlg::OnClose()
 {
     // TODO:  在此添加消息处理程序代码和/或调用默认值
-
+	CAgoraObject::GetAgoraObject()->CloseAgoraObject();
     CDialogEx::OnClose();
+}
+
+
+LRESULT COpenLiveDlg::OnEIDApiExecuted(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_APICALL_EXECUTED lpData = (LPAGE_APICALL_EXECUTED)wParam;
+
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT COpenLiveDlg::OnEIDError(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_ERROR lpData = (LPAGE_ERROR)wParam;
+	delete[] lpData->msg; lpData->msg = NULL;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT COpenLiveDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
+	delete lpData;
+	lpData = NULL;
+	return 0;
 }

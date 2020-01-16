@@ -269,6 +269,7 @@ void CAGEngineEventHandler::onUserMuteVideo(uid_t uid, bool muted)
 
 void CAGEngineEventHandler::onApiCallExecuted(const char* api, int error)
 {
+	return;
 	LPAGE_APICALL_EXECUTED lpData = new AGE_APICALL_EXECUTED;
 
 	strcpy_s(lpData->api, 128, api);
