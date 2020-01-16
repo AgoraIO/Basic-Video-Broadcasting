@@ -739,6 +739,29 @@ LRESULT CVideoDlg::OnEIDFirstLocalFrame(WPARAM wParam, LPARAM lParam)
 
 LRESULT CVideoDlg::OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam)
 {
+	LPAGE_FIRST_REMOTE_VIDEO_DECODED lpData = (LPAGE_FIRST_REMOTE_VIDEO_DECODED)wParam;
+
+	POSITION pos = m_listWndInfo.GetHeadPosition();
+	while (pos != NULL) {
+		AGVIDEO_WNDINFO &agvWndInfo = m_listWndInfo.GetNext(pos);
+		if (agvWndInfo.nUID == lpData->uid) {
+			agvWndInfo.nWidth = lpData->width;
+			agvWndInfo.nHeight = lpData->height;
+			break;
+		}
+	}
+
+	RebindVideoWnd();
+
+	SEI_INFO seiInfo;
+	memset(&seiInfo, 0, sizeof(SEI_INFO));
+	seiInfo.nUID = lpData->uid;
+	seiInfo.nWidth = lpData->width;
+	seiInfo.nHeight = lpData->height;
+	CAgoraObject::GetAgoraObject()->SetSEIInfo(seiInfo.nUID, &seiInfo);
+
+	delete lpData;
+	lpData = NULL;
 	return false;
 }
 
@@ -1283,25 +1306,6 @@ LRESULT CVideoDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
 LRESULT CVideoDlg::OnEIDFirstRemoteVideoFrame(WPARAM wParam, LPARAM lParam)
 {
 	LPAGE_FIRST_REMOTE_VIDEO_FRAME lpData = (LPAGE_FIRST_REMOTE_VIDEO_FRAME)wParam;
-
-	POSITION pos = m_listWndInfo.GetHeadPosition();
-	while (pos != NULL) {
-		AGVIDEO_WNDINFO &agvWndInfo = m_listWndInfo.GetNext(pos);
-		if (agvWndInfo.nUID == lpData->uid) {
-			agvWndInfo.nWidth = lpData->width;
-			agvWndInfo.nHeight = lpData->height;
-			break;
-		}
-	}
-
-	RebindVideoWnd();
-
-	SEI_INFO seiInfo;
-	memset(&seiInfo, 0, sizeof(SEI_INFO));
-	seiInfo.nUID = lpData->uid;
-	seiInfo.nWidth = lpData->width;
-	seiInfo.nHeight = lpData->height;
-	CAgoraObject::GetAgoraObject()->SetSEIInfo(seiInfo.nUID, &seiInfo);
 
 	delete lpData;
 	lpData = NULL;
