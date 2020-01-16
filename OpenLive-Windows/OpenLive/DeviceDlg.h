@@ -41,6 +41,9 @@ protected:
 
 	afx_msg LRESULT OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam);
 
+	afx_msg LRESULT OnNetworkQuality(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDApiExecuted(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDError(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 
 protected:

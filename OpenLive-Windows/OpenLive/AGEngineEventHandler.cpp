@@ -245,30 +245,21 @@ void CAGEngineEventHandler::onUserOffline(uid_t uid, USER_OFFLINE_REASON_TYPE re
 
 void CAGEngineEventHandler::onUserMuteAudio(uid_t uid, bool muted)
 {
-	LPAGE_USER_MUTE_AUDIO lpData = new AGE_USER_MUTE_AUDIO;
-
-	lpData->uid = uid;
-	lpData->muted = muted;
-
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_AUDIO), (WPARAM)lpData, 0);
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_AUDIO), (WPARAM)uid, (LPARAM)muted);
 
 }
 
 void CAGEngineEventHandler::onUserMuteVideo(uid_t uid, bool muted)
 {
-	LPAGE_USER_MUTE_VIDEO lpData = new AGE_USER_MUTE_VIDEO;
-
-	lpData->uid = uid;
-	lpData->muted = muted;
-
 	if(m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_VIDEO), (WPARAM)lpData, 0);
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_USER_MUTE_VIDEO), (WPARAM)uid, (LPARAM)muted);
 
 }
 
 void CAGEngineEventHandler::onApiCallExecuted(const char* api, int error)
 {
+	return;
 	LPAGE_APICALL_EXECUTED lpData = new AGE_APICALL_EXECUTED;
 
 	strcpy_s(lpData->api, 128, api);

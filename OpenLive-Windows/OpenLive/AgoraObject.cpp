@@ -264,7 +264,7 @@ BOOL CAgoraObject::JoinChannel(LPCTSTR lpChannelName, UINT nUID, LPCSTR lpDynami
 
 	if (nRet == 0)
 		m_strChannelName = lpChannelName;
-	
+	bJoinedChannel = true;
 	return nRet == 0 ? TRUE : FALSE;
 }
 
@@ -274,7 +274,7 @@ BOOL CAgoraObject::LeaveCahnnel()
 	int nRet = m_lpAgoraEngine->leaveChannel();
 
 	m_nSelfUID = 0;
-
+	bJoinedChannel = false;
 	return nRet == 0 ? TRUE : FALSE;
 }
 

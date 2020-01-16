@@ -83,6 +83,17 @@ protected:
 	afx_msg LRESULT OnStopRecordingService(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnApiCallExecuted(WPARAM wParam, LPARAM lParam);
 
+	afx_msg LRESULT OnEIDError(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDAudioQuality(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDAudioDeviceStateChanged(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDVideoDeviceStateChanged(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDUserMuteAudio(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDUserMuteVideo(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDLocalVideoStat(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnNetworkQuality(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnEIDFirstRemoteVideoFrame(WPARAM wParam, LPARAM lParam);
+
 	DECLARE_MESSAGE_MAP()
 
 protected:

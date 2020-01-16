@@ -18,6 +18,9 @@ CAgoraAudInputManager::~CAgoraAudInputManager()
 BOOL CAgoraAudInputManager::Create(IRtcEngine *lpRtcEngine)
 {
 	m_ptrDeviceManager = new AAudioDeviceManager(lpRtcEngine);
+	if (!m_ptrDeviceManager)
+		return FALSE;
+
 	if (m_ptrDeviceManager->get() == NULL) {
 		delete m_ptrDeviceManager;
 		m_ptrDeviceManager = NULL;
@@ -40,9 +43,13 @@ void CAgoraAudInputManager::Close()
 		m_lpCollection = NULL;
 	}
 
-	if (m_ptrDeviceManager != NULL) {
-		delete m_ptrDeviceManager;
-		m_ptrDeviceManager = NULL;
+	if (m_ptrDeviceManager) {
+		if (m_ptrDeviceManager != NULL) {
+			if (m_ptrDeviceManager->get())
+				m_ptrDeviceManager->release();
+			delete m_ptrDeviceManager;
+			m_ptrDeviceManager = NULL;
+		}
 	}
 }
 
@@ -50,7 +57,7 @@ UINT CAgoraAudInputManager::GetVolume()
 {
 	int nVol = 0;
 
-	if (*m_ptrDeviceManager != NULL)
+	if (m_ptrDeviceManager && *m_ptrDeviceManager != NULL)
 		(*m_ptrDeviceManager)->getRecordingDeviceVolume(&nVol);
 
 	return (UINT)nVol;
@@ -60,7 +67,7 @@ BOOL CAgoraAudInputManager::SetVolume(UINT nVol)
 {
 	int nRet = -1;
 	
-	if (*m_ptrDeviceManager != NULL)
+	if (m_ptrDeviceManager && *m_ptrDeviceManager != NULL)
 		nRet = (*m_ptrDeviceManager)->setRecordingDeviceVolume((int)nVol);
 
 	return nRet == 0 ? TRUE : FALSE;
@@ -109,9 +116,10 @@ CString CAgoraAudInputManager::GetCurDeviceID()
 {
 	CString		str;
 	CHAR		szDeviceID[MAX_DEVICE_ID_LENGTH];
-	
-	if (*m_ptrDeviceManager != NULL)
-		(*m_ptrDeviceManager)->getRecordingDevice(szDeviceID);
+	if (!m_ptrDeviceManager || *m_ptrDeviceManager == NULL)
+		return _T("");
+
+	(*m_ptrDeviceManager)->getRecordingDevice(szDeviceID); 
 
 #ifdef UNICODE
 	::MultiByteToWideChar(CP_UTF8, 0, szDeviceID, -1, str.GetBuffer(MAX_DEVICE_ID_LENGTH), MAX_DEVICE_ID_LENGTH);
@@ -145,8 +153,11 @@ void CAgoraAudInputManager::TestAudInputDevice(HWND hMsgWnd, BOOL bTestOn)
 		return;
 
 	if (bTestOn && !m_bTestingOn) {
-		m_hOldMsgWnd = CAgoraObject::GetAgoraObject()->GetMsgHandlerWnd();
-		CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(hMsgWnd);
+
+		if (!CAgoraObject::GetAgoraObject()->IsJoinChannel()){
+			m_hOldMsgWnd = CAgoraObject::GetAgoraObject()->GetMsgHandlerWnd();
+			CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(hMsgWnd);
+		}
 
 		IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
 		RtcEngineParameters rep(*lpRtcEngine);
@@ -154,7 +165,9 @@ void CAgoraAudInputManager::TestAudInputDevice(HWND hMsgWnd, BOOL bTestOn)
 		(*m_ptrDeviceManager)->startRecordingDeviceTest(1000);
 	}
 	else if (!bTestOn && m_bTestingOn){
-		CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(m_hOldMsgWnd);
+		if (!CAgoraObject::GetAgoraObject()->IsJoinChannel())
+			CAgoraObject::GetAgoraObject()->SetMsgHandlerWnd(m_hOldMsgWnd);
+
 		(*m_ptrDeviceManager)->stopRecordingDeviceTest();
 	}
 

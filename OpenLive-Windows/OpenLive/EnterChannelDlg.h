@@ -15,7 +15,7 @@ class CEnterChannelDlg : public CDialogEx
 public:
 	CEnterChannelDlg(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CEnterChannelDlg();
-
+	void SetCtrlPos();
 	CString GetChannelName();
 
 	void SetVideoString(LPCTSTR lpVideoString);

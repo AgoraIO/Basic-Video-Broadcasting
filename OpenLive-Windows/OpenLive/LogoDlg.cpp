@@ -19,6 +19,7 @@ CLogoDlg::CLogoDlg(CWnd* pParent /*=NULL*/)
 
 CLogoDlg::~CLogoDlg()
 {
+	CLanguageSet::GetInstance()->CloseInstance();
 }
 
 void CLogoDlg::DoDataExchange(CDataExchange* pDX)

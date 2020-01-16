@@ -53,7 +53,9 @@ BEGIN_MESSAGE_MAP(CDeviceDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BTNCANCEL_DEVICE, &CDeviceDlg::OnBnClickedBtncancelDevice)
 	ON_BN_CLICKED(IDC_BTNCONFIRM_DEVICE, &CDeviceDlg::OnBnClickedBtnconfirmDevice)
 	ON_MESSAGE(WM_MSGID(EID_AUDIO_VOLUME_INDICATION), &CDeviceDlg::OnEIDAudioVolumeIndication)
-
+	ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &CDeviceDlg::OnNetworkQuality)
+	ON_MESSAGE(WM_MSGID(EID_APICALL_EXECUTED), &CDeviceDlg::OnEIDApiExecuted)
+	ON_MESSAGE(WM_MSGID(EID_ERROR), &CDeviceDlg::OnEIDError)
 	ON_BN_CLICKED(IDC_BTNAPPLY_DEVICE, &CDeviceDlg::OnBnClickedBtnapplyDevice)
 END_MESSAGE_MAP()
 
@@ -427,5 +429,31 @@ LRESULT CDeviceDlg::OnEIDAudioVolumeIndication(WPARAM wParam, LPARAM lParam)
 
 	delete lpData;
 
+	return 0;
+}
+
+
+LRESULT CDeviceDlg::OnEIDApiExecuted(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_APICALL_EXECUTED lpData = (LPAGE_APICALL_EXECUTED)wParam;
+
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT CDeviceDlg::OnEIDError(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_ERROR lpData = (LPAGE_ERROR)wParam;
+	delete[] lpData->msg; lpData->msg = NULL;
+	delete lpData;
+	lpData = NULL;
+	return 0;
+}
+
+LRESULT CDeviceDlg::OnNetworkQuality(WPARAM wParam, LPARAM lParam)
+{
+	LPAGE_NETWORK_QUALITY lpData = (LPAGE_NETWORK_QUALITY)wParam;
+	delete lpData;
 	return 0;
 }
