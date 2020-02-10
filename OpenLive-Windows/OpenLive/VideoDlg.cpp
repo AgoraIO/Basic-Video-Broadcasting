@@ -94,7 +94,9 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &CVideoDlg::OnNetworkQuality)
 	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &CVideoDlg::OnEIDLeaveChannel)
 	ON_MESSAGE(WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), &CVideoDlg::OnEIDFirstRemoteVideoFrame)
+	ON_MESSAGE(WM_WINDOWSHARE, &CVideoDlg::OnWindowShareStart)
 
+	
 	ON_WM_SHOWWINDOW()
 END_MESSAGE_MAP()
 
@@ -490,7 +492,7 @@ void CVideoDlg::OnBnClickedScreenshare()
 {
 	IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
 
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), 15, NULL, TRUE);
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	m_wndLocal.Invalidate(TRUE);
