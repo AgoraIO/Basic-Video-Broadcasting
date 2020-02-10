@@ -330,14 +330,14 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 
 	if (bEnable) {
 		if (lpCapRect == NULL)
-			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL, nBitrate, true);
 		else {
 			rcCap.left = lpCapRect->left;
 			rcCap.right = lpCapRect->right;
 			rcCap.top = lpCapRect->top;
 			rcCap.bottom = lpCapRect->bottom;
 
-			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate, true);
 		}
 	}
 	else
