@@ -2,11 +2,13 @@ package io.agora.openlive.activities;
 
 import android.os.Bundle;
 import android.view.SurfaceView;
+import android.text.TextUtils;
 
 import io.agora.openlive.rtc.EventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.openlive.R;
 
 public abstract class RtcBaseActivity extends BaseActivity implements EventHandler {
 
@@ -29,6 +31,14 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
 
     private void joinChannel() {
         // Initialize token, extra info here before joining channel
+        // 1. Users can only see each other after they join the
+        // same channel successfully using the same app id.
+        // 2. One token is only valid for the channel name and uid that
+        // you use to generate this token.
+        String token = getString(R.string.agora_access_token);
+        if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
+            token = null; // default, no token
+        }
         rtcEngine().joinChannel(null, config().getChannelName(), "", 0);
     }
 
