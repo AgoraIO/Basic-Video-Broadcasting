@@ -39,7 +39,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
         if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
             token = null; // default, no token
         }
-        rtcEngine().joinChannel(null, config().getChannelName(), "", 0);
+        rtcEngine().joinChannel(token, config().getChannelName(), "", 0);
     }
 
     protected SurfaceView prepareRtcVideo(int uid, boolean local) {
