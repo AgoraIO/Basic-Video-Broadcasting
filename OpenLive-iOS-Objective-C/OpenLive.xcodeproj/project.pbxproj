@@ -21,22 +21,18 @@
 		07D24D361D867644002C69BF /* VideoSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D2F1D867644002C69BF /* VideoSession.m */; };
 		38D618B8224A5FAE004A6C87 /* BeautyEffectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D618B7224A5FAE004A6C87 /* BeautyEffectTableViewController.m */; };
 		A76C26E2238690720047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26E1238690720047E150 /* AgoraRtcKit.framework */; };
-		A76C26E3238690720047E150 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26E1238690720047E150 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7733D7824079F3400483870 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF4212168BD00774322 /* Accelerate.framework */; };
+		A7733D7924079F3900483870 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1A1D8667F5002C69BF /* AudioToolbox.framework */; };
+		A7733D7A24079F3E00483870 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D161D8667E7002C69BF /* VideoToolbox.framework */; };
+		A7733D7B24079F4A00483870 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1E1D866802002C69BF /* CoreMedia.framework */; };
+		A7733D7C24079F4A00483870 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B42249DC390023BCFA /* CoreML.framework */; };
+		A7733D7D24079F4A00483870 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1C1D8667FB002C69BF /* CoreMotion.framework */; };
+		A7733D7E24079F5000483870 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D201D866809002C69BF /* CoreTelephony.framework */; };
+		A7733D7F24079F5400483870 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D141D8667DC002C69BF /* AVFoundation.framework */; };
+		A7733D8024079F5A00483870 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D181D8667EC002C69BF /* libc++.tbd */; };
+		A7733D8124079F6500483870 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C3B1E9E192A00C3583C /* libresolv.tbd */; };
+		A7733D8224079F9A00483870 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A76C26E4238690720047E150 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A76C26E3238690720047E150 /* AgoraRtcKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07D24CF31D866704002C69BF /* OpenLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,7 +79,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7733D7A24079F3E00483870 /* VideoToolbox.framework in Frameworks */,
 				A76C26E2238690720047E150 /* AgoraRtcKit.framework in Frameworks */,
+				A7733D7F24079F5400483870 /* AVFoundation.framework in Frameworks */,
+				A7733D8124079F6500483870 /* libresolv.tbd in Frameworks */,
+				A7733D7C24079F4A00483870 /* CoreML.framework in Frameworks */,
+				A7733D7824079F3400483870 /* Accelerate.framework in Frameworks */,
+				A7733D7E24079F5000483870 /* CoreTelephony.framework in Frameworks */,
+				A7733D8024079F5A00483870 /* libc++.tbd in Frameworks */,
+				A7733D7924079F3900483870 /* AudioToolbox.framework in Frameworks */,
+				A7733D7B24079F4A00483870 /* CoreMedia.framework in Frameworks */,
+				A7733D8224079F9A00483870 /* SystemConfiguration.framework in Frameworks */,
+				A7733D7D24079F4A00483870 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +182,6 @@
 				07D24CEF1D866704002C69BF /* Sources */,
 				07D24CF01D866704002C69BF /* Frameworks */,
 				07D24CF11D866704002C69BF /* Resources */,
-				A76C26E4238690720047E150 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
