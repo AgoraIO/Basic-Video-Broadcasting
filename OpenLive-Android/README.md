@@ -12,8 +12,6 @@ With this sample app, you can:
 - Switch camera
 - Setup resolution, frame rate and bit rate
 
-A tutorial demo can be found here: [Agora-Android-Tutorial-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-Android-Tutorial-1to1)
-
 ## Prerequisites
 
 - Android Studio 3.3 or above
@@ -54,7 +52,7 @@ The SDK must be integrated into the sample project before it can opened and buil
   ...
   dependencies {
       ...
-      implementation 'io.agora.rtc:full-sdk:2.4.1'
+      implementation 'io.agora.rtc:full-sdk:3.0.0'
   }
   ```
 
@@ -82,8 +80,13 @@ Or use `Gradle` to build and run.
 
 ## Resources
 
-- You can find full API document at [Document Center](https://docs.agora.io/en/)
-- You can file bugs about this demo at [issue](https://github.com/AgoraIO/Basic-Video-Call/issues)
+- For potential issues, take a look at our [FAQ](https://docs.agora.io/cn/faq) first
+- Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
+- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
+- Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
+- You can find full API documentation at [Document Center](https://docs.agora.io/en/)
+- If you encounter problems during integration, you may ask in [Developer Forum](https://rtcdeveloper.com/)
+- You can file bugs about this sample at [issue](https://github.com/AgoraIO/Basic-Video-Broadcasting/issues)
 
 ## License
 
