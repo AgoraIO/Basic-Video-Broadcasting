@@ -2,7 +2,7 @@
 #define CAGORACONFIG_H
 
 #include <QSettings>
-
+#include <memory>
 class CAgoraConfig
 {
 public:

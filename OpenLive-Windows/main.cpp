@@ -1,9 +1,9 @@
-#include "stdafx.h"
 #include "mainwindow.h"
 #include "enterroom.h"
 #include "inroom.h"
 #include <QApplication>
 #include <IAgoraRtcEngine.h>
+#include "agoraconfig.h"
 using namespace agora::rtc;
 Q_DECLARE_METATYPE(uid_t)
 Q_DECLARE_METATYPE(USER_OFFLINE_REASON_TYPE)
