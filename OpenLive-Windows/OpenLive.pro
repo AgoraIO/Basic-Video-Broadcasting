@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+CONFIG   += c++11
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = OpenLive
@@ -45,4 +45,9 @@ win32: {
 INCLUDEPATH += $$PWD/sdk/include
 LIBS += -L$$PWD/sdk/lib/ -lagora_rtc_sdk
 LIBS += User32.LIB
+CONFIG(debug, debug|release) {
+ QMAKE_POST_LINK +=  copy .\sdk\dll\*.dll .\Debug
+} else {
+ QMAKE_POST_LINK +=  copy .\sdk\dll\*.dll .\Release
+}
 }
