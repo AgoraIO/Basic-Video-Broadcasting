@@ -12,10 +12,6 @@
 - 切换前置摄像头和后置摄像头；
 - 选择分辨率、码率和帧率；
 
-本开源项目使用 **Objective-C** 语言，你可以在这里找到使用 **Swift** 的项目：[OpenLive-iOS](https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-iOS)
-
-你也可以在这里查看入门版的示例项目：[Agora-iOS-Tutorial-Objective-C-1to1](https://github.com/AgoraIO/Basic-Video-Call/tree/master/One-to-One-Video/Agora-iOS-Tutorial-Objective-C-1to1)
-
 ## 环境准备
 
 - XCode 10.0 +
@@ -30,12 +26,12 @@
 
 在编译和启动实例程序前，您需要首先获取一个可用的App Id:
 
-1. 在[agora.io](https://dashboard.agora.io/signin/)创建一个开发者账号
-2. 前往后台页面，点击左部导航栏的 **项目 > 项目列表** 菜单
-3. 复制后台的 **App Id** 并备注，稍后启动应用时会用到它
+1. 在[agora.io](https://dashboard.agora.io/signin/)创建一个开发者账号.
+2. 前往后台页面，点击左部导航栏的 **项目 > 项目列表** 菜单。
+3. 复制后台的 **App Id** 并备注，稍后启动应用时会用到它。
 4. 在项目页面生成临时 **Access Token** (24小时内有效)并备注，注意生成的Token只能适用于对应的频道名。
 
-5. 将 AppID 和 Token 填写进 KeyCenter.m
+5. 将 AppID 和 Token 填写进 KeyCenter.m。
 
     ```
     + (NSString *)AppId {
@@ -51,7 +47,7 @@
 
 1. 在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中**libs**文件夹中的下列文件拷贝到本项目的 OpenLive 文件夹下。
 
-  - AgoraRtcEngineKit.framework
+  - AgoraRtcKit.framework
   - AgoraRtcCryptoLoader.framework
   - libcrypto.a
 
