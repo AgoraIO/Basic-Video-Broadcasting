@@ -160,7 +160,7 @@ BOOL COpenLiveDlg::OnInitDialog()
 	CAgoraObject::GetEngine()->setChannelProfile(CHANNEL_PROFILE_LIVE_BROADCASTING);
 	CAgoraObject::GetAgoraObject()->EnableVideo(TRUE);
 	CAgoraObject::GetAgoraObject()->SetClientRole(CLIENT_ROLE_BROADCASTER);
-
+	CAgoraObject::GetAgoraObject()->EnableLastmileTest(TRUE);
 	SetBackgroundImage(IDB_DLG_MAIN);
 	InitCtrls();
 	InitChildDialog();
@@ -345,7 +345,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 {
 	IRtcEngine		*lpRtcEngine = CAgoraObject::GetEngine();
 	CAgoraObject	*lpAgoraObject = CAgoraObject::GetAgoraObject();
-
+	lpAgoraObject->EnableLastmileTest(FALSE);
 	CString strChannelName = m_dlgEnterChannel.GetChannelName();
 
 	m_dlgVideo.MoveWindow(0, 0, 960, 720, 1);
@@ -373,7 +373,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	m_dlgVideo.SetWindowText(strChannelName);
 	lpRtcEngine->setupLocalVideo(vc);
 	lpRtcEngine->startPreview();
-
+	
 	lpAgoraObject->JoinChannel(strChannelName,0,strlen(APP_TOKEN) > 0 ? APP_TOKEN:NULL);
 
     lpAgoraObject->SetMsgHandlerWnd(m_dlgVideo.GetSafeHwnd());
