@@ -326,3 +326,10 @@ void CAGEngineEventHandler::onConnectionInterrupted()
 void CAGEngineEventHandler::onUserEnableVideo(uid_t uid, bool enabled)
 {
 }
+
+void CAGEngineEventHandler::onLastmileQuality(int quality)
+{
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_LASTMILE_QUALITY), quality, 0);
+
+}

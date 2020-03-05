@@ -89,7 +89,7 @@ BEGIN_MESSAGE_MAP(COpenLiveDlg, CDialogEx)
     ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &COpenLiveDlg::OnNetworkQuality)
 	ON_MESSAGE(WM_MSGID(EID_APICALL_EXECUTED), &COpenLiveDlg::OnEIDApiExecuted)
 	ON_MESSAGE(WM_MSGID(EID_ERROR), &COpenLiveDlg::OnEIDError)
-
+	ON_MESSAGE(WM_MSGID(EID_LASTMILE_QUALITY), &COpenLiveDlg::OnLastMileQuality)
 	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &COpenLiveDlg::OnEIDLeaveChannel)
     ON_WM_CLOSE()
 END_MESSAGE_MAP()
@@ -433,5 +433,18 @@ LRESULT COpenLiveDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	delete lpData;
 	lpData = NULL;
+	return 0;
+}
+
+
+
+LRESULT COpenLiveDlg::OnLastMileQuality(WPARAM wParam, LPARAM lParam)
+{
+	int quality = wParam;
+
+	if (m_nNetworkQuality != quality) {
+		m_nNetworkQuality = quality;
+		InvalidateRect(CRect(16, 40, 48, 72), TRUE);
+	}
 	return 0;
 }
