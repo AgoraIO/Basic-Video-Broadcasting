@@ -84,7 +84,7 @@ BEGIN_MESSAGE_MAP(COpenLiveDlg, CDialogEx)
     ON_MESSAGE(WM_MSGID(EID_NETWORK_QUALITY), &COpenLiveDlg::OnNetworkQuality)
 	ON_MESSAGE(WM_MSGID(EID_APICALL_EXECUTED), &COpenLiveDlg::OnEIDApiExecuted)
 	ON_MESSAGE(WM_MSGID(EID_ERROR), &COpenLiveDlg::OnEIDError)
-
+	ON_MESSAGE(WM_MSGID(EID_LASTMILE_QUALITY), &COpenLiveDlg::OnLastMileQuality)
 	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &COpenLiveDlg::OnEIDLeaveChannel)
     ON_WM_CLOSE()
 END_MESSAGE_MAP()
@@ -153,6 +153,7 @@ BOOL COpenLiveDlg::OnInitDialog()
 	m_lpAgoraObject->SetMsgHandlerWnd(GetSafeHwnd());
 	CAgoraObject::GetEngine()->setChannelProfile(CHANNEL_PROFILE_LIVE_BROADCASTING);
 	CAgoraObject::GetAgoraObject()->EnableVideo(TRUE);
+	CAgoraObject::GetAgoraObject()->EnableLastmileTest(TRUE);
 	CAgoraObject::GetAgoraObject()->SetClientRole(CLIENT_ROLE_BROADCASTER);
 
 	SetBackgroundImage(IDB_DLG_MAIN);
@@ -339,7 +340,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 {
 	IRtcEngine		*lpRtcEngine = CAgoraObject::GetEngine();
 	CAgoraObject	*lpAgoraObject = CAgoraObject::GetAgoraObject();
-
+	lpAgoraObject->EnableLastmileTest(FALSE);
 	CString strChannelName = m_dlgEnterChannel.GetChannelName();
 
 	m_dlgVideo.MoveWindow(0, 0, 960, 720, 1);
@@ -428,5 +429,18 @@ LRESULT COpenLiveDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	delete lpData;
 	lpData = NULL;
+	return 0;
+}
+
+
+
+LRESULT COpenLiveDlg::OnLastMileQuality(WPARAM wParam, LPARAM lParam)
+{
+	int quality = wParam;
+
+	if (m_nNetworkQuality != quality) {
+		m_nNetworkQuality = quality;
+		InvalidateRect(CRect(16, 40, 48, 72), TRUE);
+	}
 	return 0;
 }

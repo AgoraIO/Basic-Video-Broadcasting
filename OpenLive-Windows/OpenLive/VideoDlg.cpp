@@ -362,7 +362,8 @@ void CVideoDlg::OnBnClickedBtnclose()
 	CAgoraObject::GetAgoraObject()->MuteLocalAudio(FALSE);
 	m_btnAudio.SwitchButtonStatus(CAGButton::AGBTN_NORMAL);
 
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 0, NULL, FALSE);
+	if (CAgoraObject::GetAgoraObject()->IsScreenCaptureEnabled())
+		CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 0, NULL, FALSE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_NORMAL);
 
 	m_dlgChat.ShowWindow(SW_HIDE);

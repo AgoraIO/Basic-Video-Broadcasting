@@ -43,6 +43,8 @@ public:
 	virtual void onConnectionInterrupted() override;
 
 	virtual void onUserEnableVideo(uid_t uid, bool enabled) override;
+
+	virtual void onLastmileQuality(int quality)override;
 private:
 	HWND		m_hMainWnd;
 };
