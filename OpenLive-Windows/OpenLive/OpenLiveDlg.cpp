@@ -88,6 +88,7 @@ BEGIN_MESSAGE_MAP(COpenLiveDlg, CDialogEx)
 
 	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &COpenLiveDlg::OnEIDLeaveChannel)
     ON_WM_CLOSE()
+	ON_MESSAGE(WM_MSGID(EID_LASTMILE_QUALITY), &COpenLiveDlg::OnLastMileQuality)
 END_MESSAGE_MAP()
 
 
@@ -155,7 +156,7 @@ BOOL COpenLiveDlg::OnInitDialog()
 	CAgoraObject::GetEngine()->setChannelProfile(CHANNEL_PROFILE_LIVE_BROADCASTING);
 	CAgoraObject::GetAgoraObject()->EnableVideo(TRUE);
 	CAgoraObject::GetAgoraObject()->SetClientRole(CLIENT_ROLE_BROADCASTER);
-
+	CAgoraObject::GetAgoraObject()->EnableLastmileTest(TRUE);
 	SetBackgroundImage(IDB_DLG_MAIN);
 	InitCtrls();
 	InitChildDialog();
@@ -346,7 +347,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	m_dlgVideo.MoveWindow(0, 0, 960, 720, 1);
 	m_dlgVideo.ShowWindow(SW_SHOW);
 	m_dlgVideo.CenterWindow();
-
+	lpAgoraObject->EnableLastmileTest(TRUE);
 	VideoCanvas vc;
 
 	vc.uid = 0;
@@ -429,5 +430,17 @@ LRESULT COpenLiveDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	delete lpData;
 	lpData = NULL;
+	return 0;
+}
+
+
+LRESULT COpenLiveDlg::OnLastMileQuality(WPARAM wParam, LPARAM lParam)
+{
+	int quality = wParam;
+
+	if (m_nNetworkQuality != quality) {
+		m_nNetworkQuality = quality;
+		InvalidateRect(CRect(16, 40, 48, 72), TRUE);
+	}
 	return 0;
 }
