@@ -87,6 +87,7 @@ BEGIN_MESSAGE_MAP(COpenLiveDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_ERROR), &COpenLiveDlg::OnEIDError)
 
 	ON_MESSAGE(WM_MSGID(EID_LEAVE_CHANNEL), &COpenLiveDlg::OnEIDLeaveChannel)
+	ON_MESSAGE(WM_MSGID(EID_LASTMILE_QUALITY), &COpenLiveDlg::OnLastMileQuality)
     ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
@@ -155,7 +156,7 @@ BOOL COpenLiveDlg::OnInitDialog()
 	CAgoraObject::GetEngine()->setChannelProfile(CHANNEL_PROFILE_LIVE_BROADCASTING);
 	CAgoraObject::GetAgoraObject()->EnableVideo(TRUE);
 	CAgoraObject::GetAgoraObject()->SetClientRole(CLIENT_ROLE_BROADCASTER);
-
+	CAgoraObject::GetAgoraObject()->EnableLastmileTest(TRUE);
 	SetBackgroundImage(IDB_DLG_MAIN);
 	InitCtrls();
 	InitChildDialog();
@@ -356,7 +357,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	//cancel setVideoProfile bitrate since version 2.1.0
 	int nVideoSolution = m_dlgSetup.GetVideoSolution();
 	//lpRtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)nVideoSolution, m_dlgSetup.IsWHSwap());
-
+	lpAgoraObject->EnableLastmileTest(FALSE);
 	VideoEncoderConfiguration config;
 	config.bitrate = m_dlgSetup.GetBirate();
 	config.frameRate = (FRAME_RATE)m_dlgSetup.GetFPS();
@@ -368,7 +369,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	m_dlgVideo.SetWindowText(strChannelName);
 	lpRtcEngine->setupLocalVideo(vc);
 	lpRtcEngine->startPreview();
-
+	
 	lpAgoraObject->JoinChannel(strChannelName);
 
     lpAgoraObject->SetMsgHandlerWnd(m_dlgVideo.GetSafeHwnd());
@@ -381,7 +382,8 @@ LRESULT COpenLiveDlg::OnLeaveChannel(WPARAM wParam, LPARAM lParam)
 	CAgoraObject	*lpAgoraObject = CAgoraObject::GetAgoraObject();
 
 	lpAgoraObject->LeaveCahnnel();
-    
+	lpAgoraObject->SetMsgHandlerWnd(GetSafeHwnd());
+	lpAgoraObject->EnableLastmileTest(TRUE);
 	return 0;
 }
 
@@ -429,5 +431,16 @@ LRESULT COpenLiveDlg::OnEIDLeaveChannel(WPARAM wParam, LPARAM lParam)
 	LPAGE_LEAVE_CHANNEL lpData = (LPAGE_LEAVE_CHANNEL)wParam;
 	delete lpData;
 	lpData = NULL;
+	return 0;
+}
+
+LRESULT COpenLiveDlg::OnLastMileQuality(WPARAM wParam, LPARAM lParam)
+{
+	int quality = wParam;
+
+	if (m_nNetworkQuality != quality) {
+		m_nNetworkQuality = quality;
+		InvalidateRect(CRect(16, 40, 48, 72), TRUE);
+	}
 	return 0;
 }

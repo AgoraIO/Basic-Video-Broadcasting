@@ -240,5 +240,5 @@ typedef struct _AGE_APICALL_EXECUTED
 
 #define EID_APICALL_EXECUTED					0x00000020
 
-
+#define EID_LASTMILE_QUALITY					0x00000021
 #endif
