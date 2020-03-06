@@ -382,7 +382,8 @@ LRESULT COpenLiveDlg::OnLeaveChannel(WPARAM wParam, LPARAM lParam)
 	CAgoraObject	*lpAgoraObject = CAgoraObject::GetAgoraObject();
 
 	lpAgoraObject->LeaveCahnnel();
-    
+	lpAgoraObject->SetMsgHandlerWnd(GetSafeHwnd());
+	lpAgoraObject->EnableLastmileTest(TRUE);
 	return 0;
 }
 
