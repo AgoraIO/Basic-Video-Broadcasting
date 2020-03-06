@@ -8,8 +8,8 @@ trigger:
 - dev/*
 
 variables:
-  iOSRTCSDK: 'https://release.agoralab.co/disk/v3.0.0_IOS_SO/AgoraSDK/iOS/Agora_Native_SDK_for_iOS_v3_0_0_FULL_20191119_1479.zip'
-  MacRTCSDK: 'https://release.agoralab.co/disk/v3.0.0_IOS_SO/AgoraSDK/Mac/Agora_Native_SDK_for_Mac_v3_0_0_FULL_20191119_822.zip'
+  iOSRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_iOS_v3_0_0_FULL.zip?_ga=2.79185814.368877217.1583320605-5559409.1503304822'
+  MacRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Mac_v3_0_0_FULL.zip?_ga=2.78400662.368877217.1583320605-5559409.1503304822'
 
 jobs:
 - template: 'OpenLive-Android/open-live-template.yml'
@@ -31,14 +31,14 @@ jobs:
     scheme: 'OpenLive'
     sdkurl: $(iOSRTCSDK)
 
-- template: cicd/templates/build-ios.yml
+- template: cicd/templates/build-mac.yml
   parameters:
     displayName: 'MacSwiftOpenLive'
     workingDirectory: 'OpenLive-macOS'
     scheme: 'OpenLive'
     sdkurl: $(MacRTCSDK)
 
-- template: cicd/templates/build-ios.yml
+- template: cicd/templates/build-mac.yml
   parameters:
     displayName: 'MacOCOpenLive'
     workingDirectory: 'OpenLive-macOS-Objective-C'

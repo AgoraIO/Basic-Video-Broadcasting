@@ -1,4 +1,4 @@
-m -f *.ipa
+rm -f *.ipa
 rm -rf *.app
 rm -f *.zip
 rm -rf dSYMs
