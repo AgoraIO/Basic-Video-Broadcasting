@@ -32,8 +32,8 @@ jobs:
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
       - script: cd $(Build.ArtifactStagingDirectory) && zip -r ${{ parameters.displayName }}.zip .
-
+      
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)/${{ parameters.displayName }}.zip'
-          ArtifactName: ${{ parameters.displayName }}
+          ArtifactName: ${{ parameters.project }}
