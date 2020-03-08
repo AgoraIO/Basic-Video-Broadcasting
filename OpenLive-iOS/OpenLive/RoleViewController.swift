@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AgoraRtcEngineKit
+import AgoraRtcKit
 
 protocol RoleVCDelegate: NSObjectProtocol {
     func roleVC(_ vc: RoleViewController, didSelect role: AgoraClientRole)

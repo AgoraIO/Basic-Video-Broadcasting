@@ -7,33 +7,55 @@
 //
 
 import Cocoa
+import AgoraRtcKit
 
 class MainViewController: NSViewController {
     
     @IBOutlet weak var roomInputTextField: NSTextField!
+    @IBOutlet weak var roomInputLineView: NSView!
+    @IBOutlet weak var joinButton: AGEButton!
+    @IBOutlet weak var settingsButton: NSButton!
     
-    @IBOutlet weak var lastmileTestButton: NSButton!
-    @IBOutlet weak var lastmileTestIndicator: NSProgressIndicator!
-    @IBOutlet weak var qualityLabel: NSTextField!
-    @IBOutlet weak var rttLabel: NSTextField!
-    @IBOutlet weak var uplinkLabel: NSTextField!
-    @IBOutlet weak var downlinkLabel: NSTextField!
+    @IBOutlet weak var broadcasterImageView: NSImageView!
+    @IBOutlet weak var audienceImageView: NSImageView!
+    @IBOutlet weak var broadcasterBox: NSButton!
+    @IBOutlet weak var audienceBox: NSButton!
     
-    lazy fileprivate var rtcEngine: AgoraRtcEngineKit = {
-        let engine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+    private lazy var agoraKit: AgoraRtcEngineKit = {
+        let engine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: nil)
+        engine.setLogFilter(AgoraLogFilter.info.rawValue)
+        engine.setLogFile(FileCenter.logFilePath())
         return engine
     }()
-    var videoProfile = AgoraVideoDimension640x480
     
-    private var isLastmileProbeTesting = false {
+    private var role = AgoraClientRole.audience {
         didSet {
-            lastmileTestButton?.isHidden = isLastmileProbeTesting
-            if isLastmileProbeTesting {
-                lastmileTestIndicator?.startAnimation(nil)
-            } else {
-                lastmileTestIndicator?.stopAnimation(nil)
+            switch role {
+            case .broadcaster:
+                broadcasterImageView.image = NSImage(named: "broadcaster-blue")
+                broadcasterBox.setTitle(" 我是主播", with: NSColor.AGTextBlue)
+                broadcasterBox.state = .on
+                
+                audienceBox.setTitle(" 我是观众", with: NSColor.AGTextGray)
+                audienceImageView.image = NSImage(named: "audience-gray")
+                audienceBox.state = .off
+            case .audience:
+                broadcasterImageView.image = NSImage(named: "broadcaster-gray")
+                broadcasterBox.setTitle(" 我是主播", with: NSColor.AGTextGray)
+                broadcasterBox.state = .off
+                
+                audienceImageView.image = NSImage(named: "audience-blue")
+                audienceBox.setTitle(" 我是观众", with: NSColor.AGTextBlue)
+                audienceBox.state = .on
             }
         }
+    }
+    
+    private var settings = Settings()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViews()
     }
     
     override func viewDidAppear() {
@@ -46,125 +68,145 @@ class MainViewController: NSViewController {
             return
         }
         
-        if segueId == "mainToSettings" {
+        switch segueId {
+        case "mainVCToSettingsVC":
             let settingsVC = segue.destinationController as! SettingsViewController
-            settingsVC.videoProfile = videoProfile
+            settingsVC.dataSource = self
             settingsVC.delegate = self
-        } else if segueId == "mainToLive" {
-            let liveVC = segue.destinationController as! LiveRoomViewController
-            liveVC.roomName = roomInputTextField.stringValue
-            liveVC.rtcEngine = rtcEngine
-            liveVC.videoProfile = videoProfile
-            if let value = sender as? NSNumber, let role = AgoraClientRole(rawValue: value.intValue) {
-                liveVC.clientRole = role
-            }
-            liveVC.delegate = self
+        case "mainVCToRoomVC":
+            let roomVC = segue.destinationController as! RoomViewController
+            roomVC.dataSource = self
+            roomVC.delegate = self
+        default:
+            break
         }
     }
     
-    //MARK: - user actions
-    @IBAction func doLastmileProbeTestPressed(_ sender: NSButton) {
-        let config = AgoraLastmileProbeConfig()
-        config.probeUplink = true
-        config.probeDownlink = true
-        config.expectedUplinkBitrate = 5000
-        config.expectedDownlinkBitrate = 5000
-        
-        rtcEngine.startLastmileProbeTest(config)
-        
-        isLastmileProbeTesting = true
-        
-        qualityLabel.isHidden = true
-        rttLabel.isHidden = true
-        uplinkLabel.isHidden = true
-        downlinkLabel.isHidden = true
+    override func mouseEntered(with event: NSEvent) {
+        if event.trackingArea?.owner as? NSButton == joinButton, joinButton.isEnabled {
+            joinButton.image = NSImage(named: "icon-join-hover")
+        }
     }
     
-    @IBAction func doJoinAsAudienceClicked(_ sender: NSButton) {
-        guard let roomName = roomInputTextField?.stringValue , !roomName.isEmpty else {
-            return
+    override func mouseExited(with event: NSEvent) {
+        if event.trackingArea?.owner as? NSButton == joinButton, joinButton.isEnabled {
+            joinButton.image = NSImage(named: "icon-join")
         }
-        join(withRole: .audience)
     }
     
-    @IBAction func doJoinAsBroadcasterClicked(_ sender: NSButton) {
-        guard let roomName = roomInputTextField?.stringValue , !roomName.isEmpty else {
-            return
-        }
-        join(withRole: .broadcaster)
+    // MARK: - user actions
+    @IBAction func doJoinClicked(_ sender: NSButton) {
+        enter(roomName: roomInputTextField.stringValue)
     }
     
     @IBAction func doSettingsClicked(_ sender: NSButton) {
-        performSegue(withIdentifier: "mainToSettings", sender: nil)
+        performSegue(withIdentifier: "roomVCToSettingsVC", sender: nil)
+    }
+    
+    @IBAction func doAudienceClicked(_ sender: NSButton) {
+        role = .audience
+    }
+    
+    @IBAction func doBroadcasterClicked(_ sender: NSButton) {
+        role = .broadcaster
     }
 }
 
 private extension MainViewController {
-    func join(withRole role: AgoraClientRole) {
-        performSegue(withIdentifier: "mainToLive", sender: NSNumber(value: role.rawValue as Int))
+    func updateViews() {
+        view.layer?.backgroundColor = NSColor.white.cgColor
+        
+        settingsButton.layer?.backgroundColor = NSColor.clear.cgColor
+        
+        roomInputTextField.layer?.backgroundColor = NSColor.white.cgColor
+        roomInputTextField.textColor = NSColor.AGDarkGray
+        roomInputTextField.setPlacehold("Pick a topic to chat", with: NSColor.AGTextGray)
+        
+        roomInputLineView.layer?.backgroundColor = NSColor.AGGray.cgColor
+        
+        joinButton.layer?.cornerRadius = 22
+        joinButton.addTrackingArea(.default)
+        joinButton.image = NSImage(named: "icon-join")
+        joinButton.setTitle("Start Live Broadcast", with: NSColor.white)
+        
+        role = .audience
+    }
+    
+    func enter(roomName: String?) {
+        guard let roomName = roomName, !roomName.isEmpty else {
+            return
+        }
+        settings.role = role
+        settings.roomName = roomName
+        joinButton.image = NSImage(named: "icon-join")
+        performSegue(withIdentifier: "mainVCToRoomVC", sender: nil)
     }
 }
 
 extension MainViewController: SettingsVCDelegate {
-    func settingsVC(_ settingsVC: SettingsViewController, closeWithProfile profile: CGSize) {
-        videoProfile = profile
-        settingsVC.delegate = nil
-        settingsVC.view.window?.contentViewController = self
+    func settingsVC(_ vc: SettingsViewController, didUpdate settings: Settings) {
+        self.settings = settings
+    }
+    
+    func settingsVCNeedClose(_ vc: SettingsViewController) {
+        vc.view.window?.contentViewController = self
     }
 }
 
-extension MainViewController: LiveRoomVCDelegate {
-    func liveRoomVCNeedClose(_ liveVC: LiveRoomViewController) {
-        guard let window = liveVC.view.window else {
+extension MainViewController: SettingsVCDataSource {
+    func settingsVCNeedAgoraKit() -> AgoraRtcEngineKit {
+        return agoraKit
+    }
+    
+    func settingsVCNeedSettings() -> Settings {
+        return settings
+    }
+}
+
+extension MainViewController: RoomVCDelegate {
+    func roomVCNeedClose(_ roomVC: RoomViewController) {
+        guard let window = roomVC.view.window else {
             return
         }
         
+        if window.styleMask.contains(.fullScreen) {
+            window.toggleFullScreen(nil)
+        }
+        
+        if window.styleMask.contains(.resizable) {
+            window.styleMask.remove(.resizable)
+        }
+        
         window.delegate = nil
+        window.collectionBehavior = NSWindow.CollectionBehavior()
+
         window.contentViewController = self
         
-        liveVC.delegate = nil
-        rtcEngine.delegate = self
+        let size = CGSize(width: 700, height: 500)
+        window.minSize = size
+        window.setContentSize(size)
+        window.maxSize = size
     }
 }
 
-extension MainViewController: AgoraRtcEngineDelegate {
-    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileQuality quality: AgoraNetworkQuality) {
-        qualityLabel.stringValue = "quality: " + quality.description()
-        qualityLabel.isHidden = false
+extension MainViewController: RoomVCDataSource {
+    func roomVCNeedSettings() -> Settings {
+        return settings
     }
     
-    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
-        rttLabel.stringValue = "rtt: \(result.rtt)"
-        rttLabel.isHidden = false
-        uplinkLabel.stringValue = "up: \(result.uplinkReport.description())"
-        uplinkLabel.isHidden = false
-        downlinkLabel.stringValue = "down: \(result.downlinkReport.description())"
-        downlinkLabel.isHidden = false
-        
-        rtcEngine.stopLastmileProbeTest()
-        isLastmileProbeTesting = false
+    func roomVCNeedAgoraKit() -> AgoraRtcEngineKit {
+        return agoraKit
     }
 }
 
-extension AgoraNetworkQuality {
-    func description() -> String {
-        switch self {
-        case .excellent: return "excellent"
-        case .good:      return "good"
-        case .poor:      return "poor"
-        case .bad:       return "bad"
-        case .vBad:      return "very bad"
-        case .down:      return "down"
-        case .unknown:   return "unknown"
-        case .detecting: return "detecting"
-        case .unsupported: return "unsupported"
-        default:         return "unknown"
+//MARK: - text field
+extension MainViewController: NSControlTextEditingDelegate {
+    func controlTextDidChange(_ obj: Notification) {
+        guard let field = obj.object as? NSTextField else {
+            return
         }
-    }
-}
-
-extension AgoraLastmileProbeOneWayResult {
-    func description() -> String {
-        return "packetLoss: \(packetLossRate), jitter: \(jitter), availableBandwidth: \(availableBandwidth)"
+        
+        let legalString = MediaCharacter.updateToLegalMediaString(from: field.stringValue)
+        field.stringValue = legalString
     }
 }

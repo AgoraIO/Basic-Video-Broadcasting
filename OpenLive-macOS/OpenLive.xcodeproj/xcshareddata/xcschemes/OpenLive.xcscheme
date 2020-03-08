@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "071CE22C1D79362D00B82401"
+               BlueprintIdentifier = "07C2CFB31D6C26F300C84349"
                BuildableName = "OpenLive.app"
                BlueprintName = "OpenLive"
                ReferencedContainer = "container:OpenLive.xcodeproj">
@@ -27,29 +27,27 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "07F531991E289ED4009BFE58"
-               BuildableName = "OpenLiveUITests.xctest"
-               BlueprintName = "OpenLiveUITests"
-               ReferencedContainer = "container:OpenLive.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "071CE22C1D79362D00B82401"
+            BlueprintIdentifier = "07C2CFB31D6C26F300C84349"
             BuildableName = "OpenLive.app"
             BlueprintName = "OpenLive"
             ReferencedContainer = "container:OpenLive.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "07F531C31E28B237009BFE58"
+               BuildableName = "OpenVideoCallUITests.xctest"
+               BlueprintName = "OpenVideoCallUITests"
+               ReferencedContainer = "container:OpenLive.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -65,19 +63,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "071CE22C1D79362D00B82401"
+            BlueprintIdentifier = "07C2CFB31D6C26F300C84349"
             BuildableName = "OpenLive.app"
             BlueprintName = "OpenLive"
             ReferencedContainer = "container:OpenLive.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -89,7 +80,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "071CE22C1D79362D00B82401"
+            BlueprintIdentifier = "07C2CFB31D6C26F300C84349"
             BuildableName = "OpenLive.app"
             BlueprintName = "OpenLive"
             ReferencedContainer = "container:OpenLive.xcodeproj">

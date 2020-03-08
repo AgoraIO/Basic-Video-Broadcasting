@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
+#import <AgoraRtcKit/AgoraRtcEngineKit.h>
 
 @interface ProfileCell : UITableViewCell
 - (void)updateWithProfile:(CGSize)profile isSelected:(BOOL)isSelected;
