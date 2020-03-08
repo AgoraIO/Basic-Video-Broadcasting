@@ -14,23 +14,19 @@
 		1A2F4591202C88A4003783AE /* KeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4590202C88A4003783AE /* KeyCenter.m */; };
 		1A2F4596202D4405003783AE /* MediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4595202D4405003783AE /* MediaInfo.m */; };
 		1A2F45A2202D7486003783AE /* VideoSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F45A1202D7486003783AE /* VideoSession.m */; };
-		1A2F45A5202D75AF003783AE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A4202D75AF003783AE /* SystemConfiguration.framework */; };
-		1A2F45A7202D75B8003783AE /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A6202D75B8003783AE /* libresolv.tbd */; };
-		1A2F45A9202D75C1003783AE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A8202D75C1003783AE /* libc++.tbd */; };
-		1A2F45AB202D75C7003783AE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45AA202D75C7003783AE /* CoreAudio.framework */; };
-		1A2F45AD202D75CE003783AE /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45AC202D75CE003783AE /* CoreWLAN.framework */; };
-		1A2F45AF202D75D4003783AE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45AE202D75D4003783AE /* CoreMedia.framework */; };
-		1A2F45B1202D75DB003783AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45B0202D75DA003783AE /* AudioToolbox.framework */; };
-		1A2F45B3202D75E0003783AE /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45B2202D75E0003783AE /* VideoToolbox.framework */; };
-		1A2F45B5202D75E6003783AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45B4202D75E6003783AE /* AVFoundation.framework */; };
 		1AFA9DC5202BF0A500D782CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DC4202BF0A500D782CB /* AppDelegate.m */; };
 		1AFA9DCA202BF0A500D782CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AFA9DC9202BF0A500D782CB /* Assets.xcassets */; };
 		1AFA9DCD202BF0A500D782CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFA9DCB202BF0A500D782CB /* Main.storyboard */; };
 		1AFA9DD0202BF0A600D782CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DCF202BF0A600D782CB /* main.m */; };
 		1AFA9DF5202BF28900D782CB /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DF4202BF28900D782CB /* MainWindowController.m */; };
 		1AFA9DF8202BF2C100D782CB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DF7202BF2C100D782CB /* MainViewController.m */; };
-		70FF4E612068C0120017FAF1 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */; };
-		A7C50EF12121663D00774322 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF02121663D00774322 /* Accelerate.framework */; };
+		A76C26692386557C0047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26682386557C0047E150 /* AgoraRtcKit.framework */; };
+		A7733D8A2407A2C700483870 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF02121663D00774322 /* Accelerate.framework */; };
+		A7733D8B2407A2D600483870 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45AC202D75CE003783AE /* CoreWLAN.framework */; };
+		A7733D8C2407A2DC00483870 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A4202D75AF003783AE /* SystemConfiguration.framework */; };
+		A7733D8D2407A2E200483870 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A8202D75C1003783AE /* libc++.tbd */; };
+		A7733D8E2407A2E800483870 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A6202D75B8003783AE /* libresolv.tbd */; };
+		A7733D8F2407A2F400483870 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45B2202D75E0003783AE /* VideoToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +65,7 @@
 		1AFA9DF4202BF28900D782CB /* MainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		1AFA9DF6202BF2C100D782CB /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		1AFA9DF7202BF2C100D782CB /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		A76C26682386557C0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A7C50EF02121663D00774322 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -78,17 +74,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7C50EF12121663D00774322 /* Accelerate.framework in Frameworks */,
-				70FF4E612068C0120017FAF1 /* AgoraRtcEngineKit.framework in Frameworks */,
-				1A2F45B5202D75E6003783AE /* AVFoundation.framework in Frameworks */,
-				1A2F45B3202D75E0003783AE /* VideoToolbox.framework in Frameworks */,
-				1A2F45B1202D75DB003783AE /* AudioToolbox.framework in Frameworks */,
-				1A2F45AF202D75D4003783AE /* CoreMedia.framework in Frameworks */,
-				1A2F45AD202D75CE003783AE /* CoreWLAN.framework in Frameworks */,
-				1A2F45AB202D75C7003783AE /* CoreAudio.framework in Frameworks */,
-				1A2F45A9202D75C1003783AE /* libc++.tbd in Frameworks */,
-				1A2F45A7202D75B8003783AE /* libresolv.tbd in Frameworks */,
-				1A2F45A5202D75AF003783AE /* SystemConfiguration.framework in Frameworks */,
+				A7733D8B2407A2D600483870 /* CoreWLAN.framework in Frameworks */,
+				A7733D8F2407A2F400483870 /* VideoToolbox.framework in Frameworks */,
+				A7733D8D2407A2E200483870 /* libc++.tbd in Frameworks */,
+				A76C26692386557C0047E150 /* AgoraRtcKit.framework in Frameworks */,
+				A7733D8C2407A2DC00483870 /* SystemConfiguration.framework in Frameworks */,
+				A7733D8A2407A2C700483870 /* Accelerate.framework in Frameworks */,
+				A7733D8E2407A2E800483870 /* libresolv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +139,8 @@
 				1A2F458D202C8897003783AE /* VideoViewLayouter.m */,
 				1A2F4594202D4405003783AE /* MediaInfo.h */,
 				1A2F4595202D4405003783AE /* MediaInfo.m */,
-				70FF4E602068C0110017FAF1 /* AgoraRtcEngineKit.framework */,
 				38127CDD21FB2D1D0025C28F /* Supporting Files */,
+				A76C26682386557C0047E150 /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
 			sourceTree = "<group>";

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AgoraRtcEngineKit
+import AgoraRtcKit
 
 protocol LiveVCDataSource: NSObjectProtocol {
     func liveVCNeedAgoraKit() -> AgoraRtcEngineKit
@@ -16,7 +16,7 @@ protocol LiveVCDataSource: NSObjectProtocol {
 
 class LiveRoomViewController: UIViewController {
     
-    @IBOutlet weak var broadcastersView: AGVideoCollectionView!
+    @IBOutlet weak var broadcastersView: AGEVideoContainer!
     @IBOutlet weak var placeholderView: UIImageView!
     
     @IBOutlet weak var videoMuteButton: UIButton!
@@ -81,6 +81,8 @@ class LiveRoomViewController: UIViewController {
         }
     }
     
+    private let maxVideoSession = 4
+    
     weak var dataSource: LiveVCDataSource?
     
     override func viewDidLoad() {
@@ -118,36 +120,40 @@ class LiveRoomViewController: UIViewController {
 private extension LiveRoomViewController {
     func updateBroadcastersView() {
         // video views layout
-        var rank: Int
-        var row: Int
-        
-        if videoSessions.count == 0 {
-            return
-        } else if videoSessions.count == 1 {
-            rank = 1
-            row = 1
-        } else if videoSessions.count == 2 {
-            rank = 1
-            row = 2
+        if videoSessions.count == maxVideoSession {
+            broadcastersView.reload(level: 0, animated: true)
         } else {
-            rank = 2
-            row = Int(ceil(Double(videoSessions.count) / Double(rank)))
-        }
-        
-        let itemWidth = CGFloat(1.0) / CGFloat(rank)
-        let itemHeight = CGFloat(1.0) / CGFloat(row)
-        let layout = AGVideoCollectionLayout(level: 0)
-                     .itemSize(width: itemWidth,
-                               height: itemHeight)
-        
-        broadcastersView
-            .listCount { [unowned self] (_) -> Int in
-                return self.videoSessions.count
-            }.listItem { [unowned self] (index) -> UIView in
-                return self.videoSessions[index.item].hostingView
+            var rank: Int
+            var row: Int
+            
+            if videoSessions.count == 0 {
+                return
+            } else if videoSessions.count == 1 {
+                rank = 1
+                row = 1
+            } else if videoSessions.count == 2 {
+                rank = 1
+                row = 2
+            } else {
+                rank = 2
+                row = Int(ceil(Double(videoSessions.count) / Double(rank)))
             }
-        
-        broadcastersView.setLayouts([layout], animated: true)
+            
+            let itemWidth = CGFloat(1.0) / CGFloat(rank)
+            let itemHeight = CGFloat(1.0) / CGFloat(row)
+            let itemSize = CGSize(width: itemWidth, height: itemHeight)
+            let layout = AGEVideoLayout(level: 0)
+                        .itemSize(.scale(itemSize))
+            
+            broadcastersView
+                .listCount { [unowned self] (_) -> Int in
+                    return self.videoSessions.count
+                }.listItem { [unowned self] (index) -> UIView in
+                    return self.videoSessions[index.item].hostingView
+                }
+            
+            broadcastersView.setLayouts([layout], animated: true)
+        }
     }
     
     func updateButtonsVisiablity() {
@@ -277,7 +283,7 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
     
     // first remote video frame
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
-        guard videoSessions.count < 5 else {
+        guard videoSessions.count <= maxVideoSession else {
             return
         }
         

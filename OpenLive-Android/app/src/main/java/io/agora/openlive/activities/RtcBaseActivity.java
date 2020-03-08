@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.SurfaceView;
 import android.text.TextUtils;
 
+import io.agora.openlive.Constants;
 import io.agora.openlive.rtc.EventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
@@ -21,12 +22,14 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     }
 
     private void configVideo() {
-        rtcEngine().setVideoEncoderConfiguration(new VideoEncoderConfiguration(
-                io.agora.openlive.Constants.VIDEO_DIMENSIONS[config().getVideoDimenIndex()],
+        VideoEncoderConfiguration configuration = new VideoEncoderConfiguration(
+                Constants.VIDEO_DIMENSIONS[config().getVideoDimenIndex()],
                 VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT
-        ));
+        );
+        configuration.mirrorMode = Constants.VIDEO_MIRROR_MODES[config().getMirrorEncodeIndex()];
+        rtcEngine().setVideoEncoderConfiguration(configuration);
     }
 
     private void joinChannel() {
@@ -45,9 +48,23 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     protected SurfaceView prepareRtcVideo(int uid, boolean local) {
         SurfaceView surface = RtcEngine.CreateRendererView(getApplicationContext());
         if (local) {
-            rtcEngine().setupLocalVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, 0));
+            rtcEngine().setupLocalVideo(
+                    new VideoCanvas(
+                            surface,
+                            VideoCanvas.RENDER_MODE_HIDDEN,
+                            0,
+                            Constants.VIDEO_MIRROR_MODES[config().getMirrorLocalIndex()]
+                    )
+            );
         } else {
-            rtcEngine().setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, uid));
+            rtcEngine().setupRemoteVideo(
+                    new VideoCanvas(
+                            surface,
+                            VideoCanvas.RENDER_MODE_HIDDEN,
+                            uid,
+                            Constants.VIDEO_MIRROR_MODES[config().getMirrorRemoteIndex()]
+                    )
+            );
         }
         return surface;
     }

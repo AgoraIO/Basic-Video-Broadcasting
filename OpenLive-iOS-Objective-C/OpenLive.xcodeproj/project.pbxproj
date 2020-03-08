@@ -12,13 +12,6 @@
 		07D24D011D866704002C69BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D24CFF1D866704002C69BF /* Main.storyboard */; };
 		07D24D031D866704002C69BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D24D021D866704002C69BF /* Assets.xcassets */; };
 		07D24D061D866704002C69BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D24D041D866704002C69BF /* LaunchScreen.storyboard */; };
-		07D24D151D8667DC002C69BF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D141D8667DC002C69BF /* AVFoundation.framework */; };
-		07D24D171D8667E7002C69BF /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D161D8667E7002C69BF /* VideoToolbox.framework */; };
-		07D24D191D8667EC002C69BF /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D181D8667EC002C69BF /* libc++.tbd */; };
-		07D24D1B1D8667F5002C69BF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1A1D8667F5002C69BF /* AudioToolbox.framework */; };
-		07D24D1D1D8667FB002C69BF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1C1D8667FB002C69BF /* CoreMotion.framework */; };
-		07D24D1F1D866802002C69BF /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1E1D866802002C69BF /* CoreMedia.framework */; };
-		07D24D211D866809002C69BF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D201D866809002C69BF /* CoreTelephony.framework */; };
 		07D24D301D867644002C69BF /* KeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D231D867644002C69BF /* KeyCenter.m */; };
 		07D24D311D867644002C69BF /* LiveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D251D867644002C69BF /* LiveRoomViewController.m */; };
 		07D24D321D867644002C69BF /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D271D867644002C69BF /* MainViewController.m */; };
@@ -26,14 +19,19 @@
 		07D24D341D867644002C69BF /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D2B1D867644002C69BF /* SettingsViewController.m */; };
 		07D24D351D867644002C69BF /* VideoViewLayouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D2D1D867644002C69BF /* VideoViewLayouter.m */; };
 		07D24D361D867644002C69BF /* VideoSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D24D2F1D867644002C69BF /* VideoSession.m */; };
-		07D29C3A1E9E187D00C3583C /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C391E9E187D00C3583C /* AgoraRtcEngineKit.framework */; };
-		07D29C3C1E9E192A00C3583C /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C3B1E9E192A00C3583C /* libresolv.tbd */; };
-		382885B52249DC390023BCFA /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B42249DC390023BCFA /* CoreML.framework */; };
-		382885BF2249E57A0023BCFA /* srmetal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 382885BD2249E57A0023BCFA /* srmetal.metallib */; };
-		382885C02249E57A0023BCFA /* model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 382885BE2249E57A0023BCFA /* model.bundle */; };
 		38D618B8224A5FAE004A6C87 /* BeautyEffectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D618B7224A5FAE004A6C87 /* BeautyEffectTableViewController.m */; };
-		704E32D31FEB50A10027B6DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */; };
-		A7C50EF5212168BD00774322 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF4212168BD00774322 /* Accelerate.framework */; };
+		A76C26E2238690720047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26E1238690720047E150 /* AgoraRtcKit.framework */; };
+		A7733D7824079F3400483870 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF4212168BD00774322 /* Accelerate.framework */; };
+		A7733D7924079F3900483870 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1A1D8667F5002C69BF /* AudioToolbox.framework */; };
+		A7733D7A24079F3E00483870 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D161D8667E7002C69BF /* VideoToolbox.framework */; };
+		A7733D7B24079F4A00483870 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1E1D866802002C69BF /* CoreMedia.framework */; };
+		A7733D7C24079F4A00483870 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382885B42249DC390023BCFA /* CoreML.framework */; };
+		A7733D7D24079F4A00483870 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D1C1D8667FB002C69BF /* CoreMotion.framework */; };
+		A7733D7E24079F5000483870 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D201D866809002C69BF /* CoreTelephony.framework */; };
+		A7733D7F24079F5400483870 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D141D8667DC002C69BF /* AVFoundation.framework */; };
+		A7733D8024079F5A00483870 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D24D181D8667EC002C69BF /* libc++.tbd */; };
+		A7733D8124079F6500483870 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C3B1E9E192A00C3583C /* libresolv.tbd */; };
+		A7733D8224079F9A00483870 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,14 +64,13 @@
 		07D24D2D1D867644002C69BF /* VideoViewLayouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewLayouter.m; sourceTree = "<group>"; };
 		07D24D2E1D867644002C69BF /* VideoSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoSession.h; sourceTree = "<group>"; };
 		07D24D2F1D867644002C69BF /* VideoSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoSession.m; sourceTree = "<group>"; };
-		07D29C391E9E187D00C3583C /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		07D29C3B1E9E192A00C3583C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		382885B42249DC390023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		382885BD2249E57A0023BCFA /* srmetal.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; path = srmetal.metallib; sourceTree = "<group>"; };
-		382885BE2249E57A0023BCFA /* model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = model.bundle; sourceTree = "<group>"; };
 		38D618B6224A5FAE004A6C87 /* BeautyEffectTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeautyEffectTableViewController.h; sourceTree = "<group>"; };
 		38D618B7224A5FAE004A6C87 /* BeautyEffectTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeautyEffectTableViewController.m; sourceTree = "<group>"; };
 		704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A76C26E1238690720047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
+		A76C26E52386907A0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A7C50EF4212168BD00774322 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -82,18 +79,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				382885B52249DC390023BCFA /* CoreML.framework in Frameworks */,
-				A7C50EF5212168BD00774322 /* Accelerate.framework in Frameworks */,
-				704E32D31FEB50A10027B6DB /* SystemConfiguration.framework in Frameworks */,
-				07D29C3C1E9E192A00C3583C /* libresolv.tbd in Frameworks */,
-				07D29C3A1E9E187D00C3583C /* AgoraRtcEngineKit.framework in Frameworks */,
-				07D24D211D866809002C69BF /* CoreTelephony.framework in Frameworks */,
-				07D24D1F1D866802002C69BF /* CoreMedia.framework in Frameworks */,
-				07D24D1D1D8667FB002C69BF /* CoreMotion.framework in Frameworks */,
-				07D24D1B1D8667F5002C69BF /* AudioToolbox.framework in Frameworks */,
-				07D24D191D8667EC002C69BF /* libc++.tbd in Frameworks */,
-				07D24D171D8667E7002C69BF /* VideoToolbox.framework in Frameworks */,
-				07D24D151D8667DC002C69BF /* AVFoundation.framework in Frameworks */,
+				A7733D7A24079F3E00483870 /* VideoToolbox.framework in Frameworks */,
+				A76C26E2238690720047E150 /* AgoraRtcKit.framework in Frameworks */,
+				A7733D7F24079F5400483870 /* AVFoundation.framework in Frameworks */,
+				A7733D8124079F6500483870 /* libresolv.tbd in Frameworks */,
+				A7733D7C24079F4A00483870 /* CoreML.framework in Frameworks */,
+				A7733D7824079F3400483870 /* Accelerate.framework in Frameworks */,
+				A7733D7E24079F5000483870 /* CoreTelephony.framework in Frameworks */,
+				A7733D8024079F5A00483870 /* libc++.tbd in Frameworks */,
+				A7733D7924079F3900483870 /* AudioToolbox.framework in Frameworks */,
+				A7733D7B24079F4A00483870 /* CoreMedia.framework in Frameworks */,
+				A7733D8224079F9A00483870 /* SystemConfiguration.framework in Frameworks */,
+				A7733D7D24079F4A00483870 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,9 +134,8 @@
 				07D24D2D1D867644002C69BF /* VideoViewLayouter.m */,
 				07D24D281D867644002C69BF /* ProfileCell.h */,
 				07D24D291D867644002C69BF /* ProfileCell.m */,
-				07D29C391E9E187D00C3583C /* AgoraRtcEngineKit.framework */,
-				382885BC2249E57A0023BCFA /* Resources */,
 				07D24CF61D866704002C69BF /* Supporting Files */,
+				A76C26E52386907A0047E150 /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
 			sourceTree = "<group>";
@@ -160,6 +156,7 @@
 		07D24D131D8667DC002C69BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A76C26E1238690720047E150 /* AgoraRtcKit.framework */,
 				382885B42249DC390023BCFA /* CoreML.framework */,
 				A7C50EF4212168BD00774322 /* Accelerate.framework */,
 				704E32D21FEB50A10027B6DB /* SystemConfiguration.framework */,
@@ -173,16 +170,6 @@
 				07D24D141D8667DC002C69BF /* AVFoundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		382885BC2249E57A0023BCFA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				382885BD2249E57A0023BCFA /* srmetal.metallib */,
-				382885BE2249E57A0023BCFA /* model.bundle */,
-			);
-			name = Resources;
-			path = AgoraRtcEngineKit.framework/Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,8 +203,8 @@
 				TargetAttributes = {
 					07D24CF21D866704002C69BF = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 48TB6ZZL5S;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = SW3CA7M752;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -249,8 +236,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				382885C02249E57A0023BCFA /* model.bundle in Resources */,
-				382885BF2249E57A0023BCFA /* srmetal.metallib in Resources */,
 				07D24D061D866704002C69BF /* LaunchScreen.storyboard in Resources */,
 				07D24D031D866704002C69BF /* Assets.xcassets in Resources */,
 				07D24D011D866704002C69BF /* Main.storyboard in Resources */,
@@ -414,7 +399,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = SW3CA7M752;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -425,6 +411,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -434,7 +421,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = SW3CA7M752;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -445,6 +433,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = AgoraAppsDevProfile;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

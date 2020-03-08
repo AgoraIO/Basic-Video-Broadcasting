@@ -16,4 +16,7 @@
     <string name="select_role_audience">我是观众</string>
     <string name="select_role_broadcaster_hint">以主播身份进入</string>
     <string name="select_role_audience_hint">以观众身份进入</string>
+    <string name="setting_mirror_encode_title">本地视频编码镜像模式</string>
+    <string name="setting_mirror_local_title">本地视频预览镜像模式</string>
+    <string name="setting_mirror_remote_title">远端视频渲染镜像模式</string>
 </resources>

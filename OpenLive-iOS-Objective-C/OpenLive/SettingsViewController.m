@@ -8,7 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "ProfileCell.h"
-#import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
+#import <AgoraRtcKit/AgoraRtcEngineKit.h>
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;

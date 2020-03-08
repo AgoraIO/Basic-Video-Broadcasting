@@ -51,3 +51,10 @@ CONFIG(debug, debug|release) {
  QMAKE_POST_LINK +=  copy .\sdk\dll\*.dll .\Release
 }
 }
+
+win64: {
+INCLUDEPATH += $$PWD/sdk/include
+LIBS += -L$$PWD/sdk/lib/ -lagora_rtc_sdk
+LIBS += User32.LIB
+}
+

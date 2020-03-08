@@ -12,6 +12,9 @@
     <string name="setting_title">Settings</string>
     <string name="setting_resolution_title">Resolution</string>
     <string name="setting_stats_title">Show video statistics</string>
+    <string name="setting_mirror_local_title">Local video preview mirror mode</string>
+    <string name="setting_mirror_remote_title">Remote video render mirror mode</string>
+    <string name="setting_mirror_encode_title">Local video encode mirror mode</string>
 
     <string-array name="string_array_resolutions">
         <item>320x240</item>

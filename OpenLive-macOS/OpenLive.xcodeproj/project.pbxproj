@@ -7,187 +7,276 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		071CE2311D79362D00B82401 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071CE2301D79362D00B82401 /* AppDelegate.swift */; };
-		071CE2351D79362D00B82401 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 071CE2341D79362D00B82401 /* Assets.xcassets */; };
-		071CE2381D79362D00B82401 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 071CE2361D79362D00B82401 /* Main.storyboard */; };
-		075589691D79531A004B0DEA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589651D79531A004B0DEA /* MainViewController.swift */; };
-		0755896A1D79531A004B0DEA /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589661D79531A004B0DEA /* MainWindowController.swift */; };
-		0755896B1D79531A004B0DEA /* LiveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589671D79531A004B0DEA /* LiveRoomViewController.swift */; };
-		0755896C1D79531A004B0DEA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589681D79531A004B0DEA /* SettingsViewController.swift */; };
-		075589701D796338004B0DEA /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755896D1D796338004B0DEA /* KeyCenter.swift */; };
-		075589721D796338004B0DEA /* MediaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755896F1D796338004B0DEA /* MediaInfo.swift */; };
-		075589781D7967CB004B0DEA /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589761D7967CB004B0DEA /* VideoSession.swift */; };
-		075589791D7967CB004B0DEA /* VideoViewLayouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589771D7967CB004B0DEA /* VideoViewLayouter.swift */; };
-		0755897E1D796EB6004B0DEA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0755897D1D796EB6004B0DEA /* AVFoundation.framework */; };
-		075589801D796EBE004B0DEA /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0755897F1D796EBE004B0DEA /* VideoToolbox.framework */; };
-		075589821D796EDE004B0DEA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075589811D796EDE004B0DEA /* AudioToolbox.framework */; };
-		075589841D796EE9004B0DEA /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075589831D796EE9004B0DEA /* CoreMedia.framework */; };
-		075589881D796F15004B0DEA /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075589871D796F15004B0DEA /* CoreWLAN.framework */; };
-		0755898A1D796F1B004B0DEA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075589891D796F1B004B0DEA /* CoreAudio.framework */; };
-		0755898D1D796FFC004B0DEA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0755898B1D796FA1004B0DEA /* libc++.tbd */; };
-		075589A61D7D44C8004B0DEA /* ReplacementSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075589A51D7D44C8004B0DEA /* ReplacementSegue.swift */; };
-		07D29C3E1E9E1A6300C3583C /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C3D1E9E1A6300C3583C /* AgoraRtcEngineKit.framework */; };
-		07D29C411E9E1ABD00C3583C /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D29C401E9E1ABD00C3583C /* libresolv.tbd */; };
-		0F2747C81FB453B6005D3DBA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2747C71FB453AA005D3DBA /* SystemConfiguration.framework */; };
-		EE181F6BC4EA9A6D167877CD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AC0D4CA14477ED2DD51221 /* Accelerate.framework */; };
+		07C2CFB81D6C26F300C84349 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFB71D6C26F300C84349 /* AppDelegate.swift */; };
+		07C2CFBC1D6C26F300C84349 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C2CFBB1D6C26F300C84349 /* Assets.xcassets */; };
+		07C2CFBF1D6C26F300C84349 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C2CFBD1D6C26F300C84349 /* Main.storyboard */; };
+		07C2CFCF1D6C281900C84349 /* LogCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFC61D6C281900C84349 /* LogCellView.swift */; };
+		07C2CFD01D6C281900C84349 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFC71D6C281900C84349 /* LogViewController.swift */; };
+		07C2CFD21D6C281900C84349 /* ImageBrowserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFC91D6C281900C84349 /* ImageBrowserItem.swift */; };
+		07C2CFD31D6C281900C84349 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFCA1D6C281900C84349 /* MainWindowController.swift */; };
+		07C2CFD41D6C281900C84349 /* ReplacementSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFCB1D6C281900C84349 /* ReplacementSegue.swift */; };
+		07C2CFD51D6C281900C84349 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFCC1D6C281900C84349 /* MainViewController.swift */; };
+		07C2CFD61D6C281900C84349 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFCD1D6C281900C84349 /* SettingsViewController.swift */; };
+		07C2CFD71D6C281900C84349 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFCE1D6C281900C84349 /* RoomViewController.swift */; };
+		07C2CFD91D6C282400C84349 /* WindowsCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFD81D6C282400C84349 /* WindowsCenter.swift */; };
+		07C2CFE61D6C291C00C84349 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFDF1D6C291C00C84349 /* CommonExtensions.swift */; };
+		07C2CFE71D6C291C00C84349 /* EncryptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFE01D6C291C00C84349 /* EncryptionType.swift */; };
+		07C2CFE81D6C291C00C84349 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFE11D6C291C00C84349 /* KeyCenter.swift */; };
+		07C2CFE91D6C291C00C84349 /* MediaCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFE21D6C291C00C84349 /* MediaCharacter.swift */; };
+		07C2CFF31D6C299400C84349 /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFEF1D6C299400C84349 /* VideoSession.swift */; };
+		07C2CFF41D6C299400C84349 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFF01D6C299400C84349 /* VideoView.swift */; };
+		07C2D0001D6C2DD900C84349 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CFFF1D6C2DD900C84349 /* Message.swift */; };
+		3832FA63227FCDCA00E50E69 /* FileCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832FA62227FCDCA00E50E69 /* FileCenter.swift */; };
+		A7424014237550C400794648 /* AGEButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7424013237550C400794648 /* AGEButton.swift */; };
+		A74240172375639F00794648 /* StatisticsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74240162375639F00794648 /* StatisticsInfo.swift */; };
+		A742402A23794C0600794648 /* WindowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A742402823794C0600794648 /* WindowItem.swift */; };
+		A742402B23794C0600794648 /* WindowItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A742402923794C0600794648 /* WindowItem.xib */; };
+		A76C265923854C4F0047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C265823854C4F0047E150 /* AgoraRtcKit.framework */; };
+		A76C2670238656ED0047E150 /* AGEVideoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266B238656ED0047E150 /* AGEVideoLayout.swift */; };
+		A76C2671238656ED0047E150 /* AGEVideoConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266C238656ED0047E150 /* AGEVideoConstraints.swift */; };
+		A76C2672238656ED0047E150 /* AGEEventsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266D238656ED0047E150 /* AGEEventsObserver.swift */; };
+		A76C2673238656ED0047E150 /* AGEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266E238656ED0047E150 /* AGEView.swift */; };
+		A76C2674238656ED0047E150 /* AGEVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266F238656ED0047E150 /* AGEVideoContainer.swift */; };
+		A7733D832407A01000483870 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389D99B521885C4000BFD852 /* Accelerate.framework */; };
+		A7733D842407A01800483870 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389D99B721885C4600BFD852 /* CoreWLAN.framework */; };
+		A7733D852407A01F00483870 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 389D99B321885C2500BFD852 /* libc++.tbd */; };
+		A7733D872407A02D00483870 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A7733D862407A02500483870 /* libresolv.tbd */; };
+		A7733D882407A03400483870 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389D99B921885C4D00BFD852 /* SystemConfiguration.framework */; };
+		A7733D892407A04A00483870 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 389D99BB21885C5200BFD852 /* VideoToolbox.framework */; };
+		A77A921D23729DEF00A44B0C /* LogoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77A921B23729DEF00A44B0C /* LogoViewController.swift */; };
+		A7E4DB8E2340A4B4001C20F7 /* AGETextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DB8D2340A4B4001C20F7 /* AGETextField.swift */; };
+		A7E4DBC5234C7E65001C20F7 /* AGEConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBC2234C7E65001C20F7 /* AGEConvert.swift */; };
+		A7E4DBC6234C7E65001C20F7 /* AGEError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBC3234C7E65001C20F7 /* AGEError.swift */; };
+		A7E4DBCC234CBAB2001C20F7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBCB234CBAB2001C20F7 /* Settings.swift */; };
+		A7E4DBCE234CBD9B001C20F7 /* AgoraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBCD234CBD9B001C20F7 /* AgoraExtension.swift */; };
+		A7E888AA237A9B3900F0D271 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A7E888A9237A9B3900F0D271 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		071CE22D1D79362D00B82401 /* OpenLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		071CE2301D79362D00B82401 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		071CE2341D79362D00B82401 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		071CE2371D79362D00B82401 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		071CE2391D79362D00B82401 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0755895F1D794F9F004B0DEA /* OpenLive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenLive-Bridging-Header.h"; sourceTree = "<group>"; };
-		075589651D79531A004B0DEA /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		075589661D79531A004B0DEA /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		075589671D79531A004B0DEA /* LiveRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
-		075589681D79531A004B0DEA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		0755896D1D796338004B0DEA /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
-		0755896F1D796338004B0DEA /* MediaInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaInfo.swift; sourceTree = "<group>"; };
-		075589761D7967CB004B0DEA /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
-		075589771D7967CB004B0DEA /* VideoViewLayouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewLayouter.swift; sourceTree = "<group>"; };
-		0755897D1D796EB6004B0DEA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		0755897F1D796EBE004B0DEA /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		075589811D796EDE004B0DEA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		075589831D796EE9004B0DEA /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		075589851D796EF1004B0DEA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		075589871D796F15004B0DEA /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
-		075589891D796F1B004B0DEA /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		0755898B1D796FA1004B0DEA /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		075589A51D7D44C8004B0DEA /* ReplacementSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplacementSegue.swift; sourceTree = "<group>"; };
-		07D29C3D1E9E1A6300C3583C /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
-		07D29C401E9E1ABD00C3583C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		0F2747C71FB453AA005D3DBA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		A5AC0D4CA14477ED2DD51221 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
+		07C2CFB41D6C26F300C84349 /* OpenLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07C2CFB71D6C26F300C84349 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		07C2CFBB1D6C26F300C84349 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07C2CFBE1D6C26F300C84349 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		07C2CFC01D6C26F300C84349 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07C2CFC61D6C281900C84349 /* LogCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCellView.swift; sourceTree = "<group>"; };
+		07C2CFC71D6C281900C84349 /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		07C2CFC91D6C281900C84349 /* ImageBrowserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBrowserItem.swift; sourceTree = "<group>"; };
+		07C2CFCA1D6C281900C84349 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		07C2CFCB1D6C281900C84349 /* ReplacementSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplacementSegue.swift; sourceTree = "<group>"; };
+		07C2CFCC1D6C281900C84349 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		07C2CFCD1D6C281900C84349 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		07C2CFCE1D6C281900C84349 /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RoomViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		07C2CFD81D6C282400C84349 /* WindowsCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowsCenter.swift; sourceTree = "<group>"; };
+		07C2CFDF1D6C291C00C84349 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CommonExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		07C2CFE01D6C291C00C84349 /* EncryptionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptionType.swift; sourceTree = "<group>"; };
+		07C2CFE11D6C291C00C84349 /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
+		07C2CFE21D6C291C00C84349 /* MediaCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCharacter.swift; sourceTree = "<group>"; };
+		07C2CFEF1D6C299400C84349 /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
+		07C2CFF01D6C299400C84349 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VideoView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		07C2CFFF1D6C2DD900C84349 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		1724E455FDA0BFA059336072 /* libPods-OpenVideoCall.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenVideoCall.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3832FA62227FCDCA00E50E69 /* FileCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCenter.swift; sourceTree = "<group>"; };
+		389D99B121885C1D00BFD852 /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = usr/lib/libresolv.9.tbd; sourceTree = SDKROOT; };
+		389D99B321885C2500BFD852 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		389D99B521885C4000BFD852 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		389D99B721885C4600BFD852 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		389D99B921885C4D00BFD852 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		389D99BB21885C5200BFD852 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		A7424013237550C400794648 /* AGEButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGEButton.swift; sourceTree = "<group>"; };
+		A74240162375639F00794648 /* StatisticsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsInfo.swift; sourceTree = "<group>"; };
+		A742402823794C0600794648 /* WindowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowItem.swift; sourceTree = "<group>"; };
+		A742402923794C0600794648 /* WindowItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowItem.xib; sourceTree = "<group>"; };
+		A76C265823854C4F0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
+		A76C265C23854C5C0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
+		A76C266B238656ED0047E150 /* AGEVideoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoLayout.swift; sourceTree = "<group>"; };
+		A76C266C238656ED0047E150 /* AGEVideoConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoConstraints.swift; sourceTree = "<group>"; };
+		A76C266D238656ED0047E150 /* AGEEventsObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEEventsObserver.swift; sourceTree = "<group>"; };
+		A76C266E238656ED0047E150 /* AGEView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEView.swift; sourceTree = "<group>"; };
+		A76C266F238656ED0047E150 /* AGEVideoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoContainer.swift; sourceTree = "<group>"; };
+		A7733D862407A02500483870 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		A77A921B23729DEF00A44B0C /* LogoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoViewController.swift; sourceTree = "<group>"; };
+		A7E4DB8D2340A4B4001C20F7 /* AGETextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGETextField.swift; sourceTree = "<group>"; };
+		A7E4DBC2234C7E65001C20F7 /* AGEConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEConvert.swift; sourceTree = "<group>"; };
+		A7E4DBC3234C7E65001C20F7 /* AGEError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEError.swift; sourceTree = "<group>"; };
+		A7E4DBCB234CBAB2001C20F7 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		A7E4DBCD234CBD9B001C20F7 /* AgoraExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraExtension.swift; sourceTree = "<group>"; };
+		A7E888A9237A9B3900F0D271 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		071CE22A1D79362D00B82401 /* Frameworks */ = {
+		07C2CFB11D6C26F300C84349 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F2747C81FB453B6005D3DBA /* SystemConfiguration.framework in Frameworks */,
-				07D29C411E9E1ABD00C3583C /* libresolv.tbd in Frameworks */,
-				07D29C3E1E9E1A6300C3583C /* AgoraRtcEngineKit.framework in Frameworks */,
-				0755898D1D796FFC004B0DEA /* libc++.tbd in Frameworks */,
-				0755898A1D796F1B004B0DEA /* CoreAudio.framework in Frameworks */,
-				075589881D796F15004B0DEA /* CoreWLAN.framework in Frameworks */,
-				075589841D796EE9004B0DEA /* CoreMedia.framework in Frameworks */,
-				075589821D796EDE004B0DEA /* AudioToolbox.framework in Frameworks */,
-				075589801D796EBE004B0DEA /* VideoToolbox.framework in Frameworks */,
-				0755897E1D796EB6004B0DEA /* AVFoundation.framework in Frameworks */,
-				EE181F6BC4EA9A6D167877CD /* Accelerate.framework in Frameworks */,
+				A7733D842407A01800483870 /* CoreWLAN.framework in Frameworks */,
+				A7733D892407A04A00483870 /* VideoToolbox.framework in Frameworks */,
+				A76C265923854C4F0047E150 /* AgoraRtcKit.framework in Frameworks */,
+				A7733D872407A02D00483870 /* libresolv.tbd in Frameworks */,
+				A7733D852407A01F00483870 /* libc++.tbd in Frameworks */,
+				A7733D882407A03400483870 /* SystemConfiguration.framework in Frameworks */,
+				A7733D832407A01000483870 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		071CE2241D79362D00B82401 = {
+		07C2CFAB1D6C26F300C84349 = {
 			isa = PBXGroup;
 			children = (
-				071CE22F1D79362D00B82401 /* OpenLive */,
-				071CE22E1D79362D00B82401 /* Products */,
-				07D29C3F1E9E1ABD00C3583C /* Frameworks */,
+				A7E888A9237A9B3900F0D271 /* README.md */,
+				07C2CFB61D6C26F300C84349 /* OpenLive */,
+				07C2CFB51D6C26F300C84349 /* Products */,
+				389D99B021885C1C00BFD852 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		071CE22E1D79362D00B82401 /* Products */ = {
+		07C2CFB51D6C26F300C84349 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				071CE22D1D79362D00B82401 /* OpenLive.app */,
+				07C2CFB41D6C26F300C84349 /* OpenLive.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		071CE22F1D79362D00B82401 /* OpenLive */ = {
+		07C2CFB61D6C26F300C84349 /* OpenLive */ = {
 			isa = PBXGroup;
 			children = (
-				071CE2361D79362D00B82401 /* Main.storyboard */,
-				075589661D79531A004B0DEA /* MainWindowController.swift */,
-				075589651D79531A004B0DEA /* MainViewController.swift */,
-				075589681D79531A004B0DEA /* SettingsViewController.swift */,
-				075589671D79531A004B0DEA /* LiveRoomViewController.swift */,
-				0755896D1D796338004B0DEA /* KeyCenter.swift */,
-				075589761D7967CB004B0DEA /* VideoSession.swift */,
-				075589771D7967CB004B0DEA /* VideoViewLayouter.swift */,
-				0755896F1D796338004B0DEA /* MediaInfo.swift */,
-				075589A51D7D44C8004B0DEA /* ReplacementSegue.swift */,
-				07D29C3D1E9E1A6300C3583C /* AgoraRtcEngineKit.framework */,
-				075589A71D7D506E004B0DEA /* Frameworks */,
-				071CE2301D79362D00B82401 /* AppDelegate.swift */,
-				071CE2341D79362D00B82401 /* Assets.xcassets */,
-				071CE2391D79362D00B82401 /* Info.plist */,
-				0755895F1D794F9F004B0DEA /* OpenLive-Bridging-Header.h */,
+				07C2CFEC1D6C292400C84349 /* Controllers */,
+				07C2CFED1D6C294900C84349 /* Views */,
+				07C2CFF61D6C29A100C84349 /* Models */,
+				A7E4DB9E2341F894001C20F7 /* Supporting Files */,
+				A76C266A238656ED0047E150 /* AGEVideoLayout */,
+				A76C265C23854C5C0047E150 /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
 			sourceTree = "<group>";
 		};
-		075589A71D7D506E004B0DEA /* Frameworks */ = {
+		07C2CFEC1D6C292400C84349 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0755898B1D796FA1004B0DEA /* libc++.tbd */,
-				075589891D796F1B004B0DEA /* CoreAudio.framework */,
-				075589871D796F15004B0DEA /* CoreWLAN.framework */,
-				075589851D796EF1004B0DEA /* CoreTelephony.framework */,
-				075589831D796EE9004B0DEA /* CoreMedia.framework */,
-				075589811D796EDE004B0DEA /* AudioToolbox.framework */,
-				0755897F1D796EBE004B0DEA /* VideoToolbox.framework */,
-				0755897D1D796EB6004B0DEA /* AVFoundation.framework */,
+				07C2CFCA1D6C281900C84349 /* MainWindowController.swift */,
+				A77A921B23729DEF00A44B0C /* LogoViewController.swift */,
+				07C2CFCC1D6C281900C84349 /* MainViewController.swift */,
+				07C2CFCD1D6C281900C84349 /* SettingsViewController.swift */,
+				07C2CFCE1D6C281900C84349 /* RoomViewController.swift */,
+				07C2CFC71D6C281900C84349 /* LogViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		07C2CFED1D6C294900C84349 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07C2CFBD1D6C26F300C84349 /* Main.storyboard */,
+				A7E4DB8D2340A4B4001C20F7 /* AGETextField.swift */,
+				A7424013237550C400794648 /* AGEButton.swift */,
+				07C2CFEF1D6C299400C84349 /* VideoSession.swift */,
+				07C2CFF01D6C299400C84349 /* VideoView.swift */,
+				07C2CFCB1D6C281900C84349 /* ReplacementSegue.swift */,
+				07C2CFC61D6C281900C84349 /* LogCellView.swift */,
+				07C2CFD81D6C282400C84349 /* WindowsCenter.swift */,
+				07C2CFC91D6C281900C84349 /* ImageBrowserItem.swift */,
+				A742402823794C0600794648 /* WindowItem.swift */,
+				A742402923794C0600794648 /* WindowItem.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		07C2CFF61D6C29A100C84349 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A7E4DBCD234CBD9B001C20F7 /* AgoraExtension.swift */,
+				A7E4DBC2234C7E65001C20F7 /* AGEConvert.swift */,
+				A7E4DBC3234C7E65001C20F7 /* AGEError.swift */,
+				A74240162375639F00794648 /* StatisticsInfo.swift */,
+				A7E4DBCB234CBAB2001C20F7 /* Settings.swift */,
+				07C2CFE11D6C291C00C84349 /* KeyCenter.swift */,
+				3832FA62227FCDCA00E50E69 /* FileCenter.swift */,
+				07C2CFE21D6C291C00C84349 /* MediaCharacter.swift */,
+				07C2CFFF1D6C2DD900C84349 /* Message.swift */,
+				07C2CFE01D6C291C00C84349 /* EncryptionType.swift */,
+				07C2CFDF1D6C291C00C84349 /* CommonExtensions.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		389D99B021885C1C00BFD852 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7733D862407A02500483870 /* libresolv.tbd */,
+				A76C265823854C4F0047E150 /* AgoraRtcKit.framework */,
+				389D99BB21885C5200BFD852 /* VideoToolbox.framework */,
+				389D99B921885C4D00BFD852 /* SystemConfiguration.framework */,
+				389D99B721885C4600BFD852 /* CoreWLAN.framework */,
+				389D99B521885C4000BFD852 /* Accelerate.framework */,
+				389D99B321885C2500BFD852 /* libc++.tbd */,
+				389D99B121885C1D00BFD852 /* libresolv.9.tbd */,
+				1724E455FDA0BFA059336072 /* libPods-OpenVideoCall.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		07D29C3F1E9E1ABD00C3583C /* Frameworks */ = {
+		A76C266A238656ED0047E150 /* AGEVideoLayout */ = {
 			isa = PBXGroup;
 			children = (
-				0F2747C71FB453AA005D3DBA /* SystemConfiguration.framework */,
-				07D29C401E9E1ABD00C3583C /* libresolv.tbd */,
-				A5AC0D4CA14477ED2DD51221 /* Accelerate.framework */,
+				A76C266B238656ED0047E150 /* AGEVideoLayout.swift */,
+				A76C266C238656ED0047E150 /* AGEVideoConstraints.swift */,
+				A76C266D238656ED0047E150 /* AGEEventsObserver.swift */,
+				A76C266E238656ED0047E150 /* AGEView.swift */,
+				A76C266F238656ED0047E150 /* AGEVideoContainer.swift */,
 			);
-			name = Frameworks;
+			path = AGEVideoLayout;
+			sourceTree = "<group>";
+		};
+		A7E4DB9E2341F894001C20F7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				07C2CFBB1D6C26F300C84349 /* Assets.xcassets */,
+				07C2CFB71D6C26F300C84349 /* AppDelegate.swift */,
+				07C2CFC01D6C26F300C84349 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		071CE22C1D79362D00B82401 /* OpenLive */ = {
+		07C2CFB31D6C26F300C84349 /* OpenLive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 071CE23C1D79362D00B82401 /* Build configuration list for PBXNativeTarget "OpenLive" */;
+			buildConfigurationList = 07C2CFC31D6C26F300C84349 /* Build configuration list for PBXNativeTarget "OpenLive" */;
 			buildPhases = (
-				071CE2291D79362D00B82401 /* Sources */,
-				071CE22A1D79362D00B82401 /* Frameworks */,
-				071CE22B1D79362D00B82401 /* Resources */,
+				07C2CFB01D6C26F300C84349 /* Sources */,
+				07C2CFB11D6C26F300C84349 /* Frameworks */,
+				07C2CFB21D6C26F300C84349 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = OpenLive;
-			productName = OpenLive;
-			productReference = 071CE22D1D79362D00B82401 /* OpenLive.app */;
+			productName = OpenVideoCall;
+			productReference = 07C2CFB41D6C26F300C84349 /* OpenLive.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		071CE2251D79362D00B82401 /* Project object */ = {
+		07C2CFAC1D6C26F300C84349 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
-					071CE22C1D79362D00B82401 = {
+					07C2CFB31D6C26F300C84349 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 48TB6ZZL5S;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 					};
 				};
 			};
-			buildConfigurationList = 071CE2281D79362D00B82401 /* Build configuration list for PBXProject "OpenLive" */;
+			buildConfigurationList = 07C2CFAF1D6C26F300C84349 /* Build configuration list for PBXProject "OpenLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -195,53 +284,77 @@
 				en,
 				Base,
 			);
-			mainGroup = 071CE2241D79362D00B82401;
-			productRefGroup = 071CE22E1D79362D00B82401 /* Products */;
+			mainGroup = 07C2CFAB1D6C26F300C84349;
+			productRefGroup = 07C2CFB51D6C26F300C84349 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				071CE22C1D79362D00B82401 /* OpenLive */,
+				07C2CFB31D6C26F300C84349 /* OpenLive */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		071CE22B1D79362D00B82401 /* Resources */ = {
+		07C2CFB21D6C26F300C84349 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				071CE2351D79362D00B82401 /* Assets.xcassets in Resources */,
-				071CE2381D79362D00B82401 /* Main.storyboard in Resources */,
+				07C2CFBC1D6C26F300C84349 /* Assets.xcassets in Resources */,
+				A742402B23794C0600794648 /* WindowItem.xib in Resources */,
+				A7E888AA237A9B3900F0D271 /* README.md in Resources */,
+				07C2CFBF1D6C26F300C84349 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		071CE2291D79362D00B82401 /* Sources */ = {
+		07C2CFB01D6C26F300C84349 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				075589791D7967CB004B0DEA /* VideoViewLayouter.swift in Sources */,
-				075589781D7967CB004B0DEA /* VideoSession.swift in Sources */,
-				075589691D79531A004B0DEA /* MainViewController.swift in Sources */,
-				0755896A1D79531A004B0DEA /* MainWindowController.swift in Sources */,
-				075589A61D7D44C8004B0DEA /* ReplacementSegue.swift in Sources */,
-				0755896B1D79531A004B0DEA /* LiveRoomViewController.swift in Sources */,
-				071CE2311D79362D00B82401 /* AppDelegate.swift in Sources */,
-				075589701D796338004B0DEA /* KeyCenter.swift in Sources */,
-				075589721D796338004B0DEA /* MediaInfo.swift in Sources */,
-				0755896C1D79531A004B0DEA /* SettingsViewController.swift in Sources */,
+				07C2CFD91D6C282400C84349 /* WindowsCenter.swift in Sources */,
+				07C2CFF31D6C299400C84349 /* VideoSession.swift in Sources */,
+				A76C2672238656ED0047E150 /* AGEEventsObserver.swift in Sources */,
+				A7E4DBCC234CBAB2001C20F7 /* Settings.swift in Sources */,
+				07C2CFE71D6C291C00C84349 /* EncryptionType.swift in Sources */,
+				07C2CFE81D6C291C00C84349 /* KeyCenter.swift in Sources */,
+				07C2CFD21D6C281900C84349 /* ImageBrowserItem.swift in Sources */,
+				07C2CFE91D6C291C00C84349 /* MediaCharacter.swift in Sources */,
+				A76C2673238656ED0047E150 /* AGEView.swift in Sources */,
+				A7E4DBC5234C7E65001C20F7 /* AGEConvert.swift in Sources */,
+				A7E4DBCE234CBD9B001C20F7 /* AgoraExtension.swift in Sources */,
+				3832FA63227FCDCA00E50E69 /* FileCenter.swift in Sources */,
+				A742402A23794C0600794648 /* WindowItem.swift in Sources */,
+				07C2D0001D6C2DD900C84349 /* Message.swift in Sources */,
+				07C2CFD31D6C281900C84349 /* MainWindowController.swift in Sources */,
+				A7E4DB8E2340A4B4001C20F7 /* AGETextField.swift in Sources */,
+				A77A921D23729DEF00A44B0C /* LogoViewController.swift in Sources */,
+				07C2CFCF1D6C281900C84349 /* LogCellView.swift in Sources */,
+				07C2CFE61D6C291C00C84349 /* CommonExtensions.swift in Sources */,
+				07C2CFD51D6C281900C84349 /* MainViewController.swift in Sources */,
+				A7424014237550C400794648 /* AGEButton.swift in Sources */,
+				A76C2671238656ED0047E150 /* AGEVideoConstraints.swift in Sources */,
+				07C2CFB81D6C26F300C84349 /* AppDelegate.swift in Sources */,
+				07C2CFD01D6C281900C84349 /* LogViewController.swift in Sources */,
+				07C2CFD41D6C281900C84349 /* ReplacementSegue.swift in Sources */,
+				A76C2674238656ED0047E150 /* AGEVideoContainer.swift in Sources */,
+				A7E4DBC6234C7E65001C20F7 /* AGEError.swift in Sources */,
+				A74240172375639F00794648 /* StatisticsInfo.swift in Sources */,
+				07C2CFD71D6C281900C84349 /* RoomViewController.swift in Sources */,
+				A76C2670238656ED0047E150 /* AGEVideoLayout.swift in Sources */,
+				07C2CFD61D6C281900C84349 /* SettingsViewController.swift in Sources */,
+				07C2CFF41D6C299400C84349 /* VideoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		071CE2361D79362D00B82401 /* Main.storyboard */ = {
+		07C2CFBD1D6C26F300C84349 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				071CE2371D79362D00B82401 /* Base */,
+				07C2CFBE1D6C26F300C84349 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -249,7 +362,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		071CE23A1D79362D00B82401 /* Debug */ = {
+		07C2CFC11D6C26F300C84349 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -305,7 +418,7 @@
 			};
 			name = Debug;
 		};
-		071CE23B1D79362D00B82401 /* Release */ = {
+		07C2CFC21D6C26F300C84349 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -354,46 +467,49 @@
 			};
 			name = Release;
 		};
-		071CE23D1D79362D00B82401 /* Debug */ = {
+		07C2CFC41D6C26F300C84349 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenLive",
 				);
 				INFOPLIST_FILE = OpenLive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "OpenLive/OpenLive-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
-		071CE23E1D79362D00B82401 /* Release */ = {
+		07C2CFC51D6C26F300C84349 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenLive",
 				);
 				INFOPLIST_FILE = OpenLive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "OpenLive/OpenLive-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
@@ -401,25 +517,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		071CE2281D79362D00B82401 /* Build configuration list for PBXProject "OpenLive" */ = {
+		07C2CFAF1D6C26F300C84349 /* Build configuration list for PBXProject "OpenLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				071CE23A1D79362D00B82401 /* Debug */,
-				071CE23B1D79362D00B82401 /* Release */,
+				07C2CFC11D6C26F300C84349 /* Debug */,
+				07C2CFC21D6C26F300C84349 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		071CE23C1D79362D00B82401 /* Build configuration list for PBXNativeTarget "OpenLive" */ = {
+		07C2CFC31D6C26F300C84349 /* Build configuration list for PBXNativeTarget "OpenLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				071CE23D1D79362D00B82401 /* Debug */,
-				071CE23E1D79362D00B82401 /* Release */,
+				07C2CFC41D6C26F300C84349 /* Debug */,
+				07C2CFC51D6C26F300C84349 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 071CE2251D79362D00B82401 /* Project object */;
+	rootObject = 07C2CFAC1D6C26F300C84349 /* Project object */;
 }

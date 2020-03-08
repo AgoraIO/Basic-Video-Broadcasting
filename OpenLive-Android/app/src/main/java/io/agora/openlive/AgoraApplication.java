@@ -33,24 +33,38 @@ public class AgoraApplication extends Application {
     }
 
     private void initConfig() {
-        SharedPreferences pref = PrefManager.getPreferences(getApplicationContext() );
+        SharedPreferences pref = PrefManager.getPreferences(getApplicationContext());
         mGlobalConfig.setVideoDimenIndex(pref.getInt(
                 Constants.PREF_RESOLUTION_IDX, Constants.DEFAULT_PROFILE_IDX));
 
         boolean showStats = pref.getBoolean(Constants.PREF_ENABLE_STATS, false);
         mGlobalConfig.setIfShowVideoStats(showStats);
         mStatsManager.enableStats(showStats);
+
+        mGlobalConfig.setMirrorLocalIndex(pref.getInt(Constants.PREF_MIRROR_LOCAL, 0));
+        mGlobalConfig.setMirrorRemoteIndex(pref.getInt(Constants.PREF_MIRROR_REMOTE, 0));
+        mGlobalConfig.setMirrorEncodeIndex(pref.getInt(Constants.PREF_MIRROR_ENCODE, 0));
     }
 
-    public EngineConfig engineConfig() { return mGlobalConfig; }
+    public EngineConfig engineConfig() {
+        return mGlobalConfig;
+    }
 
-    public RtcEngine rtcEngine() { return mRtcEngine; }
+    public RtcEngine rtcEngine() {
+        return mRtcEngine;
+    }
 
-    public StatsManager statsManager() { return mStatsManager; }
+    public StatsManager statsManager() {
+        return mStatsManager;
+    }
 
-    public void registerEventHandler(EventHandler handler) { mHandler.addHandler(handler); }
+    public void registerEventHandler(EventHandler handler) {
+        mHandler.addHandler(handler);
+    }
 
-    public void removeEventHandler(EventHandler handler) { mHandler.removeHandler(handler); }
+    public void removeEventHandler(EventHandler handler) {
+        mHandler.removeHandler(handler);
+    }
 
     @Override
     public void onTerminate() {
