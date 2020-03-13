@@ -98,6 +98,18 @@ const MeetingPage = () => {
     }
   }, [localClient, mutationCtx, config, routerCtx]);
 
+  useEffect(() => {
+    const handleEventLeave = function() {
+      localClient.leave().then(() => {
+        mutationCtx.clearAllStream();
+      });
+    }
+    window.addEventListener("popstate", handleEventLeave)
+    return () => {
+      window.removeEventListener("popstate", handleEventLeave)
+    }
+    },[]);
+
   const handleClick = (name) => {
     return (evt) => {
       evt.stopPropagation();
