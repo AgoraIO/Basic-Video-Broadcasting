@@ -99,14 +99,10 @@ const MeetingPage = () => {
   }, [localClient, mutationCtx, config, routerCtx]);
 
   useEffect(() => {
-    const handleEventLeave = function() {
+    return () => {
       localClient.leave().then(() => {
         mutationCtx.clearAllStream();
-      });
-    }
-    window.addEventListener("popstate", handleEventLeave)
-    return () => {
-      window.removeEventListener("popstate", handleEventLeave)
+      })
     }
     },[]);
 
@@ -187,10 +183,7 @@ const MeetingPage = () => {
             <div className="like"></div>
           </div>
           <div className="quit" onClick={() => {
-            localClient.leave().then(() => {
-              mutationCtx.clearAllStream();
               routerCtx.history.push('/');
-            });
           }}></div>
         </div>
         {currentStream ?
