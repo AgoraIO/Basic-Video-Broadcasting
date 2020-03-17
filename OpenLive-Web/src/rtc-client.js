@@ -266,15 +266,15 @@ export default class RTCClient {
     });
   }
 
-  leave() {
+  async leave() {
+    if (this._localStream && this._enableBeauty) {
+      await this._localStream.setBeautyEffectOptions(false);
+    }
     return new Promise(resolve => {
       // leave channel
       this._client.leave(() => {
         this._joined = false;
         this.destroy();
-        if (this._localStream && this._enableBeauty) {
-          this._localStream.setBeautyEffectOptions(false);
-        }
         resolve();
       }, (err) => {
         console.log("channel leave failed");

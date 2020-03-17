@@ -98,13 +98,13 @@ const MeetingPage = () => {
     }
   }, [localClient, mutationCtx, config, routerCtx]);
 
-  useEffect(() => {
-    return () => {
-      localClient.leave().then(() => {
-        mutationCtx.clearAllStream();
-      })
-    }
-    },[]);
+  // useEffect(() => {
+  //   return () => {
+  //     localClient.leave().then(() => {
+  //       mutationCtx.clearAllStream();
+  //     })
+  //   }
+  //   },[]);
 
   const handleClick = (name) => {
     return (evt) => {
@@ -183,14 +183,18 @@ const MeetingPage = () => {
             <div className="like"></div>
           </div>
           <div className="quit" onClick={() => {
+            localClient.leave().then(() => {
+              mutationCtx.clearAllStream();
               routerCtx.history.push('/');
+            })
           }}></div>
         </div>
         {currentStream ?
           <StreamPlayer
             className={'main-stream-profile'}
             showProfile={stateCtx.profile}
-            local={config.host ? currentStream && currentStream.getId() === localStream && localStream.getId() : false}
+            local={config.host ? currentStream && currentStream.getId() === (localStream && localStream.getId()) : false}
+            beauty={stateCtx.beauty}
             stream={currentStream}
             onDoubleClick={handleDoubleClick}
             uid={currentStream.getId()}
@@ -208,7 +212,8 @@ const MeetingPage = () => {
                 <StreamPlayer
                   className={'stream-profile'}
                   showProfile={stateCtx.profile}
-                  local={config.host ? stream.getId() === localStream && localStream.getId() : false}
+                  local={config.host ? stream.getId() === (localStream && localStream.getId()) : false}
+                  beauty={stateCtx.beauty}
                   key={index}
                   stream={stream}
                   isPlaying={stream.isPlaying()}

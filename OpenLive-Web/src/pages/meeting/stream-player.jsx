@@ -6,7 +6,7 @@ StreamPlayer.propTypes = {
 }
 
 export default function StreamPlayer (props) {
-  const {stream, domId, uid} = props;
+  const {stream, domId, uid, local, beauty} = props;
 
   const [resume, changeResume] = useState(false);
 
@@ -66,8 +66,13 @@ export default function StreamPlayer (props) {
           lockPlay.current = false;
         });
       }
-      return () => {
-        stream && stream.isPlaying() && stream.stop();
+    }
+    return () => {
+      if (stream && stream.isPlaying()) {
+        if (local && beauty) {
+          await stream.setBeautyEffectOptions(false)
+        } 
+        stream.stop();
       }
     }
   }, [stream, domId]);
