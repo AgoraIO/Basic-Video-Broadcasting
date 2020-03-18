@@ -60,7 +60,7 @@ const CustomSwitch = withStyles(theme => ({
   root: {
     width: 42,
     height: 26,
-    padding: 0,
+    padding: 2,
     margin: theme.spacing(1),
   },
   switchBase: {
@@ -258,7 +258,7 @@ export default function SettingsCard() {
       />
         <div className={classes.hr}></div>
       </FormControl>
-      <FormControl>
+      {/* <FormControl>
         <FormControlLabel
           control={
             <CustomSwitch
@@ -273,7 +273,7 @@ export default function SettingsCard() {
           label="Beauty"
         />
         <div className={classes.hr}></div>
-      </FormControl>
+      </FormControl> */}
     </Box>
     </Box>
   )

@@ -24,7 +24,7 @@ const defaultState = {
   muteAudio: true,
   screen: false,
   profile: false,
-  beauty: true
+  beauty: false
 };
 
 const reducer = (state, action) => {
