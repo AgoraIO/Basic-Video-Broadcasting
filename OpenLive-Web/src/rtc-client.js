@@ -181,6 +181,20 @@ export default class RTCClient {
     });
   }
 
+  setStreamFallbackOption(stream, type) {
+    this._client.setStreamFallbackOption(stream, type);
+  }
+
+  enableDualStream () {
+    return new Promise((resolve, reject) => {
+      this._client.enableDualStream(resolve, reject);
+    });
+  }
+
+  setRemoteVideoStreamType (stream, streamType){
+    this._client.setRemoteVideoStreamType(stream, streamType);
+  }
+
   join(data) {
     this._joined = 'pending'
     return new Promise((resolve, reject) => {
@@ -230,7 +244,12 @@ export default class RTCClient {
 
           if (data.host) {
             this.createRTCStream(data).then(() => {
-              resolve();
+              this.enableDualStream().then(() => {
+                this.setRemoteVideoStreamType(this._localStream, 0);
+                resolve();
+              }).catch(err => {
+                reject();
+              });
             }).catch((err) => {
               reject(err);
             })
