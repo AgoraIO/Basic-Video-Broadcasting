@@ -24,7 +24,7 @@ const defaultState = {
   muteAudio: true,
   screen: false,
   profile: false,
-  beauty: false
+  //beauty: false
 };
 
 const reducer = (state, action) => {
@@ -95,7 +95,8 @@ const reducer = (state, action) => {
       return { ...state, streams: newStreams, currentStream: newCurrentStream, otherStreams};
     }
     case 'clearAllStream': {
-      const {streams, localStream, currentStream, beauty} = state;
+      //const {streams, localStream, currentStream, beauty} = state;
+      const {streams, localStream, currentStream} = state;
       streams.forEach((stream) => {
         if (stream.isPlaying()) {
           stream.stop();
@@ -115,12 +116,12 @@ const reducer = (state, action) => {
       }
       return { ...state, currentStream: null, localStream: null, streams: []};
     }
-    case 'enableBeauty': {
-      return {
-        ...state,
-        beauty: action.enable
-      }
-    }
+    // case 'enableBeauty': {
+    //   return {
+    //     ...state,
+    //     beauty: action.enable
+    //   }
+    // }
     default:
       throw new Error("mutation type not defined")
   }

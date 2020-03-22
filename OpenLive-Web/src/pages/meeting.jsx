@@ -73,7 +73,7 @@ const MeetingPage = () => {
       muteAudio: stateCtx.muteAudio,
       uid: 0,
       host: stateCtx.config.host,
-      beauty: stateCtx.beauty
+      // beauty: stateCtx.beauty
     }
   }, [stateCtx]);
 
@@ -122,7 +122,7 @@ const MeetingPage = () => {
               resolution: stateCtx.config.resolution,
               video: stateCtx.video,
               audio: stateCtx.audio,
-              beauty: stateCtx.beauty,
+              // beauty: stateCtx.beauty,
             }).then(() => {
               localClient.publish();
               mutationCtx.setScreen(false)
