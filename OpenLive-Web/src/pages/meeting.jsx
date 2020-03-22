@@ -17,6 +17,7 @@ const useStyles = makeStyles({
   customBtn: {
     width: '50px',
     height: '50px',
+    marginLeft: '20px',
     borderRadius: '26px',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     backgroundSize: '50px',
@@ -72,7 +73,7 @@ const MeetingPage = () => {
       muteAudio: stateCtx.muteAudio,
       uid: 0,
       host: stateCtx.config.host,
-      beauty: stateCtx.beauty
+      // beauty: stateCtx.beauty
     }
   }, [stateCtx]);
 
@@ -121,7 +122,7 @@ const MeetingPage = () => {
               resolution: stateCtx.config.resolution,
               video: stateCtx.video,
               audio: stateCtx.audio,
-              beauty: stateCtx.beauty,
+              // beauty: stateCtx.beauty,
             }).then(() => {
               localClient.publish();
               mutationCtx.setScreen(false)
@@ -192,9 +193,9 @@ const MeetingPage = () => {
             domId={`stream-player-${currentStream.getId()}`}>
             <div className={classes.menuContainer}>
               {config.host && <div className={classes.menu}>
-                  <i onClick={handleClick('video')} className={clsx(classes.customBtn, 'margin-right-19', stateCtx.muteVideo ? 'mute-video' : 'unmute-video')}/>
+                  <i onClick={handleClick('video')} className={clsx(classes.customBtn, stateCtx.muteVideo ? 'mute-video' : 'unmute-video')}/>
                   <i onClick={handleClick('audio')} className={clsx(classes.customBtn, stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio')}/>
-                {/* <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? 'start-screen-share' : 'stop-screen-share)}/> */}
+                <i onClick={handleClick('screen')} className={clsx(classes.customBtn, stateCtx.screen ? 'start-screen-share' : 'stop-screen-share')}/>
                 {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
               </div>}
             </div>
