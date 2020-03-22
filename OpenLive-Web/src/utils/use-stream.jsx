@@ -37,11 +37,24 @@ export default function useStream (client) {
       client.on("stream-published", mutationCtx.addStream);
       client.on("stream-added", addRemoteStream);
       client.on("stream-removed", mutationCtx.removeStream);
-      client.on("stream-subscribed", mutationCtx.addStream);
+      // client.on("stream-subscribed", mutationCtx.addStream);
       client.on("peer-leave", mutationCtx.removeStreamById);
+      client.on("stream-subscribed", (evt) => {
+        client.setStreamFallbackOption(evt.stream, 2);
+        mutationCtx.addStream(evt);
+      } );
       client._subscribed = true;
     }
   }, [client, mutationCtx])
+
+  useEffect(() => {
+    if (client && client._subscribed === true && currentStream != null) {
+      client.setRemoteVideoStreamType(currentStream, 0);
+      otherStreams.forEach((otherStream) => {
+        client.setRemoteVideoStreamType(otherStream, 1)
+      });
+    }
+  }, [client, currentStream, otherStreams]);
 
   return [localStream, currentStream, otherStreams];
 }
