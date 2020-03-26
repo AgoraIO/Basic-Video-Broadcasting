@@ -1,12 +1,12 @@
 version: 1.0.{build}
 branches:
   only:
-  - dev/appveyor-windows
+  - appveyor_windows_dev
 skip_tags: true
 image: Visual Studio 2017
 install:
 - cmd: >-
-    cd Group-Video\OpenLive-Windows
+    cd OpenLive-Windows
 
     set SDKVersion=3_0_0
 
@@ -21,5 +21,5 @@ build_script:
 
     7z a -tzip -r OpenLive_Win_v%SDKFolderVersion%.zip %ProjName%_Win_v%SDKFolderVersion%
 artifacts:
-- path:OpenLive-Windows\OpenVideoCall_Win_v*.zip
+- path:OpenLive-Windows\OpenLive_Win_v*.zip
   name: OpenLive-Windows
