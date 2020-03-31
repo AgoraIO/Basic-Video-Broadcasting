@@ -1,0 +1,5 @@
+{
+  "extends": ["standard", "react-app"],
+  "plugins": ["prettier"],
+  "parser": "react-scripts/node_modules/babel-eslint"
+}

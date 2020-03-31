@@ -1,15 +1,22 @@
-import React, {useEffect, useMemo} from 'react';
-import {useGlobalState, useGlobalMutation} from './container';
+import React, { useEffect, useMemo } from "react";
+import { useGlobalState, useGlobalMutation } from "./container";
 
-export default function useStream (client) {
+export default function useStream(client) {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
 
-  const [localStream, currentStream] = [stateCtx.localStream, stateCtx.currentStream];
+  const [localStream, currentStream] = [
+    stateCtx.localStream,
+    stateCtx.currentStream,
+  ];
 
   const otherStreams = useMemo(
-    () => stateCtx.streams.filter(stream => stream.getId() !== currentStream.getId()),
-    [stateCtx, currentStream]);
+    () =>
+      stateCtx.streams.filter(
+        (stream) => stream.getId() !== currentStream.getId()
+      ),
+    [stateCtx, currentStream]
+  );
 
   // const streamList = stateCtx.streams.filter((it) => it.getId() !== currentStream.getId());
 
@@ -19,11 +26,13 @@ export default function useStream (client) {
 
   useEffect(() => {
     const addRemoteStream = (evt) => {
-      const {stream} = evt;
+      const { stream } = evt;
       client.subscribe(stream, (err) => {
-        mutationCtx.toastError(`stream ${evt.stream.getId()} subscribe failed: ${err}`);
+        mutationCtx.toastError(
+          `stream ${evt.stream.getId()} subscribe failed: ${err}`
+        );
       });
-    }
+    };
     // const canceledScreenSharing = () => {
     //   if (stateCtx.localStream) {
     //     stateCtx.localStream.close();
@@ -42,16 +51,16 @@ export default function useStream (client) {
       client.on("stream-subscribed", (evt) => {
         client.setStreamFallbackOption(evt.stream, 2);
         mutationCtx.addStream(evt);
-      } );
+      });
       client._subscribed = true;
     }
-  }, [client, mutationCtx])
+  }, [client, mutationCtx]);
 
   useEffect(() => {
     if (client && client._subscribed === true && currentStream != null) {
       client.setRemoteVideoStreamType(currentStream, 0);
       otherStreams.forEach((otherStream) => {
-        client.setRemoteVideoStreamType(otherStream, 1)
+        client.setRemoteVideoStreamType(otherStream, 1);
       });
     }
   }, [client, currentStream, otherStreams]);

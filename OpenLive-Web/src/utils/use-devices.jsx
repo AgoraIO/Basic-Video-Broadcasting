@@ -1,30 +1,30 @@
-import React, { useEffect, useMemo } from 'react';
-import {useGlobalState, useGlobalMutation} from '../utils/container';
-import RTCClient from '../rtc-client';
+import React, { useEffect, useMemo } from "react";
+import { useGlobalState, useGlobalMutation } from "../utils/container";
+import RTCClient from "../rtc-client";
 
-export default function useDevices () {
+export default function useDevices() {
   const stateCtx = useGlobalState();
   const mutationCtx = useGlobalMutation();
 
   const client = useMemo(() => {
-    const _rtcClient = new RTCClient()
+    const _rtcClient = new RTCClient();
     return _rtcClient;
   }, []);
 
   const [cameraList, microphoneList] = useMemo(() => {
     return [
       stateCtx.devicesList
-      .filter((item) => item.kind === 'videoinput')
-      .map((item, idx) => ({
-        value: item.deviceId,
-        label: item.label ? item.label : `Video Input ${idx}`
-      })),
+        .filter((item) => item.kind === "videoinput")
+        .map((item, idx) => ({
+          value: item.deviceId,
+          label: item.label ? item.label : `Video Input ${idx}`,
+        })),
       stateCtx.devicesList
-      .filter((item) => item.kind === 'audioinput')
-      .map((item, idx) => ({
-        value: item.deviceId,
-        label: item.label ? item.label : `Audio Input ${idx}`
-      }))
+        .filter((item) => item.kind === "audioinput")
+        .map((item, idx) => ({
+          value: item.deviceId,
+          label: item.label ? item.label : `Audio Input ${idx}`,
+        })),
     ];
   }, [stateCtx.devicesList]);
 
@@ -35,21 +35,28 @@ export default function useDevices () {
     });
     return () => {
       client.destroy();
-    }
+    };
   }, [microphoneList, mutationCtx, cameraList, client]);
 
   useEffect(() => {
-    if (cameraList[0] &&
-        microphoneList[0] &&
-        (!stateCtx.config.cameraId ||
-         !stateCtx.config.microphoneId)) {
+    if (
+      cameraList[0] &&
+      microphoneList[0] &&
+      (!stateCtx.config.cameraId || !stateCtx.config.microphoneId)
+    ) {
       mutationCtx.updateConfig({
         cameraId: cameraList[0].value,
         microphoneId: microphoneList[0].value,
       });
       mutationCtx.stopLoading();
     }
-  }, [mutationCtx, stateCtx.devicesList, stateCtx.config, cameraList, microphoneList]);
+  }, [
+    mutationCtx,
+    stateCtx.devicesList,
+    stateCtx.config,
+    cameraList,
+    microphoneList,
+  ]);
 
   return [cameraList, microphoneList];
 }

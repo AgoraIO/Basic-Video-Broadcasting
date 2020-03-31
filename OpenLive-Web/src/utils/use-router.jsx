@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import { HashRouter as Router, Route, Switch} from 'react-router-dom';
+import React, { useContext } from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 export const RouterContext = React.createContext({});
 

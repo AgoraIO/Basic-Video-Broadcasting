@@ -1,21 +1,66 @@
-html,
-body{
+html, body {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
-
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+ }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+ }
+}
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+ }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+ }
+}
+.github {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  position: absolute;
+  background-image: url("./assets/github.png");
+  background-size: cover;
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 4px;
+  border-radius: 28px;
+  display: inline-block;
+  right: 55px;
+  top: 25px;
+  z-index: 1999;
+  transform: translateY(-20px);
+}
+.github:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px #fff06a, inset 4px 0 16px #f0f, inset -4px 0 16px #0ff, inset 4px 0 16px #f0f, inset -4px 0 16px #0ff, 0 0 10px #fff06a, -6px 0 36px #f0f, 6px 0 36px #0ff;
+  -webkit-animation: rotate 3s linear infinite;
+  animation: rotate 3s linear infinite;
+}
 #root {
   height: 100%;
   width: 100%;
   display: flex;
-  background: #FAFAFA;
+  background: #fafafa;
 }
-
 .margin-right-19 {
   margin-right: 19px;
 }
-
 .btn-container {
   width: 52px;
   height: 52px;
@@ -23,12 +68,10 @@ body{
   background-color: #000;
   opacity: 0.4;
 }
-
 .meeting {
   display: flex;
   flex: 1;
 }
-
 .current-view {
   display: flex;
   flex: 1;
@@ -39,12 +82,10 @@ body{
   background-size: 280px;
   background-image: url('./assets/logo-open-live-gray.png');
 }
-
 .stream-player {
   display: flex;
   flex: 1;
 }
-
 .stream-container {
   left: 30px;
   top: 91px;
@@ -56,28 +97,21 @@ body{
   justify-content: flex-start;
   z-index: 2;
 }
-
 .stream-container > .stream-player {
   max-height: 150px;
-  background: rgba(216,216,216,1);
+  background: rgba(216, 216, 216, 1);
   max-width: 200px;
   margin: 4px 0;
   position: relative;
   border-radius: 2px;
   overflow: hidden;
 }
-
-.stream-container > .stream-player > div:nth-child(2n) {
-  // border-radius: 2px;
-  // background: #D8D8D8 !important;
-}
-
 .avatar-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 44px;
-  background:rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 24px;
   flex-direction: row;
   box-sizing: border-box;
@@ -85,9 +119,8 @@ body{
   margin-left: 30px;
   margin-top: 30px;
 }
-
 .default-avatar {
-  background-color: #ffffffde;
+  background-color: #fff de;
   background-image: url("./assets/avatar.png");
   background-size: 38px;
   display: block;
@@ -97,11 +130,9 @@ body{
   margin-left: 0px;
   border-radius: 28px;
 }
-
 .autoplay {
   cursor: pointer;
 }
-
 .avatar-text {
   display: flex;
   justify-content: center;
@@ -112,10 +143,9 @@ body{
   border-radius: 10px;
   font-size: 16px;
   font-family: 'HelveticaNeue';
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
   line-height: 14px;
 }
-
 .nav {
   position: absolute;
   display: flex;
@@ -125,7 +155,6 @@ body{
   justify-content: space-between;
   z-index: 3;
 }
-
 .quit {
   display: block;
   margin-top: 36px;
@@ -136,42 +165,13 @@ body{
   height: 32px;
   border-radius: 30px;
   z-index: 3;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
-
 .quit:hover {
-  background-color: #44A2FC;
-  opacity: 1.0;
+  background-color: #44a2fc;
+  opacity: 1;
 }
-
-// .custom-snackbar {
-//   min-width: 180px !important;
-//   min-height: 40px !important;
-//   background: rgba(0,0,0,0.7);
-//   box-shadow: 0px 2px 4px 0px rgba(42,62,84,0.24);
-//   border-radius: 20px;
-//   justify-content: center;
-//   padding: 0 11px;
-// }
-
-.github {
-  cursor: pointer;
-  background-repeat: no-repeat;
-  position: absolute;
-  background-image: url("./assets/github.png");
-  background-size: 30px;
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin: 4px;
-  border-radius: 28px;
-  top: 13px;
-  right: 58px;
-  cursor: pointer;
-  z-index: 3;
-}
-
 .like {
   cursor: pointer;
   background-image: url("./assets/icon-add-blue.png");
@@ -182,11 +182,9 @@ body{
   margin: 4px;
   border-radius: 28px;
 }
-
 .like:hover {
   background-image: url("./assets/icon-add-blue.png");
 }
-
 .stream-uid {
   padding: 2px 11px;
   display: flex;
@@ -200,75 +198,64 @@ body{
   border-radius: 28px;
   max-width: 100px;
   max-height: 20px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   font-size: 12px;
   font-family: HelveticaNeue;
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
   line-height: 14px;
 }
-
 .mute-video {
-  &:hover {
-    background-color: #44A2FC;
-    opacity: 1.0;
-  }
   background-image: url("./assets/icon-camera.png");
 }
-
+.mute-video:hover {
+  background-color: #44a2fc;
+  opacity: 1;
+}
 .unmute-video {
-  &:hover {
-    background-color: #44A2FC;
-    opacity: 1.0;
-  }
   background-image: url("./assets/icon-camera-off.png");
 }
-
+.unmute-video:hover {
+  background-color: #44a2fc;
+  opacity: 1;
+}
 .mute-audio {
-  &:hover {
-    background-color: #44A2FC;
-    opacity: 1.0;
-  }
   background-image: url("./assets/icon-microphone.png");
 }
-
+.mute-audio:hover {
+  background-color: #44a2fc;
+  opacity: 1;
+}
 .unmute-audio {
-  &:hover {
-    background-color: #44A2FC;
-    opacity: 1.0;
-  }
   background-image: url("./assets/icon-microphone-off.png");
 }
-
+.unmute-audio:hover {
+  background-color: #44a2fc;
+  opacity: 1;
+}
 .stop-screen-share {
-  &:hover {
-    background-color: #44A2FC;
-    opacity: 1.0;
-  }
   background-image: url("./assets/icon-share.png");
 }
-
+.stop-screen-share:hover {
+  background-color: #44a2fc;
+  opacity: 1;
+}
 .start-screen-share {
-  &:hover {
-    background-color: #44A2FC;
-    opacity: 1.0;
-  }
   background-image: url("./assets/icon-share.png");
 }
-
+.start-screen-share:hover {
+  background-color: #44a2fc;
+  opacity: 1;
+}
 .show-profile {
-  &:hover {
-    opacity: 1.0;
-    background-image: url("./assets/icon-text-actived.png");
-    background-color: #44A2FC;
-  }
   background-image: url("./assets/icon-text.png");
 }
-
+.show-profile:hover {
+  opacity: 1;
+  background-image: url("./assets/icon-text-actived.png");
+  background-color: #44a2fc;
+}
 .back-btn {
-  &:hover {
-    background-image: url("./assets/icon-back-hover.png");
-  }
   background-size: 32px;
   background-image: url("./assets/icon-back.png");
   background-repeat: no-repeat;
@@ -280,11 +267,10 @@ body{
   cursor: pointer;
   z-index: 2;
 }
-
+.back-btn:hover {
+  background-image: url("./assets/icon-back-hover.png");
+}
 .setting-btn {
-  &:hover {
-    background-image: url("./assets/icon-setting-hover.png");
-  }
   background-size: 32px;
   background-image: url("./assets/icon-setting.png");
   background-repeat: no-repeat;
@@ -296,85 +282,84 @@ body{
   cursor: pointer;
   z-index: 2;
 }
-
+.setting-btn:hover {
+  background-image: url("./assets/icon-setting-hover.png");
+}
 .role-container {
   display: flex;
   width: 300px;
   align-items: center;
   justify-content: space-around;
 }
-
 .role-item {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   flex-direction: column;
   position: relative;
 }
-
-.role-name-inactive {
+.inactive:hover .role-name {
+  color: #44a2fc;
+}
+.inactive:hover .icon-audience {
+  background-image: url("./assets/icon-audience.png");
+}
+.inactive:hover .icon-host {
+  background-image: url("./assets/icon-host.png");
+}
+.inactive .role-name {
   padding-left: 5px;
   font-size: 14px;
   color: #eaeaea;
 }
-
-.role-name-active {
+.active .role-name {
   padding-left: 5px;
   font-size: 14px;
-  color: #44A2FC;
+  color: #44a2fc;
 }
-
 .custom-radio {
   position: relative;
   width: 14px;
-  height: 14px;  
-  /* When the radio button is checked, add a blue background */
-  &:hover {
-    [type="radio"] ~ .checkmark {
-      background-color: #ccc;
-    }
-  }
-  [type="radio"]:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  & {
-    [type="radio"],.checkmark {
-      width: 14px;
-      height: 14px;
-    }
-    [type="radio"] {
-      margin: 0;
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      z-index: 4;
-    }
-
-    [type="radio"]:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-      top: 4px;
-      left: 4px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: white;
-    }
-
-    .checkmark {
-      top: 0;
-      left: 0;
-      background-color: #eee;
-      border-radius: 50%;
-    }
-  }
+  height: 14px;
+ /* When the radio button is checked, add a blue background */
 }
-
-
+.custom-radio:hover [type="radio"] ~ .checkmark {
+  background-color: #ccc;
+}
+.custom-radio [type="radio"]:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+.custom-radio [type="radio"], .custom-radio .checkmark {
+  width: 14px;
+  height: 14px;
+}
+.custom-radio [type="radio"] {
+  margin: 0;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 4;
+}
+.custom-radio [type="radio"]:checked ~ .checkmark:after {
+  display: block;
+}
+.custom-radio .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 4px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+.custom-radio .checkmark {
+  top: 0;
+  left: 0;
+  background-color: #eee;
+  border-radius: 50%;
+}
 .radio-row {
   display: flex;
   flex-direction: row;
@@ -386,14 +371,13 @@ body{
   bottom: top;
   top: 132px;
   left: 19px;
-  &.host {
-    left: 22px;
-  }
-  &.audience {
-    left: 13px;
-  }
 }
-
+.radio-row.host {
+  left: 22px;
+}
+.radio-row.audience {
+  left: 13px;
+}
 .error-icon {
   padding-right: 10px;
   width: 20px;
@@ -402,7 +386,6 @@ body{
   background-repeat: no-repeat;
   background-image: url("./assets/icon-error.png");
 }
-
 .cover-image {
   margin-top: 4rem;
   width: 180px;
@@ -411,8 +394,7 @@ body{
   background-repeat: no-repeat;
   background-image: url("./assets/logo-open-live.png");
 }
-
-.icon-audience-active {
+.active .icon-audience {
   width: 100px;
   height: 118px;
   background-size: 100px 118px;
@@ -420,8 +402,7 @@ body{
   background-repeat: no-repeat;
   background-image: url("./assets/icon-audience.png");
 }
-
-.icon-audience-inactive {
+.inactive .icon-audience {
   width: 100px;
   height: 118px;
   background-size: 100px 118px;
@@ -429,8 +410,7 @@ body{
   background-repeat: no-repeat;
   background-image: url("./assets/icon-audience-inactived.png");
 }
-
-.icon-host-active {
+.active .icon-host {
   width: 100px;
   height: 118px;
   background-size: 100px 118px;
@@ -438,8 +418,7 @@ body{
   background-repeat: no-repeat;
   background-image: url("./assets/icon-host.png");
 }
-
-.icon-host-inactive {
+.inactive .icon-host {
   width: 100px;
   height: 118px;
   background-size: 100px 118px;
@@ -447,7 +426,6 @@ body{
   background-repeat: no-repeat;
   background-image: url("./assets/icon-host-inactived.png");
 }
-
 .stream-container .stream-profile {
   top: 12px;
   left: 5px;
@@ -455,7 +433,6 @@ body{
   border-radius: 6px;
   padding: 5px 5px;
 }
-
 .main-stream-profile {
   width: 150px;
   background-color: rgba(0, 0, 0, 0.4);
@@ -471,7 +448,6 @@ body{
   right: 80px;
   top: 30px;
 }
-
 .stream-profile {
   left: 0;
   z-index: 2;
