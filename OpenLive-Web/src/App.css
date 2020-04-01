@@ -1,28 +1,34 @@
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
+
 @-webkit-keyframes rotate {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
- }
+  }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
- }
+  }
 }
+
 @keyframes rotate {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
- }
+  }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
- }
+  }
 }
+
 .github {
   cursor: pointer;
   background-repeat: no-repeat;
@@ -40,7 +46,8 @@ html, body {
   z-index: 1999;
   transform: translateY(-20px);
 }
-.github:after {
+
+.github::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -52,15 +59,18 @@ html, body {
   -webkit-animation: rotate 3s linear infinite;
   animation: rotate 3s linear infinite;
 }
+
 #root {
   height: 100%;
   width: 100%;
   display: flex;
   background: #fafafa;
 }
+
 .margin-right-19 {
   margin-right: 19px;
 }
+
 .btn-container {
   width: 52px;
   height: 52px;
@@ -68,10 +78,12 @@ html, body {
   background-color: #000;
   opacity: 0.4;
 }
+
 .meeting {
   display: flex;
   flex: 1;
 }
+
 .current-view {
   display: flex;
   flex: 1;
@@ -82,10 +94,12 @@ html, body {
   background-size: 280px;
   background-image: url('./assets/logo-open-live-gray.png');
 }
+
 .stream-player {
   display: flex;
   flex: 1;
 }
+
 .stream-container {
   left: 30px;
   top: 91px;
@@ -97,6 +111,7 @@ html, body {
   justify-content: flex-start;
   z-index: 2;
 }
+
 .stream-container > .stream-player {
   max-height: 150px;
   background: rgba(216, 216, 216, 1);
@@ -106,6 +121,7 @@ html, body {
   border-radius: 2px;
   overflow: hidden;
 }
+
 .avatar-container {
   display: flex;
   justify-content: space-around;
@@ -119,6 +135,7 @@ html, body {
   margin-left: 30px;
   margin-top: 30px;
 }
+
 .default-avatar {
   background-color: #fff de;
   background-image: url("./assets/avatar.png");
@@ -127,12 +144,14 @@ html, body {
   width: 38px;
   height: 38px;
   margin: 3px;
-  margin-left: 0px;
+  margin-left: 0;
   border-radius: 28px;
 }
+
 .autoplay {
   cursor: pointer;
 }
+
 .avatar-text {
   display: flex;
   justify-content: center;
@@ -146,6 +165,7 @@ html, body {
   color: rgba(255, 255, 255, 1);
   line-height: 14px;
 }
+
 .nav {
   position: absolute;
   display: flex;
@@ -155,6 +175,7 @@ html, body {
   justify-content: space-between;
   z-index: 3;
 }
+
 .quit {
   display: block;
   margin-top: 36px;
@@ -168,10 +189,12 @@ html, body {
   background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
+
 .quit:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .like {
   cursor: pointer;
   background-image: url("./assets/icon-add-blue.png");
@@ -182,9 +205,11 @@ html, body {
   margin: 4px;
   border-radius: 28px;
 }
+
 .like:hover {
   background-image: url("./assets/icon-add-blue.png");
 }
+
 .stream-uid {
   padding: 2px 11px;
   display: flex;
@@ -205,56 +230,71 @@ html, body {
   color: rgba(255, 255, 255, 1);
   line-height: 14px;
 }
+
 .mute-video {
   background-image: url("./assets/icon-camera.png");
 }
+
 .mute-video:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .unmute-video {
   background-image: url("./assets/icon-camera-off.png");
 }
+
 .unmute-video:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .mute-audio {
   background-image: url("./assets/icon-microphone.png");
 }
+
 .mute-audio:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .unmute-audio {
   background-image: url("./assets/icon-microphone-off.png");
 }
+
 .unmute-audio:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .stop-screen-share {
   background-image: url("./assets/icon-share.png");
 }
+
 .stop-screen-share:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .start-screen-share {
   background-image: url("./assets/icon-share.png");
 }
+
 .start-screen-share:hover {
   background-color: #44a2fc;
   opacity: 1;
 }
+
 .show-profile {
   background-image: url("./assets/icon-text.png");
 }
+
 .show-profile:hover {
   opacity: 1;
   background-image: url("./assets/icon-text-actived.png");
   background-color: #44a2fc;
 }
+
 .back-btn {
   background-size: 32px;
   background-image: url("./assets/icon-back.png");
@@ -267,9 +307,11 @@ html, body {
   cursor: pointer;
   z-index: 2;
 }
+
 .back-btn:hover {
   background-image: url("./assets/icon-back-hover.png");
 }
+
 .setting-btn {
   background-size: 32px;
   background-image: url("./assets/icon-setting.png");
@@ -282,15 +324,18 @@ html, body {
   cursor: pointer;
   z-index: 2;
 }
+
 .setting-btn:hover {
   background-image: url("./assets/icon-setting-hover.png");
 }
+
 .role-container {
   display: flex;
   width: 300px;
   align-items: center;
   justify-content: space-around;
 }
+
 .role-item {
   cursor: pointer;
   display: flex;
@@ -298,41 +343,53 @@ html, body {
   flex-direction: column;
   position: relative;
 }
+
 .inactive:hover .role-name {
   color: #44a2fc;
 }
+
 .inactive:hover .icon-audience {
   background-image: url("./assets/icon-audience.png");
 }
+
 .inactive:hover .icon-host {
   background-image: url("./assets/icon-host.png");
 }
+
 .inactive .role-name {
   padding-left: 5px;
   font-size: 14px;
   color: #eaeaea;
 }
+
 .active .role-name {
   padding-left: 5px;
   font-size: 14px;
   color: #44a2fc;
 }
+
 .custom-radio {
   position: relative;
   width: 14px;
   height: 14px;
- /* When the radio button is checked, add a blue background */
+
+  /* When the radio button is checked, add a blue background */
 }
+
 .custom-radio:hover [type="radio"] ~ .checkmark {
   background-color: #ccc;
 }
+
 .custom-radio [type="radio"]:checked ~ .checkmark {
   background-color: #2196f3;
 }
-.custom-radio [type="radio"], .custom-radio .checkmark {
+
+.custom-radio [type="radio"],
+.custom-radio .checkmark {
   width: 14px;
   height: 14px;
 }
+
 .custom-radio [type="radio"] {
   margin: 0;
   position: absolute;
@@ -340,10 +397,12 @@ html, body {
   cursor: pointer;
   z-index: 4;
 }
-.custom-radio [type="radio"]:checked ~ .checkmark:after {
+
+.custom-radio [type="radio"]:checked ~ .checkmark::after {
   display: block;
 }
-.custom-radio .checkmark:after {
+
+.custom-radio .checkmark::after {
   content: "";
   position: absolute;
   display: none;
@@ -354,12 +413,14 @@ html, body {
   border-radius: 50%;
   background: white;
 }
+
 .custom-radio .checkmark {
   top: 0;
   left: 0;
   background-color: #eee;
   border-radius: 50%;
 }
+
 .radio-row {
   display: flex;
   flex-direction: row;
@@ -372,12 +433,15 @@ html, body {
   top: 132px;
   left: 19px;
 }
+
 .radio-row.host {
   left: 22px;
 }
+
 .radio-row.audience {
   left: 13px;
 }
+
 .error-icon {
   padding-right: 10px;
   width: 20px;
@@ -386,6 +450,7 @@ html, body {
   background-repeat: no-repeat;
   background-image: url("./assets/icon-error.png");
 }
+
 .cover-image {
   margin-top: 4rem;
   width: 180px;
@@ -394,6 +459,7 @@ html, body {
   background-repeat: no-repeat;
   background-image: url("./assets/logo-open-live.png");
 }
+
 .active .icon-audience {
   width: 100px;
   height: 118px;
@@ -402,6 +468,7 @@ html, body {
   background-repeat: no-repeat;
   background-image: url("./assets/icon-audience.png");
 }
+
 .inactive .icon-audience {
   width: 100px;
   height: 118px;
@@ -410,6 +477,7 @@ html, body {
   background-repeat: no-repeat;
   background-image: url("./assets/icon-audience-inactived.png");
 }
+
 .active .icon-host {
   width: 100px;
   height: 118px;
@@ -418,6 +486,7 @@ html, body {
   background-repeat: no-repeat;
   background-image: url("./assets/icon-host.png");
 }
+
 .inactive .icon-host {
   width: 100px;
   height: 118px;
@@ -426,6 +495,7 @@ html, body {
   background-repeat: no-repeat;
   background-image: url("./assets/icon-host-inactived.png");
 }
+
 .stream-container .stream-profile {
   top: 12px;
   left: 5px;
@@ -433,6 +503,7 @@ html, body {
   border-radius: 6px;
   padding: 5px 5px;
 }
+
 .main-stream-profile {
   width: 150px;
   background-color: rgba(0, 0, 0, 0.4);
@@ -448,6 +519,7 @@ html, body {
   right: 80px;
   top: 30px;
 }
+
 .stream-profile {
   left: 0;
   z-index: 2;

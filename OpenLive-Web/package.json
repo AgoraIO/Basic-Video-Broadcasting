@@ -9,13 +9,8 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix --cache --format=pretty",
-      "prettier --ignore-path .eslintignore --config .prettierrc --write",
-      "git add"
-    ],
-    "src/**/*.{css}": [
-      "stylelint --config=.stylelintrc --fix",
+    "*.{js,jsx}": [
+      "npm run eslint:fix",
       "prettier --ignore-path .eslintignore --config .prettierrc --write",
       "git add"
     ]
@@ -36,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.{js,jsx} --fix"
+    "eslint:fix": "eslint --config .eslintrc --fix --cache --format=pretty --ignore-path .eslintignore ./src/**/*.{js,jsx} ./src/*.{js,jsx}"
   },
   "browserslist": {
     "production": [
@@ -70,8 +65,6 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.1",
-    "prettier": "^2.0.2",
-    "stylelint": "^13.2.1",
-    "stylelint-config-standard": "^20.0.0"
+    "prettier": "^2.0.2"
   }
 }
