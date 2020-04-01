@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useContext } from 'react'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
-export const RouterContext = React.createContext({});
+export const RouterContext = React.createContext({})
 
 export const BrowserRouterHook = ({ children }) => (
   <Router>
@@ -15,8 +15,8 @@ export const BrowserRouterHook = ({ children }) => (
       </Route>
     </Switch>
   </Router>
-);
+)
 
-export default function useRouter() {
-  return useContext(RouterContext);
+export default function useRouter () {
+  return useContext(RouterContext)
 }

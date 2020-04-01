@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from '@material-ui/core/styles'
 
 export default createMuiTheme({
   typography: {
@@ -8,7 +8,7 @@ export default createMuiTheme({
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
-    color: "#333",
+    color: '#333'
   },
 
   overrides: {
@@ -20,8 +20,8 @@ export default createMuiTheme({
     // },
     MuiFormControl: {
       root: {
-        margin: "0.3rem 0",
-      },
+        margin: '0.3rem 0'
+      }
     },
     // MuiInputLabel: {
     //   root: {
@@ -37,23 +37,23 @@ export default createMuiTheme({
       //   }
       // },
       underline: {
-        "&:before": {
-          borderBottom: "1px solid #EAEAEA",
+        '&:before': {
+          borderBottom: '1px solid #EAEAEA'
         },
-        "&:hover:not($disabled):not($focused):not($error):before": {
-          borderBottom: "2px solid #EAEAEA",
+        '&:hover:not($disabled):not($focused):not($error):before': {
+          borderBottom: '2px solid #EAEAEA'
         },
-        "&$focused": {
-          "&:after": {
-            borderBottom: "2px solid #44a2fc",
-          },
-        },
+        '&$focused': {
+          '&:after': {
+            borderBottom: '2px solid #44a2fc'
+          }
+        }
         // root: {
 
         // backgroundColor: '#44a2fc',
         // borderBottom: '1px solid red'
         // }
-      },
-    },
-  },
-});
+      }
+    }
+  }
+})

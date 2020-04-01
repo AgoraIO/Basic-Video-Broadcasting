@@ -1,24 +1,22 @@
 {
   "name": "openlive-web",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "private": true,
-  "homepage": "https://webdemo.agora.io/agora-web-showcase/examples/OpenLive-Web/",
+  "homepage": ".",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "npm run eslint:fix",
-      "prettier --ignore-path .eslintignore --config .prettierrc --write",
-      "git add"
+    "src/**/*.{js,jsx}": [
+      "eslint --config .eslintrc --fix --cache --format=pretty --ignore-path .eslintignore ./src/**/*.{js,jsx} ./src/*.{js,jsx}"
     ]
   },
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
-    "agora-rtc-sdk": "3.0.0",
+    "agora-rtc-sdk": "3.0.2",
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -31,7 +29,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint:fix": "eslint --config .eslintrc --fix --cache --format=pretty --ignore-path .eslintignore ./src/**/*.{js,jsx} ./src/*.{js,jsx}"
+    "eslint:fix": "eslint --config .eslintrc --fix --cache --format=pretty --ignore-path .eslintignore ./src/**/*.{js,jsx} ./src/*.{js,jsx}",
+    "precommit": "lint-staged"
   },
   "browserslist": {
     "production": [

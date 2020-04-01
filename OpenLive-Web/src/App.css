@@ -5,6 +5,14 @@ body {
   overflow: hidden;
 }
 
+.version {
+  position: absolute;
+  font-size: 15px;
+  color: gray;
+  bottom: 26px;
+  text-align: center;
+}
+
 @-webkit-keyframes rotate {
   0% {
     -webkit-transform: rotate(0deg);
