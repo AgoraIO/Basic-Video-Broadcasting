@@ -1,0 +1,10 @@
+{
+  "extends": ["standard", "react-app"],
+  "plugins": ["prettier"],
+  "parser": "babel-eslint",
+  "overrides": [
+    {
+      "files": ["**/*.js?(x)", "src/App.jsx"]
+    }
+  ]
+}
