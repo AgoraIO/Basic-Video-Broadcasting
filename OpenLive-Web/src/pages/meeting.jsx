@@ -57,6 +57,9 @@ const MeetingPage = () => {
       client.createClient({ codec: stateCtx.codec, mode: stateCtx.mode })
       client._created = true
     }
+    client.on('stopScreenSharing', () => {
+      mutationCtx.setScreen(true)
+    })
     return client
   }, [stateCtx.codec, stateCtx.mode])
 
@@ -169,8 +172,6 @@ const MeetingPage = () => {
                 microphoneId: stateCtx.config.microphoneId,
                 cameraId: stateCtx.config.cameraId,
                 resolution: stateCtx.config.resolution
-              }, () => {
-                mutationCtx.setScreen(true)
               })
               .then(() => {
                 localClient.publish()
