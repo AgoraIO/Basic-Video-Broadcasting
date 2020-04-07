@@ -136,6 +136,12 @@ const MeetingPage = () => {
         }
         case 'screen': {
           if (stateCtx.screen) {
+            if(!stateCtx.muteVideo) {
+              mutationCtx.setVideo(!stateCtx.muteVideo)
+            }
+            if(!stateCtx.muteAudio) {
+              mutationCtx.setAudio(!stateCtx.muteAudio)
+            }
             localClient
               .createRTCStream({
                 token: null,
@@ -163,15 +169,16 @@ const MeetingPage = () => {
                 microphoneId: stateCtx.config.microphoneId,
                 cameraId: stateCtx.config.cameraId,
                 resolution: stateCtx.config.resolution
+              }, () => {
+                mutationCtx.setScreen(true)
               })
               .then(() => {
                 localClient.publish()
-                mutationCtx.setScreen(true)
+                // mutationCtx.setScreen(true)
               })
               .catch((err) => {
                 console.log(err)
                 mutationCtx.toastError(`Media ${err.info}`)
-                routerCtx.history.push('/')
               })
           }
           break

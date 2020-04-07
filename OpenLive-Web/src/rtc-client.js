@@ -106,17 +106,13 @@ export default class RTCClient {
     })
   }
 
-  createScreenSharingStream (data) {
+  createScreenSharingStream (data, stopEvent) {
     return new Promise((resolve, reject) => {
       // create screen sharing stream
       this._uid = this._localStream ? this._localStream.getId() : data.uid
       if (this._localStream) {
         this._uid = this._localStream.getId()
         this.unpublish()
-        if (this._localStream.isPlaying()) {
-          this._localStream.stop()
-        }
-        this._localStream.close()
       }
       const screenSharingStream = AgoraRTC.createStream({
         streamID: this._uid,
@@ -133,11 +129,21 @@ export default class RTCClient {
 
       screenSharingStream.on('stopScreenSharing', (evt) => {
         this._eventBus.emit('stopScreenSharing', evt)
+        if (this._localStream.isPlaying()) {
+          this._localStream.stop()
+        }
+        this._localStream.close()
+        this.unpublish()
+        stopEvent && stopEvent()
       })
 
       // init local stream
       screenSharingStream.init(
         () => {
+          if (this._localStream.isPlaying()) {
+            this._localStream.stop()
+          }
+          this._localStream.close()
           this._localStream = screenSharingStream
 
           // run callback
@@ -147,7 +153,8 @@ export default class RTCClient {
           resolve()
         },
         (err) => {
-          resolve(err)
+          this.publish()
+          reject(err)
         }
       )
     })
