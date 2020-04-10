@@ -42,7 +42,7 @@ export default class RTCClient {
   }
 
   on (evt, callback) {
-    const customEvents = ['localStream-added', 'screenShare-canceled', 'stopScreenSharing']
+    const customEvents = ['localStream-added', 'screenShare-canceled']
 
     if (customEvents.indexOf(evt) !== -1) {
       this._eventBus.on(evt, callback)
