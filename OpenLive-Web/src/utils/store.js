@@ -103,7 +103,7 @@ const reducer = (state, action) => {
       const newStreams = streams.filter(
         (stream) => stream.getId() !== targetId
       )
-      if (targetId === currentStream.getId()) {
+      if (currentStream && (targetId === currentStream.getId())) {
         if (newStreams.length === 0) {
           newCurrentStream = null
         } else {

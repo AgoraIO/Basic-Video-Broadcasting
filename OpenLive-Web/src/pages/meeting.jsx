@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import useRouter from '../utils/use-router'
 import useStream from '../utils/use-stream'
 import RTCClient from '../rtc-client'
+import Tooltip from '@material-ui/core/Tooltip'
 import StreamPlayer from './meeting/stream-player'
 
 const useStyles = makeStyles({
@@ -136,6 +137,12 @@ const MeetingPage = () => {
         }
         case 'screen': {
           if (stateCtx.screen) {
+            if(!stateCtx.muteVideo) {
+              mutationCtx.setVideo(!stateCtx.muteVideo)
+            }
+            if(!stateCtx.muteAudio) {
+              mutationCtx.setAudio(!stateCtx.muteAudio)
+            }
             localClient
               .createRTCStream({
                 token: null,
@@ -171,7 +178,6 @@ const MeetingPage = () => {
               .catch((err) => {
                 console.log(err)
                 mutationCtx.toastError(`Media ${err.info}`)
-                routerCtx.history.push('/')
               })
           }
           break
@@ -204,15 +210,17 @@ const MeetingPage = () => {
             <div className="avatar-text">Agora Test</div>
             <div className="like"></div>
           </div>
-          <div
-            className="quit"
-            onClick={() => {
-              localClient.leave().then(() => {
-                mutationCtx.clearAllStream()
-                routerCtx.history.push('/')
-              })
-            }}
-          ></div>
+          <Tooltip title="quit">
+            <div
+              className="quit"
+              onClick={() => {
+                localClient.leave().then(() => {
+                  mutationCtx.clearAllStream()
+                  routerCtx.history.push('/')
+                })
+              }}
+            ></div>
+          </Tooltip>
         </div>
         {currentStream ? (
           <StreamPlayer
@@ -233,29 +241,36 @@ const MeetingPage = () => {
             <div className={classes.menuContainer}>
               {config.host && (
                 <div className={classes.menu}>
-                  <i
-                    onClick={handleClick('video')}
-                    className={clsx(
-                      classes.customBtn,
-                      stateCtx.muteVideo ? 'mute-video' : 'unmute-video'
-                    )}
-                  />
-                  <i
-                    onClick={handleClick('audio')}
-                    className={clsx(
-                      classes.customBtn,
-                      stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio'
-                    )}
-                  />
-                  <i
-                    onClick={handleClick('screen')}
-                    className={clsx(
-                      classes.customBtn,
-                      stateCtx.screen
-                        ? 'start-screen-share'
-                        : 'stop-screen-share'
-                    )}
-                  />
+                  <Tooltip title={stateCtx.muteVideo ? 'mute-video' : 'unmute-video'}>
+                    <i
+                      onClick={handleClick('video')}
+                      className={clsx(
+                        classes.customBtn,
+                        stateCtx.muteVideo ? 'mute-video' : 'unmute-video'
+                      )}
+                    />
+                  </Tooltip>
+                  <Tooltip title={stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio'}>
+                    <i
+                      onClick={handleClick('audio')}
+                      className={clsx(
+                        classes.customBtn,
+                        stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio'
+                      )}
+                    />
+                  </Tooltip>
+                  <Tooltip title={stateCtx.screen ? 'stop-screen-share' : 'start-screen-share'}>
+                    <i
+                      onClick={handleClick('screen')}
+                      className={clsx(
+                        classes.customBtn,
+                        stateCtx.screen
+                          ? 'start-screen-share'
+                          : 'stop-screen-share'
+                      )}
+                    />
+                  </Tooltip>
+                  
                   {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
                 </div>
               )}
