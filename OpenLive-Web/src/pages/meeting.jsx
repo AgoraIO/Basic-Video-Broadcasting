@@ -72,11 +72,13 @@ const MeetingPage = () => {
       microphoneId: stateCtx.config.microphoneId,
       cameraId: stateCtx.config.cameraId,
       resolution: stateCtx.config.resolution,
+      muteVideo: muteVideo,
+      muteAudio: muteAudio,
       uid: stateCtx.uid,
       host: stateCtx.config.host
       // beauty: stateCtx.beauty
     }
-  }, [stateCtx])
+  }, [stateCtx, muteVideo, muteAudio])
 
   useEffect(() => {
     return () => {
@@ -143,15 +145,13 @@ const MeetingPage = () => {
                 channel: stateCtx.config.channelName,
                 microphoneId: stateCtx.config.microphoneId,
                 resolution: stateCtx.config.resolution,
-                video: stateCtx.video,
-                audio: stateCtx.audio
+                muteVideo: muteVideo,
+                muteAudio: muteAudio
                 // beauty: stateCtx.beauty,
               })
               .then(() => {
                 localClient.publish()
                 mutationCtx.setScreen(false)
-                setMuteVideo(true)
-                setMuteAudio(true)
               })
               .catch((err) => {
                 console.log(err)
