@@ -110,14 +110,6 @@ export const ContainerProvider = ({ children }) => {
     connectionStateChanged (evt) {
       methods.toastInfo(`${evt.curState}`)
     },
-    resetState () {
-      if(!state.muteVideo) {
-        methods.setVideo(!state.muteVideo)
-      }
-      if(!state.muteAudio) {
-        methods.setAudio(!state.muteAudio)
-      }
-    }
     // enableBeauty(enable) {
     //   dispatch({type: 'enableBeauty', enable});
     // }

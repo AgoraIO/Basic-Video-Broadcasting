@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import clsx from 'clsx'
 import { useGlobalState, useGlobalMutation } from '../utils/container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -62,6 +62,8 @@ const MeetingPage = () => {
   }, [stateCtx.codec, stateCtx.mode])
 
   const [localStream, currentStream] = useStream(localClient)
+  const [muteVideo, setMuteVideo] = useState(stateCtx.muteVideo)
+  const [muteAudio, setMuteAudio] = useState(stateCtx.muteAudio)
 
   const config = useMemo(() => {
     return {
@@ -70,8 +72,6 @@ const MeetingPage = () => {
       microphoneId: stateCtx.config.microphoneId,
       cameraId: stateCtx.config.cameraId,
       resolution: stateCtx.config.resolution,
-      muteVideo: stateCtx.muteVideo,
-      muteAudio: stateCtx.muteAudio,
       uid: stateCtx.uid,
       host: stateCtx.config.host
       // beauty: stateCtx.beauty
@@ -122,17 +122,17 @@ const MeetingPage = () => {
       evt.stopPropagation()
       switch (name) {
         case 'video': {
-          stateCtx.muteVideo
+          muteVideo
             ? localStream.muteVideo()
             : localStream.unmuteVideo()
-          mutationCtx.setVideo(!stateCtx.muteVideo)
+          setMuteVideo(!muteVideo)
           break
         }
         case 'audio': {
-          stateCtx.muteAudio
+          muteAudio
             ? localStream.muteAudio()
             : localStream.unmuteAudio()
-          mutationCtx.setAudio(!stateCtx.muteAudio)
+          setMuteAudio(!muteAudio)
           break
         }
         case 'screen': {
@@ -149,8 +149,9 @@ const MeetingPage = () => {
               })
               .then(() => {
                 localClient.publish()
-                mutationCtx.resetState()
                 mutationCtx.setScreen(false)
+                setMuteVideo(true)
+                setMuteAudio(true)
               })
               .catch((err) => {
                 console.log(err)
@@ -211,7 +212,7 @@ const MeetingPage = () => {
               onClick={() => {
                 localClient.leave().then(() => {
                   mutationCtx.clearAllStream()
-                  mutationCtx.resetState()
+                  // mutationCtx.resetState()
                   routerCtx.history.push('/')
                 })
               }}
@@ -237,21 +238,21 @@ const MeetingPage = () => {
             <div className={classes.menuContainer}>
               {config.host && (
                 <div className={classes.menu}>
-                  <Tooltip title={stateCtx.muteVideo ? 'mute-video' : 'unmute-video'}>
+                  <Tooltip title={muteVideo ? 'mute-video' : 'unmute-video'}>
                     <i
                       onClick={handleClick('video')}
                       className={clsx(
                         classes.customBtn,
-                        stateCtx.muteVideo ? 'mute-video' : 'unmute-video'
+                        muteVideo ? 'mute-video' : 'unmute-video'
                       )}
                     />
                   </Tooltip>
-                  <Tooltip title={stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio'}>
+                  <Tooltip title={muteAudio ? 'mute-audio' : 'unmute-audio'}>
                     <i
                       onClick={handleClick('audio')}
                       className={clsx(
                         classes.customBtn,
-                        stateCtx.muteAudio ? 'mute-audio' : 'unmute-audio'
+                        muteAudio ? 'mute-audio' : 'unmute-audio'
                       )}
                     />
                   </Tooltip>
