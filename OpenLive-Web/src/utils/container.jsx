@@ -109,7 +109,7 @@ export const ContainerProvider = ({ children }) => {
     },
     connectionStateChanged (evt) {
       methods.toastInfo(`${evt.curState}`)
-    }
+    },
     // enableBeauty(enable) {
     //   dispatch({type: 'enableBeauty', enable});
     // }
