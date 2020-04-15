@@ -52,15 +52,6 @@ const MeetingPage = () => {
   const stateCtx = useGlobalState()
   const mutationCtx = useGlobalMutation()
   
-  const resetState = function() {
-    if(!stateCtx.muteVideo) {
-      mutationCtx.setVideo(!stateCtx.muteVideo)
-    }
-    if(!stateCtx.muteAudio) {
-      mutationCtx.setAudio(!stateCtx.muteAudio)
-    }
-  }
-
   const localClient = useMemo(() => {
     const client = new RTCClient()
     if (!client._created) {
@@ -146,7 +137,6 @@ const MeetingPage = () => {
         }
         case 'screen': {
           if (stateCtx.screen) {
-            resetState()
             localClient
               .createRTCStream({
                 token: null,
@@ -159,6 +149,7 @@ const MeetingPage = () => {
               })
               .then(() => {
                 localClient.publish()
+                mutationCtx.resetState()
                 mutationCtx.setScreen(false)
               })
               .catch((err) => {
@@ -220,7 +211,7 @@ const MeetingPage = () => {
               onClick={() => {
                 localClient.leave().then(() => {
                   mutationCtx.clearAllStream()
-                  resetState()
+                  mutationCtx.resetState()
                   routerCtx.history.push('/')
                 })
               }}
