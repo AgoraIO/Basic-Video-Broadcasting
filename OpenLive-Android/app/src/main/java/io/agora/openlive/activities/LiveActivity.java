@@ -111,8 +111,13 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     @Override
-    public void onUserJoined(int uid, int elapsed) {
-        // Do nothing at the moment
+    public void onUserJoined(final int uid, int elapsed) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                renderRemoteUser(uid);
+            }
+        });
     }
 
     @Override
@@ -126,13 +131,8 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     @Override
-    public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                renderRemoteUser(uid);
-            }
-        });
+    public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
+        // Do nothing at the moment
     }
 
     private void renderRemoteUser(int uid) {
