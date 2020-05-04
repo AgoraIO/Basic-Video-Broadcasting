@@ -20,7 +20,7 @@ To build and run the sample application, get an App ID:
 3. Save the **App ID** from the Dashboard for later use.
 4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
 
-5. Rename **.env.example** to **.env** file. In this file, replace `<#YOUR Agora.io APP ID#>` with the App ID, and obtain the access token generated from dashboard then replace `<#YOUR Agora.io APP ID#>` with it.
+5. Rename **.env.example** to **.env** file. In this file, replace `<#YOUR Agora.io APP ID#>` with the App ID, and obtain the access token generated from dashboard then replace `<#YOUR Agora.io APP TOKEN#>` with it.
 
     ```bash
     REACT_APP_AGORA_APP_ID=<#YOUR Agora.io APP ID#>
