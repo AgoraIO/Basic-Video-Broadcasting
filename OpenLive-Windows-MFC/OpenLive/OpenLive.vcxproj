@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
@@ -214,12 +214,14 @@
     <ClInclude Include="AGEngineEventHandler.h" />
     <ClInclude Include="AGEventDef.h" />
     <ClInclude Include="AGHyperLink.h" />
+    <ClInclude Include="AGJson.h" />
     <ClInclude Include="AGLinkCtrl.h" />
     <ClInclude Include="AGMessage.h" />
     <ClInclude Include="AgoraAudInputManager.h" />
     <ClInclude Include="AgoraCameraManager.h" />
     <ClInclude Include="AgoraPlayoutManager.h" />
     <ClInclude Include="AgoraObject.h" />
+    <ClInclude Include="json_tool.h" />
     <ClInclude Include="OpenLive.h" />
     <ClInclude Include="OpenLiveDlg.h" />
     <ClInclude Include="AGResourceVisitor.h" />
@@ -246,11 +248,15 @@
     <ClCompile Include="AGEdit.cpp" />
     <ClCompile Include="AGEngineEventHandler.cpp" />
     <ClCompile Include="AGHyperLink.cpp" />
+    <ClCompile Include="AGJson.cpp" />
     <ClCompile Include="AGLinkCtrl.cpp" />
     <ClCompile Include="AgoraAudInputManager.cpp" />
     <ClCompile Include="AgoraCameraManager.cpp" />
     <ClCompile Include="AgoraPlayoutManager.cpp" />
     <ClCompile Include="AgoraObject.cpp" />
+    <ClCompile Include="json_reader.cpp" />
+    <ClCompile Include="json_value.cpp" />
+    <ClCompile Include="json_writer.cpp" />
     <ClCompile Include="OpenLive.cpp" />
     <ClCompile Include="OpenLiveDlg.cpp" />
     <ClCompile Include="AGResourceVisitor.cpp" />

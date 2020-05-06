@@ -123,7 +123,7 @@ void CAgoraObject::CloseAgoraObject()
 {
 	if(m_lpAgoraEngine != NULL)
 		m_lpAgoraEngine->release();
-
+     
 	if(m_lpAgoraObject != NULL)
 		delete m_lpAgoraObject;
 
@@ -393,7 +393,8 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
 			else{
 
-				agora::rtc::Rectangle screenRegion = rcCap;
+				agora::rtc::Rectangle screenRegion = {0,0,3840, 1080};
+				rcCap = { -1920, 0, 3840, 1080 };
 				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
 			}
 		}
@@ -982,26 +983,54 @@ BOOL CAgoraObject::EnableWhiteboardFeq(BOOL bEnable)
 
 CString CAgoraObject::LoadAppID()
 {
-	TCHAR szFilePath[MAX_PATH];
-	CString strAppID(APP_ID);
+    TCHAR szFilePath[MAX_PATH];
+    CString strAppID(APP_ID);
 
-	::GetModuleFileName(NULL, szFilePath, MAX_PATH);
-	LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
+    ::GetModuleFileName(NULL, szFilePath, MAX_PATH);
+    LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
 
-	if (lpLastSlash == NULL)
-		return strAppID;
+    if (lpLastSlash == NULL)
+        return strAppID;
 
-	SIZE_T nNameLen = MAX_PATH - (lpLastSlash - szFilePath + 1);
-	_tcscpy_s(lpLastSlash + 1, nNameLen, _T("AppID.ini"));
+    SIZE_T nNameLen = MAX_PATH - (lpLastSlash - szFilePath + 1);
+    _tcscpy_s(lpLastSlash + 1, nNameLen, _T("AppID.ini"));
 
-	if (::GetFileAttributes(szFilePath) == INVALID_FILE_ATTRIBUTES)
-		return strAppID;
-	
-	CString strResolution;
+    if (!PathFileExists(szFilePath)) {
+        HANDLE handle = CreateFile(szFilePath, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_NEW, 0, NULL);
+        CloseHandle(handle);
+    }
 
-	::GetPrivateProfileString(_T("AppID"), _T("AppID"), NULL, strAppID.GetBuffer(MAX_PATH), MAX_PATH, szFilePath);
+    TCHAR szAppid[MAX_PATH] = { 0 };
+    ::GetPrivateProfileString(_T("AppID"), _T("AppID"), NULL, szAppid, MAX_PATH, szFilePath);
+    if (_tcslen(szAppid) == 0) {
+        ::WritePrivateProfileString(_T("AppID"), _T("AppID"), _T(""), szFilePath);
+        ::ShellExecute(NULL, _T("open"), szFilePath, NULL, NULL, SW_MAXIMIZE);
+    }
 
-	strAppID.ReleaseBuffer();
+    strAppID = szAppid;
 
-	return strAppID;
+    return strAppID;
+}
+
+void CAgoraObject::SetDefaultParameters()
+{
+    CAGJson m_agJson;
+    std::map<std::string, std::string> mapStringParamsters;
+    std::map<std::string, bool> mapBoolParameters;
+    std::map<std::string, int> mapIntParameters;
+    if (m_agJson.GetParameters(mapStringParamsters, mapBoolParameters, mapIntParameters)) {
+        AParameter apm(m_lpAgoraEngine);
+        for (auto iter = mapBoolParameters.begin();
+            iter != mapBoolParameters.end(); ++iter) {
+            apm->setBool(iter->first.c_str(), iter->second);
+        }
+        for (auto iter = mapStringParamsters.begin();
+            iter != mapStringParamsters.end(); ++iter) {
+            apm->setString(iter->first.c_str(), iter->second.c_str());
+        }
+        for (auto iter = mapIntParameters.begin();
+            iter != mapIntParameters.end(); ++iter) {
+            apm->setInt(iter->first.c_str(), iter->second);
+        }
+    }
 }
