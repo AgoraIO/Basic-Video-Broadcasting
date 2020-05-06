@@ -1011,3 +1011,26 @@ CString CAgoraObject::LoadAppID()
 
     return strAppID;
 }
+
+void CAgoraObject::SetDefaultParameters()
+{
+    CAGJson m_agJson;
+    std::map<std::string, std::string> mapStringParamsters;
+    std::map<std::string, bool> mapBoolParameters;
+    std::map<std::string, int> mapIntParameters;
+    if (m_agJson.GetParameters(mapStringParamsters, mapBoolParameters, mapIntParameters)) {
+        AParameter apm(m_lpAgoraEngine);
+        for (auto iter = mapBoolParameters.begin();
+            iter != mapBoolParameters.end(); ++iter) {
+            apm->setBool(iter->first.c_str(), iter->second);
+        }
+        for (auto iter = mapStringParamsters.begin();
+            iter != mapStringParamsters.end(); ++iter) {
+            apm->setString(iter->first.c_str(), iter->second.c_str());
+        }
+        for (auto iter = mapIntParameters.begin();
+            iter != mapIntParameters.end(); ++iter) {
+            apm->setInt(iter->first.c_str(), iter->second);
+        }
+    }
+}

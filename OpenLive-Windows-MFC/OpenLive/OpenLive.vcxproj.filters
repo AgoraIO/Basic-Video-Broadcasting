@@ -82,6 +82,18 @@
     <ClCompile Include="OpenLiveDlg.cpp">
       <Filter>UI\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="AGJson.cpp">
+      <Filter>AgoraObject\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="json_reader.cpp">
+      <Filter>AgoraObject\Config\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="json_value.cpp">
+      <Filter>AgoraObject\Config\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="json_writer.cpp">
+      <Filter>AgoraObject\Config\Json</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AGConfig.h">
@@ -176,6 +188,12 @@
     </ClInclude>
     <ClInclude Include="OpenLiveDlg.h">
       <Filter>UI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="AGJson.h">
+      <Filter>AgoraObject\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="json_tool.h">
+      <Filter>AgoraObject\Config\Json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +411,9 @@
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{596ff442-8a67-4637-9068-20447f4b1aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AgoraObject\Config\Json">
+      <UniqueIdentifier>{8ea8faec-74f9-4764-8e06-23d4885b4988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

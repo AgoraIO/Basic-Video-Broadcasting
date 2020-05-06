@@ -345,7 +345,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 {
 	IRtcEngine		*lpRtcEngine = CAgoraObject::GetEngine();
 	CAgoraObject	*lpAgoraObject = CAgoraObject::GetAgoraObject();
-
+    lpAgoraObject->SetDefaultParameters();
 	CString strChannelName = m_dlgEnterChannel.GetChannelName();
 
 	m_dlgVideo.MoveWindow(0, 0, 960, 720, 1);
