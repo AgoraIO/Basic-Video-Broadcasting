@@ -435,16 +435,29 @@ void CSetupDlg::SetVideoSolution(int nIndex)
 
 SIZE CSetupDlg::GetVideoResolution()
 {
+    if (m_agConfig.IsCustomRsolution()) {
+        int w = 0, h = 0;
+        m_agConfig.GetResolution(w, h);
+        SIZE sz = { w, h };
+        return sz;
+    }
+       
 	return m_mapResolition[m_cbxVideoProfile.GetCurSel()];
 }
 
 int CSetupDlg::GetFPS()
 {
+    if (m_agConfig.IsCustomFPS()) {
+        return m_agConfig.GetCustomFPS();
+    }
 	return m_nFPS[m_cbxFPS.GetCurSel()];
 }
 
 int CSetupDlg::GetBirate()
 {
+    if (m_agConfig.IsCustomBitrate()) {
+        return m_agConfig.GetCustomBitrate();
+    }
 	return m_nBitrate[m_cbxBitrate.GetCurSel()];
 }
 
