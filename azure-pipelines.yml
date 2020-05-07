@@ -60,7 +60,7 @@ jobs:
     ReleasePath: 'Release'
 - template: cicd/templates/build-Windows.yml
   parameters:
-    displayName: 'WindowsTutorial64'
+    displayName: 'WindowsOpenLive64'
     workingDirectory: 'OpenLive-Windows-MFC'
     scheme: 'OpenLive-Windows'
     sdkurl: $(WindowsRTCSDKX64)
