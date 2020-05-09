@@ -133,7 +133,6 @@ void MainWindow::OnClickJoin()
         QMessageBox::about(this,"Error","channel name is empty");
         return;
     }
-
     m_upIr.reset(new InRoom);
     InRoom* receive1 = m_upIr.get();
     connect(this,SIGNAL(joinchannel(QMainWindow*,QString,uint)),receive1,SLOT(joinchannel(QMainWindow*,QString,uint)));

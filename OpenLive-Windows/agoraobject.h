@@ -3,7 +3,7 @@
 
 #include <Memory>
 #include <mutex>
-
+#include "agoraqtjson.h"
 //Specify your APP ID here
 #define APP_ID ""
 
@@ -44,13 +44,13 @@ public:
     int setPlayoutDevice(const QString& guid);
     int setVideoDevice(const QString& guid);
 
-    BOOL setVideoProfile(int nWidth,int nHeight);
+    BOOL setVideoProfile(int nWidth,int nHeight, FRAME_RATE fps, int bitrate);
     BOOL setRecordingIndex(int nIndex);
     BOOL setPlayoutIndex(int nIndex);
     BOOL setVideoIndex(int nIndex);
 
 	bool setBeautyEffectOptions(bool enabled, BeautyOptions& options);
-
+    void SetDefaultParameters();
 signals:
     void sender_videoStopped();
     void sender_joinedChannelSuccess(const QString &qsChannel, unsigned int uid, int elapsed);
@@ -74,6 +74,7 @@ private:
 
     agora::rtc::IRtcEngine* m_rtcEngine;
     std::unique_ptr<agora::rtc::IRtcEngineEventHandler> m_eventHandler;
+    AgoraQtJson m_agoraJson;
 };
 
 #endif // CAGORAOBJECT_H

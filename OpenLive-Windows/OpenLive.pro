@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     roomsettings.cpp \
     agoraobject.cpp \
     enterroom.cpp \
-    inroom.cpp
+    inroom.cpp \
+    agoraqtjson.cpp
 
 HEADERS  += mainwindow.h \
     stdafx.h \
@@ -26,7 +27,8 @@ HEADERS  += mainwindow.h \
     roomsettings.h \
     agoraobject.h \
     enterroom.h \
-    inroom.h
+    inroom.h \
+    agoraqtjson.h 
 
 FORMS    += mainwindow.ui \
     roomsettings.ui \

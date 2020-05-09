@@ -37,6 +37,10 @@ private slots:
 	void on_valueChanged_horizontalSlider_Smoothness(int value);
 	void on_valueChanged_horizontalSlider_Lightening(int value);
 
+    void on_cbVideoFPS_currentIndexChanged(int index);
+
+    void on_cbVideoBitrate_currentIndexChanged(int index);
+
 protected:
     virtual void mousePressEvent(QMouseEvent *e);
     virtual void mouseMoveEvent(QMouseEvent *e);
@@ -44,6 +48,7 @@ protected:
 
 	void enableVideoBeutyControl(bool bEnable);
 	void updateBeautyOptions();
+    void setVideoProfile(const QString argResolution);
 private:
     const int lnGapWidth = 18;
     const int lnGapHeight = 12;
@@ -51,7 +56,8 @@ private:
     const int lnTitleHeight = 30;
     QPoint m_mousePosition;
     bool   m_bMousePressed;
-
+    int fps[5];
+    int bitrate[3];
 private:
     Ui::roomsettings *ui;
     QMainWindow* m_pLastWnd;

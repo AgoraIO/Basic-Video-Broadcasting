@@ -985,6 +985,8 @@ CString CAgoraObject::LoadAppID()
 {
     TCHAR szFilePath[MAX_PATH];
     CString strAppID(APP_ID);
+    if (!strAppID.IsEmpty())
+        return strAppID;
 
     ::GetModuleFileName(NULL, szFilePath, MAX_PATH);
     LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
@@ -1018,7 +1020,8 @@ void CAgoraObject::SetDefaultParameters()
     std::map<std::string, std::string> mapStringParamsters;
     std::map<std::string, bool> mapBoolParameters;
     std::map<std::string, int> mapIntParameters;
-    if (m_agJson.GetParameters(mapStringParamsters, mapBoolParameters, mapIntParameters)) {
+    std::map<std::string, std::string> mapObjectParameters;
+    if (m_agJson.GetParameters(mapStringParamsters, mapBoolParameters, mapIntParameters, mapObjectParameters)) {
         AParameter apm(m_lpAgoraEngine);
         for (auto iter = mapBoolParameters.begin();
             iter != mapBoolParameters.end(); ++iter) {
@@ -1031,6 +1034,11 @@ void CAgoraObject::SetDefaultParameters()
         for (auto iter = mapIntParameters.begin();
             iter != mapIntParameters.end(); ++iter) {
             apm->setInt(iter->first.c_str(), iter->second);
+        }
+
+        for (auto iter = mapObjectParameters.begin();
+            iter != mapObjectParameters.end(); ++iter) {
+            apm->setObject(iter->first.c_str(), iter->second.c_str());
         }
     }
 }

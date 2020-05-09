@@ -30,7 +30,16 @@ roomsettings::roomsettings(QMainWindow* pLastWnd,QWidget *parent) :
     ui(new Ui::roomsettings)
 {
     ui->setupUi(this);
+    int i = 0;
+    fps[i++] = FRAME_RATE_FPS_7;
+    fps[i++] = FRAME_RATE_FPS_10;
+    fps[i++] = FRAME_RATE_FPS_15;
+    fps[i++] = FRAME_RATE_FPS_24;
+    fps[i++] = FRAME_RATE_FPS_30;
 
+    bitrate[0] = STANDARD_BITRATE;
+    bitrate[1] = COMPATIBLE_BITRATE;
+    bitrate[2] = DEFAULT_MIN_BITRATE;
     connect(ui->btnlastpage,&QPushButton::clicked,this,&roomsettings::OnClickLastPage);
 
     connect(ui->optAudio,&QPushButton::clicked,this,&roomsettings::OnOptAudio);
@@ -156,6 +165,19 @@ void roomsettings::initWindow(const QString& qsChannel)
     ui->cbVideoProfile->addItem("3840x2160");
     ui->cbVideoProfile->setCurrentIndex(3);
 
+    ui->cbVideoFPS->clear();
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_7");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_10");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_15");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_24");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_30");
+    ui->cbVideoFPS->setCurrentIndex(2);
+
+    ui->cbVideoBitrate->clear();
+    ui->cbVideoBitrate->addItem("STANDARD_BITRATE");
+    ui->cbVideoBitrate->addItem("COMPATIBLE_BITRATE");
+    ui->cbVideoBitrate->addItem("DEFAULT_MIN_BITRATE");
+    ui->cbVideoBitrate->setCurrentIndex(0);
     //microphone
 	ui->cbRecordDevices->clear();
     QString qDeviceName;
@@ -347,11 +369,18 @@ void roomsettings::mouseReleaseEvent(QMouseEvent *e)
    m_bMousePressed = false;
 }
 
-void roomsettings::on_cbVideoProfile_activated(const QString &arg1)
+void roomsettings::setVideoProfile(const QString argResolution)
 {
     int nWidth,nHeight = 0;
-	sscanf(arg1.toUtf8().data(),"%dx%d", &nWidth, &nHeight);
-	CAgoraObject::getInstance()->setVideoProfile(nWidth, nHeight);
+    sscanf(argResolution.toUtf8().data(),"%dx%d", &nWidth, &nHeight);
+    int index = ui->cbVideoFPS->currentIndex();
+    int idx   = ui->cbVideoBitrate->currentIndex();
+    CAgoraObject::getInstance()->setVideoProfile(nWidth, nHeight, (FRAME_RATE)fps[index], bitrate[idx]);
+}
+
+void roomsettings::on_cbVideoProfile_activated(const QString &arg1)
+{
+   setVideoProfile(arg1);
 }
 
 void roomsettings::on_cbRecordDevices_activated(int index)
@@ -410,4 +439,16 @@ void roomsettings::on_valueChanged_horizontalSlider_Lightening(int value)
 	ui->labelLightening->setText(lightening);
 	gAgoraConfig.setLightenging(value);
 	updateBeautyOptions();
+}
+
+void roomsettings::on_cbVideoFPS_currentIndexChanged(int index)
+{
+    QString arg1 = ui->cbVideoProfile->currentText();
+    setVideoProfile(arg1);
+}
+
+void roomsettings::on_cbVideoBitrate_currentIndexChanged(int index)
+{
+    QString arg1 = ui->cbVideoProfile->currentText();
+    setVideoProfile(arg1);
 }

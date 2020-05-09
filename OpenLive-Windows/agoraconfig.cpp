@@ -1,14 +1,20 @@
-#include "stdafx.h"
-#include "agoraconfig.h"
+﻿#include "agoraconfig.h"
+#include <QDir>
+#include <QFile>
 
 CAgoraConfig::CAgoraConfig()
 {
-   m_spConfig = std::make_shared<QSettings>("AgoraConfigOpenLive.ini",QSettings::IniFormat);
+    QDir iniPath(QString("AgoraConfigOpenVideoCall.ini"));
+    if(!iniPath.exists()){
+        QFile file(QString("AgoraConfigOpenVideoCall.ini"));
+        file.open(QIODevice::ReadWrite);
+    }
+   m_spConfig = std::make_shared<QSettings>("AgoraConfigOpenVideoCall.ini",QSettings::IniFormat);
 }
 
 void CAgoraConfig::setAppId(const QString &str)
 {
-    return m_spConfig->setValue("/BaseInfo/AppId",str);
+    m_spConfig->setValue("/BaseInfo/AppId",str);
 }
 
 QString CAgoraConfig::getAppId()
@@ -45,6 +51,7 @@ bool CAgoraConfig::getEnableAudio()
 {
     return m_spConfig->value("/BaseInfo/EnableAudio").toBool();
 }
+
 
 void CAgoraConfig::setEnableBeauty(bool bEnable)
 {
@@ -94,4 +101,32 @@ void CAgoraConfig::setSmoothness(int smooth)
 int CAgoraConfig::getSmoothness()
 {
 	return m_spConfig->value("/Beauty/Smoothness").toInt();
+}
+
+void CAgoraConfig::getVideoResolution(int& width, int height)
+{
+    width  = m_spConfig->value("/VideoInfo/Width").toInt();
+    height = m_spConfig->value("/VideoInfo/Height").toInt();
+}
+
+int CAgoraConfig::getFPS()
+{
+    return m_spConfig->value("/VideoInfo/FPS").toInt();
+}
+
+int CAgoraConfig::getBitrate()
+{
+    return m_spConfig->value("/VideoInfo/Bitrate").toInt();
+}
+bool CAgoraConfig::isCustomFPS()
+{
+    return m_spConfig->value("/VideoInfo/CustomFPS").toBool();
+}
+bool CAgoraConfig::isCustomBitrate()
+{
+    return m_spConfig->value("/VideoInfo/CustomBitrate").toBool();
+}
+bool CAgoraConfig::isCustomResolution()
+{
+    return m_spConfig->value("/VideoInfo/CustomResolution").toBool();
 }
