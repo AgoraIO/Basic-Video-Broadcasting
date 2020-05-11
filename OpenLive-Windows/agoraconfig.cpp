@@ -4,12 +4,12 @@
 
 CAgoraConfig::CAgoraConfig()
 {
-    QDir iniPath(QString("AgoraConfigOpenVideoCall.ini"));
+    QDir iniPath(QString("AgoraConfigOpenLive.ini"));
     if(!iniPath.exists()){
-        QFile file(QString("AgoraConfigOpenVideoCall.ini"));
+        QFile file(QString("AgoraConfigOpenLive.ini"));
         file.open(QIODevice::ReadWrite);
     }
-   m_spConfig = std::make_shared<QSettings>("AgoraConfigOpenVideoCall.ini",QSettings::IniFormat);
+   m_spConfig = std::make_shared<QSettings>("AgoraConfigOpenLive.ini",QSettings::IniFormat);
 }
 
 void CAgoraConfig::setAppId(const QString &str)

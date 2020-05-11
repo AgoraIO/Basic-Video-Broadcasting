@@ -90,7 +90,7 @@ CAgoraObject::CAgoraObject(QObject *parent):
         QMessageBox::critical(nullptr, ("AgoraOpenLive"),
                                        ("You must specify APP ID before using the demo"));
         QProcess process;
-        process.startDetached("notepad.exe", {"AgoraConfigOpenVideoCall.ini"}, "");
+        process.startDetached("notepad.exe", {"AgoraConfigOpenLive.ini"}, "");
         ExitProcess(0);
     }
     m_rtcEngine->initialize(context);
@@ -418,13 +418,12 @@ bool CAgoraObject::setBeautyEffectOptions(bool enabled, BeautyOptions& options)
 	return nRet == 0 ? true : false;
 }
 
-
 void CAgoraObject::CAgoraObject::SetDefaultParameters()
 {
     std::map<std::string, std::string> mapStringParamsters;
     std::map<std::string, bool> mapBoolParameters;
     std::map<std::string, int> mapIntParameters;
- std::map<std::string, std::string> mapObjectParamsters;
+    std::map<std::string, std::string> mapObjectParamsters;
     if(m_agoraJson.GetParameters(mapStringParamsters,
                                  mapBoolParameters,
                                  mapIntParameters,
@@ -447,7 +446,5 @@ void CAgoraObject::CAgoraObject::SetDefaultParameters()
             iter != mapObjectParamsters.end(); ++iter) {
             apm->setObject(iter->first.c_str(), iter->second.c_str());
         }
-
     }
-
 }

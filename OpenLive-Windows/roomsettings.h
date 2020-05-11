@@ -19,7 +19,7 @@ public:
     ~roomsettings();
 
     void initWindow(const QString& qsChannel);
-
+    bool SetCustomVideoProfile();
 private slots:
     void OnClickLastPage();
     void OnOptAudio();

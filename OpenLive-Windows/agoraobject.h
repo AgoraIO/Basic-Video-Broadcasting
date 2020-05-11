@@ -49,8 +49,9 @@ public:
     BOOL setPlayoutIndex(int nIndex);
     BOOL setVideoIndex(int nIndex);
 
-	bool setBeautyEffectOptions(bool enabled, BeautyOptions& options);
+    bool setBeautyEffectOptions(bool enabled, BeautyOptions& options);
     void SetDefaultParameters();
+    bool SetCustomVideoProfile();
 signals:
     void sender_videoStopped();
     void sender_joinedChannelSuccess(const QString &qsChannel, unsigned int uid, int elapsed);

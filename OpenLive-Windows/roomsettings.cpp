@@ -443,12 +443,58 @@ void roomsettings::on_valueChanged_horizontalSlider_Lightening(int value)
 
 void roomsettings::on_cbVideoFPS_currentIndexChanged(int index)
 {
-    QString arg1 = ui->cbVideoProfile->currentText();
+    QString arg1 = ui->cbVideoFPS->currentText();
     setVideoProfile(arg1);
 }
 
 void roomsettings::on_cbVideoBitrate_currentIndexChanged(int index)
 {
-    QString arg1 = ui->cbVideoProfile->currentText();
+    QString arg1 = ui->cbVideoBitrate->currentText();
     setVideoProfile(arg1);
+}
+
+bool roomsettings::SetCustomVideoProfile()
+{
+    int nRet = 0;
+    FRAME_RATE customFPS = FRAME_RATE_FPS_15;
+    int customBitrate    = STANDARD_BITRATE;
+    int nWidth = 640, nHeight = 360;
+
+    if(ui && ui->cbVideoProfile){
+        QString argResolution = ui->cbVideoProfile->currentText();
+        sscanf(argResolution.toUtf8().data(),"%dx%d", &nWidth, &nHeight);
+    }
+
+    if(ui && ui->cbVideoFPS){
+        int idx   = ui->cbVideoFPS->currentIndex();
+        customFPS = (FRAME_RATE)fps[idx];
+    }
+
+    if(ui && ui->cbVideoBitrate){
+        int idx   = ui->cbVideoBitrate->currentIndex();
+        customBitrate = bitrate[idx];
+    }
+
+    if(gAgoraConfig.isCustomFPS()){
+        customFPS = (FRAME_RATE)gAgoraConfig.getFPS();
+    }
+
+    if(gAgoraConfig.isCustomBitrate()){
+        customBitrate = gAgoraConfig.getBitrate();
+    }
+
+    if(gAgoraConfig.isCustomResolution())
+         gAgoraConfig.getVideoResolution(nWidth, nHeight);
+
+    CAgoraObject::getInstance()->setVideoProfile(nWidth, nHeight, customFPS, customBitrate);
+    return true;
+}
+
+bool CAgoraObject::SetCustomVideoProfile()
+{
+    FRAME_RATE customFPS = FRAME_RATE_FPS_15;
+    int customBitrate    = STANDARD_BITRATE;
+    int nWidth = 640, nHeight = 360;
+
+    return setVideoProfile(nWidth, nHeight, customFPS, customBitrate);
 }

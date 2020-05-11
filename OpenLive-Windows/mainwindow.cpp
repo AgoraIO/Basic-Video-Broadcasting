@@ -126,6 +126,11 @@ void MainWindow::OnClickJoin()
     if(ui->rbguide->isChecked())
         CAgoraObject::getInstance()->SetClientRole(CLIENT_ROLE_AUDIENCE);
 
+    if(m_upRs)
+        m_upRs->SetCustomVideoProfile();
+    else
+        CAgoraObject::getInstance()->SetCustomVideoProfile();
+
     m_strRoomId = ui->leditRoomId->text();
     m_strRoomId = m_strRoomId.simplified();
     gAgoraConfig.setChannelName(m_strRoomId);
