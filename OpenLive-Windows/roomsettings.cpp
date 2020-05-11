@@ -182,25 +182,40 @@ void roomsettings::initWindow(const QString& qsChannel)
 	ui->cbRecordDevices->clear();
     QString qDeviceName;
     qSSMap devicelist = CAgoraObject::getInstance()->getRecordingDeviceList();
-	for (qSSMap::iterator it = devicelist.begin(); devicelist.end() != it; it++) {
-        ui->cbRecordDevices->addItem(it.key());
-	}
+    QString id = CAgoraObject::getInstance()->getCurrentRecordingDevice();
+    int index =0 ;
+    for (auto it = devicelist.begin(); devicelist.end() != it; it++) {
+        ui->cbRecordDevices->addItem(it->name);
+        if(!id.isEmpty() && id.compare(it->name) == 0)
+            ui->cbRecordDevices->setCurrentIndex(index);
+         ++index;
+    }
 
     //playout
 	ui->cbPlayDevices->clear();
     devicelist.clear();
     devicelist = CAgoraObject::getInstance()->getPlayoutDeviceList();
-    for(qSSMap::iterator it = devicelist.begin(); devicelist.end() != it; it++) {
-        ui->cbPlayDevices->addItem(it.key());
+    index = 0;
+    for(auto it = devicelist.begin(); devicelist.end() != it; it++) {
+        ui->cbPlayDevices->addItem(it->name);
+        if(!id.isEmpty() && id.compare(it->name) == 0)
+            ui->cbPlayDevices->setCurrentIndex(index);
+         ++index;
     }
 
     //cameralist
 	ui->cbVideoDevices->clear();
     devicelist.clear();
     devicelist = CAgoraObject::getInstance()->getVideoDeviceList();
-    for(qSSMap::iterator it = devicelist.begin(); devicelist.end() != it; it++) {
-        ui->cbVideoDevices->addItem(it.key());
+    id = CAgoraObject::getInstance()->getCurrentVideoDevice();
+    index = 0;
+    for(auto it = devicelist.begin(); devicelist.end() != it; it++) {
+        ui->cbVideoDevices->addItem(it->name);
+        if(!id.isEmpty() && id.compare(it->name) == 0)
+            ui->cbVideoDevices->setCurrentIndex(index);
+         ++index;
     }
+
 	//beauty
 	ui->cbContrastLevel->clear();
 	ui->cbContrastLevel->addItem(QString("Lightening Contrast Low"));

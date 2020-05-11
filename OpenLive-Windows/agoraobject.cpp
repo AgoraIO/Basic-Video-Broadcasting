@@ -94,6 +94,9 @@ CAgoraObject::CAgoraObject(QObject *parent):
         ExitProcess(0);
     }
     m_rtcEngine->initialize(context);
+
+    videoDeviceManager     = new AVideoDeviceManager(m_rtcEngine);
+    audioDeviceManager  = new AAudioDeviceManager(m_rtcEngine);
 }
 
 CAgoraObject::~CAgoraObject()
@@ -210,11 +213,11 @@ BOOL CAgoraObject::EnableWebSdkInteroperability(BOOL bEnable)
 qSSMap CAgoraObject::getRecordingDeviceList()
 {
     qSSMap devices;
-    AAudioDeviceManager audioDeviceManager(m_rtcEngine);
-    if (!audioDeviceManager)
+
+    if (!audioDeviceManager || !audioDeviceManager->get())
         return devices;
 
-    agora::util::AutoPtr<IAudioDeviceCollection> spCollection(audioDeviceManager->enumerateRecordingDevices());
+    agora::util::AutoPtr<IAudioDeviceCollection> spCollection((*audioDeviceManager)->enumerateRecordingDevices());
     if (!spCollection)
         return devices;
     char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];
@@ -225,7 +228,10 @@ qSSMap CAgoraObject::getRecordingDeviceList()
         {
             if (!spCollection->getDevice(i, name, guid))
             {
-                devices[name] = guid;
+                DeviceInfo info;
+                info.id   = guid;
+                info.name = name;
+                devices.push_back(info);
             }
         }
     }
@@ -235,11 +241,11 @@ qSSMap CAgoraObject::getRecordingDeviceList()
 qSSMap CAgoraObject::getPlayoutDeviceList()
 {
     qSSMap devices;
-    AAudioDeviceManager audioDeviceManager(m_rtcEngine);
-    if (!audioDeviceManager)
+
+    if (!audioDeviceManager || !audioDeviceManager->get())
         return devices;
 
-    agora::util::AutoPtr<IAudioDeviceCollection> spCollection(audioDeviceManager->enumeratePlaybackDevices());
+    agora::util::AutoPtr<IAudioDeviceCollection> spCollection((*audioDeviceManager)->enumeratePlaybackDevices());
     if (!spCollection)
         return devices;
     char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];
@@ -250,7 +256,10 @@ qSSMap CAgoraObject::getPlayoutDeviceList()
         {
             if (!spCollection->getDevice(i, name, guid))
             {
-                devices[name] = guid;
+                DeviceInfo info;
+                info.id   = guid;
+                info.name = name;
+                devices.push_back(info);
             }
         }
     }
@@ -261,11 +270,11 @@ qSSMap CAgoraObject::getVideoDeviceList()
 {
 	m_rtcEngine->enableVideo();
     qSSMap devices;
-    AVideoDeviceManager videoDeviceManager(m_rtcEngine);
-    if (!videoDeviceManager)
+
+    if (!videoDeviceManager || !videoDeviceManager->get())
         return devices;
 
-    agora::util::AutoPtr<IVideoDeviceCollection> spCollection(videoDeviceManager->enumerateVideoDevices());
+    agora::util::AutoPtr<IVideoDeviceCollection> spCollection((*videoDeviceManager)->enumerateVideoDevices());
     if (!spCollection)
         return devices;
     char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];
@@ -276,41 +285,80 @@ qSSMap CAgoraObject::getVideoDeviceList()
         {
             if (!spCollection->getDevice(i, name, guid))
             {
-                devices[name] = guid;
+                DeviceInfo info;
+                info.id   = guid;
+                info.name = name;
+                devices.push_back(info);
             }
         }
     }
     return devices;
 }
 
+QString CAgoraObject::getCurrentVideoDevice()
+{
+     if (!videoDeviceManager || !videoDeviceManager->get())
+         return QString("");
+     char deviceId[MAX_DEVICE_ID_LENGTH] = {0};
+     QString strId("");
+     if(0 == (*videoDeviceManager)->getDevice(deviceId)){
+         strId = QString::fromUtf8(deviceId);
+     }
+     return strId;
+}
+
+QString CAgoraObject::getCurrentPlaybackDevice()
+{
+    if (!audioDeviceManager || !audioDeviceManager->get())
+        return QString("");
+    char deviceId[MAX_DEVICE_ID_LENGTH] = {0};
+    QString strId("");
+    if(0 == (*videoDeviceManager)->getDevice(deviceId)){
+        strId = QString::fromUtf8(deviceId);
+    }
+    return strId;
+}
+
+QString CAgoraObject::getCurrentRecordingDevice()
+{
+    if (!audioDeviceManager || !audioDeviceManager->get())
+        return QString("");
+    char deviceId[MAX_DEVICE_ID_LENGTH] = {0};
+    QString strId("");
+    if(0 == (*audioDeviceManager)->getPlaybackDevice(deviceId)){
+        strId = QString::fromUtf8(deviceId);
+    }
+    return strId;
+}
+
 int CAgoraObject::setRecordingDevice(const QString& guid)
 {
     if (guid.isEmpty())
         return -1;
-    AAudioDeviceManager audioDeviceManager(m_rtcEngine);
-    if (!audioDeviceManager)
+
+    if (!audioDeviceManager || !audioDeviceManager->get())
         return -1;
-    return audioDeviceManager->setRecordingDevice(guid.toUtf8().data());
+    return (*audioDeviceManager)->setRecordingDevice(guid.toUtf8().data());
 }
 
 int CAgoraObject::setPlayoutDevice(const QString& guid)
 {
     if (guid.isEmpty())
         return -1;
-    AAudioDeviceManager audioDeviceManager(m_rtcEngine);
-    if (!audioDeviceManager)
+
+    if (!audioDeviceManager || !audioDeviceManager->get())
         return -1;
-    return audioDeviceManager->setPlaybackDevice(guid.toUtf8().data());
+    return (*audioDeviceManager)->setPlaybackDevice(guid.toUtf8().data());
 }
 
 int CAgoraObject::setVideoDevice(const QString& guid)
 {
     if (guid.isEmpty())
         return -1;
-    AVideoDeviceManager videoDeviceManager(m_rtcEngine);
-    if (!videoDeviceManager)
+
+    if (!videoDeviceManager || !videoDeviceManager->get())
         return -1;
-    return videoDeviceManager->setDevice(guid.toUtf8().data());
+    return (*videoDeviceManager)->setDevice(guid.toUtf8().data());
 }
 
 BOOL CAgoraObject::setVideoProfile(int nWidth,int nHeight, FRAME_RATE fps, int bitrate)
@@ -336,11 +384,10 @@ BOOL CAgoraObject::setVideoProfile(int nWidth,int nHeight, FRAME_RATE fps, int b
 BOOL CAgoraObject::setRecordingIndex(int nIndex)
 {
     int res = 0;
-    AAudioDeviceManager audioDeviceManager(m_rtcEngine);
-    if (!audioDeviceManager)
+   if (!audioDeviceManager || !audioDeviceManager->get())
         return FALSE;
 
-    agora::util::AutoPtr<IAudioDeviceCollection> spCollection(audioDeviceManager->enumerateRecordingDevices());
+    agora::util::AutoPtr<IAudioDeviceCollection> spCollection((*audioDeviceManager)->enumerateRecordingDevices());
     if (!spCollection)
         return FALSE;
     char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];
@@ -355,11 +402,10 @@ BOOL CAgoraObject::setRecordingIndex(int nIndex)
 BOOL CAgoraObject::setPlayoutIndex(int nIndex)
 {
     int res = 0;
-    AAudioDeviceManager audioDeviceManager(m_rtcEngine);
-    if (!audioDeviceManager)
+    if (!audioDeviceManager || !audioDeviceManager->get())
         return FALSE;
 
-    agora::util::AutoPtr<IAudioDeviceCollection> spCollection(audioDeviceManager->enumeratePlaybackDevices());
+    agora::util::AutoPtr<IAudioDeviceCollection> spCollection((*audioDeviceManager)->enumeratePlaybackDevices());
     if (!spCollection)
         return FALSE;
     char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];
@@ -374,11 +420,11 @@ BOOL CAgoraObject::setPlayoutIndex(int nIndex)
 BOOL CAgoraObject::setVideoIndex(int nIndex)
 {
     int res = 0;
-    AVideoDeviceManager videoDeviceManager(m_rtcEngine);
-    if (!videoDeviceManager)
+
+    if (!videoDeviceManager || !videoDeviceManager->get())
         return FALSE;
 
-    agora::util::AutoPtr<IVideoDeviceCollection> spCollection(videoDeviceManager->enumerateVideoDevices());
+    agora::util::AutoPtr<IVideoDeviceCollection> spCollection((*videoDeviceManager)->enumerateVideoDevices());
     if (!spCollection)
         return FALSE;
     char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];

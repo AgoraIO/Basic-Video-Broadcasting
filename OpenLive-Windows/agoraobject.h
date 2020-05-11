@@ -11,10 +11,14 @@
 #include <QVariant>
 #include <IAgoraRtcEngine.h>
 #include <IAgoraMediaEngine.h>
+#include <vector>
 using namespace agora::rtc;
-
-typedef QMap<QString,QString> qSSMap;
-
+typedef struct{
+    QString id;
+    QString name;
+}DeviceInfo;
+//typedef QMap<QString,QString> qSSMap;
+typedef std::vector<DeviceInfo> qSSMap;
 class CAgoraObject:public QObject
 {
     Q_OBJECT
@@ -43,6 +47,9 @@ public:
     int setRecordingDevice(const QString& guid);
     int setPlayoutDevice(const QString& guid);
     int setVideoDevice(const QString& guid);
+    QString getCurrentVideoDevice();
+    QString getCurrentPlaybackDevice();
+    QString getCurrentRecordingDevice();
 
     BOOL setVideoProfile(int nWidth,int nHeight, FRAME_RATE fps, int bitrate);
     BOOL setRecordingIndex(int nIndex);
@@ -76,6 +83,9 @@ private:
     agora::rtc::IRtcEngine* m_rtcEngine;
     std::unique_ptr<agora::rtc::IRtcEngineEventHandler> m_eventHandler;
     AgoraQtJson m_agoraJson;
+
+    AVideoDeviceManager* videoDeviceManager;
+    AAudioDeviceManager* audioDeviceManager;
 };
 
 #endif // CAGORAOBJECT_H
