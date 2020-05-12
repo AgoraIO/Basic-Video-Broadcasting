@@ -34,6 +34,8 @@ public:
 	int getSmoothness();
 
     void getVideoResolution(int& width, int height);
+
+    QString getAppToken();
     int getFPS();
     int getBitrate();
     bool isCustomFPS();

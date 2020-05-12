@@ -562,3 +562,11 @@ void CAgoraObject::UpdateAudioDevices( QString deviceId, int deviceType, int dev
         }
     }
 }
+
+QString CAgoraObject::GetAppToken()
+{
+    QString strAppToken = APP_TOKEN;
+    if(!strAppToken.isEmpty())
+        return strAppToken;
+    return gAgoraConfig.getAppToken();
+}

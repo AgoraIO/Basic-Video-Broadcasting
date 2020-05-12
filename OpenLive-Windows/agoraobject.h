@@ -6,6 +6,7 @@
 #include "agoraqtjson.h"
 //Specify your APP ID here
 #define APP_ID ""
+#define APP_TOKEN ""
 
 #include <QString>
 #include <QVariant>
@@ -59,6 +60,8 @@ public:
     bool setBeautyEffectOptions(bool enabled, BeautyOptions& options);
     void SetDefaultParameters();
     bool SetCustomVideoProfile();
+
+    QString GetAppToken();
 public slots:
     void UpdateVideoDevices( QString deviceId, int deviceType, int deviceState);
     void UpdateAudioDevices( QString deviceId, int deviceType, int deviceState);

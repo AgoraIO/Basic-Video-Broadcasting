@@ -107,7 +107,9 @@ void InRoom::joinchannel(QMainWindow* pMainWnd,const QString& qsChannel,uint uid
     this->show();
 
     CAgoraObject::getInstance()->SetDefaultParameters();
-    CAgoraObject::getInstance()->joinChannel("",qsChannel,uid);
+
+    QString token = CAgoraObject::getInstance()->GetAppToken();
+    CAgoraObject::getInstance()->joinChannel(token,qsChannel,uid);
 
     m_uper.reset(new EnterRoom);
     m_uper->joinchannel(pMainWnd,qsChannel,uid);
