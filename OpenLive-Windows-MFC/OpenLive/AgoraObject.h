@@ -170,6 +170,8 @@ public:
 
 
 	bool IsJoinChannel(){ return bJoinedChannel; }
+
+    std::string GetToken();
 protected:
 	CAgoraObject(void);
 
