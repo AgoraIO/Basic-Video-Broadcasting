@@ -59,6 +59,9 @@ public:
     bool setBeautyEffectOptions(bool enabled, BeautyOptions& options);
     void SetDefaultParameters();
     bool SetCustomVideoProfile();
+public slots:
+    void UpdateVideoDevices( QString deviceId, int deviceType, int deviceState);
+    void UpdateAudioDevices( QString deviceId, int deviceType, int deviceState);
 signals:
     void sender_videoStopped();
     void sender_joinedChannelSuccess(const QString &qsChannel, unsigned int uid, int elapsed);
@@ -70,6 +73,8 @@ signals:
     void sender_localVideoStats(const LocalVideoStats &stats);
     void sender_remoteVideoStats(const RemoteVideoStats &stats);
     void sender_rtcStats(const RtcStats &stats);
+    void update_videoDevices( QString deviceId, int deviceType, int deviceState);
+    void update_audioDevices( QString deviceId, int deviceType, int deviceState);
 
 public:
     static CAgoraObject* getInstance(QObject *parent = 0);

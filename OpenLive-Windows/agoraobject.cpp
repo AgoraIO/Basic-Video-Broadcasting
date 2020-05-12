@@ -3,7 +3,7 @@
 #include <cassert>
 #include <qprocess>
 #include "stdafx.h"
-
+int videoDeviceWindowId;
 class AgoraRtcEngineEvent : public agora::rtc::IRtcEngineEventHandler
 {
     CAgoraObject& m_pInstance;
@@ -53,6 +53,18 @@ public:
     {
         emit m_pInstance.sender_rtcStats(stats);
     }
+
+    virtual void onVideoDeviceStateChanged(const char* deviceId, int deviceType, int deviceState)
+    {
+        QString id = QString::fromUtf8(deviceId);
+        emit m_pInstance.update_videoDevices(id, deviceType, deviceState);
+    }
+
+    virtual void onAudioDeviceStateChanged(const char* deviceId, int deviceType, int deviceState)
+    {
+        QString id = QString::fromUtf8(deviceId);
+        emit m_pInstance.update_audioDevices(id, deviceType, deviceState);
+    }
 };
 
 CAgoraObject* CAgoraObject::getInstance(QObject *parent)
@@ -93,10 +105,19 @@ CAgoraObject::CAgoraObject(QObject *parent):
         process.startDetached("notepad.exe", {"AgoraConfigOpenLive.ini"}, "");
         ExitProcess(0);
     }
+
+    context.context = (void*)videoDeviceWindowId;
     m_rtcEngine->initialize(context);
 
-    videoDeviceManager     = new AVideoDeviceManager(m_rtcEngine);
+    videoDeviceManager  = new AVideoDeviceManager(m_rtcEngine);
     audioDeviceManager  = new AAudioDeviceManager(m_rtcEngine);
+
+    connect(this, SIGNAL(update_audioDevices(QString,  int, int)),
+            this, SLOT(UpdateAudioDevices(QString, int, int)));
+
+    connect(this, SIGNAL(update_videoDevices(QString, int, int)),
+            this, SLOT(UpdateVideoDevices(QString, int, int)));
+
 }
 
 CAgoraObject::~CAgoraObject()
@@ -491,6 +512,53 @@ void CAgoraObject::CAgoraObject::SetDefaultParameters()
         for (auto iter = mapObjectParamsters.begin();
             iter != mapObjectParamsters.end(); ++iter) {
             apm->setObject(iter->first.c_str(), iter->second.c_str());
+        }
+    }
+}
+
+void CAgoraObject::UpdateVideoDevices( QString deviceId, int deviceType, int deviceState)
+{
+    if(deviceType == VIDEO_CAPTURE_DEVICE && videoDeviceManager){
+        videoDeviceManager->release();
+        videoDeviceManager = new AVideoDeviceManager(m_rtcEngine);
+        QString cameraid = getCurrentVideoDevice();
+        if(cameraid == deviceId && (deviceState == MEDIA_DEVICE_STATE_UNPLUGGED || deviceState == MEDIA_DEVICE_STATE_DISABLED)){
+            qSSMap videoDeviceList = getVideoDeviceList();
+            if(videoDeviceList.size() > 0){
+                (*videoDeviceManager)->setDevice(deviceId.toUtf8());
+            }
+        }
+    }
+}
+void CAgoraObject::UpdateAudioDevices( QString deviceId, int deviceType, int deviceState)
+{
+    if(audioDeviceManager){
+        audioDeviceManager->release();
+        audioDeviceManager = new AAudioDeviceManager(m_rtcEngine);
+
+        QString audioId;
+
+
+        if(deviceState == MEDIA_DEVICE_STATE_UNPLUGGED || deviceState == MEDIA_DEVICE_STATE_DISABLED){
+            qSSMap audioDeviceList;
+            if(deviceType == AUDIO_RECORDING_DEVICE){
+                audioId = getCurrentRecordingDevice();
+                audioDeviceList = getRecordingDeviceList();
+
+                if(audioDeviceList.size() > 0 && audioId ==  deviceId){
+                    (*audioDeviceManager)->setRecordingDevice(deviceId.toUtf8());
+                }
+            }
+            else if(deviceType == AUDIO_PLAYOUT_DEVICE ){
+                audioId = getCurrentPlaybackDevice();
+                audioDeviceList = getPlayoutDeviceList();
+
+                if(audioDeviceList.size() > 0 && audioId ==  deviceId){
+                    (*audioDeviceManager)->setPlaybackDevice(deviceId.toUtf8());
+                }
+            }
+
+
         }
     }
 }

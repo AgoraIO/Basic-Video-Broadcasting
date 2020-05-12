@@ -40,6 +40,7 @@ void MainWindow::initWindow()
     m_strRoomId.clear();
     QString strDir = QCoreApplication::applicationDirPath();
     strDir.append("\\AgoraSDK.log");
+    videoDeviceWindowId = winId();
     CAgoraObject::getInstance(this)->setLogPath(strDir);
 
     CAgoraObject::getInstance()->enableAudio(true);

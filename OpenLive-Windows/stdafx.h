@@ -6,5 +6,5 @@
 #include <QDebug>
 #include "agoraconfig.h"
 extern CAgoraConfig gAgoraConfig;
-
+extern int videoDeviceWindowId;
 #endif // STDAFX_H
