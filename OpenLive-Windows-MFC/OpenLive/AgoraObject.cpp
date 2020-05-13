@@ -389,14 +389,13 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 			rcCap.width = lpCapRect->right - lpCapRect->left;
 			rcCap.height = lpCapRect->bottom - lpCapRect->top;
 
-			if (hWnd)
-				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
-			else{
+            if (hWnd)
+                ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
+            else {
 
-				agora::rtc::Rectangle screenRegion = {0,0,3840, 1080};
-				rcCap = { -1920, 0, 3840, 1080 };
-				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
-			}
+                agora::rtc::Rectangle screenRegion = rcCap;
+                ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
+            }
 		}
 	}
 	else
