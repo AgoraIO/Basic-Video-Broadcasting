@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03F7A6C1246CFDC7007D61D9 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26682386557C0047E150 /* AgoraRtcKit.framework */; };
+		03F7A6C2246CFDC7007D61D9 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26682386557C0047E150 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A2F4525202C072F003783AE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4523202C072F003783AE /* SettingsViewController.m */; };
 		1A2F456E202C4F81003783AE /* ReplacementSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F456D202C4F80003783AE /* ReplacementSegue.m */; };
 		1A2F4571202C549F003783AE /* LiveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F4570202C549F003783AE /* LiveRoomViewController.m */; };
@@ -20,14 +22,21 @@
 		1AFA9DD0202BF0A600D782CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DCF202BF0A600D782CB /* main.m */; };
 		1AFA9DF5202BF28900D782CB /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DF4202BF28900D782CB /* MainWindowController.m */; };
 		1AFA9DF8202BF2C100D782CB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFA9DF7202BF2C100D782CB /* MainViewController.m */; };
-		A76C26692386557C0047E150 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26682386557C0047E150 /* AgoraRtcKit.framework */; };
-		A7733D8A2407A2C700483870 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C50EF02121663D00774322 /* Accelerate.framework */; };
-		A7733D8B2407A2D600483870 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45AC202D75CE003783AE /* CoreWLAN.framework */; };
-		A7733D8C2407A2DC00483870 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A4202D75AF003783AE /* SystemConfiguration.framework */; };
-		A7733D8D2407A2E200483870 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A8202D75C1003783AE /* libc++.tbd */; };
-		A7733D8E2407A2E800483870 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45A6202D75B8003783AE /* libresolv.tbd */; };
-		A7733D8F2407A2F400483870 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F45B2202D75E0003783AE /* VideoToolbox.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03F7A6C3246CFDC7007D61D9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03F7A6C2246CFDC7007D61D9 /* AgoraRtcKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1A2F4522202C072F003783AE /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -74,13 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7733D8B2407A2D600483870 /* CoreWLAN.framework in Frameworks */,
-				A7733D8F2407A2F400483870 /* VideoToolbox.framework in Frameworks */,
-				A7733D8D2407A2E200483870 /* libc++.tbd in Frameworks */,
-				A76C26692386557C0047E150 /* AgoraRtcKit.framework in Frameworks */,
-				A7733D8C2407A2DC00483870 /* SystemConfiguration.framework in Frameworks */,
-				A7733D8A2407A2C700483870 /* Accelerate.framework in Frameworks */,
-				A7733D8E2407A2E800483870 /* libresolv.tbd in Frameworks */,
+				03F7A6C1246CFDC7007D61D9 /* AgoraRtcKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +175,7 @@
 				1AFA9DBC202BF0A500D782CB /* Sources */,
 				1AFA9DBD202BF0A500D782CB /* Frameworks */,
 				1AFA9DBE202BF0A500D782CB /* Resources */,
+				03F7A6C3246CFDC7007D61D9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
