@@ -509,7 +509,7 @@ bool CAgoraObject::SetCustomVideoProfile()
 {
     FRAME_RATE customFPS = FRAME_RATE_FPS_15;
     int customBitrate    = STANDARD_BITRATE;
-    int nWidth = 640, nHeight = 360;
+    int nWidth = 640, nHeight = 480;
 
     return setVideoProfile(nWidth, nHeight, customFPS, customBitrate);
 }
