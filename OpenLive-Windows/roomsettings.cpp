@@ -163,7 +163,7 @@ void roomsettings::initWindow(const QString& qsChannel)
     ui->cbVideoProfile->addItem("1280x720");
     ui->cbVideoProfile->addItem("1920x1080");
     ui->cbVideoProfile->addItem("3840x2160");
-    ui->cbVideoProfile->setCurrentIndex(3);
+    ui->cbVideoProfile->setCurrentIndex(4);
 
     ui->cbVideoFPS->clear();
     ui->cbVideoFPS->addItem("FRAME_RATE_FPS_7");
