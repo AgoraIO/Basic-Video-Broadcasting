@@ -117,7 +117,6 @@ CAgoraObject::CAgoraObject(QObject *parent):
 
     connect(this, SIGNAL(update_videoDevices(QString, int, int)),
             this, SLOT(UpdateVideoDevices(QString, int, int)));
-
 }
 
 CAgoraObject::~CAgoraObject()
