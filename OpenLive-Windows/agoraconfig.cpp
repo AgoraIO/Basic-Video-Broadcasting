@@ -108,7 +108,7 @@ int CAgoraConfig::getSmoothness()
 	return m_spConfig->value("/Beauty/Smoothness").toInt();
 }
 
-void CAgoraConfig::getVideoResolution(int& width, int height)
+void CAgoraConfig::getVideoResolution(int& width, int& height)
 {
     width  = m_spConfig->value("/VideoInfo/Width").toInt();
     height = m_spConfig->value("/VideoInfo/Height").toInt();

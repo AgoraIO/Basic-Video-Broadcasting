@@ -33,7 +33,7 @@ public:
 	void setSmoothness(int smooth);
 	int getSmoothness();
 
-    void getVideoResolution(int& width, int height);
+    void getVideoResolution(int& width, int& height);
 
     QString getAppToken();
     int getFPS();
