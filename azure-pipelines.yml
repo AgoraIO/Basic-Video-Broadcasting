@@ -50,9 +50,9 @@ jobs:
 #Windows MFC demo
 - template: cicd/templates/build-Windows.yml
   parameters:
-    displayName: 'WindowsOpenLive'
+    displayName: 'WindowsOpenLiveMFC'
     workingDirectory: 'OpenLive-Windows-MFC'
-    scheme: 'OpenLive-Windows'
+    scheme: 'OpenLive-Windows-MFC'
     sdkurl: $(WindowsRTCSDK)
     solutionName: 'OpenLive.sln'
     sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0.2_FULL'
@@ -60,9 +60,9 @@ jobs:
     ReleasePath: 'Release'
 - template: cicd/templates/build-Windows.yml
   parameters:
-    displayName: 'WindowsOpenLive64'
+    displayName: 'WindowsOpenLiveMFC64'
     workingDirectory: 'OpenLive-Windows-MFC'
-    scheme: 'OpenLive-Windows'
+    scheme: 'OpenLive-Windows-MFC'
     sdkurl: $(WindowsRTCSDKX64)
     solutionName: 'OpenLive.sln'
     sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0.2_FULL'
