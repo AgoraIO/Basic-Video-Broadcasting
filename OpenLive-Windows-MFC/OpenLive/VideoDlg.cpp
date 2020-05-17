@@ -486,35 +486,11 @@ void CVideoDlg::OnCbnSelchangeCmbRole()
 		CAgoraObject::GetAgoraObject()->SetClientRole(CLIENT_ROLE_TYPE::CLIENT_ROLE_AUDIENCE);
 }
 
-std::vector<RECT> vecHwnds;
-
-static BOOL Monitorenumproc(
-	HMONITOR Arg1,
-	HDC Arg2,
-	LPRECT Arg3,
-	LPARAM Arg4
-	)
-{
-	RECT rc = *Arg3;
-	vecHwnds.push_back(rc);
-	return TRUE;
-}
-
 void CVideoDlg::OnBnClickedScreenshare()
 {
 	IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
-
-	EnumDisplayMonitors(NULL, NULL, (MONITORENUMPROC)Monitorenumproc, NULL);
-
-	//0: 0,0,1920,1080 150%
-	//1： 1920*1.5 1080*1.5  5760 1620 100%
-	RECT rc = vecHwnds[1];
-	int w = rc.right - rc.left;
-	rc.left = rc.left * 2 / 3;
-	rc.bottom = rc.bottom * 2 / 3;
-	rc.right = rc.left + w *2 /3;
 	
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 15, &rc, TRUE);
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	m_wndLocal.Invalidate(TRUE);

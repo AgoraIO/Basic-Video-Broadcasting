@@ -389,14 +389,13 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 			rcCap.width = lpCapRect->right - lpCapRect->left;
 			rcCap.height = lpCapRect->bottom - lpCapRect->top;
 
-			if (hWnd)
-				ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
-			else{
+            if (hWnd)
+                ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, capParam);
+            else {
 
-				agora::rtc::Rectangle screenRegion = {0,0,3840, 1080};
-				rcCap = { -1920, 0, 3840, 1080 };
-				ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
-			}
+                agora::rtc::Rectangle screenRegion = rcCap;
+                ret = m_lpAgoraEngine->startScreenCaptureByScreenRect(screenRegion, rcCap, capParam);
+            }
 		}
 	}
 	else
@@ -983,9 +982,10 @@ BOOL CAgoraObject::EnableWhiteboardFeq(BOOL bEnable)
 
 CString CAgoraObject::LoadAppID()
 {
-    TCHAR szFilePath[MAX_PATH];
     CString strAppID(APP_ID);
-
+    if (!strAppID.IsEmpty())
+        return strAppID;
+    TCHAR szFilePath[MAX_PATH];
     ::GetModuleFileName(NULL, szFilePath, MAX_PATH);
     LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
 
@@ -1012,13 +1012,39 @@ CString CAgoraObject::LoadAppID()
     return strAppID;
 }
 
+std::string CAgoraObject::GetToken()
+{
+    std::string token(APP_TOKEN);
+    if (!token.empty())
+        return token;
+
+    TCHAR szFilePath[MAX_PATH];
+    ::GetModuleFileName(NULL, szFilePath, MAX_PATH);
+    LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
+
+    if (lpLastSlash == NULL)
+        return token;
+
+    SIZE_T nNameLen = MAX_PATH - (lpLastSlash - szFilePath + 1);
+    _tcscpy_s(lpLastSlash + 1, nNameLen, _T("AppID.ini"));
+
+
+    TCHAR szToken[MAX_PATH] = { 0 };
+    char temp[MAX_PATH] = { 0 };
+    ::GetPrivateProfileString(_T("AppID"), _T("AppToken"), NULL, szToken, MAX_PATH, szFilePath);
+    ::WideCharToMultiByte(CP_UTF8, 0, szToken, -1, temp, 128, NULL, NULL);
+
+    return temp;
+}
+
 void CAgoraObject::SetDefaultParameters()
 {
     CAGJson m_agJson;
     std::map<std::string, std::string> mapStringParamsters;
     std::map<std::string, bool> mapBoolParameters;
     std::map<std::string, int> mapIntParameters;
-    if (m_agJson.GetParameters(mapStringParamsters, mapBoolParameters, mapIntParameters)) {
+    std::map<std::string, std::string> mapObjectParameters;
+    if (m_agJson.GetParameters(mapStringParamsters, mapBoolParameters, mapIntParameters, mapObjectParameters)) {
         AParameter apm(m_lpAgoraEngine);
         for (auto iter = mapBoolParameters.begin();
             iter != mapBoolParameters.end(); ++iter) {
@@ -1031,6 +1057,11 @@ void CAgoraObject::SetDefaultParameters()
         for (auto iter = mapIntParameters.begin();
             iter != mapIntParameters.end(); ++iter) {
             apm->setInt(iter->first.c_str(), iter->second);
+        }
+
+        for (auto iter = mapObjectParameters.begin();
+            iter != mapObjectParameters.end(); ++iter) {
+            apm->setObject(iter->first.c_str(), iter->second.c_str());
         }
     }
 }

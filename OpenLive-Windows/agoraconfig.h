@@ -1,8 +1,8 @@
 #ifndef CAGORACONFIG_H
 #define CAGORACONFIG_H
-
+#include <memory>
 #include <QSettings>
-
+#include <QObject>
 class CAgoraConfig
 {
 public:
@@ -16,6 +16,7 @@ public:
     bool getEnableVideo();
     void setEnableAudio(bool bEnable);
     bool getEnableAudio();
+
 
 	void setEnableBeauty(bool bEnable);
 	bool getEnableBeauty();
@@ -32,9 +33,15 @@ public:
 	void setSmoothness(int smooth);
 	int getSmoothness();
 
+    void getVideoResolution(int& width, int& height);
 
+    QString getAppToken();
+    int getFPS();
+    int getBitrate();
+    bool isCustomFPS();
+    bool isCustomBitrate();
+    bool isCustomResolution();
 private:
     std::shared_ptr<QSettings>  m_spConfig;
 };
-
 #endif // CAGORACONFIG_H

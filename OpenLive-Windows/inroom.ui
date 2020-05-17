@@ -68,8 +68,8 @@ border-radius:2px;</string>
    <widget class="QWidget" name="widget_l" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>130</x>
+      <y>160</y>
       <width>1366</width>
       <height>768</height>
      </rect>

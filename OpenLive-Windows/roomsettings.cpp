@@ -30,7 +30,16 @@ roomsettings::roomsettings(QMainWindow* pLastWnd,QWidget *parent) :
     ui(new Ui::roomsettings)
 {
     ui->setupUi(this);
+    int i = 0;
+    fps[i++] = FRAME_RATE_FPS_7;
+    fps[i++] = FRAME_RATE_FPS_10;
+    fps[i++] = FRAME_RATE_FPS_15;
+    fps[i++] = FRAME_RATE_FPS_24;
+    fps[i++] = FRAME_RATE_FPS_30;
 
+    bitrate[0] = STANDARD_BITRATE;
+    bitrate[1] = COMPATIBLE_BITRATE;
+    bitrate[2] = DEFAULT_MIN_BITRATE;
     connect(ui->btnlastpage,&QPushButton::clicked,this,&roomsettings::OnClickLastPage);
 
     connect(ui->optAudio,&QPushButton::clicked,this,&roomsettings::OnOptAudio);
@@ -154,31 +163,59 @@ void roomsettings::initWindow(const QString& qsChannel)
     ui->cbVideoProfile->addItem("1280x720");
     ui->cbVideoProfile->addItem("1920x1080");
     ui->cbVideoProfile->addItem("3840x2160");
-    ui->cbVideoProfile->setCurrentIndex(3);
+    ui->cbVideoProfile->setCurrentIndex(4);
 
+    ui->cbVideoFPS->clear();
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_7");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_10");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_15");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_24");
+    ui->cbVideoFPS->addItem("FRAME_RATE_FPS_30");
+    ui->cbVideoFPS->setCurrentIndex(2);
+
+    ui->cbVideoBitrate->clear();
+    ui->cbVideoBitrate->addItem("STANDARD_BITRATE");
+    ui->cbVideoBitrate->addItem("COMPATIBLE_BITRATE");
+    ui->cbVideoBitrate->addItem("DEFAULT_MIN_BITRATE");
+    ui->cbVideoBitrate->setCurrentIndex(0);
     //microphone
 	ui->cbRecordDevices->clear();
     QString qDeviceName;
     qSSMap devicelist = CAgoraObject::getInstance()->getRecordingDeviceList();
-	for (qSSMap::iterator it = devicelist.begin(); devicelist.end() != it; it++) {
-        ui->cbRecordDevices->addItem(it.key());
-	}
+    QString id = CAgoraObject::getInstance()->getCurrentRecordingDevice();
+    int index =0 ;
+    for (auto it = devicelist.begin(); devicelist.end() != it; it++) {
+        ui->cbRecordDevices->addItem(it->name);
+        if(!id.isEmpty() && id.compare(it->name) == 0)
+            ui->cbRecordDevices->setCurrentIndex(index);
+         ++index;
+    }
 
     //playout
 	ui->cbPlayDevices->clear();
     devicelist.clear();
     devicelist = CAgoraObject::getInstance()->getPlayoutDeviceList();
-    for(qSSMap::iterator it = devicelist.begin(); devicelist.end() != it; it++) {
-        ui->cbPlayDevices->addItem(it.key());
+    index = 0;
+    for(auto it = devicelist.begin(); devicelist.end() != it; it++) {
+        ui->cbPlayDevices->addItem(it->name);
+        if(!id.isEmpty() && id.compare(it->name) == 0)
+            ui->cbPlayDevices->setCurrentIndex(index);
+         ++index;
     }
 
     //cameralist
 	ui->cbVideoDevices->clear();
     devicelist.clear();
     devicelist = CAgoraObject::getInstance()->getVideoDeviceList();
-    for(qSSMap::iterator it = devicelist.begin(); devicelist.end() != it; it++) {
-        ui->cbVideoDevices->addItem(it.key());
+    id = CAgoraObject::getInstance()->getCurrentVideoDevice();
+    index = 0;
+    for(auto it = devicelist.begin(); devicelist.end() != it; it++) {
+        ui->cbVideoDevices->addItem(it->name);
+        if(!id.isEmpty() && id.compare(it->name) == 0)
+            ui->cbVideoDevices->setCurrentIndex(index);
+         ++index;
     }
+
 	//beauty
 	ui->cbContrastLevel->clear();
 	ui->cbContrastLevel->addItem(QString("Lightening Contrast Low"));
@@ -347,11 +384,18 @@ void roomsettings::mouseReleaseEvent(QMouseEvent *e)
    m_bMousePressed = false;
 }
 
-void roomsettings::on_cbVideoProfile_activated(const QString &arg1)
+void roomsettings::setVideoProfile(const QString argResolution)
 {
     int nWidth,nHeight = 0;
-	sscanf(arg1.toUtf8().data(),"%dx%d", &nWidth, &nHeight);
-	CAgoraObject::getInstance()->setVideoProfile(nWidth, nHeight);
+    sscanf(argResolution.toUtf8().data(),"%dx%d", &nWidth, &nHeight);
+    int index = ui->cbVideoFPS->currentIndex();
+    int idx   = ui->cbVideoBitrate->currentIndex();
+    CAgoraObject::getInstance()->setVideoProfile(nWidth, nHeight, (FRAME_RATE)fps[index], bitrate[idx]);
+}
+
+void roomsettings::on_cbVideoProfile_activated(const QString &arg1)
+{
+   setVideoProfile(arg1);
 }
 
 void roomsettings::on_cbRecordDevices_activated(int index)
@@ -410,4 +454,62 @@ void roomsettings::on_valueChanged_horizontalSlider_Lightening(int value)
 	ui->labelLightening->setText(lightening);
 	gAgoraConfig.setLightenging(value);
 	updateBeautyOptions();
+}
+
+void roomsettings::on_cbVideoFPS_currentIndexChanged(int index)
+{
+    QString arg1 = ui->cbVideoFPS->currentText();
+    setVideoProfile(arg1);
+}
+
+void roomsettings::on_cbVideoBitrate_currentIndexChanged(int index)
+{
+    QString arg1 = ui->cbVideoBitrate->currentText();
+    setVideoProfile(arg1);
+}
+
+bool roomsettings::SetCustomVideoProfile()
+{
+    int nRet = 0;
+    FRAME_RATE customFPS = FRAME_RATE_FPS_15;
+    int customBitrate    = STANDARD_BITRATE;
+    int nWidth = 640, nHeight = 360;
+
+    if(ui && ui->cbVideoProfile){
+        QString argResolution = ui->cbVideoProfile->currentText();
+        sscanf(argResolution.toUtf8().data(),"%dx%d", &nWidth, &nHeight);
+    }
+
+    if(ui && ui->cbVideoFPS){
+        int idx   = ui->cbVideoFPS->currentIndex();
+        customFPS = (FRAME_RATE)fps[idx];
+    }
+
+    if(ui && ui->cbVideoBitrate){
+        int idx   = ui->cbVideoBitrate->currentIndex();
+        customBitrate = bitrate[idx];
+    }
+
+    if(gAgoraConfig.isCustomFPS()){
+        customFPS = (FRAME_RATE)gAgoraConfig.getFPS();
+    }
+
+    if(gAgoraConfig.isCustomBitrate()){
+        customBitrate = gAgoraConfig.getBitrate();
+    }
+
+    if(gAgoraConfig.isCustomResolution())
+         gAgoraConfig.getVideoResolution(nWidth, nHeight);
+
+    CAgoraObject::getInstance()->setVideoProfile(nWidth, nHeight, customFPS, customBitrate);
+    return true;
+}
+
+bool CAgoraObject::SetCustomVideoProfile()
+{
+    FRAME_RATE customFPS = FRAME_RATE_FPS_15;
+    int customBitrate    = STANDARD_BITRATE;
+    int nWidth = 640, nHeight = 480;
+
+    return setVideoProfile(nWidth, nHeight, customFPS, customBitrate);
 }

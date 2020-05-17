@@ -26,10 +26,10 @@ CAGJson::~CAGJson()
 
 BOOL CAGJson::GetParameters(std::map<std::string, std::string>& mapStringParameters,
     std::map<std::string, bool>& mapBoolParameters,
-    std::map<std::string, int>& mapIntParameters)
+    std::map<std::string, int>& mapIntParameters,
+    std::map<std::string, std::string>& mapObjectParameters)
 {
     if (!bSuccess) {
- 
         return FALSE;
     }
 
@@ -46,6 +46,8 @@ BOOL CAGJson::GetParameters(std::map<std::string, std::string>& mapStringParamet
                 mapIntParameters.insert(std::make_pair(keys[0], js[keys[0].c_str()].asInt()));
             else if (js[keys[0].c_str()].isString())
                 mapStringParameters.insert(std::make_pair(keys[0], js[keys[0].c_str()].asString()));
+            else if (js[keys[0].c_str()].isObject())
+                mapObjectParameters.insert(std::make_pair(keys[0], js[keys[0].c_str()].toStyledString()));
 
         }
         return TRUE;
