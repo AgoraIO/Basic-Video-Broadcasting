@@ -46,6 +46,8 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     }
 
     protected SurfaceView prepareRtcVideo(int uid, boolean local) {
+        // Render local/remote video on a SurfaceView
+
         SurfaceView surface = RtcEngine.CreateRendererView(getApplicationContext());
         if (local) {
             rtcEngine().setupLocalVideo(

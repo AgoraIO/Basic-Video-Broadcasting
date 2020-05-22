@@ -3,7 +3,7 @@
 //  OpenLive
 //
 //  Created by GongYuhua on 2016/9/12.
-//  Copyright © 2016年 Agora. All rights reserved.
+//  Copyright © 2016 Agora. All rights reserved.
 //
 
 #import "MainViewController.h"
@@ -43,6 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.videoProfile = AgoraVideoDimension640x480;
+    /// the rtcEngine is a singleton
     self.rtcEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
 }
 
@@ -110,6 +111,14 @@
     self.rtcEngine.delegate = self;
 }
 
+
+/// Reports the last mile network quality of the local user once every two seconds before the user joins a channel.
+///  -   Last mile refers to the connection between the local device and Agora's edge server. After the app calls the [enableLastmileTest]([AgoraRtcEngineKit enableLastmileTest]) method, the SDK triggers this callback once every two seconds to report the uplink and downlink last mile network conditions of the local user before the user joins the channel.
+///
+///  - implements  AgoraRtcEngineDelegate
+///
+/// @param engine  AgoraRtcEngineKit object.
+/// @param quality The last mile network quality based on the uplink and dowlink packet loss rate and jitter. See AgoraNetworkQuality.
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine lastmileQuality:(AgoraNetworkQuality)quality {
     NSString *string;
     switch (quality) {
@@ -125,6 +134,14 @@
     self.qualityLabel.hidden = NO;
 }
 
+
+///  Reports the last-mile network probe result.
+///  - The SDK triggers this callback within 30 seconds after the app calls the [startLastmileProbeTest]([AgoraRtcEngineKit startLastmileProbeTest:]) method.
+///
+///  - implements  AgoraRtcEngineDelegate
+///
+///  @param engine AgoraRtcEngineKit object.
+///  @param result The uplink and downlink last-mile network probe test result, see [AgoraLastmileProbeResult](AgoraLastmileProbeResult).
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine lastmileProbeTestResult:(AgoraLastmileProbeResult *)result {
     self.rttLabel.text = [NSString stringWithFormat:@"rtt: %lu", (unsigned long)result.rtt];
     self.rttLabel.hidden = NO;
