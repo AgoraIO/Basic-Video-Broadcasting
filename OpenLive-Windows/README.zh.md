@@ -20,11 +20,18 @@
 首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 App ID。将 APP_ID宏定义内容改为刚才申请的 App ID
 
 
-#define APP_ID _T("Your App ID")
+* #define APP_ID _T("Your App ID")
 
 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **sdk** 复制到本项目目录下（并覆盖原有旧目录）。
-
 最后使用 QT5.6 打开 OpenLive.pro，编译整个解决方案即可运行
+
+* 如果不在代码里填写appid，也可以在运行目录下放置一个AgoraConfigOpenLive.ini文件，文件内容：
+
+    [BaseInfo]
+    AppId=xxxx
+
+**注意：**如果代码里指定了appid就不会使用ini文件的appid。
+
 
 ## 运行环境
 * VC++ 2013(或更高版本)

@@ -43,21 +43,38 @@ RESOURCES += \
 DISTFILES += \
     openlive.rc
 
-win32: {
-INCLUDEPATH += $$PWD/sdk/include
-LIBS += -L$$PWD/sdk/lib/ -lagora_rtc_sdk
-LIBS += User32.LIB
-CONFIG(debug, debug|release) {
- QMAKE_POST_LINK +=  copy .\sdk\dll\*.dll .\Debug
+exists( $$PWD/../../sdk) {
+  AGORASDKPATH = $$PWD/../../sdk
+  AGORASDKDLLPATH =..\..\sdk\dll
 } else {
- QMAKE_POST_LINK +=  copy .\sdk\dll\*.dll .\Release
- QMAKE_POST_LINK  += && windeployqt Release\OpenLive.exe
-}
+  AGORASDKPATH = $$PWD/sdk
+  AGORASDKDLLPATH = .\sdk\dll
 }
 
-win64: {
-INCLUDEPATH += $$PWD/sdk/include
-LIBS += -L$$PWD/sdk/lib/ -lagora_rtc_sdk
-LIBS += User32.LIB
+win32: {
+!contains(QMAKE_TARGET.arch, x86_64) {
+  message(x86)
+  INCLUDEPATH += $${AGORASDKPATH}/include
+  LIBS += -L$${AGORASDKPATH}/lib -lagora_rtc_sdk
+  LIBS += User32.LIB
+  CONFIG(debug, debug|release) {
+    QMAKE_POST_LINK +=  copy $${AGORASDKDLLPATH}\*.dll .\Debug
+  } else {
+    QMAKE_POST_LINK +=  copy $${AGORASDKDLLPATH}\*.dll .\Release
+    QMAKE_POST_LINK += && windeployqt Release\OpenLive.exe
+  }
+}else {
+  message(x64)
+  INCLUDEPATH += $${AGORASDKPATH}/include
+  LIBS += -L$${AGORASDKPATH}/lib -lagora_rtc_sdk
+  LIBS += User32.LIB
+  CONFIG(debug, debug|release) {
+    QMAKE_POST_LINK +=  copy $${AGORASDKDLLPATH}\*.dll .\Debug
+  } else {
+    QMAKE_POST_LINK +=  copy $${AGORASDKDLLPATH}\*.dll .\Release
+    QMAKE_POST_LINK += && windeployqt Release\OpenLive.exe
+  }
+}
+
 }
 
