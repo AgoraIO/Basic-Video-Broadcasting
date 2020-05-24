@@ -127,6 +127,7 @@ private extension LiveRoomViewController {
             var row: Int
             
             if videoSessions.count == 0 {
+                broadcastersView.removeLayout(level: 0)
                 return
             } else if videoSessions.count == 1 {
                 rank = 1
