@@ -3,7 +3,7 @@
 //  OpenLive
 //
 //  Created by GongYuhua on 2016/9/12.
-//  Copyright © 2016年 Agora. All rights reserved.
+//  Copyright © 2016 Agora. All rights reserved.
 //
 
 #import "SettingsViewController.h"
@@ -17,6 +17,7 @@
 
 @implementation SettingsViewController
 - (NSArray *)profiles {
+    // Set up Dimension profile, see AgoraConstants.h for a list of values
     if (!_profiles) {
         _profiles = @[@(AgoraVideoDimension160x120),
                       @(AgoraVideoDimension320x180),

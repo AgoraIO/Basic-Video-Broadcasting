@@ -127,6 +127,7 @@ private extension LiveRoomViewController {
             var row: Int
             
             if videoSessions.count == 0 {
+                broadcastersView.removeLayout(level: 0)
                 return
             } else if videoSessions.count == 1 {
                 rank = 1
@@ -267,21 +268,35 @@ private extension LiveRoomViewController {
 
 // MARK: - AgoraRtcEngineDelegate
 extension LiveRoomViewController: AgoraRtcEngineDelegate {
-    // first local video frame
+    
+    /// Occurs when the first local video frame is displayed/rendered on the local video view.
+    ///
+    /// Same as [firstLocalVideoFrameBlock]([AgoraRtcEngineKit firstLocalVideoFrameBlock:]).
+    /// @param engine  AgoraRtcEngineKit object.
+    /// @param size    Size of the first local video frame (width and height).
+    /// @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK calls this callback.
+    ///
+    /// If the [startPreview]([AgoraRtcEngineKit startPreview]) method is called before the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, then `elapsed` is the time elapsed from calling the [startPreview]([AgoraRtcEngineKit startPreview]) method until the SDK triggers this callback.
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstLocalVideoFrameWith size: CGSize, elapsed: Int) {
         if let selfSession = videoSessions.first {
             selfSession.updateInfo(resolution: size)
         }
     }
     
-    // local stats
+    /// Reports the statistics of the current call. The SDK triggers this callback once every two seconds after the user joins the channel.
     func rtcEngine(_ engine: AgoraRtcEngineKit, reportRtcStats stats: AgoraChannelStats) {
         if let selfSession = videoSessions.first {
             selfSession.updateChannelStats(stats)
         }
     }
     
-    // first remote video frame
+    
+    /// Occurs when the first remote video frame is received and decoded.
+    /// - Parameters:
+    ///   - engine: AgoraRtcEngineKit object.
+    ///   - uid: User ID of the remote user sending the video stream.
+    ///   - size: Size of the video frame (width and height).
+    ///   - elapsed: Time elapsed (ms) from the local user calling the joinChannelByToken method until the SDK triggers this callback.
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
         guard videoSessions.count <= maxVideoSession else {
             return
@@ -292,7 +307,16 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         agoraKit.setupRemoteVideo(userSession.canvas)
     }
     
-    // user offline
+    /// Occurs when a remote user (Communication)/host (Live Broadcast) leaves a channel. Same as [userOfflineBlock]([AgoraRtcEngineKit userOfflineBlock:]).
+    ///
+    /// There are two reasons for users to be offline:
+    ///
+    /// - Leave a channel: When the user/host leaves a channel, the user/host sends a goodbye message. When the message is received, the SDK assumes that the user/host leaves a channel.
+    /// - Drop offline: When no data packet of the user or host is received for a certain period of time (20 seconds for the Communication profile, and more for the Live-broadcast profile), the SDK assumes that the user/host drops offline. Unreliable network connections may lead to false detections, so Agora recommends using a signaling system for more reliable offline detection.
+    ///
+    ///  @param engine AgoraRtcEngineKit object.
+    ///  @param uid    ID of the user or host who leaves a channel or goes offline.
+    ///  @param reason Reason why the user goes offline, see AgoraUserOfflineReason.
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         var indexToDelete: Int?
         for (index, session) in videoSessions.enumerated() where session.uid == uid {
@@ -309,26 +333,26 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         }
     }
     
-    // remote video stats
+    /// Reports the statistics of the video stream from each remote user/host.
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
         if let session = getSession(of: stats.uid) {
             session.updateVideoStats(stats)
         }
     }
     
-    // remote audio stats
+    /// Reports the statistics of the audio stream from each remote user/host.
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStats stats: AgoraRtcRemoteAudioStats) {
         if let session = getSession(of: stats.uid) {
             session.updateAudioStats(stats)
         }
     }
     
-    // warning code
+    /// Reports a warning during SDK runtime.
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurWarning warningCode: AgoraWarningCode) {
         print("warning code: \(warningCode.description)")
     }
     
-    // error code
+    /// Reports an error during SDK runtime.
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
         print("warning code: \(errorCode.description)")
     }

@@ -1,12 +1,22 @@
 {
   "name": "openlive-web",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "private": true,
   "homepage": ".",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --config .eslintrc --fix --cache --format=pretty --ignore-path .eslintignore ./src/**/*.{js,jsx} ./src/*.{js,jsx}"
+    ]
+  },
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
-    "agora-rtc-sdk": "3.0.0",
+    "agora-rtc-sdk": "3.0.2",
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -18,10 +28,9 @@
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "eslint:fix": "eslint --config .eslintrc --fix --cache --format=pretty --ignore-path .eslintignore ./src/**/*.{js,jsx} ./src/*.{js,jsx}",
+    "precommit": "lint-staged"
   },
   "browserslist": {
     "production": [
@@ -36,6 +45,25 @@
     ]
   },
   "devDependencies": {
-    "node-sass": "^4.12.0"
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "babel-eslint": "10.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-formatter-pretty": "^3.0.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.1",
+    "prettier": "^2.0.2"
   }
 }

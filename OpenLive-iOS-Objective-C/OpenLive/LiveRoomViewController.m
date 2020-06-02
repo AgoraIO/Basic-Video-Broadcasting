@@ -3,7 +3,7 @@
 //  OpenLive
 //
 //  Created by GongYuhua on 2016/9/12.
-//  Copyright © 2016年 Agora. All rights reserved.
+//  Copyright © 2016 Agora. All rights reserved.
 //
 
 #import "LiveRoomViewController.h"
@@ -81,10 +81,14 @@
 
 - (void)setHighPriorityRemoteUid:(NSUInteger)highPriorityRemoteUid {
     _highPriorityRemoteUid = highPriorityRemoteUid;
+    
+    // Turn off superResolution and reset priority for every one
     for (VideoSession *session in self.videoSessions) {
         [self.rtcEngine enableRemoteSuperResolution:session.uid enabled:NO];
         [self.rtcEngine setRemoteUserPriority:session.uid type:AgoraUserPriorityNormal];
     }
+    
+    // enable superResolution and high priority to the given user id
     if (highPriorityRemoteUid != 0) {
         if (self.isEnableSuperResolution) {
             [self.rtcEngine enableRemoteSuperResolution:highPriorityRemoteUid enabled:YES];
@@ -95,6 +99,7 @@
 
 - (void)setIsBeautyOn:(BOOL)isBeautyOn {
     _isBeautyOn = isBeautyOn;
+    // Toggle the beaty option; the options were set up at viewDidLoad
     [self.rtcEngine setBeautyEffectOptions:isBeautyOn options:self.beautyOptions];
     [self.beautyEffectButton setImage:[UIImage imageNamed:(isBeautyOn ? @"btn_beautiful_cancel" : @"btn_beautiful")] forState:UIControlStateNormal];
 }
@@ -182,8 +187,8 @@
 - (void)leaveChannel {
     [self setIdleTimerActive:YES];
     
-    [self.rtcEngine setupLocalVideo:nil];
-    [self.rtcEngine leaveChannel:nil];
+    [self.rtcEngine setupLocalVideo:nil]; // nil means unbind
+    [self.rtcEngine leaveChannel:nil];    // leave the channel, callback = nil
     if (self.isBroadcaster) {
         [self.rtcEngine stopPreview];
     }
@@ -291,6 +296,8 @@
 //MARK: - Agora Media SDK
 - (void)loadAgoraKit {
     self.rtcEngine.delegate = self;
+    
+    // LiveBroadcasting is what this app is about
     [self.rtcEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     
     // Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
@@ -298,6 +305,7 @@
     
     [self.rtcEngine enableVideo];
     
+    // set up encoder
     AgoraVideoEncoderConfiguration *configuration =
         [[AgoraVideoEncoderConfiguration alloc] initWithSize:self.videoProfile
                                                    frameRate:AgoraVideoFrameRateFps24
@@ -305,14 +313,17 @@
                                              orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     [self.rtcEngine setVideoEncoderConfiguration:configuration];
     
+    // clientRole was set up on the home screen
     [self.rtcEngine setClientRole:self.clientRole];
     
     if (self.isBroadcaster) {
+        // start the local video preview
         [self.rtcEngine startPreview];
     }
     
     [self addLocalSession];
     
+    // join the channel, if app certificate is not set up, token can be nil
     int code = [self.rtcEngine joinChannelByToken:[KeyCenter Token] channelId:self.roomName info:nil uid:0 joinSuccess:nil];
     if (code == 0) {
         [self setIdleTimerActive:NO];
@@ -327,17 +338,56 @@
     }
 }
 
+/// Occurs when a remote user or host joins a channel. Same as [userJoinedBlock]([AgoraRtcEngineKit userJoinedBlock:]).
+/// - Live-broadcast profile: This callback notifies the app that a host joins the channel. If other hosts are already in the channel, the SDK also reports to the app on the existing hosts. Agora recommends limiting the number of hosts to 17.
+///
+///The SDK triggers this callback under one of the following circumstances:
+/// - A remote user/host joins the channel by calling the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
+/// - A remote user switches the user role to the host by calling the [setClientRole]([AgoraRtcEngineKit setClientRole:]) method after joining the channel.
+/// - A remote user/host rejoins the channel after a network interruption.
+/// - A host injects an online media stream into the channel by calling the [addInjectStreamUrl]([AgoraRtcEngineKit addInjectStreamUrl:config:]) method.
+///
+/// **Note:**
+///
+/// Live-broadcast profile:
+///
+/// * The host receives this callback when another host joins the channel.
+/// * The audience in the channel receives this callback when a new host joins the channel.
+/// * When a web application joins the channel, the SDK triggers this callback as long as the web application publishes streams.
+///
+/// @param engine  AgoraRtcEngineKit object.
+/// @param uid     ID of the user or host who joins the channel. If the `uid` is specified in the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, the specified user ID is returned. If the `uid` is not specified in the joinChannelByToken method, the Agora server automatically assigns a `uid`.
+/// @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) or [setClientRole]([AgoraRtcEngineKit setClientRole:]) method until the SDK triggers this callback.
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed {
     VideoSession *userSession = [self videoSessionOfUid:uid];
     [self.rtcEngine setupRemoteVideo:userSession.canvas];
 }
 
+
+/// Occurs when the first local video frame is displayed/rendered on the local video view.
+///
+/// Same as [firstLocalVideoFrameBlock]([AgoraRtcEngineKit firstLocalVideoFrameBlock:]).
+/// @param engine  AgoraRtcEngineKit object.
+/// @param size    Size of the first local video frame (width and height).
+/// @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK calls this callback.
+///
+/// If the [startPreview]([AgoraRtcEngineKit startPreview]) method is called before the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, then `elapsed` is the time elapsed from calling the [startPreview]([AgoraRtcEngineKit startPreview]) method until the SDK triggers this callback.
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine firstLocalVideoFrameWithSize:(CGSize)size elapsed:(NSInteger)elapsed {
     if (self.videoSessions.count) {
         [self updateInterfaceWithAnimation:NO];
     }
 }
 
+/// Occurs when a remote user (Communication)/host (Live Broadcast) leaves a channel. Same as [userOfflineBlock]([AgoraRtcEngineKit userOfflineBlock:]).
+///
+/// There are two reasons for users to be offline:
+///
+/// - Leave a channel: When the user/host leaves a channel, the user/host sends a goodbye message. When the message is received, the SDK assumes that the user/host leaves a channel.
+/// - Drop offline: When no data packet of the user or host is received for a certain period of time (20 seconds for the Communication profile, and more for the Live-broadcast profile), the SDK assumes that the user/host drops offline. Unreliable network connections may lead to false detections, so Agora recommends using a signaling system for more reliable offline detection.
+///
+///  @param engine AgoraRtcEngineKit object.
+///  @param uid    ID of the user or host who leaves a channel or goes offline.
+///  @param reason Reason why the user goes offline, see AgoraUserOfflineReason.
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didOfflineOfUid:(NSUInteger)uid reason:(AgoraUserOfflineReason)reason {
     VideoSession *deleteSession;
     for (VideoSession *session in self.videoSessions) {

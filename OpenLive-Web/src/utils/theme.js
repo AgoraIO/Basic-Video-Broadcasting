@@ -1,13 +1,14 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles'
 
 export default createMuiTheme({
   typography: {
-   "fontFamily": '-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", sans-serif',
-   "fontSize": 14,
-   "fontWeightLight": 300,
-   "fontWeightRegular": 400,
-   "fontWeightMedium": 500,
-   "color": "#333"
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", sans-serif',
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    color: '#333'
   },
 
   overrides: {
@@ -19,7 +20,7 @@ export default createMuiTheme({
     // },
     MuiFormControl: {
       root: {
-        margin: '0.3rem 0',
+        margin: '0.3rem 0'
       }
     },
     // MuiInputLabel: {
@@ -37,22 +38,22 @@ export default createMuiTheme({
       // },
       underline: {
         '&:before': {
-          borderBottom: '1px solid #EAEAEA',
+          borderBottom: '1px solid #EAEAEA'
         },
         '&:hover:not($disabled):not($focused):not($error):before': {
-          borderBottom: `2px solid #EAEAEA`,
+          borderBottom: '2px solid #EAEAEA'
         },
         '&$focused': {
           '&:after': {
-            borderBottom: '2px solid #44a2fc',
+            borderBottom: '2px solid #44a2fc'
           }
-        },
+        }
         // root: {
- 
-            // backgroundColor: '#44a2fc',
-            // borderBottom: '1px solid red'
+
+        // backgroundColor: '#44a2fc',
+        // borderBottom: '1px solid red'
         // }
       }
     }
   }
-});
+})

@@ -19,11 +19,18 @@ A tutorial demo can be found here: [Agora-Windows-Tutorial-1to1](https://github.
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. define the APP_ID with your App ID.
 
-#define APP_ID _T("Your App ID")
+* #define APP_ID _T("Your App ID")
 
 Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the **sdk** to the project folder(the old one may be over written).
 
 Finally, Open OpenLive.pro with your Qt5.6(or higher) and build current project and run.
+
+* If you don't fill appid in the code file,you can place a file named AgoraConfigOpenLive.ini in the executable path.The file content:
+    
+    [BaseInfo]
+    AppId=xxxx
+
+**Note：**If you fill appid in the code file, appid in ini file will be omitted.
   
 ## Developer Environment Requirements
 * VC++ 2013(or higher)
