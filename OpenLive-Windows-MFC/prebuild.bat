@@ -1,13 +1,23 @@
 set sdkversion=small
 
-if %sdkversion% == origin ( exit )
-
 set Machine=%~1
 set absolute_path=%~2
 cd %absolute_path%
-echo %absolute_path%
+
+if %sdkversion% == origin ( exit )
+
+
+if %sdkversion% == small (
+  set sdkinclude=libs\include
+  set sdkdll=libs\x86
+  set sdklib=libs\x86
+  if %Machine% == x64 (
+    set sdkdll=libs\x86_64
+    set sdklib=libs\x86_64
+  )
+)
+
 if not exist sdk (
-  echo %~dp0
   mkdir sdk
 )
 
@@ -27,17 +37,15 @@ if exist sdk (
 )
 
 if %sdkversion% == small (
-  if exist libs\include (
-    copy libs\include\*.h sdk\include
+  if exist %sdkinclude% (
+    copy %sdkinclude%\*.h sdk\include
   )
 
-  if %Machine%==x86 (
-    copy libs\x86\*.lib sdk\lib
-    copy libs\x86\*.dll sdk\dll
-  ) else (
-    copy libs\x86_64\*.lib sdk\lib
-    copy libs\x86_64\*.dll sdk\dll
+  if exist %sdklib% (
+    copy %sdklib%\*.lib sdk\lib /y
   )
-
+  if exist %sdkdll% (
+    copy %sdkdll%\*.dll sdk\dll /y
+  )
 )
 pause

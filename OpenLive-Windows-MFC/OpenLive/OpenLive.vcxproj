@@ -122,7 +122,7 @@
       <Command>if exist ..\sdk (copy ..\sdk\dll\*.dll ..\Debug\) else if exist ..\..\..\sdk (copy ..\..\..\sdk\dll\*.dll ..\Debug\)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\prebuild.bat $PlatformTraget $(SolutionDir)</Command>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,7 +150,7 @@
       <Command>if exist ..\sdk (copy ..\sdk\dll\*.dll ..\Debug\) else if exist ..\..\..\sdk (copy ..\..\..\sdk\dll\*.dll ..\Debug\)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>prebuild.bat x64</Command>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -183,7 +183,7 @@
       <Command>if exist ..\sdk (copy ..\sdk\dll\*.dll ..\Release\) else if exist ..\..\..\sdk (copy ..\..\..\sdk\dll\*.dll ..\Release\)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\prebuild.bat $PlatformTraget $(SolutionDir)</Command>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -215,7 +215,7 @@
       <Command>if exist ..\sdk (copy ..\sdk\dll\*.dll ..\Release\) else if exist ..\..\..\sdk (copy ..\..\..\sdk\dll\*.dll ..\Release\)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\prebuild.bat $PlatformTraget $(SolutionDir)</Command>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
