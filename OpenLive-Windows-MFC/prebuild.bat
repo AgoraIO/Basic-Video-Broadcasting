@@ -9,6 +9,7 @@ if %sdkversion% == origin ( exit )
 
 if %sdkversion% == small (
   set sdkinclude=libs\include
+  if exist %sdkinclude% ( exit )
   set sdkdll=libs\x86
   set sdklib=libs\x86
   if %Machine% == x64 (
