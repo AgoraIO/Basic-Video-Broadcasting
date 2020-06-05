@@ -8,8 +8,7 @@ parameters:
   workingDirectory: ''
   scheme: ''
   sdkurl: ''
-  sdkunzipPath: ''
-  Machine: ''
+  architecture: ''
   ReleasePath: ''
   QtDir: ''
 jobs:
@@ -20,10 +19,10 @@ jobs:
       vmImage: 'vs2017-win2016'
 
     variables:
-      solution: '${{ parameters.workingDirectory }}/${{ parameters.solutionName }}'
       buildPlatform: ${{ parameters.Machine }}
       buildConfiguration: 'Release'
-   
+      sdkpathname: 'libs'
+      sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_FULL'
     steps:
       - script: echo "${{ parameters.sdkurl }}" && ls
       - powershell: cicd/scripts/downloadsdk.ps1 "${{ parameters.sdkurl }}"
@@ -35,14 +34,14 @@ jobs:
           
       - task: CopyFiles@2
         inputs:
-          sourceFolder: ${{ parameters.sdkunzipPath }}/libs
-          targetFolder: ${{ parameters.workingDirectory }}/libs
+          sourceFolder: $(sdkunzipPath)/$(sdkpathname)
+          targetFolder: ${{ parameters.workingDirectory }}/$(sdkpathname)
       - script: cd ${{ parameters.workingDirectory }}/ && ls
               
       - script: install-qt-win.cmd
         displayName: 'Install QT'
 
-      - script: call build_release.bat "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build" ${{ parameters.QtDir }}
+      - script: call build_release.bat 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build' ${{ parameters.QtDir }} ${{ parameters.architecture }}
         displayName: 'build OpenLive-Windows'
 
       - script: cd ${{ parameters.workingDirectory }} && ls
