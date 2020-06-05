@@ -48,7 +48,7 @@ jobs:
     sdkurl: $(MacRTCSDK)
 
 #Windows MFC demo
-  - template: cicd/templates/build-Windows.yml
+ - template: cicd/templates/build-Windows.yml
     parameters:
       displayName: 'WindowsOpenLiveMFC'
       workingDirectory: 'OpenLive-Windows-MFC'
@@ -70,7 +70,7 @@ jobs:
       architecture: 'x64'
       ReleasePath: 'x64/Release'
 #Windows QT
-  - template: cicd/templates/build-Windows-QT.yml
+  - template: cicd/templates/build-Windows-qt.yml
     parameters:
       displayName: 'WindowsOpenLive'
       workingDirectory: 'OpenLive-Windows'
@@ -79,7 +79,7 @@ jobs:
       architecture: 'x86'
       ReleasePath: 'Release'
       QtDir: 'C:\Qt5.10.1\msvc2017'
- - template: cicd/templates/build-Windows-QT.yml
+ - template: cicd/templates/build-Windows-qt.yml
     parameters:
       displayName: 'WindowsOpenLive64'
       workingDirectory: 'OpenLive-Windows'
