@@ -86,4 +86,4 @@ jobs:
     sdkurl: $(WindowsRTCSDK)
     architecture: 'x64'
     ReleasePath: 'Release'
-    QtDir: 'C:\Qt5.10.1\msvc2017'
+    QtDir: 'C:\Qt5.10.1\msvc2017_64'
