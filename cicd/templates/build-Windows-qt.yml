@@ -41,7 +41,7 @@ jobs:
       - script: ${{ parameters.workingDirectory }}/install-qt-win.cmd
         displayName: 'Install QT'
 
-      - script: call build_release.bat 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build' ${{ parameters.QtDir }} ${{ parameters.architecture }}
+      - script: call ${{ parameters.workingDirectory }}/build_release.bat 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build' ${{ parameters.QtDir }} ${{ parameters.architecture }}
         displayName: 'build OpenLive-Windows'
 
       - script: cd ${{ parameters.workingDirectory }} && ls
