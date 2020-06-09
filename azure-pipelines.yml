@@ -77,7 +77,6 @@ jobs:
     sdkurl: $(WindowsRTCSDK)
     architecture: 'x86'
     ReleasePath: 'Release'
-    QtDir: 'C:\Qt5.10.1\msvc2017'
 - template: cicd/templates/build-Windows-qt.yml
   parameters:
     displayName: 'WindowsOpenLive64'
@@ -86,4 +85,3 @@ jobs:
     sdkurl: $(WindowsRTCSDK)
     architecture: 'x64'
     ReleasePath: 'Release'
-    QtDir: 'C:\Qt5.10.1\msvc2017_64'

@@ -38,11 +38,10 @@ jobs:
           targetFolder: ${{ parameters.workingDirectory }}/$(sdkpathname)
       - script: cd ${{ parameters.workingDirectory }}/ && ls
               
-      - script: cicd/scripts/install-qt-win.cmd
+      - script: cicd/scripts/install-qt-win.cmd ${{ parameters.architecture }}
         displayName: 'Install QT'
-      - script: cd C:\Qt5.10.1 && ls  && cd ${{ parameters.workingDirectory }}
-
-      - script: call ${{ parameters.workingDirectory }}/build_release.bat "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build" ${{ parameters.QtDir }} ${{ parameters.architecture }}
+    
+      - script: call ${{ parameters.workingDirectory }}/build_azure_release.bat 3.0.1 ${{ parameters.architecture }}
         displayName: 'build OpenLive-Windows'
 
       - script: cd ${{ parameters.workingDirectory }} && ls
