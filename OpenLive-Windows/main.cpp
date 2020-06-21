@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
     qRegisterMetaType<LocalVideoStats>();
     qRegisterMetaType<RemoteVideoStats>();
     qRegisterMetaType<RtcStats>();
-
     MainWindow w;
     w.show();
 

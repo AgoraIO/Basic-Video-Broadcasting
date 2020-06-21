@@ -23,3 +23,4 @@ qmake OpenLive.pro "CONFIG+=release" "CONFIG+=qml_release"
 nmake
 cd release
 windeployqt OpenLive.exe
+cd ..

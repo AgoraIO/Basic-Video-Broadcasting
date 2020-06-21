@@ -52,5 +52,6 @@
         <file>uiresource/mutevideo remote.png</file>
         <file>uiresource/mutevideo.png</file>
         <file>uiresource/remoteuid.png</file>
+        <file>uiresource/slider.png</file>
     </qresource>
 </RCC>

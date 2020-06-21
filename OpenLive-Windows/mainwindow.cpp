@@ -40,6 +40,7 @@ void MainWindow::initWindow()
     m_strRoomId.clear();
     QString strDir = QCoreApplication::applicationDirPath();
     strDir.append("\\AgoraSDK.log");
+    videoDeviceWindowId = winId();
     CAgoraObject::getInstance(this)->setLogPath(strDir);
 
     CAgoraObject::getInstance()->enableAudio(true);
@@ -126,6 +127,11 @@ void MainWindow::OnClickJoin()
     if(ui->rbguide->isChecked())
         CAgoraObject::getInstance()->SetClientRole(CLIENT_ROLE_AUDIENCE);
 
+    if(m_upRs)
+        m_upRs->SetCustomVideoProfile();
+    else
+        CAgoraObject::getInstance()->SetCustomVideoProfile();
+
     m_strRoomId = ui->leditRoomId->text();
     m_strRoomId = m_strRoomId.simplified();
     gAgoraConfig.setChannelName(m_strRoomId);
@@ -133,7 +139,6 @@ void MainWindow::OnClickJoin()
         QMessageBox::about(this,"Error","channel name is empty");
         return;
     }
-
     m_upIr.reset(new InRoom);
     InRoom* receive1 = m_upIr.get();
     connect(this,SIGNAL(joinchannel(QMainWindow*,QString,uint)),receive1,SLOT(joinchannel(QMainWindow*,QString,uint)));
