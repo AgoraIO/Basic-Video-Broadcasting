@@ -352,3 +352,6 @@ ASALocalRun/
 *.exe
 *.out
 *.app
+sdk/
+libs/
+.vs/

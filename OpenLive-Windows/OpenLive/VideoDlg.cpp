@@ -6,7 +6,7 @@
 #include "VideoDlg.h"
 #include "afxdialogex.h"
 #include "AGEventDef.h"
-
+#include <vector>
 // CVideoDlg dialog
 
 IMPLEMENT_DYNAMIC(CVideoDlg, CDialogEx)
@@ -489,8 +489,8 @@ void CVideoDlg::OnCbnSelchangeCmbRole()
 void CVideoDlg::OnBnClickedScreenshare()
 {
 	IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
-
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), 15, NULL, TRUE);
+	
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	m_wndLocal.Invalidate(TRUE);
@@ -1128,7 +1128,6 @@ LRESULT CVideoDlg::OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam)
 	seiInfo.nWidth = lpData->width;
 	seiInfo.nHeight = lpData->height;
 	CAgoraObject::GetAgoraObject()->SetSEIInfo(seiInfo.nUID, &seiInfo);
-
 	delete lpData;
 	lpData = NULL;
 	return false;
@@ -1138,7 +1137,6 @@ LRESULT CVideoDlg::OnEIDFirstRemoteVideoFrame(WPARAM wParam, LPARAM lParam)
 {
 	LPAGE_FIRST_REMOTE_VIDEO_FRAME lpData = (LPAGE_FIRST_REMOTE_VIDEO_FRAME)wParam;
 
-	
 	delete lpData;
 	lpData = NULL;
 	return 0;
