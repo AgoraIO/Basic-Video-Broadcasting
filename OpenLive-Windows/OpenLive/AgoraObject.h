@@ -4,7 +4,7 @@
 #include <IAgoraRtcEngine.h>
 
 #include "AGEngineEventHandler.h"
-
+#include "AGJson.h"
 // #define ENABLE_CODEC	1
 
 using namespace agora::rtc;
@@ -159,6 +159,8 @@ public:
 	void SetSelfResolution(int nWidth, int nHeight);
 	void GetSelfResolution(int *nWidth, int *nHeight);
 
+    void SetDefaultParameters();
+
 	static IRtcEngine *GetEngine();
 	
 	static CString GetSDKVersion();
@@ -168,6 +170,8 @@ public:
 
 
 	bool IsJoinChannel(){ return bJoinedChannel; }
+
+    std::string GetToken();
 protected:
 	CAgoraObject(void);
 
@@ -208,7 +212,9 @@ private:
 
 	CAtlMap<UINT, SEI_INFO>	m_mapSEIInfo;
 
-	bool bJoinedChannel = false;;
+	bool bJoinedChannel = false;
+
+    
 public:
 	static CAgoraObject *GetAgoraObject(LPCTSTR lpVendorKey = NULL);
 	static void CloseAgoraObject();

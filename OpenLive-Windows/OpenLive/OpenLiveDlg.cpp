@@ -345,7 +345,7 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 {
 	IRtcEngine		*lpRtcEngine = CAgoraObject::GetEngine();
 	CAgoraObject	*lpAgoraObject = CAgoraObject::GetAgoraObject();
-
+    lpAgoraObject->SetDefaultParameters();
 	CString strChannelName = m_dlgEnterChannel.GetChannelName();
 
 	m_dlgVideo.MoveWindow(0, 0, 960, 720, 1);
@@ -374,7 +374,8 @@ LRESULT COpenLiveDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	lpRtcEngine->setupLocalVideo(vc);
 	lpRtcEngine->startPreview();
 
-	lpAgoraObject->JoinChannel(strChannelName,0,strlen(APP_TOKEN) > 0 ? APP_TOKEN:NULL);
+    std::string token = lpAgoraObject->GetToken();
+    lpAgoraObject->JoinChannel(strChannelName, 0, token.length() > 0 ? token.c_str() : NULL);
 
     lpAgoraObject->SetMsgHandlerWnd(m_dlgVideo.GetSafeHwnd());
     

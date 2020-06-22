@@ -6,7 +6,7 @@
 #include "VideoDlg.h"
 #include "afxdialogex.h"
 #include "AGEventDef.h"
-
+#include <vector>
 // CVideoDlg dialog
 
 IMPLEMENT_DYNAMIC(CVideoDlg, CDialogEx)
@@ -489,8 +489,8 @@ void CVideoDlg::OnCbnSelchangeCmbRole()
 void CVideoDlg::OnBnClickedScreenshare()
 {
 	IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
-
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), 15, NULL, TRUE);
+	
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	m_wndLocal.Invalidate(TRUE);
