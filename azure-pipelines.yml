@@ -10,7 +10,8 @@ trigger:
 variables:
   iOSRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_iOS_v3_0_0_FULL.zip?_ga=2.79185814.368877217.1583320605-5559409.1503304822'
   MacRTCSDK: 'https://download.agora.io/sdk/release/Agora_Native_SDK_for_Mac_v3_0_0_FULL.zip?_ga=2.78400662.368877217.1583320605-5559409.1503304822'
-
+  WindowsRTCSDK: 'download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip'
+  WindowsRTCSDK64: 'download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip'
 jobs:
 - template: 'OpenLive-Android/open-live-template.yml'
   parameters:
@@ -75,7 +76,7 @@ jobs:
     displayName: 'WindowsOpenLiveMFC64'
     workingDirectory: 'OpenLive-Windows-MFC'
     scheme: 'OpenLive-Windows-MFC'
-    sdkurl: $(WindowsRTCSDK)
+    sdkurl: $(WindowsRTCSDK64)
     solutionName: 'OpenLive.sln'
     Machine: 'x64'
     architecture: 'x64'
@@ -91,7 +92,7 @@ jobs:
     ReleasePath: 'Release'
 - template: cicd/templates/build-Windows-qt.yml
   parameters:
-    displayName: 'WindowsOpenLive64'
+    displayName: 'WindowsRTCSDK64'
     workingDirectory: 'OpenLive-Windows'
     scheme: 'OpenLive-Windows'
     sdkurl: $(WindowsRTCSDK)
