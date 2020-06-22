@@ -41,7 +41,7 @@ jobs:
       - script: cicd/scripts/install-qt-win.cmd ${{ parameters.architecture }}
         displayName: 'Install QT'
     
-      - script: call ${{ parameters.workingDirectory }}/build_azure_release.bat 3.0.1 ${{ parameters.architecture }}
+      - script: call ${{ parameters.workingDirectory }}/build_azure_release.bat 3.0.0 ${{ parameters.architecture }}
         displayName: 'build OpenLive-Windows'
 
       - script: cd ${{ parameters.workingDirectory }} && ls
