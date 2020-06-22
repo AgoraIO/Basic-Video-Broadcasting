@@ -24,7 +24,7 @@ jobs:
       buildPlatform: ${{ parameters.Machine }}
       buildConfiguration: 'Release'
       sdkpathname: 'sdk'
-      sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_FULL'
+      sdkunzipPath: 'AgoraSDK/Agora_Native_SDK_for_Windows_v3.0.0_FULL'
     steps:
       - script: echo "${{ parameters.sdkurl }}" && ls
       - powershell: cicd/scripts/downloadsdk.ps1 "${{ parameters.sdkurl }}"
