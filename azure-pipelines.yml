@@ -45,19 +45,6 @@ jobs:
     workingDirectory: 'OpenLive-macOS-Objective-C'
     scheme: 'OpenLive'
     sdkurl: $(MacRTCSDK)
-- template: cicd/templates/build-mac.yml
-  parameters:
-    displayName: 'MacSwiftOpenLive'
-    workingDirectory: 'OpenLive-macOS'
-    scheme: 'OpenLive'
-    sdkurl: $(MacRTCSDK)
-
-- template: cicd/templates/build-mac.yml
-  parameters:
-    displayName: 'MacOCOpenLive'
-    workingDirectory: 'OpenLive-macOS-Objective-C'
-    scheme: 'OpenLive'
-    sdkurl: $(MacRTCSDK)
 
 #Windows MFC demo
 - template: cicd/templates/build-Windows.yml
