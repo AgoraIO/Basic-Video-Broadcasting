@@ -14,16 +14,18 @@ The live video broadcasting sample applications, demonstrate how to:
 - Switch camera
 - Setup resolution, frame rate and bit rate
 
+## Platforms Supported
+
 Project Folder Name|Platform|Description
 ---|---|---
-[OpenLive-Android](./Basic-Video-Broadcasting/OpenLive-Android)|Android|Android live video broadcasting
-[OpenLive-iOS-Objective-C](./Basic-Video-Broadcasting/OpenLive-iOS-Objective-C)|iOS(Objective-C)|iOS live video broadcasting（Objective-C）
-[OpenLive-iOS](./Basic-Video-Broadcasting/OpenLive-iOS)|iOS(Swift)|iOS live video broadcasting（Swift）
-[OpenLive-macOS-Objective-C](./Basic-Video-Broadcasting/OpenLive-macOS-Objective-C)|macOS(Objective-C)|macOS live video broadcasting（Objective-C）
-[OpenLive-macOS](./Basic-Video-Broadcasting/OpenLive-macOS)|macOS(Swift)|macOS live video broadcasting（Swift）
-[OpenLive-Windows](./Basic-Video-Broadcasting/OpenLive-Windows)|Windows|Windows live video broadcasting
-[OpenLive-Windows-MFC](./Basic-Video-Broadcasting/OpenLive-Windows-MFC)|Windows(MFC)|Windows live video broadcasting（MFC）
-[OpenLive-Web](./Basic-Video-Broadcasting/OpenLive-Web)|Web|Web live video broadcasting
+[OpenLive-Android](./OpenLive-Android)|Android|Android live video broadcasting
+[OpenLive-iOS-Objective-C](./OpenLive-iOS-Objective-C)|iOS(Objective-C)|iOS live video broadcasting（Objective-C）
+[OpenLive-iOS](./OpenLive-iOS)|iOS(Swift)|iOS live video broadcasting（Swift）
+[OpenLive-macOS-Objective-C](./OpenLive-macOS-Objective-C)|macOS(Objective-C)|macOS live video broadcasting（Objective-C）
+[OpenLive-macOS](./OpenLive-macOS)|macOS(Swift)|macOS live video broadcasting（Swift）
+[OpenLive-Windows](./OpenLive-Windows)|Windows|Windows live video broadcasting
+[OpenLive-Windows-MFC](./OpenLive-Windows-MFC)|Windows(MFC)|Windows live video broadcasting（MFC）
+[OpenLive-Web](./OpenLive-Web)|Web|Web live video broadcasting
 
 ## Contact Us
 
