@@ -25,7 +25,7 @@ Project Folder Name|Platform|Description
 [OpenLive-macOS](./OpenLive-macOS)|macOS(Swift)|macOS live video broadcasting（Swift）
 [OpenLive-Windows](./OpenLive-Windows)|Windows|Windows live video broadcasting
 [OpenLive-Windows-MFC](./OpenLive-Windows-MFC)|Windows(MFC)|Windows live video broadcasting（MFC）
-[OpenLive-Web](.g/OpenLive-Web)|Web|Web live video broadcasting
+[OpenLive-Web](./OpenLive-Web)|Web|Web live video broadcasting
 
 ## Contact Us
 
