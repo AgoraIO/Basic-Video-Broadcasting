@@ -18,14 +18,14 @@
 
 项目文件夹名称|平台|描述
 ---|---|---
-[OpenLive-Android](./Basic-Video-Broadcasting/OpenLive-Android)|Android|Android 多人连麦视频直播
-[OpenLive-iOS-Objective-C](./Basic-Video-Broadcasting/OpenLive-iOS-Objective-C)|iOS(Objective-C)|iOS 多人连麦视频直播（Objective-C）
-[OpenLive-iOS](./Basic-Video-Broadcasting/OpenLive-iOS)|iOS(Swift)|iOS 多人连麦视频直播（Swift）
-[OpenLive-macOS-Objective-C](./Basic-Video-Broadcasting/OpenLive-macOS-Objective-C)|macOS(Objective-C)|macOS 多人连麦视频直播（Objective-C）
-[OpenLive-macOS](./Basic-Video-Broadcasting/OpenLive-macOS)|macOS(Swift)|macOS 多人连麦视频直播（Swift）
-[OpenLive-Windows](./Basic-Video-Broadcasting/OpenLive-Windows)|Windows|Windows 多人连麦视频直播
-[OpenLive-Windows-MFC](./Basic-Video-Broadcasting/OpenLive-Windows-MFC)|Windows(MFC)|Windows 多人连麦视频直播（MFC）
-[OpenLive-Web](./Basic-Video-Broadcasting/OpenLive-Web)|Web|Web 多人连麦视频直播
+[OpenLive-Android](./OpenLive-Android)|Android|Android 多人连麦视频直播
+[OpenLive-iOS-Objective-C](./OpenLive-iOS-Objective-C)|iOS(Objective-C)|iOS 多人连麦视频直播（Objective-C）
+[OpenLive-iOS](./OpenLive-iOS)|iOS(Swift)|iOS 多人连麦视频直播（Swift）
+[OpenLive-macOS-Objective-C](./OpenLive-macOS-Objective-C)|macOS(Objective-C)|macOS 多人连麦视频直播（Objective-C）
+[OpenLive-macOS](./OpenLive-macOS)|macOS(Swift)|macOS 多人连麦视频直播（Swift）
+[OpenLive-Windows](./OpenLive-Windows)|Windows|Windows 多人连麦视频直播
+[OpenLive-Windows-MFC](./OpenLive-Windows-MFC)|Windows(MFC)|Windows 多人连麦视频直播（MFC）
+[OpenLive-Web](./OpenLive-Web)|Web|Web 多人连麦视频直播
 
 ## 联系我们
 
