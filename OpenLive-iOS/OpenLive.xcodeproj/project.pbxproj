@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03F7A6B8246CFC7E007D61D9 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26882386594F0047E150 /* AgoraRtcKit.framework */; };
-		03F7A6B9246CFC7E007D61D9 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26882386594F0047E150 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		07130E8A1D22928200CC85D8 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07130E891D22928200CC85D8 /* KeyCenter.swift */; };
 		078012ED1D1E57730093DE24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078012EC1D1E57730093DE24 /* AppDelegate.swift */; };
 		078012EF1D1E57730093DE24 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078012EE1D1E57730093DE24 /* MainViewController.swift */; };
@@ -24,6 +22,9 @@
 		A76C267E238657850047E150 /* AGEEventsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C2679238657850047E150 /* AGEEventsObserver.swift */; };
 		A76C267F238657850047E150 /* AGEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C267A238657850047E150 /* AGEView.swift */; };
 		A76C2680238657850047E150 /* AGEVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C267B238657850047E150 /* AGEVideoContainer.swift */; };
+		A7AD0E9C24AEE040008FFD5B /* OpenLive_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AD0E9B24AEE040008FFD5B /* OpenLive_Tests.swift */; };
+		A7AD0EBB24AEE777008FFD5B /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26882386594F0047E150 /* AgoraRtcKit.framework */; };
+		A7AD0EBC24AEE777008FFD5B /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A76C26882386594F0047E150 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7C54A92230BD9C9003D65E3 /* FileCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C54A91230BD9C9003D65E3 /* FileCenter.swift */; };
 		A7C54A98230BE275003D65E3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C54A97230BE275003D65E3 /* Settings.swift */; };
 		A7C54A9A230BE487003D65E3 /* DimensionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C54A99230BE487003D65E3 /* DimensionCell.swift */; };
@@ -33,14 +34,24 @@
 		A7DEE04F232F735C00E34432 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A7DEE04E232F735C00E34432 /* README.md */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A7AD0E9E24AEE040008FFD5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 078012E11D1E57730093DE24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 078012E81D1E57730093DE24;
+			remoteInfo = OpenLive;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
-		03F7A6BA246CFC7E007D61D9 /* Embed Frameworks */ = {
+		A7AD0EBD24AEE777008FFD5B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				03F7A6B9246CFC7E007D61D9 /* AgoraRtcKit.framework in Embed Frameworks */,
+				A7AD0EBC24AEE777008FFD5B /* AgoraRtcKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,7 +72,6 @@
 		0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
 		0790F1501D1E9631003F8C18 /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		A70E3D7323A0E63400B7F68C /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A758116724078C4D007EDAD3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A758116A24078C6E007EDAD3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A758116C24078C78007EDAD3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -79,6 +89,9 @@
 		A76C267B238657850047E150 /* AGEVideoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoContainer.swift; sourceTree = "<group>"; };
 		A76C26882386594F0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A76C268F23865F4B0047E150 /* libswiftCoreML.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCoreML.tbd; path = usr/lib/swift/libswiftCoreML.tbd; sourceTree = SDKROOT; };
+		A7AD0E9924AEE040008FFD5B /* OpenLive-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OpenLive-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7AD0E9B24AEE040008FFD5B /* OpenLive_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLive_Tests.swift; sourceTree = "<group>"; };
+		A7AD0E9D24AEE040008FFD5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7C54A91230BD9C9003D65E3 /* FileCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCenter.swift; sourceTree = "<group>"; };
 		A7C54A97230BE275003D65E3 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A7C54A99230BE487003D65E3 /* DimensionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimensionCell.swift; sourceTree = "<group>"; };
@@ -94,7 +107,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03F7A6B8246CFC7E007D61D9 /* AgoraRtcKit.framework in Frameworks */,
+				A7AD0EBB24AEE777008FFD5B /* AgoraRtcKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7AD0E9624AEE040008FFD5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +147,7 @@
 			children = (
 				A7DEE04E232F735C00E34432 /* README.md */,
 				078012EB1D1E57730093DE24 /* OpenLive */,
+				A7AD0E9A24AEE040008FFD5B /* OpenLive-Tests */,
 				078012EA1D1E57730093DE24 /* Products */,
 				0745273B1E9E050C0054D2D4 /* Frameworks */,
 			);
@@ -136,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				078012E91D1E57730093DE24 /* OpenLive.app */,
+				A7AD0E9924AEE040008FFD5B /* OpenLive-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,7 +170,6 @@
 				A7C54A93230BD9D6003D65E3 /* Models */,
 				A76C2676238657850047E150 /* AGEVideoLayout */,
 				A76C2675238657670047E150 /* Supporting Files */,
-				A70E3D7323A0E63400B7F68C /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
 			sourceTree = "<group>";
@@ -174,6 +195,15 @@
 				A76C267B238657850047E150 /* AGEVideoContainer.swift */,
 			);
 			path = AGEVideoLayout;
+			sourceTree = "<group>";
+		};
+		A7AD0E9A24AEE040008FFD5B /* OpenLive-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A7AD0E9B24AEE040008FFD5B /* OpenLive_Tests.swift */,
+				A7AD0E9D24AEE040008FFD5B /* Info.plist */,
+			);
+			path = "OpenLive-Tests";
 			sourceTree = "<group>";
 		};
 		A7C54A93230BD9D6003D65E3 /* Models */ = {
@@ -221,7 +251,7 @@
 				078012E61D1E57730093DE24 /* Frameworks */,
 				078012E71D1E57730093DE24 /* Resources */,
 				A72AE10824067CD900542EA5 /* ShellScript */,
-				03F7A6BA246CFC7E007D61D9 /* Embed Frameworks */,
+				A7AD0EBD24AEE777008FFD5B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -232,13 +262,31 @@
 			productReference = 078012E91D1E57730093DE24 /* OpenLive.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A7AD0E9824AEE040008FFD5B /* OpenLive-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7AD0EA224AEE040008FFD5B /* Build configuration list for PBXNativeTarget "OpenLive-Tests" */;
+			buildPhases = (
+				A7AD0E9524AEE040008FFD5B /* Sources */,
+				A7AD0E9624AEE040008FFD5B /* Frameworks */,
+				A7AD0E9724AEE040008FFD5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A7AD0E9F24AEE040008FFD5B /* PBXTargetDependency */,
+			);
+			name = "OpenLive-Tests";
+			productName = "OpenLive-Tests";
+			productReference = A7AD0E9924AEE040008FFD5B /* OpenLive-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		078012E11D1E57730093DE24 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
@@ -252,6 +300,12 @@
 								enabled = 1;
 							};
 						};
+					};
+					A7AD0E9824AEE040008FFD5B = {
+						CreatedOnToolsVersion = 11.5;
+						DevelopmentTeam = URLGNR2V35;
+						ProvisioningStyle = Manual;
+						TestTargetID = 078012E81D1E57730093DE24;
 					};
 				};
 			};
@@ -269,6 +323,7 @@
 			projectRoot = "";
 			targets = (
 				078012E81D1E57730093DE24 /* OpenLive */,
+				A7AD0E9824AEE040008FFD5B /* OpenLive-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -282,6 +337,13 @@
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
 				078012F41D1E57730093DE24 /* Assets.xcassets in Resources */,
 				078012F21D1E57730093DE24 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7AD0E9724AEE040008FFD5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +395,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A7AD0E9524AEE040008FFD5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7AD0E9C24AEE040008FFD5B /* OpenLive_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A7AD0E9F24AEE040008FFD5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 078012E81D1E57730093DE24 /* OpenLive */;
+			targetProxy = A7AD0E9E24AEE040008FFD5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		078012F01D1E57730093DE24 /* Main.storyboard */ = {
@@ -526,6 +604,67 @@
 			};
 			name = Release;
 		};
+		A7AD0EA024AEE040008FFD5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = URLGNR2V35;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/OpenLive",
+					"$(PROJECT_DIR)/../../libs",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "OpenLive-Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "CavanSu.OpenLive-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenLive.app/OpenLive";
+			};
+			name = Debug;
+		};
+		A7AD0EA124AEE040008FFD5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = URLGNR2V35;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/OpenLive",
+					"$(PROJECT_DIR)/../../libs",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "OpenLive-Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "CavanSu.OpenLive-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenLive.app/OpenLive";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -543,6 +682,15 @@
 			buildConfigurations = (
 				078012FC1D1E57730093DE24 /* Debug */,
 				078012FD1D1E57730093DE24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7AD0EA224AEE040008FFD5B /* Build configuration list for PBXNativeTarget "OpenLive-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7AD0EA024AEE040008FFD5B /* Debug */,
+				A7AD0EA124AEE040008FFD5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

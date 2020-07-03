@@ -39,6 +39,7 @@
 		A76C2673238656ED0047E150 /* AGEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266E238656ED0047E150 /* AGEView.swift */; };
 		A76C2674238656ED0047E150 /* AGEVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C266F238656ED0047E150 /* AGEVideoContainer.swift */; };
 		A77A921D23729DEF00A44B0C /* LogoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77A921B23729DEF00A44B0C /* LogoViewController.swift */; };
+		A7AD0EC524AEE7CC008FFD5B /* OpenLive_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AD0EC424AEE7CC008FFD5B /* OpenLive_Tests.swift */; };
 		A7E4DB8E2340A4B4001C20F7 /* AGETextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DB8D2340A4B4001C20F7 /* AGETextField.swift */; };
 		A7E4DBC5234C7E65001C20F7 /* AGEConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBC2234C7E65001C20F7 /* AGEConvert.swift */; };
 		A7E4DBC6234C7E65001C20F7 /* AGEError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBC3234C7E65001C20F7 /* AGEError.swift */; };
@@ -46,6 +47,16 @@
 		A7E4DBCE234CBD9B001C20F7 /* AgoraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E4DBCD234CBD9B001C20F7 /* AgoraExtension.swift */; };
 		A7E888AA237A9B3900F0D271 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A7E888A9237A9B3900F0D271 /* README.md */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A7AD0EC724AEE7CC008FFD5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C2CFAC1D6C26F300C84349 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 07C2CFB31D6C26F300C84349;
+			remoteInfo = OpenLive;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		03F7A6C0246CFD23007D61D9 /* Embed Frameworks */ = {
@@ -96,7 +107,6 @@
 		A742402823794C0600794648 /* WindowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowItem.swift; sourceTree = "<group>"; };
 		A742402923794C0600794648 /* WindowItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowItem.xib; sourceTree = "<group>"; };
 		A76C265823854C4F0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
-		A76C265C23854C5C0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A76C266B238656ED0047E150 /* AGEVideoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoLayout.swift; sourceTree = "<group>"; };
 		A76C266C238656ED0047E150 /* AGEVideoConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoConstraints.swift; sourceTree = "<group>"; };
 		A76C266D238656ED0047E150 /* AGEEventsObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEEventsObserver.swift; sourceTree = "<group>"; };
@@ -104,6 +114,9 @@
 		A76C266F238656ED0047E150 /* AGEVideoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoContainer.swift; sourceTree = "<group>"; };
 		A7733D862407A02500483870 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		A77A921B23729DEF00A44B0C /* LogoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoViewController.swift; sourceTree = "<group>"; };
+		A7AD0EC224AEE7CC008FFD5B /* OpenLive-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OpenLive-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7AD0EC424AEE7CC008FFD5B /* OpenLive_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLive_Tests.swift; sourceTree = "<group>"; };
+		A7AD0EC624AEE7CC008FFD5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7E4DB8D2340A4B4001C20F7 /* AGETextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGETextField.swift; sourceTree = "<group>"; };
 		A7E4DBC2234C7E65001C20F7 /* AGEConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEConvert.swift; sourceTree = "<group>"; };
 		A7E4DBC3234C7E65001C20F7 /* AGEError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEError.swift; sourceTree = "<group>"; };
@@ -121,6 +134,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A7AD0EBF24AEE7CC008FFD5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -129,6 +149,7 @@
 			children = (
 				A7E888A9237A9B3900F0D271 /* README.md */,
 				07C2CFB61D6C26F300C84349 /* OpenLive */,
+				A7AD0EC324AEE7CC008FFD5B /* OpenLive-Tests */,
 				07C2CFB51D6C26F300C84349 /* Products */,
 				389D99B021885C1C00BFD852 /* Frameworks */,
 			);
@@ -138,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				07C2CFB41D6C26F300C84349 /* OpenLive.app */,
+				A7AD0EC224AEE7CC008FFD5B /* OpenLive-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,7 +172,6 @@
 				07C2CFF61D6C29A100C84349 /* Models */,
 				A7E4DB9E2341F894001C20F7 /* Supporting Files */,
 				A76C266A238656ED0047E150 /* AGEVideoLayout */,
-				A76C265C23854C5C0047E150 /* AgoraRtcKit.framework */,
 			);
 			path = OpenLive;
 			sourceTree = "<group>";
@@ -232,6 +253,15 @@
 			path = AGEVideoLayout;
 			sourceTree = "<group>";
 		};
+		A7AD0EC324AEE7CC008FFD5B /* OpenLive-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A7AD0EC424AEE7CC008FFD5B /* OpenLive_Tests.swift */,
+				A7AD0EC624AEE7CC008FFD5B /* Info.plist */,
+			);
+			path = "OpenLive-Tests";
+			sourceTree = "<group>";
+		};
 		A7E4DB9E2341F894001C20F7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,13 +293,31 @@
 			productReference = 07C2CFB41D6C26F300C84349 /* OpenLive.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A7AD0EC124AEE7CC008FFD5B /* OpenLive-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7AD0EC924AEE7CC008FFD5B /* Build configuration list for PBXNativeTarget "OpenLive-Tests" */;
+			buildPhases = (
+				A7AD0EBE24AEE7CC008FFD5B /* Sources */,
+				A7AD0EBF24AEE7CC008FFD5B /* Frameworks */,
+				A7AD0EC024AEE7CC008FFD5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A7AD0EC824AEE7CC008FFD5B /* PBXTargetDependency */,
+			);
+			name = "OpenLive-Tests";
+			productName = "OpenLive-Tests";
+			productReference = A7AD0EC224AEE7CC008FFD5B /* OpenLive-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		07C2CFAC1D6C26F300C84349 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Agora;
 				TargetAttributes = {
@@ -277,6 +325,12 @@
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
+					};
+					A7AD0EC124AEE7CC008FFD5B = {
+						CreatedOnToolsVersion = 11.5;
+						DevelopmentTeam = URLGNR2V35;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 07C2CFB31D6C26F300C84349;
 					};
 				};
 			};
@@ -294,6 +348,7 @@
 			projectRoot = "";
 			targets = (
 				07C2CFB31D6C26F300C84349 /* OpenLive */,
+				A7AD0EC124AEE7CC008FFD5B /* OpenLive-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -307,6 +362,13 @@
 				A742402B23794C0600794648 /* WindowItem.xib in Resources */,
 				A7E888AA237A9B3900F0D271 /* README.md in Resources */,
 				07C2CFBF1D6C26F300C84349 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7AD0EC024AEE7CC008FFD5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +414,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A7AD0EBE24AEE7CC008FFD5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7AD0EC524AEE7CC008FFD5B /* OpenLive_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A7AD0EC824AEE7CC008FFD5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 07C2CFB31D6C26F300C84349 /* OpenLive */;
+			targetProxy = A7AD0EC724AEE7CC008FFD5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		07C2CFBD1D6C26F300C84349 /* Main.storyboard */ = {
@@ -520,6 +598,64 @@
 			};
 			name = Release;
 		};
+		A7AD0ECA24AEE7CC008FFD5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = URLGNR2V35;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/OpenLive",
+					"$(PROJECT_DIR)/../../libs",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "OpenLive-Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "CavanSu.OpenLive-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenLive.app/Contents/MacOS/OpenLive";
+			};
+			name = Debug;
+		};
+		A7AD0ECB24AEE7CC008FFD5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = URLGNR2V35;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/OpenLive",
+					"$(PROJECT_DIR)/../../libs",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "OpenLive-Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "CavanSu.OpenLive-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenLive.app/Contents/MacOS/OpenLive";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -537,6 +673,15 @@
 			buildConfigurations = (
 				07C2CFC41D6C26F300C84349 /* Debug */,
 				07C2CFC51D6C26F300C84349 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7AD0EC924AEE7CC008FFD5B /* Build configuration list for PBXNativeTarget "OpenLive-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7AD0ECA24AEE7CC008FFD5B /* Debug */,
+				A7AD0ECB24AEE7CC008FFD5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

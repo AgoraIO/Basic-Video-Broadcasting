@@ -47,6 +47,16 @@
                ReferencedContainer = "container:OpenLive.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A7AD0EC124AEE7CC008FFD5B"
+               BuildableName = "OpenLive-Tests.xctest"
+               BlueprintName = "OpenLive-Tests"
+               ReferencedContainer = "container:OpenLive.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
