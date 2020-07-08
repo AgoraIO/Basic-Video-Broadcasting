@@ -37,7 +37,8 @@
   AppID=xxxxxxxxxxxxxxxxxxx
 
 
-然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **libs** 复制到本项目目录下（并覆盖原有旧目录）。
+然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，解压后将 **libs\include** 中的文件，复制到 **OpenLive-Windows-MFC** 下的 **sdk\include** 文件夹下（如无该文件夹需新建）。并将 **libs\x86** 下的 **dll** 和 **lib** 文件分别复制到 **sdk\dll** 和 **sdk\lib** 文件夹下。
+
 最后使用 Vs2017 打开 OpenLive.sln，编译整个解决方案即可运行
 
 **Note:**
