@@ -31,7 +31,7 @@ If you don't want to modify the code part, you can create an AppId.ini file unde
 
   #AppID=xxxxxxxxxxxxxxxxxxx
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the **sdk** to the project folder(the old one may be over written).
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the files under **libs\include**, to the project folder **OpenLive-Windows-MFC\sdk\include** （create if not exist）. Then copy the **dll** file and **lib** file under **libs\x86**, to **sdk\dll** and **sdk\lib** respectively.
 
 Finally, Open OpenLive.sln with your Vs 2013(or higher) and build all solution and run.
 
