@@ -44,7 +44,6 @@ public class LiveActivity extends RtcBaseActivity {
         roomName.setSelected(true);
         
         initUserIcon();
-
         int role = getIntent().getIntExtra(
                 io.agora.openlive.Constants.KEY_CLIENT_ROLE,
                 Constants.CLIENT_ROLE_AUDIENCE);
