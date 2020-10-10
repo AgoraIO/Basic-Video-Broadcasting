@@ -16,8 +16,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registerRtcEventHandler(this);
-        configVideo();
+        registerRtcEventHandler(this);        
         joinChannel();
     }
 
@@ -42,6 +41,12 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
         if (TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN#")) {
             token = null; // default, no token
         }
+
+        // Sets the channel profile of the Agora RtcEngine.
+        // The Agora RtcEngine differentiates channel profiles and applies different optimization algorithms accordingly. For example, it prioritizes smoothness and low latency for a video call, and prioritizes video quality for a video broadcast.
+        rtcEngine().setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
+        rtcEngine().enableVideo();
+        configVideo();
         rtcEngine().joinChannel(token, config().getChannelName(), "", 0);
     }
 
