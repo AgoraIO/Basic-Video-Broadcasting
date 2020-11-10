@@ -823,7 +823,7 @@
                                     <constraint firstAttribute="height" constant="18" id="V7W-NF-J1q"/>
                                     <constraint firstAttribute="width" constant="250" id="mms-iN-Mnn"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Pick a topic to chat" drawsBackground="YES" id="ACn-ue-gei">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" alignment="left" placeholderString="Enter a channel name" drawsBackground="YES" id="ACn-ue-gei">
                                     <font key="font" metaFont="system" size="14"/>
                                     <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>

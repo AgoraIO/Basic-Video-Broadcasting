@@ -86,7 +86,7 @@ private extension MainViewController {
         let key = NSAttributedString.Key.foregroundColor
         let color = UIColor(red: 156.0 / 255.0, green: 217.0 / 255.0, blue: 1.0, alpha: 1)
         let attributed = [key: color]
-        let attributedString = NSMutableAttributedString(string: "Pick a topic to chat", attributes: attributed)
+        let attributedString = NSMutableAttributedString(string: "Enter a channel name", attributes: attributed)
         inputTextField.attributedPlaceholder = attributedString
         
         startButton.layer.shadowOpacity = 0.3

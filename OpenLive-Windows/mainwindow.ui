@@ -169,7 +169,7 @@ font: 75 9pt &quot;微软雅黑&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>Start Live Broadcast</string>
+     <string>Start Live Streaming</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="leditRoomId">
@@ -230,7 +230,7 @@ font: 75 9pt &quot;微软雅黑&quot;;
      <set>Qt::AlignCenter</set>
     </property>
     <property name="placeholderText">
-     <string>Pick a topic to chat</string>
+     <string>Enter a channel name</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="rbLive">

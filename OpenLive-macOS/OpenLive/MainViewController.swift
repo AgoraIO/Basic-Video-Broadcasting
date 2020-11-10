@@ -120,14 +120,14 @@ private extension MainViewController {
         
         roomInputTextField.layer?.backgroundColor = NSColor.white.cgColor
         roomInputTextField.textColor = NSColor.AGDarkGray
-        roomInputTextField.setPlacehold("Pick a topic to chat", with: NSColor.AGTextGray)
+        roomInputTextField.setPlacehold("Enter a channel name", with: NSColor.AGTextGray)
         
         roomInputLineView.layer?.backgroundColor = NSColor.AGGray.cgColor
         
         joinButton.layer?.cornerRadius = 22
         joinButton.addTrackingArea(.default)
         joinButton.image = NSImage(named: "icon-join")
-        joinButton.setTitle("Start Live Broadcast", with: NSColor.white)
+        joinButton.setTitle("Start Live Streaming", with: NSColor.white)
         
         role = .audience
     }
