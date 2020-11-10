@@ -37,7 +37,7 @@
                                     <constraint firstAttribute="height" constant="49" id="C7x-W1-qoN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <state key="normal" title="Start Live Broadcast">
+                                <state key="normal" title="Start Live Streaming">
                                     <color key="titleColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>

@@ -184,7 +184,7 @@ export default function IndexCard () {
         flexDirection="column"
       >
         <FormControl className={clsx(classes.input, classes.grid)}>
-          <InputLabel htmlFor="channelName">Pick a topic to chat</InputLabel>
+          <InputLabel htmlFor="channelName">Enter a channel name</InputLabel>
           <Input
             id="channelName"
             name="channelName"
@@ -207,7 +207,7 @@ export default function IndexCard () {
             color="primary"
             className={classes.button}
           >
-            Start Live Broadcast
+            Start Live Streaming
           </Button>
         </FormControl>
       </Box>

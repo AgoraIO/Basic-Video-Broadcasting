@@ -3,8 +3,8 @@
     <string name="app_name" translatable="false">Open Live</string>
 
     <!-- Main Activity -->
-    <string name="start_broadcast_title">Start Live Broadcast</string>
-    <string name="topic_edit_hint">Pick a topic to chat</string>
+    <string name="start_broadcast_title">Start Live Streaming</string>
+    <string name="topic_edit_hint">Enter a channel name</string>
     <string name="powered_by_agora" translatable="false">Powered by agora.io</string>
     <string name="need_necessary_permissions">Necessary permissions acquired</string>
 
