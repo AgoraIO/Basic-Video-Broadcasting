@@ -33,19 +33,19 @@ class MainViewController: NSViewController {
             switch role {
             case .broadcaster:
                 broadcasterImageView.image = NSImage(named: "broadcaster-blue")
-                broadcasterBox.setTitle(" 我是主播", with: NSColor.AGTextBlue)
+                broadcasterBox.setTitle(" Host", with: NSColor.AGTextBlue)
                 broadcasterBox.state = .on
                 
-                audienceBox.setTitle(" 我是观众", with: NSColor.AGTextGray)
+                audienceBox.setTitle(" Audience", with: NSColor.AGTextGray)
                 audienceImageView.image = NSImage(named: "audience-gray")
                 audienceBox.state = .off
             case .audience:
                 broadcasterImageView.image = NSImage(named: "broadcaster-gray")
-                broadcasterBox.setTitle(" 我是主播", with: NSColor.AGTextGray)
+                broadcasterBox.setTitle(" Host", with: NSColor.AGTextGray)
                 broadcasterBox.state = .off
                 
                 audienceImageView.image = NSImage(named: "audience-blue")
-                audienceBox.setTitle(" 我是观众", with: NSColor.AGTextBlue)
+                audienceBox.setTitle(" Audience", with: NSColor.AGTextBlue)
                 audienceBox.state = .on
             }
         }
