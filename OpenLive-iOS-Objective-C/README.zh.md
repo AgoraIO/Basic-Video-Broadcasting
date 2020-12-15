@@ -52,7 +52,7 @@ iOS 系统版本升级至 14.0 版本后，用户首次使用集成了声网 iOS
 
 ### 集成 Agora 视频 SDK
 
-1. 在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中**libs**文件夹中的下列文件拷贝到本项目的 OpenLive 文件夹下。
+1. 在 [Agora.io SDK](https://docs.agora.io/cn/All/downloads?platform=All%20Platforms) 下载 **视频通话 + 直播 SDK**，解压后将其中**libs**文件夹中的下列文件拷贝到本项目的 OpenLive 文件夹下。
 
   - AgoraRtcKit.framework
   - AgoraRtcCryptoLoader.framework
