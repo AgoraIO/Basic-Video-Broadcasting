@@ -50,7 +50,7 @@
       implementation 'io.agora.rtc:full-sdk:3.0.0'
       ```
   - 手动集成：
-    - 在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**并解压，按以下对应关系将 **libs** 目录的内容复制到项目内。
+    - 在 [Agora.io SDK](https://docs.agora.io/cn/All/downloads?platform=All%20Platforms) 下载 **视频通话 + 直播 SDK**并解压，按以下对应关系将 **libs** 目录的内容复制到项目内。
       
       SDK目录|项目目录
       ---|---
