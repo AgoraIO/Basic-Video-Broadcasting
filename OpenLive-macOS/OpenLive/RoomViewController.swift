@@ -251,7 +251,9 @@ private extension RoomViewController {
     
     func configStyle(of window: NSWindow) {
         window.styleMask.insert([.fullSizeContentView, .resizable])
-        window.delegate = self
+        if window.delegate == nil {
+            window.delegate = self
+        }
         window.collectionBehavior = [.fullScreenPrimary]
 
         let minSize = CGSize(width: 1280, height: 800)
