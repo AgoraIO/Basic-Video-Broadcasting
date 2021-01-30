@@ -139,6 +139,7 @@ private extension MainViewController {
         settings.role = role
         settings.roomName = roomName
         joinButton.image = NSImage(named: "icon-join")
+        roomInputTextField.stringValue = ""
         performSegue(withIdentifier: "mainVCToRoomVC", sender: nil)
     }
 }
@@ -177,7 +178,7 @@ extension MainViewController: RoomVCDelegate {
             window.styleMask.remove(.resizable)
         }
         
-        window.delegate = nil
+        //window.delegate = nil
         window.collectionBehavior = NSWindow.CollectionBehavior()
 
         window.contentViewController = self
