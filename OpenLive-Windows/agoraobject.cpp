@@ -484,7 +484,7 @@ bool CAgoraObject::setBeautyEffectOptions(bool enabled, BeautyOptions& options)
 	return nRet == 0 ? true : false;
 }
 
-void CAgoraObject::CAgoraObject::SetDefaultParameters()
+void CAgoraObject::SetDefaultParameters()
 {
     std::map<std::string, std::string> mapStringParamsters;
     std::map<std::string, bool> mapBoolParameters;
