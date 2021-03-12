@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class VideoGridContainer extends RelativeLayout implements Runnable {
     }
 
     private void init() {
-        setBackgroundResource(R.drawable.live_room_bg);
+//        setBackgroundResource(R.drawable.live_room_bg);
         mStatMarginBottom = getResources().getDimensionPixelSize(
                 R.dimen.live_stat_margin_bottom);
         mHandler = new Handler(getContext().getMainLooper());
@@ -108,16 +109,16 @@ public class VideoGridContainer extends RelativeLayout implements Runnable {
 
         RelativeLayout.LayoutParams videoLayoutParams =
                 new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
+                        200,
+                        200);
         layout.addView(surface, videoLayoutParams);
 
         TextView text = new TextView(getContext());
         text.setId(layout.hashCode());
         RelativeLayout.LayoutParams textParams =
                 new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                        200,
+                        200);
         textParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         textParams.bottomMargin = mStatMarginBottom;
         textParams.leftMargin = STAT_LEFT_MARGIN;

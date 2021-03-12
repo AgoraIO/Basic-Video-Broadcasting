@@ -2,12 +2,6 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent">
 
-    <io.agora.openlive.ui.VideoGridContainer
-        android:id="@+id/live_video_grid_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </io.agora.openlive.ui.VideoGridContainer>
-
     <RelativeLayout
         android:id="@+id/live_room_top_layout"
         android:layout_width="match_parent"
@@ -34,8 +28,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="@dimen/live_top_layout_margin"
-            android:layout_marginStart="@dimen/live_top_layout_margin"
-            android:background="@drawable/live_name_board_bg">
+            android:layout_marginStart="@dimen/live_top_layout_margin">
             <ImageView
                 android:id="@+id/live_name_board_icon"
                 android:layout_width="@dimen/live_name_board_icon_size"
@@ -96,6 +89,24 @@
         </RelativeLayout>
     </RelativeLayout>
 
+
+    <FrameLayout
+        android:id="@+id/camera_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextureView
+            android:id="@+id/camera_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/live_video_grid_layout"
+        android:layout_width="match_parent"
+        android:background="@color/BLACK"
+        android:layout_height="200dp"
+        android:orientation="horizontal" />
     <RelativeLayout
         android:id="@+id/bottom_container"
         android:layout_width="match_parent"

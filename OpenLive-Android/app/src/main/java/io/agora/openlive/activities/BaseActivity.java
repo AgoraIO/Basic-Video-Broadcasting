@@ -1,12 +1,15 @@
 package io.agora.openlive.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.serenegiant.utils.HandlerThreadHandler;
 
 import io.agora.openlive.AgoraApplication;
 import io.agora.openlive.rtc.EventHandler;
@@ -19,6 +22,9 @@ import io.agora.rtc.RtcEngine;
 public abstract class BaseActivity extends AppCompatActivity implements EventHandler {
     protected DisplayMetrics mDisplayMetrics = new DisplayMetrics();
     protected int mStatusBarHeight;
+    private Handler mWorkerHandler;
+    private long mWorkerThreadID = -1;
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,26 @@ public abstract class BaseActivity extends AppCompatActivity implements EventHan
         setGlobalLayoutListener();
         getDisplayMetrics();
         initStatusBarHeight();
+        if (mWorkerHandler == null) {
+            mWorkerHandler = HandlerThreadHandler.createHandler(TAG);
+            mWorkerThreadID = mWorkerHandler.getLooper().getThread().getId();
+        }
+    }
+
+    protected final synchronized void queueEvent(final Runnable task, final long delayMillis) {
+        if ((task == null) || (mWorkerHandler == null)) return;
+        try {
+            mWorkerHandler.removeCallbacks(task);
+            if (delayMillis > 0) {
+                mWorkerHandler.postDelayed(task, delayMillis);
+            } else if (mWorkerThreadID == Thread.currentThread().getId()) {
+                task.run();
+            } else {
+                mWorkerHandler.post(task);
+            }
+        } catch (final Exception e) {
+            // ignore
+        }
     }
 
     private void setGlobalLayoutListener() {

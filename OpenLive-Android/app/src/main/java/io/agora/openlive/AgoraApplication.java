@@ -3,6 +3,7 @@ package io.agora.openlive;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.openlive.rtc.EngineConfig;
 import io.agora.openlive.rtc.AgoraEventHandler;
 import io.agora.openlive.rtc.EventHandler;
@@ -16,6 +17,7 @@ public class AgoraApplication extends Application {
     private EngineConfig mGlobalConfig = new EngineConfig();
     private AgoraEventHandler mHandler = new AgoraEventHandler();
     private StatsManager mStatsManager = new StatsManager();
+    private CameraVideoManager videoManager;
 
     @Override
     public void onCreate() {
@@ -42,6 +44,7 @@ public class AgoraApplication extends Application {
         mGlobalConfig.setMirrorLocalIndex(pref.getInt(Constants.PREF_MIRROR_LOCAL, 0));
         mGlobalConfig.setMirrorRemoteIndex(pref.getInt(Constants.PREF_MIRROR_REMOTE, 0));
         mGlobalConfig.setMirrorEncodeIndex(pref.getInt(Constants.PREF_MIRROR_ENCODE, 0));
+        videoManager = new CameraVideoManager(getApplicationContext());
     }
 
     public EngineConfig engineConfig() {
@@ -68,5 +71,9 @@ public class AgoraApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         RtcEngine.destroy();
+    }
+
+    public CameraVideoManager videoManager() {
+        return videoManager;
     }
 }

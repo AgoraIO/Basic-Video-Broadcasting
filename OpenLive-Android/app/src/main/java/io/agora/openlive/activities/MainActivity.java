@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
     private String[] PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
+            Manifest.permission.GET_TASKS,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
@@ -278,6 +280,13 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         removeLayoutObserverForSoftKeyboard();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        checkPermission();
+        mStartBtn.requestFocus();
+        return super.onKeyDown(keyCode, event);
     }
 
     private void removeLayoutObserverForSoftKeyboard() {

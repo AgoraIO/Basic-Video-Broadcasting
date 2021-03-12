@@ -17,6 +17,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://raw.githubusercontent.com/saki4510t/libcommon/master/repository/' }
     }
 }
 

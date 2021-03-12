@@ -3,9 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "io.agora.openlive"
-        minSdkVersion 16 // JELLY_BEAN
+        minSdkVersion 19 // JELLY_BEAN
         targetSdkVersion 29
         versionCode 10
         versionName "3.0.0"
@@ -32,12 +37,16 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    api fileTree(dir: 'libs', include: ['*.aar'])
+//    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'io.agora.rtc:full-sdk:3.1.2'
-
+    implementation 'io.agora.rtc:full-sdk:3.3.0'
+    implementation "com.android.support:support-v4:27.1.1"
+    implementation "com.android.support:support-annotations:27.1.1"
+    implementation("com.serenegiant:common:2.12.4") {
+        exclude module: 'support-v4'
+    }
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
