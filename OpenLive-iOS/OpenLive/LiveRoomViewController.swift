@@ -304,6 +304,14 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         
         let userSession = videoSession(of: uid)
         userSession.updateInfo(resolution: size)
+    }
+
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        guard videoSessions.count <= maxVideoSession else {
+            return
+        }
+
+        let userSession = videoSession(of: uid)
         agoraKit.setupRemoteVideo(userSession.canvas)
     }
     
