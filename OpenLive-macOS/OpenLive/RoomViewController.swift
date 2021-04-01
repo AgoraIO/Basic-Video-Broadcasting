@@ -440,7 +440,7 @@ private extension RoomViewController {
                                         rectangle: CGRect.zero,
                                         parameters: AgoraScreenCaptureParameters())
         }
-        videoSessions.first?.hostingView.switchToScreenShare(windowId == 0 || window.name == "Agora Video Call" || window.name == "Full Screen")
+        videoSessions.first?.hostingView.switchToScreenShare(windowId == 0 || window.name == "OpenLive" || window.name == "Full Screen")
     }
     
     func stopShareWindow() {
@@ -485,6 +485,10 @@ extension RoomViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
         let userSession = videoSession(of: uid)
         userSession.updateInfo(resolution: size)
+    }
+
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        let userSession = videoSession(of: uid)
         agoraKit.setupRemoteVideo(userSession.canvas)
     }
     
