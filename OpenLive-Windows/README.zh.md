@@ -37,6 +37,9 @@
 
 **注意：** 如果代码里指定了appid就不会使用ini文件的appid。
 
+> 为提高项目的安全性，Agora 使用 Token（动态密钥）对即将加入频道的用户进行鉴权。
+>
+> 临时 Token 仅作为演示和测试用途。在生产环境中，你需要自行部署服务器签发 Token，详见[生成 Token](https://docs.agora.io/cn/Interactive Broadcast/token_server)。
 
 ## 联系我们
 

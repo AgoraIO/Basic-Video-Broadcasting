@@ -31,6 +31,10 @@ If you don't want to modify the code part, you can create an AppId.ini file unde
 
   #AppID=xxxxxxxxxxxxxxxxxxx
 
+> To ensure communication security, Agora uses tokens (dynamic keys) to authenticate users joining a channel.
+>
+> Temporary tokens are for demonstration and testing purposes only and remain valid for 24 hours. In a production environment, you need to deploy your own server for generating tokens. See [Generate a Token](https://docs.agora.io/en/Interactive Broadcast/token_server)for details.
+
 Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the files under **libs\include**, to the project folder **OpenLive-Windows-MFC\sdk\include** （create if not exist）. Then copy the **dll** file and **lib** file under **libs\x86**, to **sdk\dll** and **sdk\lib** respectively.
 
 Finally, Open OpenLive.sln with your Vs 2013(or higher) and build all solution and run.
@@ -39,7 +43,7 @@ Note：
   1. After the program is compiled, if the program "xxx\xxx\xxx\Debug\Language\English.dll" cannot be started when running the program, 
       please select the OpenLive project in the Solution Explorer and right click. In the pop-up menu bar, select "Set as startup project" to solve. Then run the program again.
   2. You may encounter crash when running this demo under debug mode. Please run this demo under release mode.
-  
+
 ## Contact Us
 
 - For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
