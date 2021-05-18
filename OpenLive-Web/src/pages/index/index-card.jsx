@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import useRouter from '../../utils/use-router'
 import { Link } from 'react-router-dom'
-import AgoraRTC from 'agora-rtc-sdk'
+import AgoraRTC from 'agora-rtc-sdk-ng'
 
 const CustomRadio = withStyles({
   root: {
@@ -128,7 +128,7 @@ export default function IndexCard () {
 
   const handleClick = () => {
     if (!stateCtx.config.channelName) {
-      mutationCtx.toastError('You need enter the topic')
+      mutationCtx.toastError('You need enter the channel name')
       return
     }
 

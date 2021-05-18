@@ -30,8 +30,9 @@ export default function useDevices () {
 
   useEffect(() => {
     if (cameraList.length > 0 || microphoneList.length > 0) return
-    client.getDevices().then((devices) => {
-      mutationCtx.setDevicesList(devices)
+
+    client.getDevices().then((datas) => {
+      mutationCtx.setDevicesList(datas)
     })
     return () => {
       client.destroy()

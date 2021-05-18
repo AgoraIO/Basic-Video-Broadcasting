@@ -107,9 +107,9 @@ export const ContainerProvider = ({ children }) => {
       const { uid } = evt
       dispatch({ type: 'removeStream', uid: uid })
     },
-    connectionStateChanged (evt) {
-      methods.toastInfo(`${evt.curState}`)
-    },
+    connectionStateChanged (curState, revState) {
+      methods.toastInfo(`${curState}`)
+    }
     // enableBeauty(enable) {
     //   dispatch({type: 'enableBeauty', enable});
     // }

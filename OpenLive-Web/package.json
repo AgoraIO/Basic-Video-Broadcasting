@@ -2,7 +2,6 @@
   "name": "openlive-web",
   "version": "3.0.2",
   "private": true,
-  "homepage": ".",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -16,7 +15,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
-    "agora-rtc-sdk": "3.0.2",
+    "agora-rtc-sdk-ng": "^4.4.0",
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",

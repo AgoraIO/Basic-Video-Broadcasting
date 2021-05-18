@@ -2,27 +2,31 @@ import React, { useMemo, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 StreamPlayer.propTypes = {
-  stream: PropTypes.object
+  uid: PropTypes.string.isRequired
 }
 
 export default function StreamPlayer (props) {
-  const { stream, domId, uid } = props
+  const { uid, isLocal, videoTrack, audioTrack, muteVideo, muteAudio, showInfo, rtcClient } = props
 
-  const [resume, changeResume] = useState(false)
-
-  const [autoplay, changeAutoplay] = useState(false)
-
-  const handleClick = () => {
-    if (autoplay && !resume) {
-      stream.resume()
-      changeResume(true)
+  useMemo(() => {
+    if (videoTrack != null) {
+      if (muteVideo == true) {
+        videoTrack.stop()
+      } else if (muteVideo == false) {
+        videoTrack.play(`stream-player-${uid}`)
+      }
     }
-  }
+  }, [muteVideo, videoTrack])
 
-  const handleDoubleClick = (evt) => {
-    evt.stopPropagation()
-    props.onDoubleClick(stream)
-  }
+  useMemo(() => {
+    if (videoTrack != null) {
+      if (muteAudio == true) {
+        audioTrack.stop()
+      } else if (muteAudio == false) {
+        audioTrack.play()
+      }
+    }
+  }, [muteAudio, audioTrack])
 
   const [state, setState] = useState({
     accessDelay: 0,
@@ -34,66 +38,50 @@ export default function StreamPlayer (props) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      stream.getStats((stats) => {
-        const width = props.local
-          ? stats.videoSendResolutionWidth
-          : stats.videoReceiveResolutionWidth
-        const height = props.local
-          ? stats.videoSendResolutionHeight
-          : stats.videoReceiveResolutionHeight
-        const fps = props.local
-          ? stats.videoSendFrameRate
-          : stats.videoReceiveFrameRate
+      if (isLocal) {
+        const stats = rtcClient.getLocalVideoStats()
+        const width = stats.captureResolutionWidth
+        const height = stats.captureResolutionHeight
+        const fps = stats.captureFrameRate
         setState({
           accessDelay: `${stats.accessDelay ? stats.accessDelay : 0}`,
           resolution: `${width}x${height}`,
           fps: `${fps || 0}`
         })
-      })
+      } else {
+        const stats = rtcClient.getRemoteVideoStats()
+        const width = stats.captureResolutionWidth
+        const height = stats.captureResolutionHeight
+        const fps = stats.captureFrameRate
+        setState({
+          accessDelay: `${stats.accessDelay ? stats.accessDelay : 0}`,
+          resolution: `${width}x${height}`,
+          fps: `${fps || 0}`
+        })
+      }
     }, 500)
 
     return () => {
       clearInterval(timer)
     }
-  }, [props.local, stream])
-
-  const lockPlay = React.useRef(false)
-
-  useEffect(() => {
-    if (!stream || stream.isPlaying()) return
-    lockPlay.current = true
-    stream.play(domId, { fit: 'cover' }, (errState) => {
-      if (errState && errState.status !== 'aborted') {
-        console.log('stream-player play failed ', domId)
-        changeAutoplay(true)
-      }
-      lockPlay.current = false
-    })
-    return () => {
-      if (stream.isPlaying()) {
-        stream.stop()
-      }
-    }
-  }, [stream, domId])
+  }, [isLocal, rtcClient])
 
   return (
     <div
-      className={`stream-player ${autoplay ? 'autoplay' : ''}`}
-      id={domId}
-      onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
+      className={'stream-player'}
+      id={`stream-player-${uid}`}
     >
       {props.children}
-      {props.showProfile ? (
-        <div className={props.className}>
-          <span>SD-RTN delay: {analytics.accessDelay}ms</span>
-          <span>
-            Video: {analytics.fps}fps {analytics.resolution}
-          </span>
+      {showInfo ? (
+        <div>
+          <div className={props.className}>
+            <span>SD-RTN delay: {analytics.accessDelay}ms</span>
+            <span>
+              Video: {analytics.fps}fps {analytics.resolution}
+            </span>
+          </div>
+          <div className="stream-uid">UID: {uid}</div>
         </div>
-      ) : null}
-      {props.showUid && uid ? (
-        <div className="stream-uid">UID: {uid}</div>
       ) : null}
     </div>
   )

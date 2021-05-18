@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import { useGlobalState, useGlobalMutation } from '../utils/container'
 import { makeStyles } from '@material-ui/core/styles'
 import useRouter from '../utils/use-router'
-import useStream from '../utils/use-stream'
 import RTCClient from '../rtc-client'
 import Tooltip from '@material-ui/core/Tooltip'
 import StreamPlayer from './meeting/stream-player'
+import StreamMenu from './meeting/stream-menu'
 
 const useStyles = makeStyles({
   menu: {
@@ -51,17 +51,52 @@ const MeetingPage = () => {
   const routerCtx = useRouter()
   const stateCtx = useGlobalState()
   const mutationCtx = useGlobalMutation()
-  
+
+  const onUserPublished = (remoteUser, mediaType) => {
+    // remoteUser:
+    // mediaType: "audio" | "video" | "all"
+    localClient.subscribe(remoteUser)
+      .then(mRemoteTrack => {
+
+      })
+      .catch(err => {
+        mutationCtx.toastError(
+          `stream ${remoteUser.getId()} subscribe failed: ${err}`
+        )
+      })
+
+    if (mediaType === 'video' || mediaType === 'all') {
+
+    }
+
+    if (mediaType === 'audio' || mediaType === 'all') {
+
+    }
+  }
+
+  const onUserUnPublished = (remoteUser, mediaType) => {
+    // remoteUser:
+    // mediaType: "audio" | "video" | "all"
+    if (mediaType === 'video' || mediaType === 'all') {
+
+    }
+
+    if (mediaType === 'audio' || mediaType === 'all') {
+
+    }
+  }
+
   const localClient = useMemo(() => {
     const client = new RTCClient()
-    if (!client._created) {
-      client.createClient({ codec: stateCtx.codec, mode: stateCtx.mode })
-      client._created = true
-    }
+    client.createClient({ codec: stateCtx.codec, mode: stateCtx.mode })
+
+    client.on('connection-state-change', mutationCtx.connectionStateChanged)
+    client.on('user-published', onUserPublished)
+    client.on('user-unpublished', onUserUnPublished)
+
     return client
   }, [stateCtx.codec, stateCtx.mode])
 
-  const [localStream, currentStream] = useStream(localClient)
   const [muteVideo, setMuteVideo] = useState(stateCtx.muteVideo)
   const [muteAudio, setMuteAudio] = useState(stateCtx.muteAudio)
 
@@ -74,7 +109,7 @@ const MeetingPage = () => {
       resolution: stateCtx.config.resolution,
       muteVideo: muteVideo,
       muteAudio: muteAudio,
-      uid: stateCtx.uid,
+      uid: stateCtx.config.uid,
       host: stateCtx.config.host
       // beauty: stateCtx.beauty
     }
@@ -101,23 +136,42 @@ const MeetingPage = () => {
     if (
       config.channel &&
       localClient._created &&
-      localClient._joined === false
+      localClient._joined == false &&
+      localClient._leave == false
     ) {
+      localClient.setClientRole(config.host ? 'host' : 'audience')
       localClient
         .join(config)
         .then((uid) => {
           if (config.host) {
-            localClient.publish()
+            localClient.startLive(config.microphoneId, config.cameraId)
+              .then(() => {
+
+              })
           }
           mutationCtx.updateConfig({ uid })
           mutationCtx.stopLoading()
         })
         .catch((err) => {
-          mutationCtx.toastError(`Media ${err.info}`)
+          mutationCtx.toastError(`join error: ${err.info}`)
           routerCtx.history.push('/')
         })
     }
   }, [localClient, mutationCtx, config, routerCtx])
+
+  const toggleVideo = () => {
+    setMuteVideo(!muteVideo)
+    console.debug('toggleVideo')
+  }
+
+  const toggleAudio = () => {
+    setMuteAudio(!muteAudio)
+    console.debug('toggleAudio')
+  }
+
+  const toggleShareScreen = () => {
+
+  }
 
   const handleClick = (name) => {
     return (evt) => {
@@ -125,59 +179,59 @@ const MeetingPage = () => {
       switch (name) {
         case 'video': {
           muteVideo
-            ? localStream.muteVideo()
-            : localStream.unmuteVideo()
+            ? localClient.mLocalVideoTrack.play(`stream-player-${localClient.uid}`)
+            : localClient.mLocalVideoTrack.stop()
           setMuteVideo(!muteVideo)
           break
         }
         case 'audio': {
           muteAudio
-            ? localStream.muteAudio()
-            : localStream.unmuteAudio()
+            ? localClient.mLocalAudioTrack.play()
+            : localClient.mLocalAudioTrack.stop()
           setMuteAudio(!muteAudio)
           break
         }
-        case 'screen': {
-          if (stateCtx.screen) {
-            localClient
-              .createRTCStream({
-                token: null,
-                channel: stateCtx.config.channelName,
-                microphoneId: stateCtx.config.microphoneId,
-                resolution: stateCtx.config.resolution,
-                muteVideo: muteVideo,
-                muteAudio: muteAudio
-                // beauty: stateCtx.beauty,
-              })
-              .then(() => {
-                localClient.publish()
-                mutationCtx.setScreen(false)
-              })
-              .catch((err) => {
-                console.log(err)
-                mutationCtx.toastError(`Media ${err.info}`)
-                routerCtx.history.push('/')
-              })
-          } else {
-            localClient
-              .createScreenSharingStream({
-                token: null,
-                channel: stateCtx.config.channelName,
-                microphoneId: stateCtx.config.microphoneId,
-                cameraId: stateCtx.config.cameraId,
-                resolution: stateCtx.config.resolution
-              })
-              .then(() => {
-                localClient.publish()
-                mutationCtx.setScreen(true)
-              })
-              .catch((err) => {
-                console.log(err)
-                mutationCtx.toastError(`Media ${err.info}`)
-              })
-          }
-          break
-        }
+        // case 'screen': {
+        //   if (stateCtx.screen) {
+        //     localClient
+        //       .createRTCStream({
+        //         token: null,
+        //         channel: stateCtx.config.channelName,
+        //         microphoneId: stateCtx.config.microphoneId,
+        //         resolution: stateCtx.config.resolution,
+        //         muteVideo: muteVideo,
+        //         muteAudio: muteAudio
+        //         // beauty: stateCtx.beauty,
+        //       })
+        //       .then(() => {
+        //         localClient.publish()
+        //         mutationCtx.setScreen(false)
+        //       })
+        //       .catch((err) => {
+        //         console.log(err)
+        //         mutationCtx.toastError(`Media ${err.info}`)
+        //         routerCtx.history.push('/')
+        //       })
+        //   } else {
+        //     localClient
+        //       .createScreenSharingStream({
+        //         token: null,
+        //         channel: stateCtx.config.channelName,
+        //         microphoneId: stateCtx.config.microphoneId,
+        //         cameraId: stateCtx.config.cameraId,
+        //         resolution: stateCtx.config.resolution
+        //       })
+        //       .then(() => {
+        //         localClient.publish()
+        //         mutationCtx.setScreen(true)
+        //       })
+        //       .catch((err) => {
+        //         console.log(err)
+        //         mutationCtx.toastError(`Media ${err.info}`)
+        //       })
+        //   }
+        //   break
+        // }
         case 'profile': {
           break
         }
@@ -187,15 +241,22 @@ const MeetingPage = () => {
     }
   }
 
-  const handleDoubleClick = (stream) => {
-    mutationCtx.setCurrentStream(stream)
+  const doLeave = () => {
+    localClient.leave().then(() => {
+      localClient.stopLive()
+      localClient.destroy()
+      mutationCtx.clearAllStream()
+      // mutationCtx.resetState()
+      routerCtx.history.push('/')
+    })
   }
 
   const otherStreams = useMemo(() => {
     return stateCtx.streams.filter(
-      (it) => it.getId() !== currentStream.getId()
+      (it) => true
+      // (it) => it.getId() !== currentStream.getId()
     )
-  }, [stateCtx.streams, currentStream])
+  }, [stateCtx.streams])
 
   return (
     <div className="meeting">
@@ -209,81 +270,42 @@ const MeetingPage = () => {
           <Tooltip title="quit">
             <div
               className="quit"
-              onClick={() => {
-                localClient.leave().then(() => {
-                  mutationCtx.clearAllStream()
-                  // mutationCtx.resetState()
-                  routerCtx.history.push('/')
-                })
-              }}
+              onClick={doLeave}
             ></div>
           </Tooltip>
         </div>
-        {currentStream ? (
-          <StreamPlayer
-            className={'main-stream-profile'}
-            showProfile={stateCtx.profile}
-            local={
-              config.host
-                ? currentStream &&
-                  localStream &&
-                  currentStream.getId() === localStream.getId()
-                : false
-            }
-            stream={currentStream}
-            onDoubleClick={handleDoubleClick}
-            uid={currentStream.getId()}
-            domId={`stream-player-${currentStream.getId()}`}
-          >
-            <div className={classes.menuContainer}>
-              {config.host && (
-                <div className={classes.menu}>
-                  <Tooltip title={muteVideo ? 'mute-video' : 'unmute-video'}>
-                    <i
-                      onClick={handleClick('video')}
-                      className={clsx(
-                        classes.customBtn,
-                        muteVideo ? 'mute-video' : 'unmute-video'
-                      )}
-                    />
-                  </Tooltip>
-                  <Tooltip title={muteAudio ? 'mute-audio' : 'unmute-audio'}>
-                    <i
-                      onClick={handleClick('audio')}
-                      className={clsx(
-                        classes.customBtn,
-                        muteAudio ? 'mute-audio' : 'unmute-audio'
-                      )}
-                    />
-                  </Tooltip>
-                  <Tooltip title={stateCtx.screen ? 'stop-screen-share' : 'start-screen-share'}>
-                    <i
-                      onClick={handleClick('screen')}
-                      className={clsx(
-                        classes.customBtn,
-                        stateCtx.screen
-                          ? 'start-screen-share'
-                          : 'stop-screen-share'
-                      )}
-                    />
-                  </Tooltip>
-                  
-                  {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
-                </div>
-              )}
-            </div>
-          </StreamPlayer>
-        ) : null}
+        <StreamPlayer
+          className={'main-stream-profile'}
+          uid={stateCtx.config.uid}
+          isLocal={true}
+          videoTrack={localClient.mLocalVideoTrack}
+          audioTrack={localClient.mLocalAudioTrack}
+          muteAudio={muteAudio}
+          muteVideo={muteVideo}
+          showInfo={stateCtx.profile}
+          rtcClient={localClient._client}
+        >
+          <StreamMenu
+            muteAudio={muteAudio}
+            muteVideo={muteVideo}
+            toggleVideo={toggleVideo}
+            toggleAudio={toggleAudio}
+            toggleShareScreen={toggleShareScreen}
+          />
+        </StreamPlayer>
         <div className="stream-container">
-          {stateCtx.otherStreams.map((stream, index) => (
+          {/* {stateCtx.otherStreams.map((stream, index) => (
             <StreamPlayer
               className={'stream-profile'}
+              uid={stateCtx.config.uid}
+              videoTrack={localClient.mLocalVideoTrack}
+              audioTrack={localClient.mLocalAudioTrack}
+              muteAudio={muteAudio}
+              muteVideo={muteVideo}
+              showInfo={stateCtx.profile}
+
               showProfile={stateCtx.profile}
-              local={
-                config.host
-                  ? stream.getId() === localStream && localStream.getId()
-                  : false
-              }
+              local={false}
               key={`${index}${stream.getId()}`}
               stream={stream}
               isPlaying={stream.isPlaying()}
@@ -292,7 +314,7 @@ const MeetingPage = () => {
               onDoubleClick={handleDoubleClick}
               showUid={true}
             ></StreamPlayer>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

@@ -29,11 +29,10 @@ const defaultState = {
   agoraClient: null,
   mode: 'live',
   codec: 'vp8',
-  muteVideo: true,
-  muteAudio: true,
+  muteVideo: false,
+  muteAudio: false,
   screen: false,
   profile: false
-  // beauty: false
 }
 
 const reducer = (state, action) => {

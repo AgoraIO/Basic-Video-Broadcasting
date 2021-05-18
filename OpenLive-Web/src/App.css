@@ -240,7 +240,7 @@ body {
 }
 
 .mute-video {
-  background-image: url("./assets/icon-camera.png");
+  background-image: url("./assets/icon-camera-off.png");
 }
 
 .mute-video:hover {
@@ -249,7 +249,7 @@ body {
 }
 
 .unmute-video {
-  background-image: url("./assets/icon-camera-off.png");
+  background-image: url("./assets/icon-camera.png");
 }
 
 .unmute-video:hover {
@@ -258,7 +258,7 @@ body {
 }
 
 .mute-audio {
-  background-image: url("./assets/icon-microphone.png");
+  background-image: url("./assets/icon-microphone-off.png");
 }
 
 .mute-audio:hover {
@@ -267,7 +267,7 @@ body {
 }
 
 .unmute-audio {
-  background-image: url("./assets/icon-microphone-off.png");
+  background-image: url("./assets/icon-microphone.png");
 }
 
 .unmute-audio:hover {

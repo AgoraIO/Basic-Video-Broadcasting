@@ -26,3 +26,5 @@ package-lock.json
 .env
 OpenLive-Web/
 .eslintcache
+
+yarn.lock
