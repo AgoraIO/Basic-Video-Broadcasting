@@ -14,11 +14,8 @@ export default class RTCClient {
     this._leave = false
     this.mLocalAudioTrack = null
     this.mLocalVideoTrack = null
-    this._params = {}
     this._uid = 0
     this._eventBus = new EventEmitter()
-    this._showProfile = false
-    this._subscribed = false
     this._created = false
   }
 
@@ -35,13 +32,6 @@ export default class RTCClient {
     this._client = AgoraRTC.createClient(config)
     this._created = true
     return this._client
-  }
-
-  closeStream () {
-    // if (this._localStream.isPlaying()) {
-    //   this._localStream.stop()
-    // }
-    // this._localStream.close()
   }
 
   destroy () {
@@ -63,16 +53,6 @@ export default class RTCClient {
     return new Promise((resolve, reject) => {
       console.debug('startLive()')
 
-      if (this.mLocalAudioTrack) {
-        this.mLocalAudioTrack.stop()
-        this.mLocalAudioTrack.close()
-      }
-
-      if (this.mLocalVideoTrack) {
-        this.mLocalVideoTrack.stop()
-        this.mLocalVideoTrack.close()
-      }
-
       AgoraRTC.createMicrophoneAndCameraTracks({ microphoneId: microphoneId }, { cameraId: cameraId })
         .then((tracks) => {
           this.mLocalAudioTrack = tracks[0]
@@ -90,129 +70,67 @@ export default class RTCClient {
   stopLive () {
     console.debug('stopLive()')
 
-    this._client.unpublish([this.mLocalAudioTrack, this.mLocalVideoTrack])
-
     if (this.mLocalAudioTrack) {
+      this._client.unpublish(this.mLocalAudioTrack)
+
       this.mLocalAudioTrack.stop()
       this.mLocalAudioTrack.close()
       this.mLocalAudioTrack = null
     }
 
     if (this.mLocalVideoTrack) {
+      this._client.unpublish(this.mLocalVideoTrack)
+
       this.mLocalVideoTrack.stop()
       this.mLocalVideoTrack.close()
       this.mLocalVideoTrack = null
     }
   }
 
-  createRTCStream (data) {
-    // return new Promise((resolve, reject) => {
-    //   this._uid = this._localStream ? this._localStream.getId() : data.uid
-    //   if (this._localStream) {
-    //     this.unpublish()
-    //     this.closeStream()
-    //   }
-    //   // create rtc stream
-    //   const rtcStream = AgoraRTC.createStream({
-    //     streamID: this._uid,
-    //     audio: true,
-    //     video: true,
-    //     screen: false,
-    //     microphoneId: data.microphoneId,
-    //     cameraId: data.cameraId
-    //   })
+  async startShareScrren () {
+    [this.mLocalAudioTrack, this.mLocalVideoTrack] = await Promise.all([
+      AgoraRTC.createMicrophoneAudioTrack(),
+      AgoraRTC.createScreenVideoTrack()
+    ])
 
-    //   if (data.resolution && data.resolution !== 'default') {
-    //     rtcStream.setVideoProfile(data.resolution)
-    //   }
+    if (this.mLocalAudioTrack) {
+      this._client.publish(this.mLocalAudioTrack)
+    }
 
-    //   // init local stream
-    //   rtcStream.init(
-    //     () => {
-    //       this._localStream = rtcStream
-    //       this._eventBus.emit('localStream-added', {
-    //         stream: this._localStream
-    //       })
-    //       if (data.muteVideo === false) {
-    //         this._localStream.muteVideo()
-    //       }
-    //       if (data.muteAudio === false) {
-    //         this._localStream.muteAudio()
-    //       }
-    //       // if (data.beauty === true) {
-    //       //   this._localStream.setBeautyEffectOptions(true, {
-    //       //     lighteningContrastLevel: 1,
-    //       //     lighteningLevel: 0.7,
-    //       //     smoothnessLevel: 0.5,
-    //       //     rednessLevel: 0.1
-    //       //   })
-    //       //   this._enableBeauty = true;
-    //       // }
-    //       resolve()
-    //     },
-    //     (err) => {
-    //       reject(err)
-    //       // Toast.error("stream init failed, please open console see more detail");
-    //       console.error('init local stream failed ', err)
-    //     }
-    //   )
-    // })
+    if (this.mLocalVideoTrack) {
+      this._client.publish(this.mLocalVideoTrack)
+    }
   }
 
-  createScreenSharingStream (data) {
-    // return new Promise((resolve, reject) => {
-    //   // create screen sharing stream
-    //   this._uid = this._localStream ? this._localStream.getId() : data.uid
-    //   if (this._localStream) {
-    //     this._uid = this._localStream.getId()
-    //     this.unpublish()
-    //   }
-    //   const screenSharingStream = AgoraRTC.createStream({
-    //     streamID: this._uid,
-    //     audio: true,
-    //     video: false,
-    //     screen: true,
-    //     microphoneId: data.microphoneId,
-    //     cameraId: data.cameraId
-    //   })
+  stopShareScrren () {
+    console.debug('stopShareScrren()')
 
-    //   if (data.resolution && data.resolution !== 'default') {
-    //     screenSharingStream.setScreenProfile(`${data.resolution}_1`)
-    //   }
+    if (this.mLocalAudioTrack) {
+      this._client.unpublish(this.mLocalAudioTrack)
 
-    //   screenSharingStream.on('stopScreenSharing', (evt) => {
-    //     this._eventBus.emit('stopScreenSharing', evt)
-    //     this.closeStream()
-    //     this.unpublish()
-    //   })
+      this.mLocalAudioTrack.stop()
+      this.mLocalAudioTrack.close()
+      this.mLocalAudioTrack = null
+    }
 
-    //   // init local stream
-    //   screenSharingStream.init(
-    //     () => {
-    //       this.closeStream()
-    //       this._localStream = screenSharingStream
+    if (this.mLocalVideoTrack) {
+      this._client.unpublish(this.mLocalVideoTrack)
 
-    //       // run callback
-    //       this._eventBus.emit('localStream-added', {
-    //         stream: this._localStream
-    //       })
-    //       resolve()
-    //     },
-    //     (err) => {
-    //       this.publish()
-    //       reject(err)
-    //     }
-    //   )
-    // })
+      this.mLocalVideoTrack.stop()
+      this.mLocalVideoTrack.close()
+      this.mLocalVideoTrack = null
+    }
   }
 
-  subscribe (stream) {
+  subscribe (user, mediaType) {
     return new Promise((resolve, reject) => {
-      console.debug('subscribe()')
-
-      this._client.subscribe(stream)
+      this._client.subscribe(user, mediaType)
         .then(mRemoteTrack => {
+          console.debug(`subscribe success user=${user.uid}, mediaType=${mediaType}`)
           resolve(mRemoteTrack)
+        })
+        .catch(e => {
+          console.debug(`subscribe error user=${user.uid}, mediaType=${mediaType}`)
         })
     })
   }
@@ -228,11 +146,13 @@ export default class RTCClient {
       if (this.mLocalAudioTrack) {
         this.mLocalAudioTrack.stop()
         this.mLocalAudioTrack.close()
+        this.mLocalAudioTrack = null
       }
 
       if (this.mLocalVideoTrack) {
         this.mLocalVideoTrack.stop()
         this.mLocalVideoTrack.close()
+        this.mLocalVideoTrack = null
       }
 
       AgoraRTC.createMicrophoneAndCameraTracks()
@@ -246,11 +166,13 @@ export default class RTCClient {
             if (this.mLocalAudioTrack) {
               this.mLocalAudioTrack.stop()
               this.mLocalAudioTrack.close()
+              this.mLocalAudioTrack = null
             }
 
             if (this.mLocalVideoTrack) {
               this.mLocalVideoTrack.stop()
               this.mLocalVideoTrack.close()
+              this.mLocalVideoTrack = null
             }
           })
         })
@@ -260,43 +182,27 @@ export default class RTCClient {
     })
   }
 
-  setStreamFallbackOption (stream, type) {
-    // this._client.setStreamFallbackOption(stream, type)
-  }
-
-  enableDualStream () {
-    // return new Promise((resolve, reject) => {
-    //   this._client.enableDualStream(resolve, reject)
-    // })
-  }
-
-  setRemoteVideoStreamType (stream, streamType) {
-    // this._client.setRemoteVideoStreamType(stream, streamType)
-  }
-
-  join (data) {
+  join (channel, token) {
     return new Promise((resolve, reject) => {
       if (this._joined == true) {
-        resolve(data.uid)
+        resolve(this._uid)
         return
       }
 
       this._joined = true
       this._leave = false
       this._uid = 0
-      console.debug('join appID: ' + appID + ',channel: ' + data.channel)
+      console.debug('join appID: ' + appID + ',channel: ' + channel)
 
-      this._params = data
-      this._client.join(appID, data.channel, data.token ? data.token : null).then(uid => {
-        this._uid = uid
-
+      this._client.join(appID, channel, token || null).then(uid => {
         console.debug(
-          'join success, channel: ' + data.channel + ', uid: ' + uid
+          'join success, channel: ' + channel + ', uid: ' + uid
         )
+
+        this._uid = uid
         this._joined = true
 
-        data.uid = uid
-        resolve(data.uid)
+        resolve(uid)
       })
         .catch(e => {
           this._joined = false

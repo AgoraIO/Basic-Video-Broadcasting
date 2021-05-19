@@ -112,7 +112,7 @@ body {
   left: 30px;
   top: 91px;
   height: 660px;
-  width: 233px;
+  width: 240px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -121,13 +121,12 @@ body {
 }
 
 .stream-container > .stream-player {
-  max-height: 150px;
+  max-height: 160px;
   background: rgba(216, 216, 216, 1);
-  max-width: 200px;
+  max-width: 240px;
   margin: 4px 0;
   position: relative;
   border-radius: 2px;
-  overflow: hidden;
 }
 
 .avatar-container {

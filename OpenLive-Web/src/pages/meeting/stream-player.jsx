@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 StreamPlayer.propTypes = {
-  uid: PropTypes.string.isRequired
+  uid: PropTypes.number.isRequired
 }
 
 export default function StreamPlayer (props) {
@@ -27,6 +27,16 @@ export default function StreamPlayer (props) {
       }
     }
   }, [muteAudio, audioTrack])
+
+  useEffect(() => {
+    if (videoTrack != null) {
+      if (muteVideo == true) {
+        videoTrack.stop()
+      } else if (muteVideo == false) {
+        videoTrack.play(`stream-player-${uid}`)
+      }
+    }
+  }, [muteVideo, videoTrack])
 
   const [state, setState] = useState({
     accessDelay: 0,
@@ -80,9 +90,9 @@ export default function StreamPlayer (props) {
               Video: {analytics.fps}fps {analytics.resolution}
             </span>
           </div>
-          <div className="stream-uid">UID: {uid}</div>
         </div>
       ) : null}
+      <div className="stream-uid">UID: {uid}</div>
     </div>
   )
 }

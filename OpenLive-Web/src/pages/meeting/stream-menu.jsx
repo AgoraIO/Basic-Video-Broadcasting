@@ -2,7 +2,6 @@ import React, { useMemo, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles } from '@material-ui/core/styles'
-import { useGlobalState, useGlobalMutation } from '../../utils/container'
 
 const useStyles = makeStyles({
   menu: {
@@ -42,9 +41,8 @@ const useStyles = makeStyles({
 })
 
 export default function StreamMenu (props) {
-  const { muteVideo, muteAudio } = props
+  const { muteVideo, muteAudio, shareScreen } = props
 
-  const stateCtx = useGlobalState()
   const classes = useStyles()
 
   function toggleVideo () {
@@ -80,14 +78,12 @@ export default function StreamMenu (props) {
             )}
           />
         </Tooltip>
-        <Tooltip title={stateCtx.screen ? 'stop-screen-share' : 'start-screen-share'}>
+        <Tooltip title={shareScreen ? 'stop-screen-share' : 'start-screen-share'}>
           <i
             onClick={toggleShareScreen}
             className={clsx(
               classes.customBtn,
-              stateCtx.screen
-                ? 'start-screen-share'
-                : 'stop-screen-share'
+              shareScreen ? 'start-screen-share' : 'stop-screen-share'
             )}
           />
         </Tooltip>

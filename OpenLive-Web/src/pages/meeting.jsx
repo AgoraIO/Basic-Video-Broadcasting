@@ -8,46 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import StreamPlayer from './meeting/stream-player'
 import StreamMenu from './meeting/stream-menu'
 
-const useStyles = makeStyles({
-  menu: {
-    height: '150px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  customBtn: {
-    width: '50px',
-    height: '50px',
-    marginLeft: '20px',
-    borderRadius: '26px',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    backgroundSize: '50px',
-    cursor: 'pointer'
-  },
-  leftAlign: {
-    display: 'flex',
-    flex: '1',
-    justifyContent: 'space-evenly'
-  },
-  rightAlign: {
-    display: 'flex',
-    flex: '1',
-    justifyContent: 'center'
-  },
-  menuContainer: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    zIndex: '2'
-  }
-})
-
 const MeetingPage = () => {
-  const classes = useStyles()
-
   const routerCtx = useRouter()
   const stateCtx = useGlobalState()
   const mutationCtx = useGlobalMutation()
@@ -55,9 +16,10 @@ const MeetingPage = () => {
   const onUserPublished = (remoteUser, mediaType) => {
     // remoteUser:
     // mediaType: "audio" | "video" | "all"
-    localClient.subscribe(remoteUser)
+    console.debug(`onUserPublished ${remoteUser.uid}, mediaType= ${mediaType}`)
+    localClient.subscribe(remoteUser, mediaType)
       .then(mRemoteTrack => {
-
+        addRemoteUser(remoteUser)
       })
       .catch(err => {
         mutationCtx.toastError(
@@ -77,6 +39,8 @@ const MeetingPage = () => {
   const onUserUnPublished = (remoteUser, mediaType) => {
     // remoteUser:
     // mediaType: "audio" | "video" | "all"
+    console.debug(`onUserUnPublished ${remoteUser.uid}`)
+    removeRemoteUser(remoteUser)
     if (mediaType === 'video' || mediaType === 'all') {
 
     }
@@ -99,6 +63,20 @@ const MeetingPage = () => {
 
   const [muteVideo, setMuteVideo] = useState(stateCtx.muteVideo)
   const [muteAudio, setMuteAudio] = useState(stateCtx.muteAudio)
+  const [isShareScreen, setShareScreen] = useState(false)
+  const [VideoTrack, setVideoTrack] = useState(null)
+  const [AudioTrack, setAudioTrack] = useState(null)
+  const [remoteUsers, setRemoteUsers] = useState({})
+
+  const addRemoteUser = (remoteUser) => {
+    remoteUsers[remoteUser.uid] = remoteUser
+    setRemoteUsers(remoteUsers)
+  }
+
+  const removeRemoteUser = (remoteUser) => {
+    delete remoteUsers[remoteUser.uid]
+    setRemoteUsers(remoteUsers)
+  }
 
   const config = useMemo(() => {
     return {
@@ -106,20 +84,10 @@ const MeetingPage = () => {
       channel: stateCtx.config.channelName,
       microphoneId: stateCtx.config.microphoneId,
       cameraId: stateCtx.config.cameraId,
-      resolution: stateCtx.config.resolution,
-      muteVideo: muteVideo,
-      muteAudio: muteAudio,
       uid: stateCtx.config.uid,
       host: stateCtx.config.host
-      // beauty: stateCtx.beauty
     }
   }, [stateCtx, muteVideo, muteAudio])
-
-  useEffect(() => {
-    return () => {
-      localClient && localClient.leave(() => mutationCtx.clearAllStream())
-    }
-  }, [localClient])
 
   const history = routerCtx.history
 
@@ -140,16 +108,17 @@ const MeetingPage = () => {
       localClient._leave == false
     ) {
       localClient.setClientRole(config.host ? 'host' : 'audience')
-      localClient
-        .join(config)
+      localClient.join(config.channel, config.token)
         .then((uid) => {
+          config.uid = uid
+
           if (config.host) {
             localClient.startLive(config.microphoneId, config.cameraId)
               .then(() => {
-
+                setVideoTrack(localClient.mLocalVideoTrack)
+                setAudioTrack(localClient.mLocalAudioTrack)
               })
           }
-          mutationCtx.updateConfig({ uid })
           mutationCtx.stopLoading()
         })
         .catch((err) => {
@@ -160,84 +129,51 @@ const MeetingPage = () => {
   }, [localClient, mutationCtx, config, routerCtx])
 
   const toggleVideo = () => {
-    setMuteVideo(!muteVideo)
-    console.debug('toggleVideo')
+    const newValue = !muteVideo
+    if (newValue) {
+      localClient._client.unpublish(VideoTrack)
+    } else {
+      localClient._client.publish(VideoTrack)
+    }
+    setMuteVideo(newValue)
   }
 
   const toggleAudio = () => {
-    setMuteAudio(!muteAudio)
-    console.debug('toggleAudio')
+    const newValue = !muteAudio
+    if (newValue) {
+      localClient._client.unpublish(AudioTrack)
+    } else {
+      localClient._client.publish(AudioTrack)
+    }
+    setMuteAudio(newValue)
   }
 
   const toggleShareScreen = () => {
+    const newValue = !isShareScreen
+    if (newValue) {
+      setShareScreen(newValue)
 
-  }
+      setMuteVideo(false)
+      setMuteAudio(false)
 
-  const handleClick = (name) => {
-    return (evt) => {
-      evt.stopPropagation()
-      switch (name) {
-        case 'video': {
-          muteVideo
-            ? localClient.mLocalVideoTrack.play(`stream-player-${localClient.uid}`)
-            : localClient.mLocalVideoTrack.stop()
-          setMuteVideo(!muteVideo)
-          break
-        }
-        case 'audio': {
-          muteAudio
-            ? localClient.mLocalAudioTrack.play()
-            : localClient.mLocalAudioTrack.stop()
-          setMuteAudio(!muteAudio)
-          break
-        }
-        // case 'screen': {
-        //   if (stateCtx.screen) {
-        //     localClient
-        //       .createRTCStream({
-        //         token: null,
-        //         channel: stateCtx.config.channelName,
-        //         microphoneId: stateCtx.config.microphoneId,
-        //         resolution: stateCtx.config.resolution,
-        //         muteVideo: muteVideo,
-        //         muteAudio: muteAudio
-        //         // beauty: stateCtx.beauty,
-        //       })
-        //       .then(() => {
-        //         localClient.publish()
-        //         mutationCtx.setScreen(false)
-        //       })
-        //       .catch((err) => {
-        //         console.log(err)
-        //         mutationCtx.toastError(`Media ${err.info}`)
-        //         routerCtx.history.push('/')
-        //       })
-        //   } else {
-        //     localClient
-        //       .createScreenSharingStream({
-        //         token: null,
-        //         channel: stateCtx.config.channelName,
-        //         microphoneId: stateCtx.config.microphoneId,
-        //         cameraId: stateCtx.config.cameraId,
-        //         resolution: stateCtx.config.resolution
-        //       })
-        //       .then(() => {
-        //         localClient.publish()
-        //         mutationCtx.setScreen(true)
-        //       })
-        //       .catch((err) => {
-        //         console.log(err)
-        //         mutationCtx.toastError(`Media ${err.info}`)
-        //       })
-        //   }
-        //   break
-        // }
-        case 'profile': {
-          break
-        }
-        default:
-          throw new Error(`Unknown click handler, name: ${name}`)
-      }
+      localClient.stopLive()
+      localClient.startShareScrren()
+        .then(() => {
+          setVideoTrack(localClient.mLocalVideoTrack)
+          setAudioTrack(localClient.mLocalAudioTrack)
+        })
+        .catch((err) => {
+          mutationCtx.toastError(`屏幕分享失败 code= ${err.code}`)
+        })
+    } else {
+      localClient.stopShareScrren()
+      localClient.startLive(config.microphoneId, config.cameraId)
+        .then(() => {
+          setShareScreen(newValue)
+
+          setVideoTrack(localClient.mLocalVideoTrack)
+          setAudioTrack(localClient.mLocalAudioTrack)
+        })
     }
   }
 
@@ -245,18 +181,9 @@ const MeetingPage = () => {
     localClient.leave().then(() => {
       localClient.stopLive()
       localClient.destroy()
-      mutationCtx.clearAllStream()
-      // mutationCtx.resetState()
       routerCtx.history.push('/')
     })
   }
-
-  const otherStreams = useMemo(() => {
-    return stateCtx.streams.filter(
-      (it) => true
-      // (it) => it.getId() !== currentStream.getId()
-    )
-  }, [stateCtx.streams])
 
   return (
     <div className="meeting">
@@ -275,46 +202,37 @@ const MeetingPage = () => {
           </Tooltip>
         </div>
         <StreamPlayer
-          className={'main-stream-profile'}
-          uid={stateCtx.config.uid}
+          uid={config.uid}
           isLocal={true}
-          videoTrack={localClient.mLocalVideoTrack}
-          audioTrack={localClient.mLocalAudioTrack}
+          videoTrack={VideoTrack}
+          audioTrack={AudioTrack}
           muteAudio={muteAudio}
           muteVideo={muteVideo}
           showInfo={stateCtx.profile}
           rtcClient={localClient._client}
         >
-          <StreamMenu
+          {config.host ? <StreamMenu
             muteAudio={muteAudio}
             muteVideo={muteVideo}
+            shareScreen={isShareScreen}
             toggleVideo={toggleVideo}
             toggleAudio={toggleAudio}
             toggleShareScreen={toggleShareScreen}
-          />
+          /> : null}
         </StreamPlayer>
         <div className="stream-container">
-          {/* {stateCtx.otherStreams.map((stream, index) => (
-            <StreamPlayer
-              className={'stream-profile'}
-              uid={stateCtx.config.uid}
-              videoTrack={localClient.mLocalVideoTrack}
-              audioTrack={localClient.mLocalAudioTrack}
-              muteAudio={muteAudio}
-              muteVideo={muteVideo}
-              showInfo={stateCtx.profile}
-
-              showProfile={stateCtx.profile}
-              local={false}
-              key={`${index}${stream.getId()}`}
-              stream={stream}
-              isPlaying={stream.isPlaying()}
-              uid={stream.getId()}
-              domId={`stream-player-${stream.getId()}`}
-              onDoubleClick={handleDoubleClick}
-              showUid={true}
-            ></StreamPlayer>
-          ))} */}
+          {Object.values(remoteUsers).map(remoteUser => {
+            return <StreamPlayer
+              key={`key-${remoteUser.uid}`}
+              uid={remoteUser.uid}
+              videoTrack={remoteUser.videoTrack}
+              audioTrack={remoteUser.audioTrack}
+              muteAudio={false}
+              muteVideo={false}
+              showInfo={false}
+              rtcClient={localClient._client}
+            />
+          })}
         </div>
       </div>
     </div>
