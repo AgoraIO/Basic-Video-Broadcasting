@@ -36,6 +36,9 @@
 
   AppID=xxxxxxxxxxxxxxxxxxx
 
+> 为提高项目的安全性，Agora 使用 Token（动态密钥）对即将加入频道的用户进行鉴权。
+>
+> 临时 Token 仅作为演示和测试用途。在生产环境中，你需要自行部署服务器签发 Token，详见[生成 Token](https://docs.agora.io/cn/Interactive Broadcast/token_server)。
 
 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **视频通话 + 直播 SDK**，解压后将 **libs\include** 中的文件，复制到 **OpenLive-Windows-MFC** 下的 **sdk\include** 文件夹下（如无该文件夹需新建）。并将 **libs\x86** 下的 **dll** 和 **lib** 文件分别复制到 **sdk\dll** 和 **sdk\lib** 文件夹下。
 

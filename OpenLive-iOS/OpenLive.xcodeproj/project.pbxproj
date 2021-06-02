@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,16 +16,8 @@
 		0790F1261D1E6450003F8C18 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1251D1E6450003F8C18 /* SettingsViewController.swift */; };
 		0790F1281D1E645B003F8C18 /* LiveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */; };
 		0790F1511D1E9631003F8C18 /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1501D1E9631003F8C18 /* VideoSession.swift */; };
-		8BDFD96F25C2F64D0051ACD7 /* AgoraCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440425A57F56007A0793 /* AgoraCore.xcframework */; };
-		8BDFD97025C2F64D0051ACD7 /* AgoraCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440425A57F56007A0793 /* AgoraCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8BDFD97225C2F64E0051ACD7 /* Agorafdkaac.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440325A57F56007A0793 /* Agorafdkaac.xcframework */; };
-		8BDFD97325C2F64E0051ACD7 /* Agorafdkaac.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440325A57F56007A0793 /* Agorafdkaac.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8BDFD97425C2F6500051ACD7 /* Agoraffmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440725A57F57007A0793 /* Agoraffmpeg.xcframework */; };
-		8BDFD97525C2F6500051ACD7 /* Agoraffmpeg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440725A57F57007A0793 /* Agoraffmpeg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8BDFD97725C2F6520051ACD7 /* AgoraSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440625A57F57007A0793 /* AgoraSoundTouch.xcframework */; };
-		8BDFD97825C2F6520051ACD7 /* AgoraSoundTouch.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440625A57F57007A0793 /* AgoraSoundTouch.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8BF7440E25A57F60007A0793 /* AgoraRtcKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440525A57F56007A0793 /* AgoraRtcKit.xcframework */; };
-		8BF7440F25A57F60007A0793 /* AgoraRtcKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7440525A57F56007A0793 /* AgoraRtcKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		78E8046273FC5C7CC4D9AD2A /* Pods_OpenLive_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFC752A3BBFD2D25F5B7D21 /* Pods_OpenLive_Tests.framework */; };
+		819DEFA3ADECEC6666C14759 /* Pods_OpenLive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7728DC34E79B0BEF6EC599 /* Pods_OpenLive.framework */; };
 		A75BF8C822B38B5F0072AF13 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF8C722B38B5F0072AF13 /* VideoView.swift */; };
 		A76C267C238657850047E150 /* AGEVideoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C2677238657850047E150 /* AGEVideoLayout.swift */; };
 		A76C267D238657850047E150 /* AGEVideoConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C2678238657850047E150 /* AGEVideoConstraints.swift */; };
@@ -52,24 +44,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		8BF7441025A57F60007A0793 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8BF7440F25A57F60007A0793 /* AgoraRtcKit.xcframework in Embed Frameworks */,
-				8BDFD97525C2F6500051ACD7 /* Agoraffmpeg.xcframework in Embed Frameworks */,
-				8BDFD97325C2F64E0051ACD7 /* Agorafdkaac.xcframework in Embed Frameworks */,
-				8BDFD97825C2F6520051ACD7 /* AgoraSoundTouch.xcframework in Embed Frameworks */,
-				8BDFD97025C2F64D0051ACD7 /* AgoraCore.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		07130E891D22928200CC85D8 /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		0745273C1E9E050C0054D2D4 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -83,12 +57,15 @@
 		0790F1251D1E6450003F8C18 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
 		0790F1501D1E9631003F8C18 /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
+		10B853B0880F4A41D9856B6C /* Pods-OpenLive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLive.debug.xcconfig"; path = "Target Support Files/Pods-OpenLive/Pods-OpenLive.debug.xcconfig"; sourceTree = "<group>"; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		8BF7440325A57F56007A0793 /* Agorafdkaac.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Agorafdkaac.xcframework; sourceTree = "<group>"; };
-		8BF7440425A57F56007A0793 /* AgoraCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AgoraCore.xcframework; sourceTree = "<group>"; };
-		8BF7440525A57F56007A0793 /* AgoraRtcKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AgoraRtcKit.xcframework; sourceTree = "<group>"; };
-		8BF7440625A57F57007A0793 /* AgoraSoundTouch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AgoraSoundTouch.xcframework; sourceTree = "<group>"; };
-		8BF7440725A57F57007A0793 /* Agoraffmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Agoraffmpeg.xcframework; sourceTree = "<group>"; };
+		8B6FA0F326146E6100A4E4C3 /* AgoraJNDExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraJNDExtension.framework; path = ../../libs/AgoraJNDExtension.framework; sourceTree = "<group>"; };
+		8B6FA0F426146E6100A4E4C3 /* Agorafdkaac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agorafdkaac.framework; path = ../../libs/Agorafdkaac.framework; sourceTree = "<group>"; };
+		8B6FA0F526146E6100A4E4C3 /* AgoraDav1dExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraDav1dExtension.framework; path = ../../libs/AgoraDav1dExtension.framework; sourceTree = "<group>"; };
+		8B6FA0F626146E6100A4E4C3 /* Agoraffmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agoraffmpeg.framework; path = ../../libs/Agoraffmpeg.framework; sourceTree = "<group>"; };
+		8B6FA0F726146E6200A4E4C3 /* AgoraSoundTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraSoundTouch.framework; path = ../../libs/AgoraSoundTouch.framework; sourceTree = "<group>"; };
+		8B6FA0F826146E6200A4E4C3 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = ../../libs/AgoraRtcKit.framework; sourceTree = "<group>"; };
+		8B6FA0F926146E6200A4E4C3 /* AgoraCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraCore.framework; path = ../../libs/AgoraCore.framework; sourceTree = "<group>"; };
 		A758116724078C4D007EDAD3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A758116A24078C6E007EDAD3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A758116C24078C78007EDAD3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -112,11 +89,16 @@
 		A7C54A91230BD9C9003D65E3 /* FileCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCenter.swift; sourceTree = "<group>"; };
 		A7C54A97230BE275003D65E3 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A7C54A99230BE487003D65E3 /* DimensionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimensionCell.swift; sourceTree = "<group>"; };
+		A7D378B320F742BC28329766 /* Pods-OpenLive-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLive-Tests.debug.xcconfig"; path = "Target Support Files/Pods-OpenLive-Tests/Pods-OpenLive-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A7DEDEB0231652B200E34432 /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
 		A7DEE049232F65BC00E34432 /* AgoraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraExtension.swift; sourceTree = "<group>"; };
 		A7DEE04B232F69DC00E34432 /* StatisticsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsInfo.swift; sourceTree = "<group>"; };
 		A7DEE04E232F735C00E34432 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A981727EB4276A6C04EF4466 /* Pods-OpenLive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLive.release.xcconfig"; path = "Target Support Files/Pods-OpenLive/Pods-OpenLive.release.xcconfig"; sourceTree = "<group>"; };
+		ABFC752A3BBFD2D25F5B7D21 /* Pods_OpenLive_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenLive_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44FE6514B49E6E930A3C36E /* Pods-OpenLive-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLive-Tests.release.xcconfig"; path = "Target Support Files/Pods-OpenLive-Tests/Pods-OpenLive-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F54B70FC0F83493878247735 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
+		FD7728DC34E79B0BEF6EC599 /* Pods_OpenLive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenLive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,11 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BF7440E25A57F60007A0793 /* AgoraRtcKit.xcframework in Frameworks */,
-				8BDFD97225C2F64E0051ACD7 /* Agorafdkaac.xcframework in Frameworks */,
-				8BDFD96F25C2F64D0051ACD7 /* AgoraCore.xcframework in Frameworks */,
-				8BDFD97725C2F6520051ACD7 /* AgoraSoundTouch.xcframework in Frameworks */,
-				8BDFD97425C2F6500051ACD7 /* Agoraffmpeg.xcframework in Frameworks */,
+				819DEFA3ADECEC6666C14759 /* Pods_OpenLive.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78E8046273FC5C7CC4D9AD2A /* Pods_OpenLive_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +124,13 @@
 		0745273B1E9E050C0054D2D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8B6FA0F926146E6200A4E4C3 /* AgoraCore.framework */,
+				8B6FA0F526146E6100A4E4C3 /* AgoraDav1dExtension.framework */,
+				8B6FA0F426146E6100A4E4C3 /* Agorafdkaac.framework */,
+				8B6FA0F626146E6100A4E4C3 /* Agoraffmpeg.framework */,
+				8B6FA0F326146E6100A4E4C3 /* AgoraJNDExtension.framework */,
+				8B6FA0F826146E6200A4E4C3 /* AgoraRtcKit.framework */,
+				8B6FA0F726146E6200A4E4C3 /* AgoraSoundTouch.framework */,
 				A758117824078CAA007EDAD3 /* Accelerate.framework */,
 				A758117624078C9F007EDAD3 /* AVFoundation.framework */,
 				A758117424078C97007EDAD3 /* CoreMedia.framework */,
@@ -159,6 +145,8 @@
 				382885B22249DBB10023BCFA /* CoreML.framework */,
 				0745273C1E9E050C0054D2D4 /* libresolv.tbd */,
 				F54B70FC0F83493878247735 /* Accelerate.framework */,
+				FD7728DC34E79B0BEF6EC599 /* Pods_OpenLive.framework */,
+				ABFC752A3BBFD2D25F5B7D21 /* Pods_OpenLive_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,6 +159,7 @@
 				A7AD0E9A24AEE040008FFD5B /* OpenLive-Tests */,
 				078012EA1D1E57730093DE24 /* Products */,
 				0745273B1E9E050C0054D2D4 /* Frameworks */,
+				07873B4746CD6496886814A4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,11 +175,6 @@
 		078012EB1D1E57730093DE24 /* OpenLive */ = {
 			isa = PBXGroup;
 			children = (
-				8BF7440425A57F56007A0793 /* AgoraCore.xcframework */,
-				8BF7440325A57F56007A0793 /* Agorafdkaac.xcframework */,
-				8BF7440725A57F57007A0793 /* Agoraffmpeg.xcframework */,
-				8BF7440525A57F56007A0793 /* AgoraRtcKit.xcframework */,
-				8BF7440625A57F57007A0793 /* AgoraSoundTouch.xcframework */,
 				A7C54A96230BD9EC003D65E3 /* Controllers */,
 				A7C54A95230BD9E4003D65E3 /* Views */,
 				A7C54A93230BD9D6003D65E3 /* Models */,
@@ -198,6 +182,17 @@
 				A76C2675238657670047E150 /* Supporting Files */,
 			);
 			path = OpenLive;
+			sourceTree = "<group>";
+		};
+		07873B4746CD6496886814A4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				10B853B0880F4A41D9856B6C /* Pods-OpenLive.debug.xcconfig */,
+				A981727EB4276A6C04EF4466 /* Pods-OpenLive.release.xcconfig */,
+				A7D378B320F742BC28329766 /* Pods-OpenLive-Tests.debug.xcconfig */,
+				E44FE6514B49E6E930A3C36E /* Pods-OpenLive-Tests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		A76C2675238657670047E150 /* Supporting Files */ = {
@@ -273,11 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 078012FB1D1E57730093DE24 /* Build configuration list for PBXNativeTarget "OpenLive" */;
 			buildPhases = (
+				730FBB5EB8D61DF64F759E07 /* [CP] Check Pods Manifest.lock */,
 				078012E51D1E57730093DE24 /* Sources */,
 				078012E61D1E57730093DE24 /* Frameworks */,
 				078012E71D1E57730093DE24 /* Resources */,
 				A72AE10824067CD900542EA5 /* ShellScript */,
-				8BF7441025A57F60007A0793 /* Embed Frameworks */,
+				21A4EC52DFB82705601A4744 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -292,6 +288,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7AD0EA224AEE040008FFD5B /* Build configuration list for PBXNativeTarget "OpenLive-Tests" */;
 			buildPhases = (
+				3E4010607BEF8E224180E2EF /* [CP] Check Pods Manifest.lock */,
 				A7AD0E9524AEE040008FFD5B /* Sources */,
 				A7AD0E9624AEE040008FFD5B /* Frameworks */,
 				A7AD0E9724AEE040008FFD5B /* Resources */,
@@ -318,7 +315,7 @@
 				TargetAttributes = {
 					078012E81D1E57730093DE24 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = GM72UGLGZW;
+						DevelopmentTeam = JDPG69R49Z;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -376,6 +373,82 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		21A4EC52DFB82705601A4744 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenLive/Pods-OpenLive-frameworks.sh",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraAIDenoiseExtension.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraRtcKit.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/Agoraffmpeg.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraCore.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraSoundTouch.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/Agorafdkaac.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraDav1dExtension.framework",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraJNDExtension.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraAIDenoiseExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraRtcKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Agoraffmpeg.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraSoundTouch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Agorafdkaac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraDav1dExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraJNDExtension.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenLive/Pods-OpenLive-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3E4010607BEF8E224180E2EF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenLive-Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		730FBB5EB8D61DF64F759E07 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenLive-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A72AE10824067CD900542EA5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -561,8 +634,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -570,13 +642,15 @@
 		};
 		078012FC1D1E57730093DE24 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10B853B0880F4A41D9856B6C /* Pods-OpenLive.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = GM72UGLGZW;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = JDPG69R49Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -585,33 +659,34 @@
 				);
 				INFOPLIST_FILE = OpenLive/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = App;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraLab2020;
+				SWIFT_INCLUDE_PATHS = ../../libs;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
 		078012FD1D1E57730093DE24 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A981727EB4276A6C04EF4466 /* Pods-OpenLive.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = GM72UGLGZW;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = JDPG69R49Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -620,25 +695,25 @@
 				);
 				INFOPLIST_FILE = OpenLive/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.agora.OpenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = App;
+				PROVISIONING_PROFILE_SPECIFIER = AgoraLab2020;
+				SWIFT_INCLUDE_PATHS = ../../libs;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
 		A7AD0EA024AEE040008FFD5B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7D378B320F742BC28329766 /* Pods-OpenLive-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -656,11 +731,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenLive-Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "CavanSu.OpenLive-Tests";
@@ -676,6 +747,7 @@
 		};
 		A7AD0EA124AEE040008FFD5B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E44FE6514B49E6E930A3C36E /* Pods-OpenLive-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -692,11 +764,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenLive-Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "CavanSu.OpenLive-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
