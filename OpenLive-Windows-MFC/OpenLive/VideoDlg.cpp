@@ -53,7 +53,6 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_REJOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDReJoinChannelSuccess)
 	ON_MESSAGE(WM_MSGID(EID_FIRST_LOCAL_VIDEO_FRAME), &CVideoDlg::OnEIDFirstLocalFrame)
 
-	ON_MESSAGE(WM_MSGID(EID_FIRST_REMOTE_VIDEO_DECODED), &CVideoDlg::OnEIDFirstRemoteFrameDecoded)
 	ON_MESSAGE(WM_MSGID(EID_FIRST_REMOTE_VIDEO_FRAME), &CVideoDlg::OnEIDFirstRemoteVideoFrame)
 	
 	ON_MESSAGE(WM_MSGID(EID_USER_JOINED),&CVideoDlg::OnEIDUserJoined)
@@ -1107,31 +1106,6 @@ LRESULT CVideoDlg::OnEIDFirstLocalFrame(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-LRESULT CVideoDlg::OnEIDFirstRemoteFrameDecoded(WPARAM wParam, LPARAM lParam)
-{
-	LPAGE_FIRST_REMOTE_VIDEO_DECODED lpData = (LPAGE_FIRST_REMOTE_VIDEO_DECODED)wParam;
-	POSITION pos = m_listWndInfo.GetHeadPosition();
-	while (pos != NULL) {
-		AGVIDEO_WNDINFO &agvWndInfo = m_listWndInfo.GetNext(pos);
-		if (agvWndInfo.nUID == lpData->uid) {
-			agvWndInfo.nWidth = lpData->width;
-			agvWndInfo.nHeight = lpData->height;
-			break;
-		}
-	}
-
-	RebindVideoWnd();
-
-	SEI_INFO seiInfo;
-	memset(&seiInfo, 0, sizeof(SEI_INFO));
-	seiInfo.nUID = lpData->uid;
-	seiInfo.nWidth = lpData->width;
-	seiInfo.nHeight = lpData->height;
-	CAgoraObject::GetAgoraObject()->SetSEIInfo(seiInfo.nUID, &seiInfo);
-	delete lpData;
-	lpData = NULL;
-	return false;
-}
 
 LRESULT CVideoDlg::OnEIDFirstRemoteVideoFrame(WPARAM wParam, LPARAM lParam)
 {
@@ -1162,9 +1136,11 @@ LRESULT CVideoDlg::OnEIDUserJoined(WPARAM wParam, LPARAM lParam)
 		agvWndInfo.nUID = lpData->uid;
 		m_listWndInfo.AddTail(agvWndInfo);
 	}
+	RebindVideoWnd();
+
 
 	delete lpData;
-
+	lpData = NULL;
 	return 0;
 }
 

@@ -27,7 +27,6 @@ public:
 
 	virtual void onNetworkQuality(uid_t uid, int txQuality, int rxQuality) override;
 	virtual void onFirstLocalVideoFrame(int width, int height, int elapsed) override;
-	virtual void onFirstRemoteVideoDecoded(uid_t uid, int width, int height, int elapsed) override;
 	virtual void onFirstRemoteVideoFrame(uid_t uid, int width, int height, int elapsed) override;
 	virtual void onUserJoined(uid_t uid, int elapsed) override;
 	virtual void onUserOffline(uid_t uid, USER_OFFLINE_REASON_TYPE reason) override;

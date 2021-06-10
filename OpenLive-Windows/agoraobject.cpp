@@ -37,10 +37,7 @@ public:
     {
         emit m_pInstance.sender_firstRemoteVideoDecoded(uid, width, height, elapsed);
     }
-    virtual void onFirstRemoteVideoFrame(uid_t uid, int width, int height, int elapsed) override
-    {
-       emit m_pInstance.sender_firstRemoteVideoFrameDrawn(uid, width, height, elapsed);
-    }
+  
     virtual void onLocalVideoStats(const LocalVideoStats &stats) override
     {
         emit m_pInstance.sender_localVideoStats(stats);
