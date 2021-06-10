@@ -27,10 +27,15 @@ protocol AGEEventsObserverDataSource: NSObjectProtocol {
 class AGEEventsObserver: NSObject {
     weak var delegate: AGEEventsObserverDelegate?
     weak var dataSource: AGEEventsObserverDataSource?
+    var eventMonitor: Any?
     
+//    https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/MonitoringEvents/MonitoringEvents.html
     #if os(macOS)
     deinit {
-        NSEvent.removeMonitor(self)
+        if let event = eventMonitor {
+            NSEvent.removeMonitor(event)
+            eventMonitor = nil
+        }
     }
     #endif
 }
@@ -38,7 +43,7 @@ class AGEEventsObserver: NSObject {
 #if os(macOS)
 extension AGEEventsObserver {
     func listenCurrentWindow(inputEvents: NSEvent.EventTypeMask) {
-        NSEvent.addLocalMonitorForEvents(matching: inputEvents) { [weak self] (event) -> NSEvent? in
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: inputEvents) { [weak self] (event) -> NSEvent? in
             guard let strongSelf = self,
                 let currentWindowNumber = strongSelf.dataSource?.observerNeedWindowNumber(strongSelf),
                 event.windowNumber == currentWindowNumber else {
