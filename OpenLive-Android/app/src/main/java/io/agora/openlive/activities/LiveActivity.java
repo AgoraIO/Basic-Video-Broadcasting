@@ -3,6 +3,7 @@ package io.agora.openlive.activities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,12 +22,13 @@ import io.agora.rtc2.Constants;
 import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.video.VideoEncoderConfiguration;
 
-public class LiveActivity extends RtcBaseActivity {
+public class LiveActivity extends RtcBaseActivity implements View.OnKeyListener {
     private static final String TAG = LiveActivity.class.getSimpleName();
 
     private VideoGridContainer mVideoGridContainer;
     private ImageView mMuteAudioBtn;
     private ImageView mMuteVideoBtn;
+    private ImageView live_btn_switch_camera;
 
     private VideoEncoderConfiguration.VideoDimensions mVideoDimension;
 
@@ -48,6 +50,9 @@ public class LiveActivity extends RtcBaseActivity {
                 io.agora.openlive.Constants.KEY_CLIENT_ROLE,
                 Constants.CLIENT_ROLE_AUDIENCE);
         boolean isBroadcaster = (role == Constants.CLIENT_ROLE_BROADCASTER);
+
+        live_btn_switch_camera = findViewById(R.id.live_btn_switch_camera);
+        live_btn_switch_camera.setOnKeyListener(this);
 
         mMuteVideoBtn = findViewById(R.id.live_btn_mute_video);
         mMuteVideoBtn.setActivated(isBroadcaster);
@@ -214,6 +219,7 @@ public class LiveActivity extends RtcBaseActivity {
 
     public void onSwitchCameraClicked(View view) {
         rtcEngine().switchCamera();
+        rtcEngine().startPreview();
     }
 
     public void onBeautyClicked(View view) {
@@ -244,5 +250,15 @@ public class LiveActivity extends RtcBaseActivity {
             startBroadcast();
         }
         view.setActivated(!view.isActivated());
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+            if (v == live_btn_switch_camera) {
+                onSwitchCameraClicked(v);
+            }
+        }
+        return false;
     }
 }
