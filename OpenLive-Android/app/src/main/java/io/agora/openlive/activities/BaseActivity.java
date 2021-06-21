@@ -13,8 +13,8 @@ import io.agora.openlive.rtc.EventHandler;
 import io.agora.openlive.rtc.EngineConfig;
 import io.agora.openlive.stats.StatsManager;
 import io.agora.openlive.utils.WindowUtil;
-import io.agora.rtc.IRtcEngineEventHandler;
-import io.agora.rtc.RtcEngine;
+import io.agora.rtc2.IRtcEngineEventHandler;
+import io.agora.rtc2.RtcEngine;
 
 public abstract class BaseActivity extends AppCompatActivity implements EventHandler {
     protected DisplayMetrics mDisplayMetrics = new DisplayMetrics();

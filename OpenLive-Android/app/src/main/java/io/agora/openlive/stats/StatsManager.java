@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.agora.rtc.Constants;
+import io.agora.rtc2.Constants;
 
 public class StatsManager {
     private List<Integer> mUidList = new ArrayList<>();

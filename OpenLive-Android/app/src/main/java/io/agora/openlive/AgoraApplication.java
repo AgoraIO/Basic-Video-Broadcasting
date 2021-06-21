@@ -2,14 +2,16 @@ package io.agora.openlive;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
-import io.agora.openlive.rtc.EngineConfig;
 import io.agora.openlive.rtc.AgoraEventHandler;
+import io.agora.openlive.rtc.EngineConfig;
 import io.agora.openlive.rtc.EventHandler;
 import io.agora.openlive.stats.StatsManager;
 import io.agora.openlive.utils.FileUtil;
 import io.agora.openlive.utils.PrefManager;
-import io.agora.rtc.RtcEngine;
+import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.RtcEngineConfig;
 
 public class AgoraApplication extends Application {
     private RtcEngine mRtcEngine;
@@ -20,9 +22,20 @@ public class AgoraApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        String appid = getString(R.string.private_app_id);
+        if (TextUtils.isEmpty(appid)) {
+            throw new NullPointerException("please check \"strings_config.xml\"");
+        }
+
+        RtcEngineConfig config = new RtcEngineConfig();
+        config.mContext = this;
+        config.mAppId = appid;
+        config.mEventHandler = new AgoraEventHandler();
+        config.mChannelProfile = io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING;
+        config.getLogConfig().filePath = FileUtil.initializeLogFile(this);
+
         try {
-            mRtcEngine = RtcEngine.create(getApplicationContext(), getString(R.string.private_app_id), mHandler);            
-            mRtcEngine.setLogFile(FileUtil.initializeLogFile(this));
+            mRtcEngine = RtcEngine.create(config);
         } catch (Exception e) {
             e.printStackTrace();
         }

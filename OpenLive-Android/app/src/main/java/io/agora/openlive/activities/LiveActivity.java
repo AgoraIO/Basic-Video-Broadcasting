@@ -17,9 +17,9 @@ import io.agora.openlive.stats.LocalStatsData;
 import io.agora.openlive.stats.RemoteStatsData;
 import io.agora.openlive.stats.StatsData;
 import io.agora.openlive.ui.VideoGridContainer;
-import io.agora.rtc.Constants;
-import io.agora.rtc.IRtcEngineEventHandler;
-import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtc2.Constants;
+import io.agora.rtc2.IRtcEngineEventHandler;
+import io.agora.rtc2.video.VideoEncoderConfiguration;
 
 public class LiveActivity extends RtcBaseActivity {
     private static final String TAG = LiveActivity.class.getSimpleName();
@@ -42,12 +42,12 @@ public class LiveActivity extends RtcBaseActivity {
         TextView roomName = findViewById(R.id.live_room_name);
         roomName.setText(config().getChannelName());
         roomName.setSelected(true);
-        
+
         initUserIcon();
         int role = getIntent().getIntExtra(
                 io.agora.openlive.Constants.KEY_CLIENT_ROLE,
                 Constants.CLIENT_ROLE_AUDIENCE);
-        boolean isBroadcaster =  (role == Constants.CLIENT_ROLE_BROADCASTER);
+        boolean isBroadcaster = (role == Constants.CLIENT_ROLE_BROADCASTER);
 
         mMuteVideoBtn = findViewById(R.id.live_btn_mute_video);
         mMuteVideoBtn.setActivated(isBroadcaster);
@@ -57,8 +57,8 @@ public class LiveActivity extends RtcBaseActivity {
 
         ImageView beautyBtn = findViewById(R.id.live_btn_beautification);
         beautyBtn.setActivated(true);
-        rtcEngine().setBeautyEffectOptions(beautyBtn.isActivated(),
-                io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
+//        rtcEngine().setBeautyEffectOptions(beautyBtn.isActivated(),
+//                io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
 
         mVideoGridContainer = findViewById(R.id.live_video_grid_layout);
         mVideoGridContainer.setStatsManager(statsManager());
@@ -92,6 +92,7 @@ public class LiveActivity extends RtcBaseActivity {
 
     private void startBroadcast() {
         rtcEngine().setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
+        rtcEngine().startPreview();
         SurfaceView surface = prepareRtcVideo(0, true);
         mVideoGridContainer.addUserVideoSurface(0, surface, true);
         mMuteAudioBtn.setActivated(true);
@@ -99,6 +100,7 @@ public class LiveActivity extends RtcBaseActivity {
 
     private void stopBroadcast() {
         rtcEngine().setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
+        rtcEngine().stopPreview();
         removeRtcVideo(0, true);
         mVideoGridContainer.removeUserVideo(0, true);
         mMuteAudioBtn.setActivated(false);
@@ -227,8 +229,8 @@ public class LiveActivity extends RtcBaseActivity {
 
     public void onBeautyClicked(View view) {
         view.setActivated(!view.isActivated());
-        rtcEngine().setBeautyEffectOptions(view.isActivated(),
-                io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
+//        rtcEngine().setBeautyEffectOptions(view.isActivated(),
+//                io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
     }
 
     public void onMoreClicked(View view) {

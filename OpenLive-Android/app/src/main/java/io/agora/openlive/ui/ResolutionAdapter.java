@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import io.agora.openlive.Constants;
 import io.agora.openlive.R;
-import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtc2.video.VideoEncoderConfiguration;
 
 public class ResolutionAdapter extends RecyclerView.Adapter {
     private Context mContext;

@@ -4,7 +4,7 @@ import android.graphics.PixelFormat;
 
 import java.util.ArrayList;
 
-import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc2.IRtcEngineEventHandler;
 
 public class AgoraEventHandler extends IRtcEngineEventHandler {
     private ArrayList<EventHandler> mHandler = new ArrayList<>();

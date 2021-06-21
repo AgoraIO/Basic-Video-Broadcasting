@@ -1,19 +1,19 @@
 package io.agora.openlive;
 
-import io.agora.rtc.video.BeautyOptions;
-import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtc2.video.VideoEncoderConfiguration;
+import io.agora.rtc2.video.VideoEncoderConfiguration.MIRROR_MODE_TYPE;
 
 public class Constants {
-    private static final int BEAUTY_EFFECT_DEFAULT_CONTRAST = BeautyOptions.LIGHTENING_CONTRAST_NORMAL;
+    //    private static final int BEAUTY_EFFECT_DEFAULT_CONTRAST = BeautyOptions.LIGHTENING_CONTRAST_NORMAL;
     private static final float BEAUTY_EFFECT_DEFAULT_LIGHTNESS = 0.7f;
     private static final float BEAUTY_EFFECT_DEFAULT_SMOOTHNESS = 0.5f;
     private static final float BEAUTY_EFFECT_DEFAULT_REDNESS = 0.1f;
-
-    public static final BeautyOptions DEFAULT_BEAUTY_OPTIONS = new BeautyOptions(
-            BEAUTY_EFFECT_DEFAULT_CONTRAST,
-            BEAUTY_EFFECT_DEFAULT_LIGHTNESS,
-            BEAUTY_EFFECT_DEFAULT_SMOOTHNESS,
-            BEAUTY_EFFECT_DEFAULT_REDNESS);
+//
+//    public static final BeautyOptions DEFAULT_BEAUTY_OPTIONS = new BeautyOptions(
+//            BEAUTY_EFFECT_DEFAULT_CONTRAST,
+//            BEAUTY_EFFECT_DEFAULT_LIGHTNESS,
+//            BEAUTY_EFFECT_DEFAULT_SMOOTHNESS,
+//            BEAUTY_EFFECT_DEFAULT_REDNESS);
 
     public static VideoEncoderConfiguration.VideoDimensions[] VIDEO_DIMENSIONS = new VideoEncoderConfiguration.VideoDimensions[]{
             VideoEncoderConfiguration.VD_320x240,
@@ -24,10 +24,10 @@ public class Constants {
             VideoEncoderConfiguration.VD_1280x720
     };
 
-    public static int[] VIDEO_MIRROR_MODES = new int[]{
-            io.agora.rtc.Constants.VIDEO_MIRROR_MODE_AUTO,
-            io.agora.rtc.Constants.VIDEO_MIRROR_MODE_ENABLED,
-            io.agora.rtc.Constants.VIDEO_MIRROR_MODE_DISABLED,
+    public static VideoEncoderConfiguration.MIRROR_MODE_TYPE[] VIDEO_MIRROR_MODES = new VideoEncoderConfiguration.MIRROR_MODE_TYPE[]{
+            MIRROR_MODE_TYPE.MIRROR_MODE_AUTO,
+            MIRROR_MODE_TYPE.MIRROR_MODE_ENABLED,
+            MIRROR_MODE_TYPE.MIRROR_MODE_DISABLED,
     };
 
     public static final String PREF_NAME = "io.agora.openlive";

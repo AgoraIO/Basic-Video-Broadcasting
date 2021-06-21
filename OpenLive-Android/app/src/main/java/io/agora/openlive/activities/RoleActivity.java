@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import io.agora.openlive.R;
-import io.agora.rtc.Constants;
+import io.agora.rtc2.Constants;
 
 public class RoleActivity extends BaseActivity {
     @Override

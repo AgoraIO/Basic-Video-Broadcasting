@@ -1,22 +1,22 @@
 package io.agora.openlive.activities;
 
 import android.os.Bundle;
-import android.view.SurfaceView;
 import android.text.TextUtils;
+import android.view.SurfaceView;
 
 import io.agora.openlive.Constants;
-import io.agora.openlive.rtc.EventHandler;
-import io.agora.rtc.RtcEngine;
-import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
 import io.agora.openlive.R;
+import io.agora.openlive.rtc.EventHandler;
+import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.video.VideoCanvas;
+import io.agora.rtc2.video.VideoEncoderConfiguration;
 
 public abstract class RtcBaseActivity extends BaseActivity implements EventHandler {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registerRtcEventHandler(this);        
+        registerRtcEventHandler(this);
         joinChannel();
     }
 
@@ -44,7 +44,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
 
         // Sets the channel profile of the Agora RtcEngine.
         // The Agora RtcEngine differentiates channel profiles and applies different optimization algorithms accordingly. For example, it prioritizes smoothness and low latency for a video call, and prioritizes video quality for a video broadcast.
-        rtcEngine().setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
+        rtcEngine().setChannelProfile(io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         rtcEngine().enableVideo();
         configVideo();
         rtcEngine().joinChannel(token, config().getChannelName(), "", 0);
@@ -59,8 +59,8 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
                     new VideoCanvas(
                             surface,
                             VideoCanvas.RENDER_MODE_HIDDEN,
-                            0,
-                            Constants.VIDEO_MIRROR_MODES[config().getMirrorLocalIndex()]
+                            Constants.VIDEO_MIRROR_MODES[config().getMirrorLocalIndex()].getValue(),
+                            0
                     )
             );
         } else {
@@ -68,8 +68,8 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
                     new VideoCanvas(
                             surface,
                             VideoCanvas.RENDER_MODE_HIDDEN,
-                            uid,
-                            Constants.VIDEO_MIRROR_MODES[config().getMirrorRemoteIndex()]
+                            Constants.VIDEO_MIRROR_MODES[config().getMirrorRemoteIndex()].getValue(),
+                            uid
                     )
             );
         }
