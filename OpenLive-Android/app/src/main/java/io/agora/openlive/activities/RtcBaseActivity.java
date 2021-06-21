@@ -8,6 +8,7 @@ import io.agora.openlive.Constants;
 import io.agora.openlive.R;
 import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.video.CameraCapturerConfiguration;
 import io.agora.rtc2.video.VideoCanvas;
 import io.agora.rtc2.video.VideoEncoderConfiguration;
 
@@ -66,6 +67,8 @@ public abstract class RtcBaseActivity extends BaseActivity {
         );
         configuration.mirrorMode = Constants.VIDEO_MIRROR_MODES[config().getMirrorEncodeIndex()];
         rtcEngine().setVideoEncoderConfiguration(configuration);
+
+        rtcEngine().setParameters("{\"rtc.camera_rotation\":0}");
     }
 
     protected void joinChannel() {
@@ -82,6 +85,7 @@ public abstract class RtcBaseActivity extends BaseActivity {
         // Sets the channel profile of the Agora RtcEngine.
         // The Agora RtcEngine differentiates channel profiles and applies different optimization algorithms accordingly. For example, it prioritizes smoothness and low latency for a video call, and prioritizes video quality for a video broadcast.
         rtcEngine().setChannelProfile(io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
+        rtcEngine().setCameraCapturerConfiguration(new CameraCapturerConfiguration(CameraCapturerConfiguration.CAMERA_DIRECTION.CAMERA_REAR));
         rtcEngine().enableVideo();
         rtcEngine().enableAudio();
         configVideo();
