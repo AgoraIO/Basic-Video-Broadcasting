@@ -68,7 +68,7 @@ public abstract class RtcBaseActivity extends BaseActivity {
         rtcEngine().setVideoEncoderConfiguration(configuration);
     }
 
-    private void joinChannel() {
+    protected void joinChannel() {
         // Initialize token, extra info here before joining channel
         // 1. Users can only see each other after they join the
         // same channel successfully using the same app id.
@@ -85,12 +85,16 @@ public abstract class RtcBaseActivity extends BaseActivity {
         rtcEngine().enableVideo();
         rtcEngine().enableAudio();
         configVideo();
+
+        int role = getIntent().getIntExtra(
+                io.agora.openlive.Constants.KEY_CLIENT_ROLE,
+                io.agora.rtc2.Constants.CLIENT_ROLE_AUDIENCE);
+        rtcEngine().setClientRole(role);
         rtcEngine().joinChannel(token, config().getChannelName(), "", 0);
     }
 
     protected SurfaceView prepareRtcVideo(int uid, boolean local) {
         // Render local/remote video on a SurfaceView
-
         SurfaceView surface = RtcEngine.CreateRendererView(getApplicationContext());
         if (local) {
             rtcEngine().setupLocalVideo(

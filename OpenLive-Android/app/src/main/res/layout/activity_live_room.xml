@@ -5,7 +5,9 @@
     <io.agora.openlive.ui.VideoGridContainer
         android:id="@+id/live_video_grid_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></io.agora.openlive.ui.VideoGridContainer>
+        android:layout_height="match_parent">
+
+    </io.agora.openlive.ui.VideoGridContainer>
 
     <RelativeLayout
         android:id="@+id/live_room_top_layout"

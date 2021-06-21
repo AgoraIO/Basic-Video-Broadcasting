@@ -63,7 +63,6 @@ public class LiveActivity extends RtcBaseActivity {
         mVideoGridContainer = findViewById(R.id.live_video_grid_layout);
         mVideoGridContainer.setStatsManager(statsManager());
 
-        rtcEngine().setClientRole(role);
         if (isBroadcaster) startBroadcast();
     }
 
