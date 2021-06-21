@@ -6,17 +6,54 @@ import android.view.SurfaceView;
 
 import io.agora.openlive.Constants;
 import io.agora.openlive.R;
-import io.agora.openlive.rtc.EventHandler;
+import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.RtcEngine;
 import io.agora.rtc2.video.VideoCanvas;
 import io.agora.rtc2.video.VideoEncoderConfiguration;
 
-public abstract class RtcBaseActivity extends BaseActivity implements EventHandler {
+public abstract class RtcBaseActivity extends BaseActivity {
+
+    private IRtcEngineEventHandler mIRtcEngineEventHandler = new IRtcEngineEventHandler() {
+        @Override
+        public void onUserOffline(final int uid, int reason) {
+            RtcBaseActivity.this.onUserOffline(uid, reason);
+        }
+
+        @Override
+        public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
+            RtcBaseActivity.this.onFirstRemoteVideoDecoded(uid, width, height, elapsed);
+        }
+
+        @Override
+        public void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats) {
+            RtcBaseActivity.this.onLocalVideoStats(stats);
+        }
+
+        @Override
+        public void onRtcStats(IRtcEngineEventHandler.RtcStats stats) {
+            RtcBaseActivity.this.onRtcStats(stats);
+        }
+
+        @Override
+        public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
+            RtcBaseActivity.this.onNetworkQuality(uid, txQuality, rxQuality);
+        }
+
+        @Override
+        public void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats) {
+            RtcBaseActivity.this.onRemoteVideoStats(stats);
+        }
+
+        @Override
+        public void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats) {
+            RtcBaseActivity.this.onRemoteAudioStats(stats);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registerRtcEventHandler(this);
+        registerRtcEventHandler(mIRtcEngineEventHandler);
         joinChannel();
     }
 
@@ -46,6 +83,7 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
         // The Agora RtcEngine differentiates channel profiles and applies different optimization algorithms accordingly. For example, it prioritizes smoothness and low latency for a video call, and prioritizes video quality for a video broadcast.
         rtcEngine().setChannelProfile(io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         rtcEngine().enableVideo();
+        rtcEngine().enableAudio();
         configVideo();
         rtcEngine().joinChannel(token, config().getChannelName(), "", 0);
     }
@@ -87,7 +125,35 @@ public abstract class RtcBaseActivity extends BaseActivity implements EventHandl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        removeRtcEventHandler(this);
+        removeRtcEventHandler(mIRtcEngineEventHandler);
         rtcEngine().leaveChannel();
+    }
+
+    public void onUserOffline(final int uid, int reason) {
+
+    }
+
+    public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
+
+    }
+
+    public void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats) {
+
+    }
+
+    public void onRtcStats(IRtcEngineEventHandler.RtcStats stats) {
+
+    }
+
+    public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
+
+    }
+
+    public void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats) {
+
+    }
+
+    public void onRemoteAudioStats(IRtcEngineEventHandler.RemoteAudioStats stats) {
+
     }
 }

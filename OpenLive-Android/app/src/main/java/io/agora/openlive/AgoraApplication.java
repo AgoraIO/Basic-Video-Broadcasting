@@ -6,10 +6,10 @@ import android.text.TextUtils;
 
 import io.agora.openlive.rtc.AgoraEventHandler;
 import io.agora.openlive.rtc.EngineConfig;
-import io.agora.openlive.rtc.EventHandler;
 import io.agora.openlive.stats.StatsManager;
 import io.agora.openlive.utils.FileUtil;
 import io.agora.openlive.utils.PrefManager;
+import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.RtcEngine;
 import io.agora.rtc2.RtcEngineConfig;
 
@@ -30,7 +30,7 @@ public class AgoraApplication extends Application {
         RtcEngineConfig config = new RtcEngineConfig();
         config.mContext = this;
         config.mAppId = appid;
-        config.mEventHandler = new AgoraEventHandler();
+        config.mEventHandler = mHandler;
         config.mChannelProfile = io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING;
         config.getLogConfig().filePath = FileUtil.initializeLogFile(this);
 
@@ -69,11 +69,11 @@ public class AgoraApplication extends Application {
         return mStatsManager;
     }
 
-    public void registerEventHandler(EventHandler handler) {
+    public void registerEventHandler(IRtcEngineEventHandler handler) {
         mHandler.addHandler(handler);
     }
 
-    public void removeEventHandler(EventHandler handler) {
+    public void removeEventHandler(IRtcEngineEventHandler handler) {
         mHandler.removeHandler(handler);
     }
 

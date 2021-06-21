@@ -107,16 +107,6 @@ public class LiveActivity extends RtcBaseActivity {
     }
 
     @Override
-    public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
-        // Do nothing at the moment
-    }
-
-    @Override
-    public void onUserJoined(int uid, int elapsed) {
-        // Do nothing at the moment
-    }
-
-    @Override
     public void onUserOffline(final int uid, int reason) {
         runOnUiThread(new Runnable() {
             @Override
