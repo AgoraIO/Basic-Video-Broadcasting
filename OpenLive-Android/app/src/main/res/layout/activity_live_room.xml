@@ -122,9 +122,13 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@drawable/rounded_bg_full_transparent"
+            android:focusable="true"
             android:onClick="onSwitchCameraClicked"
             android:scaleType="centerCrop"
-            android:src="@drawable/btn_switch_camera" />
+            android:src="@drawable/btn_switch_camera">
+
+            <requestFocus />
+        </ImageView>
 
         <ImageView
             android:id="@+id/live_btn_beautification"
