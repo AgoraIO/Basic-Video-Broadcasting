@@ -67,7 +67,7 @@ public abstract class RtcBaseActivity extends BaseActivity {
         );
         configuration.mirrorMode = Constants.VIDEO_MIRROR_MODES[config().getMirrorEncodeIndex()];
         rtcEngine().setVideoEncoderConfiguration(configuration);
-
+        rtcEngine().setParameters("{\"engine.video.enable_hw_encoder\":\"false\"}");
         rtcEngine().setParameters("{\"rtc.camera_rotation\":0}");
     }
 
