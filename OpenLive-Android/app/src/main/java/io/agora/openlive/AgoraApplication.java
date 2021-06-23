@@ -3,6 +3,7 @@ package io.agora.openlive;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import io.agora.openlive.rtc.AgoraEventHandler;
 import io.agora.openlive.rtc.EngineConfig;
@@ -27,6 +28,7 @@ public class AgoraApplication extends Application {
             throw new NullPointerException("please check \"strings_config.xml\"");
         }
 
+        Log.d("AgoraApplication", "RTC Version: " + RtcEngine.getSdkVersion());
         RtcEngineConfig config = new RtcEngineConfig();
         config.mContext = this;
         config.mAppId = appid;
