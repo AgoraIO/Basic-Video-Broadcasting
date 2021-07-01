@@ -21,6 +21,8 @@ After users upgrade their iOS devices to iOS 14.0, and use an app that integrate
 
 [Solution](https://docs.agora.io/en/faq/local_network_privacy)
 
+Xcode sometimes has issues with downloading large libraries such as the Agora SDK. If any errors are thrown, open Xcode and run _File > Swift Packages > Reset Package Caches_.
+
 ## Prerequisites
 
 - Xcode 10.0+
@@ -54,9 +56,7 @@ To build and run the sample application, get an App Id:
 
 ### Integrate the Agora Video SDK
 
-1. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the following files from the SDK `libs` folder into the sample application `OpenLive` folder.
-    - `AograRtcKit.framework`
-    - `AgoraRtcCryptoLoader.framework`
+1. Open `OpenLive.xcodeproj` and the libraries should download automatically for you. If not, run _File > Swift Packages > Reset Package Caches_ to continue.
   
 2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
 
