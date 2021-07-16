@@ -40,13 +40,6 @@ To build and run the sample application, get an App Id:
 3. Save the **App Id** from the Dashboard for later use.
 4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
 
-5. Open `OpenLive.xcodeproj` and edit the `KeyCenter.swift` file. In the `agoraKit` declaration, update `<#Your App Id#>` with your App Id, and assign the token variable with the temp Access Token generated from dashboard.
-
-    ``` Swift
-    static let AppId: String = <#Your App Id#>
-    // assign token to nil if you have not enabled app certificate
-    static var Token: String? = <#Temp Access Token#>
-    ```
 
 > To ensure communication security, Agora uses tokens (dynamic keys) to authenticate users joining a channel.
 >
@@ -54,12 +47,35 @@ To build and run the sample application, get an App Id:
 
 ### Integrate the Agora Video SDK
 
-1. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the following files from the SDK `libs` folder into the sample application `OpenLive` folder.
-    - `AograRtcKit.framework`
-    - `AgoraRtcCryptoLoader.framework`
-  
-2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
+1. Run following command to install project dependencies:
 
+    ```shell
+    $ pod install
+    ```
+
+2. Open the generated `Openlive.xcworkspace` file with Xcode.
+3. Edit the `KeyCenter.swift` file.
+   - Replace `YOUR APP ID` with your App ID.
+   - Replace `YOUR ACCESS TOKEN` with the Access Token.
+
+    ```swift
+    struct KeyCenter {
+    static let AppId: String = <#Your App Id#>
+
+    // assign token to nil if you have not enabled app certificate
+    static var Token: String? = <#Temp Access Token#>
+    }
+    ```
+
+   > See [Set up Authentication](https://docs.agora.io/en/Agora%20Platform/token) to learn how to get an App ID and access token. You can get a temporary access token to quickly try out this sample project.
+   >
+   > The Channel name you used to generate the token must be the same as the channel name you use to join a channel.
+
+   > To ensure communication security, Agora uses access tokens (dynamic keys) to authenticate users joining a channel.
+   >
+   > Temporary access tokens are for demonstration and testing purposes only and remain valid for 24 hours. In a production environment, you need to deploy your own server for generating access tokens. See [Generate a Token](https://docs.agora.io/en/Interactive%20Broadcast/token_server) for details.
+
+4. Build and run the project in your iOS device.
 ## Contact Us
 
 - For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first

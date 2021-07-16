@@ -6,7 +6,7 @@ target 'OpenLive' do
   use_frameworks!
 
   # Pods for OpenLive
-  pod 'AgoraRtcEngine_iOS', '3.4.1'
+  pod 'AgoraRtcEngine_iOS', '3.5.0'
 
   target 'OpenLive-Tests' do
     inherit! :search_paths

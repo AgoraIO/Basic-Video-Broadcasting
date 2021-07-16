@@ -54,13 +54,37 @@ static var Token: String? = <#Temp Access Token#>
 
 ### 集成 Agora 视频 SDK
 
-1. 在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中**libs**文件夹中的下列文件拷贝到本项目的 OpenLive 文件夹下。
 
-  - AgoraRtcKit.framework
-  - AgoraRtcCryptoLoader.framework
-  - libcrypto.a
+1. 切换到 **iOS** 目录，运行以下命令使用 CocoaPods 安装依赖，Agora 视频 SDK 会在安装后自动完成集成。
 
-2. 最后使用 XCode 打开 OpenLive.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
+```shell
+pod install
+```
+
+2. 使用 Xcode 打开生成的 `Openlive.xcworkspace`。
+3. 编辑 `KeyCenter.swift` 文件。
+
+    - 将 `YOUR APP ID` 替换为你的 App ID。
+    - 将 `YOUR ACCESS TOKEN` 替换为你的 Access Token。
+
+   ```swift
+   struct KeyCenter {
+   static let AppId: String = <#Your App Id#>
+
+   // assign token to nil if you have not enabled app certificate
+   static var Token: String? = <#Temp Access Token#>
+   }
+   ```
+
+   > 参考 [校验用户权限](https://docs.agora.io/cn/Agora%20Platform/token) 了解如何获取 App ID 和 Token。你可以获取一个临时 token，快速运行示例项目。
+   >
+   > 生成 Token 使用的频道名必须和加入频道时使用的频道名一致。
+
+   > 为提高项目的安全性，Agora 使用 Token（动态密钥）对即将加入频道的用户进行鉴权。
+   >
+   > 临时 Token 仅作为演示和测试用途。在生产环境中，你需要自行部署服务器签发 Token，详见[生成 Token](https://docs.agora.io/cn/Interactive%20Broadcast/token_server)。
+
+4. 构建并在 iOS 设备中运行项目。
 
 ## 联系我们
 
