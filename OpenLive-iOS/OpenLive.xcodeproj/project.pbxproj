@@ -59,13 +59,6 @@
 		0790F1501D1E9631003F8C18 /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
 		10B853B0880F4A41D9856B6C /* Pods-OpenLive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLive.debug.xcconfig"; path = "Target Support Files/Pods-OpenLive/Pods-OpenLive.debug.xcconfig"; sourceTree = "<group>"; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		8B6FA0F326146E6100A4E4C3 /* AgoraJNDExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraJNDExtension.framework; path = ../../libs/AgoraJNDExtension.framework; sourceTree = "<group>"; };
-		8B6FA0F426146E6100A4E4C3 /* Agorafdkaac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agorafdkaac.framework; path = ../../libs/Agorafdkaac.framework; sourceTree = "<group>"; };
-		8B6FA0F526146E6100A4E4C3 /* AgoraDav1dExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraDav1dExtension.framework; path = ../../libs/AgoraDav1dExtension.framework; sourceTree = "<group>"; };
-		8B6FA0F626146E6100A4E4C3 /* Agoraffmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agoraffmpeg.framework; path = ../../libs/Agoraffmpeg.framework; sourceTree = "<group>"; };
-		8B6FA0F726146E6200A4E4C3 /* AgoraSoundTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraSoundTouch.framework; path = ../../libs/AgoraSoundTouch.framework; sourceTree = "<group>"; };
-		8B6FA0F826146E6200A4E4C3 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = ../../libs/AgoraRtcKit.framework; sourceTree = "<group>"; };
-		8B6FA0F926146E6200A4E4C3 /* AgoraCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraCore.framework; path = ../../libs/AgoraCore.framework; sourceTree = "<group>"; };
 		A758116724078C4D007EDAD3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A758116A24078C6E007EDAD3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A758116C24078C78007EDAD3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -81,7 +74,6 @@
 		A76C2679238657850047E150 /* AGEEventsObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEEventsObserver.swift; sourceTree = "<group>"; };
 		A76C267A238657850047E150 /* AGEView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEView.swift; sourceTree = "<group>"; };
 		A76C267B238657850047E150 /* AGEVideoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGEVideoContainer.swift; sourceTree = "<group>"; };
-		A76C26882386594F0047E150 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = OpenLive/AgoraRtcKit.framework; sourceTree = "<group>"; };
 		A76C268F23865F4B0047E150 /* libswiftCoreML.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCoreML.tbd; path = usr/lib/swift/libswiftCoreML.tbd; sourceTree = SDKROOT; };
 		A7AD0E9924AEE040008FFD5B /* OpenLive-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OpenLive-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7AD0E9B24AEE040008FFD5B /* OpenLive_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLive_Tests.swift; sourceTree = "<group>"; };
@@ -124,13 +116,6 @@
 		0745273B1E9E050C0054D2D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B6FA0F926146E6200A4E4C3 /* AgoraCore.framework */,
-				8B6FA0F526146E6100A4E4C3 /* AgoraDav1dExtension.framework */,
-				8B6FA0F426146E6100A4E4C3 /* Agorafdkaac.framework */,
-				8B6FA0F626146E6100A4E4C3 /* Agoraffmpeg.framework */,
-				8B6FA0F326146E6100A4E4C3 /* AgoraJNDExtension.framework */,
-				8B6FA0F826146E6200A4E4C3 /* AgoraRtcKit.framework */,
-				8B6FA0F726146E6200A4E4C3 /* AgoraSoundTouch.framework */,
 				A758117824078CAA007EDAD3 /* Accelerate.framework */,
 				A758117624078C9F007EDAD3 /* AVFoundation.framework */,
 				A758117424078C97007EDAD3 /* CoreMedia.framework */,
@@ -141,7 +126,6 @@
 				A758116A24078C6E007EDAD3 /* SystemConfiguration.framework */,
 				A758116724078C4D007EDAD3 /* libc++.tbd */,
 				A76C268F23865F4B0047E150 /* libswiftCoreML.tbd */,
-				A76C26882386594F0047E150 /* AgoraRtcKit.framework */,
 				382885B22249DBB10023BCFA /* CoreML.framework */,
 				0745273C1E9E050C0054D2D4 /* libresolv.tbd */,
 				F54B70FC0F83493878247735 /* Accelerate.framework */,
