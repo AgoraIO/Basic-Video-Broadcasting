@@ -21,6 +21,8 @@ After users upgrade their iOS devices to iOS 14.0, and use an app that integrate
 
 [Solution](https://docs.agora.io/en/faq/local_network_privacy)
 
+Xcode sometimes has issues with downloading large libraries such as the Agora SDK. If any errors are thrown, open Xcode and run _File > Swift Packages > Reset Package Caches_.
+
 ## Prerequisites
 
 - Xcode 10.0+
@@ -47,35 +49,11 @@ To build and run the sample application, get an App Id:
 
 ### Integrate the Agora Video SDK
 
-1. Run following command to install project dependencies:
+1. Open `OpenLive.xcodeproj` and the libraries should download automatically for you. If not, run _File > Swift Packages > Reset Package Caches_ to continue.
+  
+2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
 
-    ```shell
-    $ pod install
-    ```
-
-2. Open the generated `Openlive.xcworkspace` file with Xcode.
-3. Edit the `KeyCenter.swift` file.
-   - Replace `YOUR APP ID` with your App ID.
-   - Replace `YOUR ACCESS TOKEN` with the Access Token.
-
-    ```swift
-    struct KeyCenter {
-    static let AppId: String = <#Your App Id#>
-
-    // assign token to nil if you have not enabled app certificate
-    static var Token: String? = <#Temp Access Token#>
-    }
-    ```
-
-   > See [Set up Authentication](https://docs.agora.io/en/Agora%20Platform/token) to learn how to get an App ID and access token. You can get a temporary access token to quickly try out this sample project.
-   >
-   > The Channel name you used to generate the token must be the same as the channel name you use to join a channel.
-
-   > To ensure communication security, Agora uses access tokens (dynamic keys) to authenticate users joining a channel.
-   >
-   > Temporary access tokens are for demonstration and testing purposes only and remain valid for 24 hours. In a production environment, you need to deploy your own server for generating access tokens. See [Generate a Token](https://docs.agora.io/en/Interactive%20Broadcast/token_server) for details.
-
-4. Build and run the project in your iOS device.
+3. Build and run the project in your iOS device.
 ## Contact Us
 
 - For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
