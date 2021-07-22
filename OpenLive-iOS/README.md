@@ -42,13 +42,6 @@ To build and run the sample application, get an App Id:
 3. Save the **App Id** from the Dashboard for later use.
 4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
 
-5. Open `OpenLive.xcodeproj` and edit the `KeyCenter.swift` file. In the `agoraKit` declaration, update `<#Your App Id#>` with your App Id, and assign the token variable with the temp Access Token generated from dashboard.
-
-    ``` Swift
-    static let AppId: String = <#Your App Id#>
-    // assign token to nil if you have not enabled app certificate
-    static var Token: String? = <#Temp Access Token#>
-    ```
 
 > To ensure communication security, Agora uses tokens (dynamic keys) to authenticate users joining a channel.
 >
@@ -60,6 +53,7 @@ To build and run the sample application, get an App Id:
   
 2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
 
+3. Build and run the project in your iOS device.
 ## Contact Us
 
 - For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first
