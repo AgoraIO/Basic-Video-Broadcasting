@@ -9,11 +9,11 @@ public class Constants {
     private static final float BEAUTY_EFFECT_DEFAULT_SMOOTHNESS = 0.5f;
     private static final float BEAUTY_EFFECT_DEFAULT_REDNESS = 0.1f;
 
-    public static final BeautyOptions DEFAULT_BEAUTY_OPTIONS = new BeautyOptions(
-            BEAUTY_EFFECT_DEFAULT_CONTRAST,
-            BEAUTY_EFFECT_DEFAULT_LIGHTNESS,
-            BEAUTY_EFFECT_DEFAULT_SMOOTHNESS,
-            BEAUTY_EFFECT_DEFAULT_REDNESS);
+//    public static final BeautyOptions DEFAULT_BEAUTY_OPTIONS = new BeautyOptions(
+//            BEAUTY_EFFECT_DEFAULT_CONTRAST,
+//            BEAUTY_EFFECT_DEFAULT_LIGHTNESS,
+//            BEAUTY_EFFECT_DEFAULT_SMOOTHNESS,
+//            BEAUTY_EFFECT_DEFAULT_REDNESS);
 
     public static VideoEncoderConfiguration.VideoDimensions[] VIDEO_DIMENSIONS = new VideoEncoderConfiguration.VideoDimensions[]{
             VideoEncoderConfiguration.VD_320x240,

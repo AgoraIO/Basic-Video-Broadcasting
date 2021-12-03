@@ -19,6 +19,7 @@ import io.agora.openlive.stats.StatsData;
 import io.agora.openlive.ui.VideoGridContainer;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.video.BeautyOptions;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
 public class LiveActivity extends RtcBaseActivity {
@@ -58,7 +59,7 @@ public class LiveActivity extends RtcBaseActivity {
         ImageView beautyBtn = findViewById(R.id.live_btn_beautification);
         beautyBtn.setActivated(true);
         rtcEngine().setBeautyEffectOptions(beautyBtn.isActivated(),
-                io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
+                new BeautyOptions());
 
         mVideoGridContainer = findViewById(R.id.live_video_grid_layout);
         mVideoGridContainer.setStatsManager(statsManager());
@@ -228,7 +229,7 @@ public class LiveActivity extends RtcBaseActivity {
     public void onBeautyClicked(View view) {
         view.setActivated(!view.isActivated());
         rtcEngine().setBeautyEffectOptions(view.isActivated(),
-                io.agora.openlive.Constants.DEFAULT_BEAUTY_OPTIONS);
+                new BeautyOptions());
     }
 
     public void onMoreClicked(View view) {
