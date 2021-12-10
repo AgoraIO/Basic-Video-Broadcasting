@@ -218,7 +218,6 @@ private extension LiveRoomViewController {
         // Step 4, enable the video module
         agoraKit.enableVideo()
         // set video configuration
-        agoraKit.setParameters("{\"che.video.mobile_1080p\":true}")
         agoraKit.setVideoEncoderConfiguration(
             AgoraVideoEncoderConfiguration(
                 size: CGSize(width: 1920, height: 1080),
