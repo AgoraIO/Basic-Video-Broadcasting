@@ -220,7 +220,7 @@ private extension LiveRoomViewController {
         // set video configuration
         agoraKit.setVideoEncoderConfiguration(
             AgoraVideoEncoderConfiguration(
-                size: CGSize(width: 1920, height: 1080),
+                size: settings.dimension,
                 frameRate: settings.frameRate,
                 bitrate: AgoraVideoBitrateStandard,
                 orientationMode: .adaptative
