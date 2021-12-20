@@ -432,13 +432,9 @@ private extension RoomViewController {
     func startShareWindow(_ window: Window) {
         let windowId = window.id
         if windowId == 0 {
-            agoraKit.startScreenCapture(byDisplayId: UInt(CGMainDisplayID()),
-                                        rectangle: CGRect.zero,
-                                        parameters: AgoraScreenCaptureParameters())
+            agoraKit.startScreenCapture(byDisplayId: UInt(CGMainDisplayID()), rectangle: CGRect.zero, parameters: AgoraScreenCaptureParameters())
         } else {
-            agoraKit.startScreenCapture(byWindowId: UInt(windowId),
-                                        rectangle: CGRect.zero,
-                                        parameters: AgoraScreenCaptureParameters())
+            agoraKit.startScreenCapture(byWindowId: UInt(windowId), rectangle: CGRect.zero, parameters: AgoraScreenCaptureParameters())
         }
         videoSessions.first?.hostingView.switchToScreenShare(windowId == 0 || window.name == "OpenLive" || window.name == "Full Screen")
     }
